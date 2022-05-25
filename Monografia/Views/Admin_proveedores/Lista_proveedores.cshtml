@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Monografia.Models.proveedor>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+
+@Styles.Render("~/Content/datatables")
+
+<p>
+    @Html.ActionLink("Agregar proveedor", "Create", "", new { data_modal = "", @class = "btn btn-primary" })
+</p>
+<table id="jquerydatatable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @if (item.Estado == 1)
+                    {
+
+                        <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
+                            Activo
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
+                            Inactivo
+
+                        </div>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.idProveedor }, new { data_modal = "", @class = "btn btn-success" }) |
+                    @Html.ActionLink("Detalles", "Details", new { id = item.idProveedor }, new { data_modal = "", @class = "btn btn-info" }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.idProveedor }, new { data_modal = "", @class = "btn btn-danger"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/datatables")
+    <script type="text/javascript">
+            $(document).ready(function () {
+               $('#jquerydatatable').DataTable({
+                    "language": {
+                        "url":"/Scripts/es_es.json"
+                    }
+                })
+            });
+    </script>
+}

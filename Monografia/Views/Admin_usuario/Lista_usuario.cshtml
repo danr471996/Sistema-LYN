@@ -1,0 +1,82 @@
+﻿@model  IEnumerable<Monografia.Models.usuarios_tienda>
+@{
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+<link rel="stylesheet" href="~/Scripts/tooltip.css">
+
+@Styles.Render("~/Content/datatables")
+    <p>
+        <a data-modal="" href=@Url.Action("Create", "Admin_usuario") class="btn btn-primary " > <span class="fa fa-plus"></span> Agregar usuario</a>
+    </p>
+    <table id="jquerydatatable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("Login")
+                </th>
+                <th>
+                    @Html.DisplayName("Contraseña")
+                </th>
+                <th>
+                    @Html.DisplayName("Perfil")
+                </th>
+                <th>
+                    @Html.DisplayName("Estado")
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Login)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contraseña)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Perfil)
+                    </td>
+                    <td>
+                        @if (item.Estado_usuario == 1)
+                        {
+
+                            <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
+                                Activo
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
+                                Inactivo
+
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        <a data-modal="" href=@Url.Action("Edit", "Admin_usuario", new { id = item.Idusuario }) class="btn btn-success descripcion expand" data-title="Editar usuario" > <span class="fa fa-edit"></span></a>  |
+                        <a data-modal="" href=@Url.Action("Details", "Admin_usuario", new { id = item.Idusuario }) class="btn btn-info descripcion expand" data-title="info usuario"> <span class="fa fa-info"></span></a> |
+                        <a data-modal="" href=@Url.Action("Delete", "Admin_usuario", new { id = item.Idusuario }) class="btn btn-danger descripcion expand"  data-title="Eliminar usuario"> <span class="fa fa-trash"></span></a> 
+                   
+                    </td>
+                </tr>
+            }
+        </tbody>
+</table>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/datatables")
+    <script type="text/javascript">
+            $(document).ready(function () {
+               $('#jquerydatatable').DataTable({
+                    "language": {
+                        "url":"/Scripts/es_es.json"
+                    }
+                })
+            });
+    </script>
+}
+

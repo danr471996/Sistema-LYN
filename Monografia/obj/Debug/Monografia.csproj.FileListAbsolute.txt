@@ -1,0 +1,1032 @@
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\roslyn\csc.exe
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\roslyn\vbc.exe
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\roslyn\VBCSCompiler.exe
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Monografia.dll.config
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Monografia.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Monografia.pdb
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Antlr3.Runtime.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\BouncyCastle.Crypto.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\EntityFramework.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\EntityFramework.SqlServer.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Google.Protobuf.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\K4os.Compression.LZ4.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\K4os.Compression.LZ4.Streams.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\K4os.Hash.xxHash.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\MySql.Data.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\MySql.Data.EntityFramework.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Newtonsoft.Json.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Owin.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Renci.SshNet.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Buffers.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Memory.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.Helpers.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.Mvc.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.Optimization.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.Razor.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.WebPages.Deployment.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.WebPages.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.WebPages.Razor.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Ubiety.Dns.Core.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\WebGrease.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Zstandard.Net.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\EntityFramework.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\EntityFramework.SqlServer.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Google.Protobuf.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\K4os.Compression.LZ4.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\K4os.Compression.LZ4.Streams.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\K4os.Hash.xxHash.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\MySql.Data.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\MySql.Data.EntityFramework.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Renci.SshNet.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Buffers.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Memory.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.Helpers.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.Mvc.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.Optimization.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.Razor.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.WebPages.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.WebPages.Deployment.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\System.Web.WebPages.Razor.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Antlr3.Runtime.pdb
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Newtonsoft.Json.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\System.Web.Helpers.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\System.Web.Mvc.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\System.Web.Optimization.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\System.Web.Razor.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\System.Web.WebPages.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\Microsoft.Owin.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\obj\Debug\Monografia.csprojResolveAssemblyReference.cache
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\obj\Debug\Monografia.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia - copia\Monografia\obj\Debug\Monografia.pdb
+C:\Users\groque\Desktop\Monografia\Monografia\bin\roslyn\csc.exe
+C:\Users\groque\Desktop\Monografia\Monografia\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\groque\Desktop\Monografia\Monografia\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\groque\Desktop\Monografia\Monografia\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\roslyn\vbc.exe
+C:\Users\groque\Desktop\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe
+C:\Users\groque\Desktop\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Monografia.dll.config
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Monografia.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Monografia.pdb
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Antlr3.Runtime.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\BouncyCastle.Crypto.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\EntityFramework.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\EntityFramework.SqlServer.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Google.Protobuf.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\K4os.Compression.LZ4.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\K4os.Hash.xxHash.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\MySql.Data.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\MySql.Data.EntityFramework.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Newtonsoft.Json.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Owin.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Renci.SshNet.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Buffers.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Memory.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.Helpers.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.Mvc.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.Optimization.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.Razor.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.WebPages.Deployment.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.WebPages.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.WebPages.Razor.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Ubiety.Dns.Core.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\WebGrease.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Zstandard.Net.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\EntityFramework.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\EntityFramework.SqlServer.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Google.Protobuf.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\K4os.Compression.LZ4.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\K4os.Hash.xxHash.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\MySql.Data.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\MySql.Data.EntityFramework.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Renci.SshNet.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Buffers.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Memory.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.Helpers.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.Mvc.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.Optimization.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.Razor.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.WebPages.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.WebPages.Deployment.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\System.Web.WebPages.Razor.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Antlr3.Runtime.pdb
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Newtonsoft.Json.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\System.Web.Helpers.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\System.Web.Mvc.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\System.Web.Optimization.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\System.Web.Razor.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\System.Web.WebPages.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\Microsoft.Owin.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\groque\Desktop\Monografia\Monografia\obj\Debug\Monografia.csprojResolveAssemblyReference.cache
+C:\Users\groque\Desktop\Monografia\Monografia\obj\Debug\Monografia.dll
+C:\Users\groque\Desktop\Monografia\Monografia\obj\Debug\Monografia.pdb
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\roslyn\csc.exe
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\roslyn\vbc.exe
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Monografia.dll.config
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Monografia.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Monografia.pdb
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Antlr3.Runtime.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\BouncyCastle.Crypto.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\EntityFramework.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\EntityFramework.SqlServer.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Google.Protobuf.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\K4os.Compression.LZ4.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\K4os.Hash.xxHash.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\MySql.Data.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\MySql.Data.EntityFramework.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Newtonsoft.Json.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Owin.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Renci.SshNet.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Buffers.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Memory.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.Helpers.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.Mvc.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.Optimization.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.Razor.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.WebPages.Deployment.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.WebPages.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.WebPages.Razor.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Ubiety.Dns.Core.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\WebGrease.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Zstandard.Net.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\EntityFramework.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\EntityFramework.SqlServer.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Google.Protobuf.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\K4os.Compression.LZ4.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\K4os.Hash.xxHash.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\MySql.Data.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\MySql.Data.EntityFramework.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Renci.SshNet.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Buffers.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Memory.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.Helpers.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.Mvc.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.Optimization.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.Razor.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.WebPages.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.WebPages.Deployment.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\System.Web.WebPages.Razor.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Antlr3.Runtime.pdb
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Newtonsoft.Json.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\System.Web.Helpers.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\System.Web.Mvc.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\System.Web.Optimization.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\System.Web.Razor.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\System.Web.WebPages.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\Microsoft.Owin.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\obj\Debug\Monografia.csprojResolveAssemblyReference.cache
+C:\Users\HANNAH\Downloads\Monografia\Monografia\obj\Debug\Monografia.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\obj\Debug\Monografia.pdb
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\roslyn\csc.exe
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\roslyn\vbc.exe
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Monografia.dll.config
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Monografia.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Monografia.pdb
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Antlr3.Runtime.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\BouncyCastle.Crypto.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\EntityFramework.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\EntityFramework.SqlServer.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Google.Protobuf.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\K4os.Compression.LZ4.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\K4os.Hash.xxHash.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\MySql.Data.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\MySql.Data.EntityFramework.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Newtonsoft.Json.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Owin.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Renci.SshNet.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Buffers.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Memory.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.Helpers.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.Mvc.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.Optimization.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.Razor.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.WebPages.Deployment.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.WebPages.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.WebPages.Razor.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Ubiety.Dns.Core.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\WebGrease.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Zstandard.Net.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\EntityFramework.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\EntityFramework.SqlServer.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Google.Protobuf.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\K4os.Compression.LZ4.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\K4os.Hash.xxHash.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\MySql.Data.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\MySql.Data.EntityFramework.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Renci.SshNet.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Buffers.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Memory.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.Helpers.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.Mvc.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.Optimization.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.Razor.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.WebPages.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.WebPages.Deployment.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\System.Web.WebPages.Razor.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Antlr3.Runtime.pdb
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Newtonsoft.Json.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\System.Web.Helpers.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\System.Web.Mvc.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\System.Web.Optimization.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\System.Web.Razor.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\System.Web.WebPages.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\Microsoft.Owin.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\obj\Debug\Monografia.csprojResolveAssemblyReference.cache
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\obj\Debug\Monografia.dll
+C:\Users\HANNAH\Desktop\Monografia\Monografia\Monografia\obj\Debug\Monografia.pdb
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\ClosedXML.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\DocumentFormat.OpenXml.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\ExcelNumberFormat.dll
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\ClosedXML.pdb
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\ClosedXML.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\DocumentFormat.OpenXml.xml
+C:\Users\HANNAH\Downloads\Monografia\Monografia\bin\ExcelNumberFormat.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\roslyn\csc.exe
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\roslyn\vbc.exe
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Monografia.dll.config
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Monografia.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Monografia.pdb
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Antlr3.Runtime.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\BouncyCastle.Crypto.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\ClosedXML.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\DocumentFormat.OpenXml.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\EntityFramework.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\EntityFramework.SqlServer.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\ExcelNumberFormat.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Google.Protobuf.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\K4os.Compression.LZ4.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\K4os.Hash.xxHash.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\MySql.Data.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\MySql.Data.EntityFramework.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Newtonsoft.Json.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Owin.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Renci.SshNet.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Buffers.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Memory.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.Helpers.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.Mvc.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.Optimization.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.Razor.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.WebPages.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.WebPages.Razor.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Ubiety.Dns.Core.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\WebGrease.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\ClosedXML.pdb
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\ClosedXML.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\DocumentFormat.OpenXml.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\EntityFramework.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\EntityFramework.SqlServer.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\ExcelNumberFormat.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Google.Protobuf.pdb
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Google.Protobuf.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\K4os.Compression.LZ4.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\K4os.Hash.xxHash.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\MySql.Data.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\MySql.Data.EntityFramework.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Renci.SshNet.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Buffers.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Memory.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.Helpers.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.Mvc.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.Optimization.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.Razor.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.WebPages.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\System.Web.WebPages.Razor.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Antlr3.Runtime.pdb
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Newtonsoft.Json.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\System.Web.Helpers.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\System.Web.Mvc.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\System.Web.Optimization.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\System.Web.Razor.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\System.Web.WebPages.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\obj\Debug\Monografia.csprojResolveAssemblyReference.cache
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\obj\Debug\Monografia.dll
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\obj\Debug\Monografia.pdb
+C:\Users\Usuario\Desktop\Conversion\Projects\Monografia\Monografia\bin\ZstdNet.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\csc.exe
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\vbc.exe
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Monografia.dll.config
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Monografia.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Monografia.pdb
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Antlr3.Runtime.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\BouncyCastle.Crypto.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\ClosedXML.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\DocumentFormat.OpenXml.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\EntityFramework.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\EntityFramework.SqlServer.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\ExcelNumberFormat.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Google.Protobuf.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\K4os.Compression.LZ4.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\K4os.Hash.xxHash.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\MySql.Data.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\MySql.Data.EntityFramework.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Newtonsoft.Json.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Owin.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Renci.SshNet.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Buffers.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Memory.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Helpers.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Mvc.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Optimization.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Razor.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.WebPages.Deployment.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.WebPages.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.WebPages.Razor.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Ubiety.Dns.Core.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\WebGrease.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\ZstdNet.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\ClosedXML.pdb
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\ClosedXML.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\DocumentFormat.OpenXml.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\EntityFramework.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\EntityFramework.SqlServer.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\ExcelNumberFormat.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Google.Protobuf.pdb
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Google.Protobuf.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\K4os.Compression.LZ4.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\K4os.Hash.xxHash.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\MySql.Data.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\MySql.Data.EntityFramework.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Renci.SshNet.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Buffers.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Memory.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Helpers.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Mvc.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Optimization.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Razor.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.WebPages.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.WebPages.Deployment.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.WebPages.Razor.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Antlr3.Runtime.pdb
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Newtonsoft.Json.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.Helpers.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.Mvc.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.Optimization.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.Razor.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.WebPages.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\obj\Debug\Monografia.csprojResolveAssemblyReference.cache
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\obj\Debug\Monografia.dll
+C:\Users\HANNAH\Downloads\Mono20211130\Conversion\Monografia\Monografia\obj\Debug\Monografia.pdb
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\csc.exe
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\vbc.exe
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Monografia.dll.config
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Monografia.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Monografia.pdb
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Antlr3.Runtime.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\BouncyCastle.Crypto.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\ClosedXML.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\DocumentFormat.OpenXml.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\EntityFramework.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\EntityFramework.SqlServer.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\ExcelNumberFormat.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Google.Protobuf.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\K4os.Compression.LZ4.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\K4os.Hash.xxHash.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\MySql.Data.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\MySql.Data.EntityFramework.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Newtonsoft.Json.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Owin.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Renci.SshNet.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Buffers.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Memory.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Helpers.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Mvc.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Optimization.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Razor.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.WebPages.Deployment.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.WebPages.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.WebPages.Razor.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Ubiety.Dns.Core.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\WebGrease.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\ZstdNet.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\ClosedXML.pdb
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\ClosedXML.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\DocumentFormat.OpenXml.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\EntityFramework.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\EntityFramework.SqlServer.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\ExcelNumberFormat.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Google.Protobuf.pdb
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Google.Protobuf.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\K4os.Compression.LZ4.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\K4os.Hash.xxHash.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\MySql.Data.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\MySql.Data.EntityFramework.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Renci.SshNet.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Buffers.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Memory.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Helpers.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Mvc.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Optimization.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.Razor.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.WebPages.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.WebPages.Deployment.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\System.Web.WebPages.Razor.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Antlr3.Runtime.pdb
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Newtonsoft.Json.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.Helpers.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.Mvc.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.Optimization.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.Razor.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.WebPages.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\obj\Debug\Monografia.csprojResolveAssemblyReference.cache
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\obj\Debug\Monografia.dll
+C:\Users\DN000219\Desktop\EX\Mono20220330\Mono20211130\Conversion\Monografia\Monografia\obj\Debug\Monografia.pdb
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\roslyn\csc.exe
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\roslyn\vbc.exe
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Monografia.dll.config
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Monografia.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Monografia.pdb
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Antlr3.Runtime.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\BouncyCastle.Crypto.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\ClosedXML.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\DocumentFormat.OpenXml.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\EntityFramework.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\EntityFramework.SqlServer.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\ExcelNumberFormat.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Google.Protobuf.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\K4os.Compression.LZ4.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\K4os.Hash.xxHash.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\MySql.Data.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\MySql.Data.EntityFramework.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Newtonsoft.Json.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Owin.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Renci.SshNet.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Buffers.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Memory.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.Helpers.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.Mvc.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.Optimization.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.Razor.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.WebPages.Deployment.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.WebPages.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.WebPages.Razor.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Ubiety.Dns.Core.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\WebGrease.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\ZstdNet.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\ClosedXML.pdb
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\ClosedXML.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\DocumentFormat.OpenXml.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\EntityFramework.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\EntityFramework.SqlServer.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\ExcelNumberFormat.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Google.Protobuf.pdb
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Google.Protobuf.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\K4os.Compression.LZ4.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\K4os.Hash.xxHash.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\MySql.Data.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\MySql.Data.EntityFramework.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Renci.SshNet.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Buffers.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Memory.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.Helpers.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.Mvc.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.Optimization.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.Razor.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.WebPages.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.WebPages.Deployment.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\System.Web.WebPages.Razor.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Antlr3.Runtime.pdb
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Newtonsoft.Json.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\System.Web.Helpers.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\System.Web.Mvc.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\System.Web.Optimization.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\System.Web.Razor.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\System.Web.WebPages.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\obj\Debug\Monografia.csprojResolveAssemblyReference.cache
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\obj\Debug\Monografia.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\obj\Debug\Monografia.pdb
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\HANNAH\Documents\Visual Studio 2015\Projects\Monografia\Monografia\bin\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\roslyn\csc.exe
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\roslyn\vbc.exe
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Monografia.dll.config
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Monografia.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Monografia.pdb
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Antlr3.Runtime.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\BouncyCastle.Crypto.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\ClosedXML.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\DocumentFormat.OpenXml.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\EntityFramework.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\EntityFramework.SqlServer.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\ExcelNumberFormat.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Google.Protobuf.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\K4os.Compression.LZ4.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\K4os.Hash.xxHash.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\MySql.Data.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\MySql.Data.EntityFramework.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Newtonsoft.Json.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Owin.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Renci.SshNet.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Buffers.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Memory.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.Helpers.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.Mvc.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.Optimization.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.Razor.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.WebPages.Deployment.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.WebPages.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.WebPages.Razor.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Ubiety.Dns.Core.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\WebGrease.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\ZstdNet.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\ClosedXML.pdb
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\ClosedXML.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\DocumentFormat.OpenXml.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\EntityFramework.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\EntityFramework.SqlServer.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\ExcelNumberFormat.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Google.Protobuf.pdb
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Google.Protobuf.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\K4os.Compression.LZ4.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\K4os.Compression.LZ4.Streams.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\K4os.Hash.xxHash.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\MySql.Data.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\MySql.Data.EntityFramework.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Renci.SshNet.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Buffers.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Memory.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.Helpers.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.Mvc.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.Optimization.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.Razor.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.WebPages.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.WebPages.Deployment.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Web.WebPages.Razor.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Antlr3.Runtime.pdb
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Newtonsoft.Json.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\System.Web.Helpers.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\System.Web.Mvc.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\System.Web.Optimization.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\System.Web.Razor.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\System.Web.WebPages.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.Owin.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\obj\Debug\Monografia.csprojResolveAssemblyReference.cache
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\obj\Debug\Monografia.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\obj\Debug\Monografia.pdb

@@ -1,0 +1,38 @@
+﻿@model Monografia.Models.usuarios_tienda
+
+
+@Scripts.Render("~/bundles/jqueryval")
+    <h3>¿Está seguro de eliminar este usuario?</h3>
+    <div>
+
+        <hr />
+        <dl class="dl-horizontal">
+           
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Contraseña)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Contraseña)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Perfil)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Perfil)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Eliminar" class="btn btn-primary" /> |
+            </div>
+        }
+    </div>

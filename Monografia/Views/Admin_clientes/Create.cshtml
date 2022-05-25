@@ -1,0 +1,75 @@
+﻿@model Monografia.Models.clientes
+
+@{
+    ViewBag.Title = "Nuevo Cliente";
+    //Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+@Scripts.Render("~/bundles/jqueryval")
+<section>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>@ViewBag.Title</h4>
+
+                </div>
+                <div class="panel-body">
+
+                    <div class="row " style="color:gray">
+                        <h5>- Llene la siguiente información acerca del nuevo cliente:</h5>
+                    </div>
+                    <br>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="form-group text-center">
+                            @Html.Label("Nombres y Apellidos", htmlAttributes: new { @class = "control-label col-lg-4" })
+
+                            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control col-lg-2 ", style = "margin: 0 auto;" } })
+                            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="form-group text-center ">
+                            @Html.Label("Dirección", htmlAttributes: new { @class = "control-label col-lg-4 " })
+                            @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control col-lg-2 ", style = "margin: 0 auto;" } })
+                            @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="form-group text-center ">
+                            @Html.Label("Teléfono", htmlAttributes: new { @class = "control-label col-lg-4 " })
+                            @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control col-lg-2 ", style = "margin: 0 auto;" } })
+                            @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                        <br>
+                    <div class="row">
+                        <div class="form-group text-center ">
+                            @Html.Label("Limite de crédito", htmlAttributes: new { @class = "control-label col-lg-4 " })
+
+                            @Html.EditorFor(model => model.Limite_credito, new { htmlAttributes = new { @class = "form-control col-lg-2 ", style = "margin: 0 auto;" } })
+                         
+                            @Html.ValidationMessageFor(model => model.Limite_credito, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="form-group text-center ">
+                            @Html.Label("(si el limite de credito es 0, el cliente no tiene limite)", htmlAttributes: new { @class = "control-label ", style = "margin: 0 auto;"})
+                        </div>
+                    </div>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="form-group text-right ">
+                    <input type="submit" value="Guardar" class="btn btn-primary btn-block col-lg-12 " , style="margin: 0 auto;" />
+
+                </div>
+            </div>
+    }
+</section>

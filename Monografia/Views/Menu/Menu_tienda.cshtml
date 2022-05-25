@@ -1,0 +1,119 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/fontawesome/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        @*<div class="container">*@
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Inicio", "Paginainicio", "Usuariologin", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+
+                    @*<li>@Html.ActionLink("Inicio", "Paginainicio", "Usuariologin")</li>*@
+                    <li><a href=@Url.Action("Venta", "Facturacion")><span class="fa fa-dolly"></span> Ventas </a></li>
+                    <li><a href=@Url.Action("Lista_clientes", "Admin_clientes")><span class="fa fa-users"></span> Clientes </a></li>
+                    <li><a href=@Url.Action("Lista_productos", "Admin_productos")><span class="fa fa-cubes"></span> Productos </a></li>
+                    <li><a href=@Url.Action("agregar_inventario", "Admin_inventario")><span class="fa fa-briefcase"></span> Inventario </a></li>
+                    <li><a href=@Url.Action("index", "Config_menu")><span class="fa fa-cog"></span> Configuración </a></li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-user-cog"></span> Administracion <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href=@Url.Action("Lista_usuario", "Admin_usuario")>Usuarios</a></li>
+                            <li><a href="@Url.Action("Index", "config_perfiles")">Perfiles</a></li>
+                            <li><a href=@Url.Action("Lista_proveedores", "Admin_proveedores")>Proveedores</a></li>
+                            <li><a href=@Url.Action("Lista_departamentos", "Admin_productos")>Departamentos</a></li>
+                            <li><a href=@Url.Action("Sesiones_usuario", "Usuariologin")>Sesiones de usuarios</a></li>
+                        </ul>
+                    </li>
+
+
+
+                     <li class="dropdown">
+                        <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-chart-bar"></span> Reportes <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href=@Url.Action("reporte_inventario", "Admin_inventario")>Reporte de Inventario</a></li>
+                            <li><a href=@Url.Action("productos_bajos_inventario", "Admin_inventario")>Productos bajos en Inventario</a></li>
+                            <li><a href=@Url.Action("Lista_Reporte_Saldo", "Admin_clientes")>Reporte de saldos</a></li>
+                            <li><a>Ventas por periodo</a></li>
+                            <li><a >Reporte de Movimientos</a></li>                         
+                        </ul>
+                    </li>
+
+
+
+                </ul>
+               
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-user-circle"></span> ¡Hola! @Session["Nombreuusuario"].ToString() <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href=@Url.Action("Logout", "Usuariologin")><span class="fa fa-sign-out-alt"></span> Cerrar Sesion</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        @*</div>*@
+    </div>
+   
+        <div class="container body-content">
+                        @RenderBody()
+        </div>
+   
+
+  
+   
+       
+
+
+        @*@Scripts.Render("~/bundles/jquery")*@
+        @Scripts.Render("~/bundles/jquery2")
+        @Scripts.Render("~/bundles/modalform")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+</body>
+
+</html>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalGenerica" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<h3 class="modal-title" style="text-align:center">@ViewBag.formulario</h3>*@
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id='contentModal' class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>*@
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+

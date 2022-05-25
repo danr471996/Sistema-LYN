@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+
+@Styles.Render("~/Content/fontawesome/css")
+@Styles.Render("~/Content/Estilos.css")
+
+<br>
+<div class="panel panel-default">
+    <div class="panel-body"><p class="text-center lead"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i> Configuracion <i class="fa fa-cog fa-spin fa-1x fa-fw"></i></p></div>
+    <div class="panel-footer">
+        <div class="container">
+            <div class="col-md-3">
+                <a class="btn btn-block btn-lg btn-success" data-toggle="modal" data-target="#mymodal" onclick="location.href='@Url.Action("AdministracionBD_principal", "config_AdministradorBD")'">
+                    <i class="fa fa-server" id="icone_grande"></i> <br><br>
+                    <span class="texto_grande">Base de datos</span>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-block btn-lg btn-danger" data-toggle="modal" data-target="#mymodal" onclick="location.href='@Url.Action("Index", "config_perfiles")'">
+                    <i class="fa fa-user" id="icone_grande"></i> <br><br>
+                    <span class="texto_grande">Perfiles</span>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-block btn-lg btn-primary" data-toggle="modal" data-target="#mymodal" onclick="location.href='@Url.Action("index","Config_opcioneshabilitadas")'">
+                    <i class="fa fa-cogs" id="icone_grande"></i> <br><br>
+                    <span class="texto_grande">Opciones habilitadas</span>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-block btn-lg btn-warning" data-toggle="modal" data-target="#mymodal" onclick="location.href='@Url.Action("index", "config_foliotickets")'">
+                    <i class="fa fa-minus" id="icone_grande"></i> <br><br>
+                    <span class="texto_grande">Folio de tickets</span>
+                </a>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="col-md-3">
+                <a class="btn btn-block btn-lg btn-warning" data-toggle="modal" data-target="#mymodal" onclick="location.href='@Url.Action("index", "config_articulosprecargados")'">
+                    <i class="fa fa-list" id="icone_grande"></i> <br><br>
+                    <span class="texto_grande">Articulos precargados</span>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-block btn-lg btn-primary" data-toggle="modal" data-target="#mymodal" onclick="location.href='@Url.Action("index", "config_impuestos")'">
+                    <i class="fa fa-book" id="icone_grande"></i> <br><br>
+                    <span class="texto_grande">Impuestos</span>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-block btn-lg btn-danger" data-toggle="modal" data-target="#mymodal" onclick="location.href='@Url.Action("index", "config_formasdepago")'">
+                    <i class="fa fa-credit-card" id="icone_grande"></i> <br><br>
+                    <span class="texto_grande">Formas de pago</span>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-block btn-lg btn-success" data-toggle="modal" data-target="#mymodal" onclick="location.href='@Url.Action("index", "config_unidadesdemedida")'">
+                    <i class="fa fa-calculator" id="icone_grande"></i> <br><br>
+                    <span class="texto_grande">Unidades de medida</span>
+                </a>
+            </div>
+        </div>
+
+        <br>
+        <div class="container">
+            <div class="col-md-3">
+                <a class="btn btn-block btn-lg btn-success" data-toggle="modal" data-target="#mymodal" onclick="location.href='@Url.Action("index", "config_simbolodemoneda")'">
+                    <i class="fa fa-university" id="icone_grande"></i> <br><br>
+                    <span class="texto_grande">Simbolo de moneda</span>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-block btn-lg btn-danger" data-toggle="modal" data-target="#mymodal" onclick="location.href='@Url.Action("index", "config_tickets")'">
+                    <i class="fa fa-clone" id="icone_grande"></i> <br><br>
+                    <span class="texto_grande">Tickets</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

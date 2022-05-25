@@ -1,0 +1,60 @@
+﻿@model Monografia.Models.Modelo_contenedor.facturacion
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<h3>¿Está seguro de eliminar este producto de la lista de compras?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Codigo de Producto")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodProd)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Descripcion")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Desc)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Precio de Venta")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prec_vent)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Cantidad")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cant)
+        </dd>
+        <dt>
+            @Html.DisplayName("Importe")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Impor)
+        </dd>
+        
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-primary" /> 
+        </div>
+    }
+</div>

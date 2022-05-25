@@ -1,0 +1,48 @@
+﻿@model Monografia.Models.Modelo_Config
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+
+<h2>Folio de tickets</h2>
+
+@using (Html.BeginForm("Index", "Config_foliotickets"))
+{
+    @*<input type="submit" value="Guardar Cambios" class="btn btn-success" />*@
+    <button class="btn btn-success" type="submit">
+        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
+        </span> Guardar Cambios
+    </button>
+
+    <br><br />
+    <ul class="list-group">
+        @for (int i = 0; i < Model.Lista_opciones.Count; i++)
+        {
+            <li class="list-group-item">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">      
+                        <form class="form-inline">
+                            <div class="form-inline">
+                                @Model.Lista_opciones[i].NOMBRE_OP
+                                @Html.TextBox("txtfolio", Model.Lista_opciones[i].DETALLE_EXT1, new { @class = "form-control input-sm" })
+                            </div>                           
+                        </form>                                    
+                    </div>
+
+                    <div class="panel-body">
+                        @Model.Lista_opciones[i].DESCRIPCION_OP
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].ID_OP)
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].NOMBRE_OP)
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].DESCRIPCION_OP)
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT1)
+                    </div>
+
+                </div>
+            </li>
+            
+        }
+    </ul>
+}
+

@@ -1,0 +1,85 @@
+﻿@model Monografia.Models.usuarios_tienda
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Login</title>
+    <!-- Meta-Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Elite login Form a Responsive Web Template, Bootstrap Web Templates, Flat Web Templates, Android Compatible Web Template, Smartphone Compatible Web Template, Free Webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design">
+    <script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+    </script>
+    <!-- //Meta-Tags -->
+    <!-- Stylesheets -->
+    @*<link href="~/Content/font-awesome.css" rel="stylesheet">*@
+    @Styles.Render("~/Content/fontawesome/css")
+    <link href="~/Content/style.css" rel='stylesheet' type='text/css' />
+    <!--// Stylesheets -->
+    <!--fonts-->
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+    <!--//fonts-->
+
+
+</head>
+<body>
+
+    <h1>***L & N***</h1>
+    <div class="w3ls-login">
+        <!-- form starts here -->
+        <form action="#" method="post">
+            <div class="agile-field-txt">
+                <label>
+                    <i class="fa fa-user" aria-hidden="true"></i> Usuario :
+                </label>
+                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @type = "text", @name = "name", @placeholder = "", @required = "" } })
+            </div>
+            <div class="agile-field-txt">
+                <label>
+                    <i class="fa fa-lock" aria-hidden="true"></i> Contraseña :
+                </label>
+                @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @type = "password", @name = "password", @placeholder = "", @required = "", @id = "myInput" } })
+
+                <div class="agile_label">
+                    <input id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
+                    <label class="check" for="check3">Mostrar contraseña</label>
+                </div>
+            </div>
+            <script>
+				function myFunction() {
+					var x = document.getElementById("myInput");
+					if (x.type === "password") {
+						x.type = "text";
+					} else {
+						x.type = "password";
+					}
+				}
+            </script>
+            <!-- //script for show password -->
+            <div class="w3ls-login  w3l-sub">
+                <input type="submit" value="Ingresar al sistema">
+            </div>
+        </form>
+    </div>
+    <!-- //form ends here -->
+    <!--copyright-->
+    <div class="copy-wthree bottom">
+        <p>
+            © 2021 Sistema de control de inventario y gestion de ventas . All Rights Reserved | Design by D&A
+        </p>
+    </div>
+
+</body>
+</html>

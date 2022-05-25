@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9156f49a3b07462f979cc441b2809f1b" Name="Diagram1" ZoomLevel="78">
+        <EntityTypeShape EntityType="proyectotiendaModel.clientes" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.creditos" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.departamento" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.detalle_factura" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.factura" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.facturas_proveedor" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.lista_permisos" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.opciones" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.pagos" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.productos" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.promocion" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.proveedor" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.tipo_ventas" Width="1.5" PointX="8.75" PointY="5.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.unidad_medida" Width="1.5" PointX="8.75" PointY="8.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.usuarios_perfiles" Width="1.5" PointX="10.75" PointY="4.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.usuarios_tienda" Width="1.5" PointX="10.75" PointY="7.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.usuario_detalle" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.usuario_sesion" Width="1.5" PointX="5.375" PointY="11.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

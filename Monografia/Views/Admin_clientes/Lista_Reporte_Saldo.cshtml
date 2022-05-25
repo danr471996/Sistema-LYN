@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Monografia.Models.Modelo_contenedor>
+
+@{
+    ViewBag.Title = "Reporte de Saldo";
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+
+<h2> @ViewBag.Title</h2>
+
+<div class="row col-lg-12">
+   
+    @Html.Label(" ", "Total de créditos pendientes ", htmlAttributes: new { @class = "control-label col-lg-3 col-md-3 col-xs-12", @style = "color:forestgreen" })
+    @Html.Label(" ",(string)Session["cantidad_saldo"], htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
+  
+   
+</div>
+
+<br>
+        <div  class="row">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Número")
+                        </th>
+
+                        <th>
+                            @Html.DisplayName("Nombre / Dirección")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Teléfono")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Limite Crédito")
+
+                        </th>
+                        <th>
+                            @Html.DisplayName("Saldo Actual")
+
+                        </th>
+                        <th>
+                            @Html.DisplayName("Último Pago")
+
+                        </th>
+
+
+                    </tr>
+
+                </thead>
+               
+
+                @foreach (var item in Model)
+            {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.idcliente)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                                <br>
+                                @Html.DisplayFor(modelItem => item.Direccion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.telefono)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.limitecredito)
+                            </td>
+                            <td style="background-color :aquamarine">
+                                @Html.DisplayFor(modelItem => item.saldo)
+                            </td>
+                            <td style="background-color:#ac9cb5">
+                                @Html.DisplayFor(modelItem => item.fechapago)
+                            </td>
+
+
+                        </tr>
+                    </tbody>
+                }
+                 
+            </table>
+        </div>
+

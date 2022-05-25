@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+@using (Html.BeginForm("Facturar", "Facturacion", FormMethod.Post))
+{
+    <div class="row">
+
+        @Html.Label("Total a pagar", htmlAttributes: new { @class = "control-label" })
+        @Html.Label(" ", (string)Session["totalpago"], htmlAttributes: new { @class = "control-label" })
+    </div>
+
+    <div class="row">
+
+        @Html.Label("Pago en efectivo", htmlAttributes: new { @class = "control-label" })
+        @Html.Editor("montopago", new { htmlAttributes = new { @class = "form-control " } })
+    </div>
+
+  
+
+   
+    <input type="submit" value="Realizar Cobro" class="btn btn-primary" />
+}

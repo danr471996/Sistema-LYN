@@ -1,0 +1,48 @@
+﻿@model Monografia.Models.usuario_sesion
+
+@{
+    ViewBag.Title = "Inactivar cliente";
+ 
+}
+@Scripts.Render("~/bundles/jqueryval")
+
+<h3>¿Está seguro de eliminar esta sesion?</h3>
+<div>
+
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayName("Usuario")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario_alta)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Estado")
+        </dt>
+
+        <dd>
+            @if (Html.DisplayFor(model => model.Estado).ToHtmlString() == "1")
+            {
+            <p>Activo </p>
+            }
+            else
+            {
+                <p>Inactivo</p>
+            }
+
+                </dd>
+
+
+</dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="row col-lg-12">
+            <input type="submit" value="Eliminar" class="btn btn-primary" /> 
+        </div>
+    }
+</div>

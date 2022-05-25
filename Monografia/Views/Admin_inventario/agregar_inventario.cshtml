@@ -1,0 +1,77 @@
+﻿@model Monografia.Models.productos
+
+@{
+    ViewBag.Title = "Agregar inventario";
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+
+
+<br>
+<p>
+    @Html.ActionLink("Agregar inventario", "agregar_inventario", "Admin_inventario", new {@class = "btn btn-primary" })
+    &nbsp
+    @Html.ActionLink("Ajustes", "ajuste_inventario", "Admin_inventario", new { @class = "btn btn-primary" })
+    @*&nbsp*@
+    @*@Html.ActionLink("Productos bajos en inventario", "productos_bajos_inventario", "Admin_inventario", new { @class = "btn btn-primary" })
+    &nbsp*@
+    @*@Html.ActionLink("Reporte de inventario", "reporte_inventario", "Admin_inventario", new { @class = "btn btn-primary" })
+    &nbsp*@
+    @*@Html.ActionLink("Reporte de movimientos", "", "", new { @class = "btn btn-primary" })*@
+</p>
+
+<div class="form-horizontal">
+    @using (Html.BeginForm("agregar_inventario", "Admin_inventario", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+       
+                <div class="row col-lg-12">
+                    @Html.Label("Código de producto", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+                    
+                        @Html.Editor("id_producto", new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
+                        @Html.ValidationMessageFor(model => model.Codigo_producto, "", new { @class = "text-danger" })
+                 
+                </div>
+                <br>
+
+    }
+
+    @using (Html.BeginForm("agregar_inventario2", "Admin_inventario", FormMethod.Post))
+    {
+
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row col-lg-12">
+            @Html.Label("Descripción", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+            
+                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12", @readonly = true } })
+                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+        </div>
+
+        <br>
+                    <div class="row col-lg-12">
+                        @Html.Label("Cantidad actual", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+                       
+                            @Html.EditorFor(model => model.Cantidad_actual, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12", @readonly = true } })
+                            @Html.ValidationMessageFor(model => model.Cantidad_actual, "", new { @class = "text-danger" })
+                     
+                    </div>
+                    <br>
+                    <div class="row col-lg-12">
+                        @Html.Label("Cantidad a agregar", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+                       
+                            @Html.Editor("agregar_cantidad", new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
+                        
+                    </div>
+
+                    <div class="row col-lg-12">
+                        
+                            <input type="submit" value="Guardar" class="btn btn-primary" />
+                    </div>
+
+    }
+
+</div>

@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Monografia.Models.Modelo_contenedor.facturacion>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+     }
+
+
+<h2>Facturacion</h2>
+
+
+      @using (Html.BeginForm("Venta", "Facturacion", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+
+          <div class="row">
+              
+              @Html.Label("Código de producto", htmlAttributes: new { @class = "control-label" })
+
+              @Html.Editor("codigoproducto", new { htmlAttributes = new { @class = "form-control " } })
+              <input type="submit" value="Agregar Producto" class="btn btn-primary" /> 
+          </div>
+
+        <br>
+            }
+
+
+
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        @Html.DisplayName("Codigo de Producto")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Descripcion")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Precio de Venta")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Cantidad")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Importe")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Existencia")
+                    </th>
+                    <th>
+                    </th>
+
+                </tr>
+
+
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CodProd)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Desc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.prec_vent)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cant)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Impor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.existencia)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Eliminar", "Delete", new { codigoproducto = item.CodProd }, new { data_modal = "", @class = "btn btn-danger" })
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>
+            @using (Html.BeginForm("Facturar", "Facturacion", FormMethod.Get))
+            {
+            
+                @Html.ActionLink("Cobrar", "Facturar", new { data_modal = "", @class = "btn btn-danger" })
+
+            }
+
+

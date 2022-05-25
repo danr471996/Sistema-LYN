@@ -1,0 +1,55 @@
+﻿@model Monografia.Models.clientes
+
+@{
+    ViewBag.Title = "Inactivar cliente";
+    //Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+@Scripts.Render("~/bundles/jqueryval")
+
+<h3>¿Está seguro de eliminar este cliente?</h3>
+<div>
+
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayName("Nombres y Apellidos")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("dirección")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Teléfono")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Límite de crédito")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Limite_credito)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="row col-lg-12">
+            <input type="submit" value="Eliminar" class="btn btn-primary" /> 
+        </div>
+    }
+</div>

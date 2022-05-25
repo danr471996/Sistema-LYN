@@ -1,0 +1,53 @@
+﻿@model Monografia.Models.Modelo_Config
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+
+<h2>Simbolo de moneda</h2>
+
+@using (Html.BeginForm("index", "Config_simbolodemoneda"))
+{
+    @*<input type="submit" value="Guardar Cambios" class="btn btn-success" />*@
+    <button class="btn btn-success" type="submit">
+        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
+        </span> Guardar Cambios
+    </button>
+
+    <br><br />
+
+    <ul class="list-group">
+        @for (int i = 0; i < Model.Lista_opciones.Count; i++)
+        {
+            <li class="list-group-item">               
+                <br><br />
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        @Model.Lista_opciones[i].NOMBRE_OP
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-inline">
+                            <div class="col-xs-1">
+                                @if (Model.Lista_opciones[i].DETALLE_EXT2 != null)
+                                {
+                                    @Html.TextBox("txtsimbolo" + i.ToString(), Model.Lista_opciones[i].DETALLE_EXT1, new { @class = "form-control input-sm", type= Model.Lista_opciones[i].DETALLE_EXT2 })
+                                }
+                                else
+                                {
+                                    @Html.TextBox("txtsimbolo" + i.ToString(), Model.Lista_opciones[i].DETALLE_EXT1, new { @class = "form-control input-sm" })
+                                }
+                               
+                            </div>
+                        </div>
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].ID_OP)
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT1)
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT2)
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT3)
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+
+}

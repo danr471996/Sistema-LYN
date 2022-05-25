@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Monografia.Models.departamento>
+
+@{
+    ViewBag.Title = "Lista de departamentos";
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a data-modal="" href=@Url.Action("Create", "Admin_departamentos") class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar Departamento</a>
+   
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayName("Descripción")
+        </th>
+        <th>
+            @Html.DisplayName("Estado")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @if (item.Estado == 1)
+            {
+
+                <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
+                    Activo
+
+                </div>
+            }
+            else
+            {
+                <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
+                    Inactivo
+
+                </div>
+            }
+        </td>
+        <td>
+            <a data-modal="" href=@Url.Action("Edit", "Admin_departamentos", new { id = item.Iddepartmento }) class="btn btn-success"> <span class="fa fa-edit"></span></a>  |
+            <a data-modal="" href=@Url.Action("Delete", "Admin_departamentos", new { id = item.Iddepartmento }) class="btn btn-danger"> <span class="fa fa-trash"></span></a> |
+        </td>
+    </tr>
+}
+
+</table>

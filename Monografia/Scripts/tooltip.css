@@ -1,0 +1,53 @@
+﻿/* setup tooltips */
+.descripcion {
+  position: relative;
+  
+}
+.descripcion:before,
+.descripcion:after {
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+.descripcion:after {
+	border-right: 6px solid transparent;
+	border-bottom: 6px solid rgba(0,0,0,.75); 
+  border-left: 6px solid transparent;
+  content: '';
+  height: 0;
+    top: 20px;
+    left: 20px;
+  width: 0;
+}
+.descripcion:before {
+  background: rgba(0,0,0,.75);
+  border-radius: 2px;
+  color: #fff;
+  content: attr(data-title);
+  font-size: 14px;
+  padding: 6px 10px;
+    top: 26px;
+  white-space: nowrap;
+  z-index:4;
+}
+
+/* expand */
+.descripcion.expand:before {
+  transform: scale3d(.2,.2,1);
+  transition: all .2s ease-in-out;
+}
+.descripcion.expand:after {
+  transform: translate3d(0,6px,0);
+  transition: all .1s ease-in-out;
+}
+.descripcion.expand:hover:before,
+.descripcion.expand:hover:after {
+  opacity: 1;
+  transform: scale3d(1,1,1);
+}
+.descripcion.expand:hover:after {
+  transition: all .2s .1s ease-in-out;
+}
+
+

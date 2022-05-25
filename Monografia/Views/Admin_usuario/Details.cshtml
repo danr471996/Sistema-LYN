@@ -1,0 +1,40 @@
+﻿@model Monografia.Models.Modelo_contenedor
+@Scripts.Render("~/bundles/jqueryval")
+    <div>
+        <h4>usuarios_tienda</h4>
+        <hr />
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.usuario_detalle.Nombre)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.usuario_detalle.Nombre)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.usuario_detalle.Apellido)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.usuario_detalle.Apellido)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.usuario_detalle.Direccion)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.usuario_detalle.Direccion)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.usuario_detalle.Telefono)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.usuario_detalle.Telefono)
+            </dd>
+        </dl>
+    </div>

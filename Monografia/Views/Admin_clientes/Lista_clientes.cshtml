@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Monografia.Models.clientes>
+
+@{
+    ViewBag.Title = "Lista de clientes";
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+
+@Styles.Render("~/Content/datatables")
+<h2>Index</h2>
+
+<p>
+    <a data-modal="" href=@Url.Action("Create", "Admin_clientes") class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar cliente</a>
+
+</p>
+
+<table id="jquerydatatable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Nombres y Apellidos")
+            </th>
+            <th>
+                @Html.DisplayName("Dirección")
+            </th>
+            <th>
+                @Html.DisplayName("Teléfono")
+            </th>
+            <th>
+                @Html.DisplayName("Limite de Crédito")
+            </th>
+            <th>
+                @Html.DisplayName("Estado")
+            </th>
+            <th>
+
+            </th>
+        </tr>
+
+    </thead>
+   
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Limite_credito)
+                </td>
+                <td>
+                    @if (item.Estado == 1)
+                    {
+
+                        <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
+                            Activo
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
+                            Inactivo
+
+                        </div>
+                    }
+                </td>
+                <td>
+                    <a data-modal="" href=@Url.Action("Edit", "Admin_clientes",new { id = item.Idcliente }) class="btn btn-success" > <span class="fa fa-edit"></span></a>  |
+                    <a data-modal="" href=@Url.Action("Delete", "Admin_clientes",new { id = item.Idcliente }) class="btn btn-danger"> <span class="fa fa-trash"></span></a> |
+                    @Html.ActionLink("Estado de cuenta", "Estado_cuenta", new { id = item.Idcliente }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+
+</table>
+
+
+@section Scripts
+{ 
+@Scripts.Render("~/bundles/datatables")
+<script type="text/javascript">
+            $(document).ready(function () {
+               $('#jquerydatatable').DataTable({
+                    "language": {
+                        "url":"/Scripts/es_es.json"
+                    }
+                })
+            });
+</script>
+}
