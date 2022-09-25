@@ -1,78 +1,83 @@
 ﻿@model IEnumerable<Monografia.Models.proveedor>
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
 
 @Styles.Render("~/Content/datatables")
 
-<p>
-    @Html.ActionLink("Agregar proveedor", "Create", "", new { data_modal = "", @class = "btn btn-primary" })
-</p>
-<table id="jquerydatatable" class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefono)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Direccion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telefono)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Direccion)
-                </td>
-                <td>
-                    @if (item.Estado == 1)
-                    {
+<div class="card">
+    <div class="card-header">
+        <h2>proveedores</h2>
+    </div>
+    <a data-modal="" href=@Url.Action("Create", "Admin_proveedores") class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar Proveedor</a>
+    <div class="card-body">
+        <table id="jquerydatatable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Telefono)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Direccion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telefono)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Direccion)
+                        </td>
+                        <td>
+                            @if (item.Estado == 1)
+                            {
 
-                        <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
-                            Activo
+                                <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
+                                    Activo
 
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
-                            Inactivo
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
+                                    Inactivo
 
-                        </div>
-                    }
-                </td>
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.idProveedor }, new { data_modal = "", @class = "btn btn-success" }) |
-                    @Html.ActionLink("Detalles", "Details", new { id = item.idProveedor }, new { data_modal = "", @class = "btn btn-info" }) |
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.idProveedor }, new { data_modal = "", @class = "btn btn-danger"})
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            <a data-modal="" href=@Url.Action("Details", "Admin_proveedores", new { id = item.idProveedor }) class="btn btn-info"> <span class="fa fa-accessible-icon"></span></a>
+                            <a data-modal="" href=@Url.Action("Edit", "Admin_proveedores", new { id = item.idProveedor }) class="btn btn-success"> <span class="fa fa-edit"></span></a>
+                            <a data-modal="" href=@Url.Action("Delete", "Admin_proveedores", new { id = item.idProveedor }) class="btn btn-danger"> <span class="fa fa-trash"></span></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
 
 @section Scripts
 {

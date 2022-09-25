@@ -6,58 +6,67 @@
 }
 
 @Styles.Render("~/Content/datatables")
-<h2>Sesiones_usuario</h2>
 
-<table id="jquerydatatable" class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayName("Fecha Inicio Sesion")
-            </th>
-            <th>
-                @Html.DisplayName("Usuario Login")
-            </th>
-            <th>
-                @Html.DisplayName("Estado")
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            @Html.HiddenFor(modelItem => item.Idusuario_sesion)
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fecha_alta)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Usuario_alta)
-                </td>
-                <td>
-                    @if (item.Estado == 1)
-                    {
+<div class="card">
+    <div class="card-header">
+        <h2>Sesiones de usuarios</h2>
+    </div>
+    <div class="card-body">
+        <table id="jquerydatatable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Fecha Inicio Sesion")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Usuario Login")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Estado")
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @Html.HiddenFor(modelItem => item.Idusuario_sesion)
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_alta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usuario_alta)
+                        </td>
+                        <td>
+                            @if (item.Estado == 1)
+                            {
 
-                        <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
-                            Activo
+                                <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
+                                    Activo
 
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
-                            Inactivo
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-control" style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
+                                    Inactivo
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            <a data-modal="" href=@Url.Action("Delete", "Usuariologin",new { idsesion = item.Idusuario_sesion }) class="btn btn-danger"> <span class="fa fa-trash"></span></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-                        </div>
-                    }
-                </td>
-                <td>
-                  <a data-modal="" href=@Url.Action("Delete", "Usuariologin",new { idsesion = item.Idusuario_sesion }) class="btn btn-danger" > <span class="fa fa-trash"></span></a> 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+</div>
+
+
+
 
 @section Scripts
 {

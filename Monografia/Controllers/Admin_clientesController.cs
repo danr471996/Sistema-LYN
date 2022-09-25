@@ -83,8 +83,8 @@ namespace Monografia.Controllers
 
                 var clientes = db.clientes.Where(x => x.Idcliente == id).FirstOrDefault();
                 Session["idcliente"] = clientes.Idcliente;
-                Session["nomcliente"] = clientes.Nombre;
-                Session["limitecredito"] = clientes.Limite_credito;
+                Session["nomcliente"] = clientes.Primer_nombre + " " + clientes.Primer_apellido;
+                Session["limitecredito"] = clientes.Id_tipocredito;
                 Session["Saldoactual"] = (from x in db.creditos where x.Idcliente == id && x.Estado == 1 select (x.Importe_total - x.Importe_pagado)).Sum() == null ? 0 : (from x in db.creditos where x.Idcliente == id && x.Estado == 1 select (x.Importe_total - x.Importe_pagado)).Sum();
 
                 var listafacturas = (from u in db.factura
@@ -122,7 +122,7 @@ namespace Monografia.Controllers
                 List<Modelo_contenedor> modelo_contenedor = new List<Modelo_contenedor>();
                 var listafacturas = (from f in db.factura
                                      join df in db.detalle_factura on f.Idfactura equals df.Id_factura
-                                     join p in db.productos on df.Id_producto equals p.Idproducto
+                                     join p in db.productos on df.Idproducto equals p.Idproducto
                                      where f.Idfactura == idfactura && f.Idcliente == idcliente
                                      orderby p.Fecha_alta descending
                                      select new { f, df, p }).ToList();
@@ -170,10 +170,10 @@ namespace Monografia.Controllers
                     modelo_contenedor.Add(new Modelo_contenedor
                     {
                         idcliente = item.Idcliente,
-                        Nombre = item.Nombre,
+                        Nombre = item.Primer_nombre,
                         Direccion = item.Direccion,
                         telefono = item.Telefono,
-                        limitecredito = item.Limite_credito,
+                        limitecredito = item.Id_tipocredito,
                         saldo = (from x in db.creditos where x.Estado == 1 && x.Idcliente == item.Idcliente select (x.Importe_total - x.Importe_pagado)).Sum() == null ? 0 : (from x in db.creditos where x.Estado == 1 && x.Idcliente == item.Idcliente select (x.Importe_total - x.Importe_pagado)).Sum(),
 
                         fechapago = DateTime.ParseExact(patito, "dd-mm-yyyy", null)
@@ -193,7 +193,12 @@ namespace Monografia.Controllers
         // GET: clientes/Create
         public ActionResult Create()
         {
-            return PartialView();
+            Modelo_contenedor modelo_contenedor = new Modelo_contenedor();
+            var Listtipocredito = from u in db.tipo_credito where u.Estado == 1 select u;
+            modelo_contenedor.listatipocredito= new List<tipo_credito>();
+            modelo_contenedor.listatipocredito=Listtipocredito.ToList();
+
+            return PartialView(modelo_contenedor);
         }
 
         // POST: clientes/Create
@@ -201,20 +206,16 @@ namespace Monografia.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( clientes clientes)
+        public ActionResult Create(Modelo_contenedor clientes)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    clientes.Fecha_alta = DateTime.Now;
-                    clientes.Estado = 1;
-                    if (clientes.Limite_credito == null)
-                    {
-                        clientes.Limite_credito = 0;
-                    }
-                    clientes.Usuario_alta = (string)Session["usuario_logueado"];
-                    db.clientes.Add(clientes);
+                    clientes.cliente.Fecha_alta = DateTime.Now;
+                    clientes.cliente.Estado = 1;
+                    clientes.cliente.Usuario_alta = (string)Session["usuario_logueado"];
+                    db.clientes.Add(clientes.cliente);
                     db.SaveChanges();
                     return Json(new { success = true });
                 }
@@ -234,18 +235,37 @@ namespace Monografia.Controllers
         {
             try
             {
-                if (id == null)
+                Modelo_contenedor modelo_contenedor = null;
+                if (id != null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
+                
                 clientes clientes = db.clientes.Find(id);
-                if (clientes == null)
-                {
-                    return HttpNotFound();
+                modelo_contenedor = new Modelo_contenedor();
+                modelo_contenedor.cliente = new clientes();
+                modelo_contenedor.cliente.Idcliente = clientes.Idcliente;
+                modelo_contenedor.cliente.Primer_nombre = clientes.Primer_nombre;
+                modelo_contenedor.cliente.Segundo_nombre = clientes.Segundo_nombre;
+                modelo_contenedor.cliente.Primer_apellido = clientes.Primer_apellido;
+                modelo_contenedor.cliente.Segundo_apellido = clientes.Segundo_apellido;
+                modelo_contenedor.cliente.Direccion = clientes.Direccion;
+                modelo_contenedor.cliente.Telefono = clientes.Telefono;
+                modelo_contenedor.cliente.Id_tipocredito = clientes.Id_tipocredito;
+                modelo_contenedor.cliente.Cantidad_credito= clientes.Cantidad_credito; 
+
+                var Listtipocredito = from u in db.tipo_credito where u.Estado == 1 select u;
+                modelo_contenedor.listatipocredito = new List<tipo_credito>();
+                modelo_contenedor.listatipocredito = Listtipocredito.ToList();
+                return PartialView(modelo_contenedor);
                 }
-                return PartialView(clientes);
+                else
+                {
+                    return PartialView(modelo_contenedor);
+
+                }
+
+             
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -258,24 +278,21 @@ namespace Monografia.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( clientes clientes)
+        public ActionResult Edit(Modelo_contenedor clientes)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var datosclientes = (from d in db.clientes where d.Idcliente == clientes.Idcliente select d).FirstOrDefault();
-                    datosclientes.Nombre = clientes.Nombre;
-                    datosclientes.Direccion = clientes.Direccion;
-                    datosclientes.Telefono = clientes.Telefono;
-                    if (datosclientes.Limite_credito == null)
-                    {
-                        datosclientes.Limite_credito = 0;
-                    }
-                    else
-                    {
-                        datosclientes.Limite_credito = clientes.Limite_credito;
-                    }
+                    var datosclientes = (from d in db.clientes where d.Idcliente == clientes.cliente.Idcliente select d).FirstOrDefault();
+                    datosclientes.Primer_nombre = clientes.cliente.Primer_nombre;
+                    datosclientes.Segundo_nombre = clientes.cliente.Segundo_nombre;
+                    datosclientes.Primer_apellido = clientes.cliente.Primer_apellido;
+                    datosclientes.Segundo_apellido = clientes.cliente.Segundo_apellido;
+                    datosclientes.Direccion = clientes.cliente.Direccion;
+                    datosclientes.Telefono = clientes.cliente.Telefono;
+                    datosclientes.Id_tipocredito = clientes.cliente.Id_tipocredito;
+                    datosclientes.Cantidad_credito = clientes.cliente.Id_tipocredito == 1?0: clientes.cliente.Cantidad_credito;
 
                     db.SaveChanges();
                     return Json(new { success = true });

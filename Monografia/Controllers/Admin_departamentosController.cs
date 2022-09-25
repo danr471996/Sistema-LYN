@@ -17,7 +17,7 @@ namespace Monografia.Controllers
         // GET: departamentoes
         public ActionResult Lista_departamentos()
         {
-            return View(db.departamento.ToList());
+            return View(db.departamento.Where(x=>x.Iddepartmento!=1).ToList());
         }
 
         // GET: departamentoes/Create

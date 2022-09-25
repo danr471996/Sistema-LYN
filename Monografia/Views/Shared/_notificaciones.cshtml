@@ -1,0 +1,81 @@
+﻿
+<li class="nav-item dropdown">
+
+    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+        <i class="bi bi-bell"></i>
+        <span class="badge bg-primary badge-number">1</span>
+    </a><!-- End Notification Icon -->
+
+    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+        <li class="dropdown-header">
+            Tienes 1 nueva notificación
+        </li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+            @{
+                if ((int)ViewBag.cantidadprodbajos > 0)
+                {
+                    <li class="notification-item">
+                        <a class="dropdown-item d-flex align-items-center" href="@Url.Action("Logout", "Usuariologin")">
+                            <i class="bi bi-exclamation-circle text-warning"></i>
+                            <div>
+                                <h4>Notificación de Inventario</h4>
+                                <p>Se encuentran  @ViewBag.cantidadprodbajos productos bajos en inventario</p>
+                                <p>Favor verifique!</p>
+                            </div>
+                        </a>
+                     
+                    </li>
+                }
+                else
+                {
+                    <li class="notification-item">
+                        <i class="bi bi-check-circle text-success"></i>
+                        <div>
+                            <h4>Notificación de Inventario</h4>
+                            <p>Inventario se encuentra al dia!</p>
+                        </div>
+                    </li>
+                }
+            }
+       
+
+      
+
+        @*<li class="notification-item">
+                <i class="bi bi-x-circle text-danger"></i>
+                <div>
+                    <h4>Atque rerum nesciunt</h4>
+                    <p>Quae dolorem earum veritatis oditseno</p>
+                    <p>1 hr. ago</p>
+                </div>
+            </li>*@
+
+        @*<li>
+                <hr class="dropdown-divider">
+            </li>*@
+
+    
+
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+
+        @*<li class="notification-item">
+                <i class="bi bi-info-circle text-primary"></i>
+                <div>
+                    <h4>Dicta reprehenderit</h4>
+                    <p>Quae dolorem earum veritatis oditseno</p>
+                    <p>4 hrs. ago</p>
+                </div>
+            </li>
+
+            <li>
+                <hr class="dropdown-divider">
+            </li>*@
+
+
+    </ul><!-- End Notification Dropdown Items -->
+
+</li><!-- End Notification Nav -->

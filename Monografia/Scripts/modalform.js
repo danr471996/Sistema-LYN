@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+
     $.ajaxSetup({ cache: false });
     // busca los elementos el atributo data-modal y le suscribe el evento click
     $('a[data-modal]').on('click', function (e) {
@@ -13,9 +14,11 @@
 function openmodal(url) {
     // Hace una petición get y carga el formulario en la ventana modal
     $('#contentModal').load(url, function () {
-        $('#modalGenerica').modal({
+
+        var myModal = new bootstrap.Modal(document.getElementById('modalGenerica'), {
             keyboard: true
-        }, 'show');
+        });
+        myModal.show();
         // Suscribe el evento submit
         bindForm(this);
     });
@@ -24,6 +27,10 @@ function bindForm(dialog) {
     // Suscribe el formulario en la ventana modal con el evento submit
     $('form', dialog).submit(function () {
         if ($(this).valid()) {
+            console.log(this.action);
+            console.log(this.method);
+            console.log($(this).serialize());
+            console.log(this.action);
             // Realiza una petición ajax
             $.ajax({
                 url: this.action,
@@ -32,8 +39,10 @@ function bindForm(dialog) {
                 success: function (result) {
                     // Si la petición es satisfactoria, se recarga la página actual
                     if (result.success) {
+                        console.log(result.success);
                         window.location = window.location;
                     } else {
+                   
                         $('#contentModal').html(result);
                         bindForm();
                     }

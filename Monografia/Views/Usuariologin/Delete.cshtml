@@ -6,43 +6,46 @@
 }
 @Scripts.Render("~/bundles/jqueryval")
 
-<h3>¿Está seguro de eliminar esta sesion?</h3>
-<div>
+<div class="card">
+    <div class="card-header">
+        <h3>¿Está seguro de eliminar esta sesión?</h3>
+    </div>
+    <div class="card-body">
+        <dl class="dl-horizontal">
 
-    <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayName("Usuario")
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Usuario_alta)
+            </dd>
 
-        <dt>
-            @Html.DisplayName("Usuario")
-        </dt>
+            <dt>
+                @Html.DisplayName("Estado")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Usuario_alta)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Estado")
-        </dt>
-
-        <dd>
-            @if (Html.DisplayFor(model => model.Estado).ToHtmlString() == "1")
+            <dd>
+                @if (Html.DisplayFor(model => model.Estado).ToHtmlString() == "1")
             {
-            <p>Activo </p>
-            }
-            else
-            {
-                <p>Inactivo</p>
-            }
+                    <p>Activo </p>
+                }
+                else
+                {
+                    <p>Inactivo</p>
+                }
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        @using (Html.BeginForm())
+        {
 
-                </dd>
-
-
-</dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="row col-lg-12">
-            <input type="submit" value="Eliminar" class="btn btn-primary" /> 
-        </div>
-    }
+            <div class="row col-lg-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"> Eliminar</i>
+                </button>
+            </div>
+        }
+    </div>
 </div>
+

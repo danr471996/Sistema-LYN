@@ -1,132 +1,131 @@
 ﻿@model Monografia.Models.Modelo_contenedor
 
 @Scripts.Render("~/bundles/jqueryval")
-
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-
-
-    <div id="dvTab">
-        <!-- Navigation Tabs starts -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">Ingreso de producto</a></li>
-            <li><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">Ingreso de paquete</a></li>
-        </ul>
-        <!-- Navigation Tabs ends -->
-        <!-- Tab Panes starts -->
-        <div class="tab-content" style="padding-top: 10px">
-            <div role="tabpanel" class="tab-pane active" id="tab1">
-
-
-                <div class="row col-lg-12">
-                    @Html.Label("Código de producto", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-
-                    @Html.EditorFor(model => model.productos.Codigo_producto, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-               
-
-                </div>
-                <br>
-                <div class="row col-lg-12">
-                    @Html.Label("Descripción", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-
-                    @Html.EditorFor(model => model.productos.Descripcion, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-                  
-
-                </div>
-                <br>
-                <div class="row col-lg-12">
-                    @Html.Label("Se vende", htmlAttributes: new { @class = "control-label col-lg-3 col-md-3 col-xs-12" })
-
-                    @Html.RadioButtonFor(model => model.productos.Tipo_venta, 1, new { htmlAttributes = new { @class = "form-control col-lg-3 col-md-3 col-xs-12" } })@Html.Label("Por unidad/pieza")
-                    @Html.RadioButtonFor(model => model.productos.Tipo_venta, 2, new { htmlAttributes = new { @class = "form-control col-lg-3 col-md-3 col-xs-12" } })@Html.Label("A granel")
-                    @Html.RadioButtonFor(model => model.productos.Tipo_venta, 3, new { htmlAttributes = new { @class = "form-control col-lg-3 col-md-3 col-xs-12" } })@Html.Label("Como paquete")
-                </div>
-
-                <br>
-                <div class="row col-lg-12">
-                    @Html.Label("Precio costo", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-
-                    @Html.EditorFor(model => model.productos.Precio_costo, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-                  
-
-                </div>
-                <br>
-                <div class="row col-lg-12">
-                    @Html.Label("Precio de venta", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-
-                    @Html.EditorFor(model => model.productos.Precio_venta, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-                   
-
-                </div>
-                <br>
-                <div class="row col-lg-12">
-                    @Html.Label("Precio de mayoreo", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-
-                    @Html.EditorFor(model => model.productos.Precio_mayoreo, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-                   
-
-                </div>
-                <br>
-                <div class="row col-lg-12">
-                    @Html.Label("Departamento", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-
-                    @Html.DropDownListFor(model => model.productos.Coddepartamento, new SelectList(Model.listadepartamento, "Iddepartmento", "Descripcion"), "Seleccione departamento", new { @class = "form-control col-lg-4 col-md-6 col-xs-12" })
-                    
-
-                </div>
-                <br>
-                <div class="row col-lg-12">
-
-                    @Html.Label("Producto Utiliza inventario ", new { @class = "col-lg-6 col-md-6 col-xs-12" })@Html.CheckBox("usainventario", false, new { htmlAttributes = new {@id="carajo", @class = "form-control col-lg-6 col-md-6 col-xs-12" } })
-
-                </div>
-                <br>
-                <div id="prueba" class="row col-lg-12">
-                    <div class="row col-lg-12">
-                        @Html.Label("Cantidad actual", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-
-                        @Html.EditorFor(model => model.productos.Cantidad_actual, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-
-
-                    </div>
-                    <br>
-                    <div class="row col-lg-12">
-                        @Html.Label("Cantidad minima", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-
-                        @Html.EditorFor(model => model.productos.Cantidad_minima, new { htmlAttributes = new { @id="Cantidad_minima", @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-
-
-                    </div>
-                </div>
-                    <br>
-                    <div class="row col-lg-12">
-
-                        <input type="submit" value="Guardar" class="btn btn-primary" />
-
-                    </div>
-                </div>
-            <div role="tabpanel" class="tab-pane active" id="tab2">
-
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <h2>Agregar producto o paquete</h2>
         </div>
-        
-           
-       
-      </div>
+        <div class="card-body">
+            <!-- Bordered Tabs -->
+            <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="producto-tab" data-bs-toggle="tab" data-bs-target="#bordered-producto" type="button" role="tab" aria-controls="producto" aria-selected="true">Producto</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="paquete-tab" data-bs-toggle="tab" data-bs-target="#bordered-paquete" type="button" role="tab" aria-controls="paquete" aria-selected="false">Paquete</button>
+                </li>
 
-            }
+            </ul>
+            <div class="tab-content pt-2" id="borderedTabContent">
+                <div class="tab-pane fade show active" id="bordered-producto" role="tabpanel" aria-labelledby="producto-tab">
+                    <div class="row col-lg-12">
+                        @Html.Label("Código de producto", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+
+                        @Html.EditorFor(model => model.productos.Codigo_producto, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
+
+
+                    </div>
+                    <br>
+                    <div class="row col-lg-12">
+                        @Html.Label("Descripción", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+
+                        @Html.EditorFor(model => model.productos.Descripcion, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
+
+
+                    </div>
+                    <br>
+                    <div class="row col-lg-12">
+                        @Html.Label("Se vende", htmlAttributes: new { @class = "control-label col-lg-3 col-md-3 col-xs-12" })
+
+                        @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 1, new { htmlAttributes = new { @class = "form-control col-lg-3 col-md-3 col-xs-12" } })@Html.Label("Por unidad/pieza")
+                        @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 2, new { htmlAttributes = new { @class = "form-control col-lg-3 col-md-3 col-xs-12" } })@Html.Label("A granel")
+                        @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 3, new { htmlAttributes = new { @class = "form-control col-lg-3 col-md-3 col-xs-12" } })@Html.Label("Como paquete")
+                    </div>
+
+                    <br>
+                    <div class="row col-lg-12">
+                        @Html.Label("Precio costo", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+
+                        @Html.EditorFor(model => model.productos.Precio_costo, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
+
+
+                    </div>
+                    <br>
+                    <div class="row col-lg-12">
+                        @Html.Label("Precio de venta", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+
+                        @Html.EditorFor(model => model.productos.Precio_venta, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
+
+
+                    </div>
+                    <br>
+                    <div class="row col-lg-12">
+                        @Html.Label("Precio de mayoreo", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+
+                        @Html.EditorFor(model => model.productos.Precio_mayoreo, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
+
+
+                    </div>
+                    <br>
+                    <div class="row col-lg-12">
+                        @Html.Label("Departamento", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+
+                        @Html.DropDownListFor(model => model.productos.Iddepartamento, new SelectList(Model.listadepartamento, "Iddepartmento", "Descripcion"), "Seleccione departamento", new { @class = "form-control col-lg-4 col-md-6 col-xs-12" })
+
+
+                    </div>
+                    <br>
+                    <div class="row col-lg-12">
+
+                        @Html.Label("Producto Utiliza inventario ", new { @class = "col-lg-6 col-md-6 col-xs-12" })@Html.CheckBox("usainventario", false, new { htmlAttributes = new { @id = "Chkuseinventario", @onchange = "valueChanged()", @class = "form-control col-lg-6 col-md-6 col-xs-12" } })
+
+                    </div>
+                    <br>
+                    <div id="dvcantidades" class="row col-lg-12">
+                        <div class="row col-lg-12">
+                            @Html.Label("Cantidad actual", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+
+                            @Html.EditorFor(model => model.productos.Cantidad_actual, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
+
+
+                        </div>
+                        <br>
+                        <div class="row col-lg-12">
+                            @Html.Label("Cantidad minima", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+
+                            @Html.EditorFor(model => model.productos.Cantidad_minima, new { htmlAttributes = new { @id = "Cantidad_minima", @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
+
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row col-lg-12">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-save">Guardar</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="bordered-paquete" role="tabpanel" aria-labelledby="paquete-tab">
+
+
+                </div>
+
+            </div><!-- End Bordered Tabs -->
+        </div>
+
+    </div>
+ 
+ }
 @section Scripts
 {
     <script type="text/javascript">
-        $('#prueba').hide();
-        $(document).ready(function () {
-            $("input[Value='true']").click(function () {
-                $("#prueba").show();
-            });
-            $("input[Value='false']").click(function () {
-                $("#prueba").hide();
-            });
-        });
+        function valueChanged() {
+            if ($('#coupon_question').is(":checked"))
+                $("#dvcantidades").show();
+            else
+                $("#dvcantidades").hide();
+        }
     </script>
 }

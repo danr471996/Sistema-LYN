@@ -38,7 +38,7 @@ namespace Monografia.Controllers
                 }
                 return PartialView(modelo_contenedor);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -80,7 +80,7 @@ namespace Monografia.Controllers
 
                 return PartialView(usuarios_tienda);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -107,7 +107,7 @@ namespace Monografia.Controllers
                 return PartialView(modelocontenedor);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -131,25 +131,17 @@ namespace Monografia.Controllers
 
 
 
-                    var usuarios_tienda = db.usuarios_tienda.Where(x => x.Idusuario == modelocontenedor.usuarios_tienda.Idusuario).FirstOrDefault();
-                    var usuarios_detalle = db.usuario_detalle.Where(x => x.Idusuario == modelocontenedor.usuarios_tienda.Idusuario).FirstOrDefault();
-                    var datosusuarios = (from u in db.usuarios_tienda
-                                         join u2 in db.usuario_detalle on u.Idusuario equals u2.Idusuario
-                                         where u.Idusuario == modelocontenedor.usuarios_tienda.Idusuario
-                                         select new
-                                         {
-                                             u,
-                                             u2
-                                         }).FirstOrDefault();
+                    var usuarios_tienda = db.usuarios_tienda.Include(x => x.usuario_detalle).Include(r=>r.usuarios_perfiles).Where(x => x.Idusuario == modelocontenedor.usuarios_tienda.Idusuario).FirstOrDefault();
 
-                    datosusuarios.u2.Nombre = modelocontenedor.usuario_detalle.Nombre;
-                    datosusuarios.u2.Apellido = modelocontenedor.usuario_detalle.Apellido;
-                    datosusuarios.u2.Direccion = modelocontenedor.usuario_detalle.Direccion;
-                    datosusuarios.u.Login = modelocontenedor.usuarios_tienda.Login;
-                    datosusuarios.u2.Telefono = modelocontenedor.usuario_detalle.Telefono;
-                    datosusuarios.u.Idusuario = modelocontenedor.usuarios_tienda.Idusuario;
-                    datosusuarios.u.Contraseña = modelocontenedor.usuarios_tienda.Contraseña;
-                    datosusuarios.u.Perfil = modelocontenedor.usuarios_tienda.Perfil;
+
+                    usuarios_tienda.usuario_detalle.FirstOrDefault().Primer_nombre = modelocontenedor.usuario_detalle.Primer_nombre;
+                    usuarios_tienda.usuario_detalle.FirstOrDefault().Primer_apellido = modelocontenedor.usuario_detalle.Primer_apellido;
+                    usuarios_tienda.usuario_detalle.FirstOrDefault().Direccion = modelocontenedor.usuario_detalle.Direccion;
+                    usuarios_tienda.Login = modelocontenedor.usuarios_tienda.Login;
+                    usuarios_tienda.usuario_detalle.FirstOrDefault().Telefono = modelocontenedor.usuario_detalle.Telefono;
+                    usuarios_tienda.Idusuario = modelocontenedor.usuarios_tienda.Idusuario;
+                    usuarios_tienda.Contraseña = modelocontenedor.usuarios_tienda.Contraseña;
+                    usuarios_tienda.Id_perfil = modelocontenedor.usuarios_tienda.Id_perfil;
 
                     db.SaveChanges();
 
@@ -157,7 +149,7 @@ namespace Monografia.Controllers
                 }
                 return PartialView(modelocontenedor.usuarios_tienda);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -182,7 +174,7 @@ namespace Monografia.Controllers
                 }
                 return PartialView(usuarios_tienda);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -197,20 +189,17 @@ namespace Monografia.Controllers
         {
             try
             {
-                var usuarios_tienda = db.usuarios_tienda.Join(db.usuario_detalle,
-                                          a => a.Idusuario,
-                                          b => b.Idusuario,
-                                          (x, y) => new { x, y }).Where(x => x.x.Idusuario.Equals(id)).FirstOrDefault();
+                var usuarios_tienda = db.usuarios_tienda.Include(a => a.usuario_detalle).Where(x => x.Idusuario.Equals(id)).FirstOrDefault();
 
-                usuarios_tienda.x.Fecha_baja = DateTime.Now;
-                usuarios_tienda.x.Usuario_baja = (string)Session["usuario_logueado"];
-                usuarios_tienda.x.Estado_usuario = 2;
-                usuarios_tienda.y.Fecha_baja = DateTime.Now;
-                usuarios_tienda.y.Usuario_baja = (string)Session["usuario_logueado"];
+                usuarios_tienda.Fecha_baja = DateTime.Now;
+                usuarios_tienda.Usuario_baja = (string)Session["usuario_logueado"];
+                usuarios_tienda.Estado_usuario = 2;
+                usuarios_tienda.Fecha_baja = DateTime.Now;
+                usuarios_tienda.Usuario_baja = (string)Session["usuario_logueado"];
                 db.SaveChanges();
                 return Json(new { success = true });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;

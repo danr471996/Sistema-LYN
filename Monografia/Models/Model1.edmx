@@ -14,10 +14,14 @@
           <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="Fecha_baja" Type="datetime" Precision="0" />
           <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
-          <Property Name="Nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Primer_nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Segundo_nombre" Type="varchar" MaxLength="45" />
+          <Property Name="Primer_apellido" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Segundo_apellido" Type="varchar" MaxLength="45" />
           <Property Name="Direccion" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Telefono" Type="int" />
-          <Property Name="Limite_credito" Type="int" />
+          <Property Name="Id_tipocredito" Type="int" Nullable="false" />
+          <Property Name="Cantidad_credito" Type="int" />
           <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="creditos">
@@ -57,7 +61,7 @@
           <Property Name="Fecha_baja" Type="datetime" Precision="0" />
           <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
           <Property Name="Id_factura" Type="int" Nullable="false" />
-          <Property Name="Id_producto" Type="int" Nullable="false" />
+          <Property Name="Idproducto" Type="int" Nullable="false" />
           <Property Name="Cantidad" Type="int" Nullable="false" />
           <Property Name="Monto" Type="decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="Estado" Type="int" Nullable="false" />
@@ -86,19 +90,25 @@
           <Property Name="Fecha_baja" Type="datetime" Precision="0" />
           <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
           <Property Name="Codigo_producto" Type="int" Nullable="false" />
+          <Property Name="Id_proveedor" Type="int" Nullable="false" />
           <Property Name="Cantidad_producto" Type="int" Nullable="false" />
           <Property Name="Precio_compra" Type="decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="lista_permisos">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Id_permiso" />
           </Key>
-          <Property Name="ID" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="TEXTO" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Id_permiso" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Usuario_alta" Type="varchar" MaxLength="45" />
+          <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+          <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="SELECCIONADO" Type="tinyint" Nullable="false" />
           <Property Name="GRUPO" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="INICIO_GRUPO" Type="tinyint" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="opciones">
           <Key>
@@ -119,8 +129,8 @@
           <Property Name="Idpagos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
           <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+          <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
           <Property Name="Id_factura" Type="int" />
           <Property Name="Monto_pagado" Type="decimal" Precision="15" Scale="2" />
           <Property Name="Estado" Type="int" Nullable="false" />
@@ -137,12 +147,12 @@
           <Property Name="Codigo_producto" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="Estado" Type="int" Nullable="false" />
-          <Property Name="Tipo_venta" Type="int" />
+          <Property Name="Id_tipoventas" Type="int" Nullable="false" />
           <Property Name="Precio_costo" Type="decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="Precio_venta" Type="decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="Precio_mayoreo" Type="decimal" Precision="15" Scale="2" Nullable="false" />
-          <Property Name="Coddepartamento" Type="int" Nullable="false" />
-          <Property Name="Usa_inventario" Type="int" />
+          <Property Name="Iddepartamento" Type="int" Nullable="false" />
+          <Property Name="Usa_inventario" Type="int" Nullable="false" />
           <Property Name="Cantidad_actual" Type="int" />
           <Property Name="Cantidad_minima" Type="int" />
         </EntityType>
@@ -155,7 +165,7 @@
           <Property Name="Fecha_baja" Type="datetime" Precision="0" />
           <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
           <Property Name="Nombre_promocion" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="Cod_producto" Type="int" Nullable="false" />
+          <Property Name="Id_producto" Type="int" Nullable="false" />
           <Property Name="Cant_desde" Type="int" Nullable="false" />
           <Property Name="Cant_hasta" Type="int" Nullable="false" />
           <Property Name="Precio_unitario" Type="int" Nullable="false" />
@@ -163,9 +173,9 @@
         </EntityType>
         <EntityType Name="proveedor">
           <Key>
-            <PropertyRef Name="idProveedor" />
+            <PropertyRef Name="IdProveedor" />
           </Key>
-          <Property Name="idProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="Fecha_baja" Type="datetime" Precision="0" />
@@ -176,11 +186,27 @@
           <Property Name="Direccion" Type="varchar" MaxLength="45" />
           <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="tipo_credito">
+          <Key>
+            <PropertyRef Name="Id_tipocredito" />
+          </Key>
+          <Property Name="Id_tipocredito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+          <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tipo_ventas">
           <Key>
-            <PropertyRef Name="idtipo_ventas" />
+            <PropertyRef Name="Id_tipoventas" />
           </Key>
-          <Property Name="idtipo_ventas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_tipoventas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+          <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
           <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
@@ -207,8 +233,10 @@
           <Property Name="Fecha_baja" Type="datetime" Precision="0" />
           <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
           <Property Name="Idusuario" Type="int" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="Apellido" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Primer_nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Segundo_nombre" Type="varchar" MaxLength="45" />
+          <Property Name="Primer_apellido" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Segundo_apellido" Type="varchar" MaxLength="45" />
           <Property Name="Telefono" Type="int" />
           <Property Name="Direccion" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
@@ -221,15 +249,21 @@
           <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="Fecha_baja" Type="datetime" Precision="0" />
           <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
-          <Property Name="Id_usuario" Type="int" Nullable="false" />
+          <Property Name="Idusuario" Type="int" Nullable="false" />
           <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="usuarios_perfiles">
           <Key>
-            <PropertyRef Name="perfil" />
+            <PropertyRef Name="Id_perfil" />
           </Key>
-          <Property Name="perfil" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="codigo_perfil" Type="varchar" MaxLength="350" Nullable="false" />
+          <Property Name="Id_perfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+          <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+          <Property Name="Descripcion_perfil" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Codigo_accesos_perfil" Type="varchar" MaxLength="350" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="usuarios_tienda">
           <Key>
@@ -242,9 +276,141 @@
           <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
           <Property Name="Login" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="Contraseña" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="Perfil" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Id_perfil" Type="int" Nullable="false" />
           <Property Name="Estado_usuario" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="fk_departamento">
+          <End Role="departamento" Type="Self.departamento" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departamento">
+              <PropertyRef Name="Iddepartmento" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="Iddepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_factura">
+          <End Role="factura" Type="Self.factura" Multiplicity="1" />
+          <End Role="detalle_factura" Type="Self.detalle_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="factura">
+              <PropertyRef Name="Idfactura" />
+            </Principal>
+            <Dependent Role="detalle_factura">
+              <PropertyRef Name="Id_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_facturas">
+          <End Role="factura" Type="Self.factura" Multiplicity="0..1" />
+          <End Role="pagos" Type="Self.pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="factura">
+              <PropertyRef Name="Idfactura" />
+            </Principal>
+            <Dependent Role="pagos">
+              <PropertyRef Name="Id_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_producto">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="detalle_factura" Type="Self.detalle_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="Idproducto" />
+            </Principal>
+            <Dependent Role="detalle_factura">
+              <PropertyRef Name="Idproducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="promocion" Type="Self.promocion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="Idproducto" />
+            </Principal>
+            <Dependent Role="promocion">
+              <PropertyRef Name="Id_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_proveedor">
+          <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
+          <End Role="facturas_proveedor" Type="Self.facturas_proveedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proveedor">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="facturas_proveedor">
+              <PropertyRef Name="Id_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipo_credito">
+          <End Role="tipo_credito" Type="Self.tipo_credito" Multiplicity="1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_credito">
+              <PropertyRef Name="Id_tipocredito" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="Id_tipocredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipo_ventas">
+          <End Role="tipo_ventas" Type="Self.tipo_ventas" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_ventas">
+              <PropertyRef Name="Id_tipoventas" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="Id_tipoventas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarios_perfiles">
+          <End Role="usuarios_perfiles" Type="Self.usuarios_perfiles" Multiplicity="1" />
+          <End Role="usuarios_tienda" Type="Self.usuarios_tienda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios_perfiles">
+              <PropertyRef Name="Id_perfil" />
+            </Principal>
+            <Dependent Role="usuarios_tienda">
+              <PropertyRef Name="Id_perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarios_tienda">
+          <End Role="usuarios_tienda" Type="Self.usuarios_tienda" Multiplicity="1" />
+          <End Role="usuario_detalle" Type="Self.usuario_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios_tienda">
+              <PropertyRef Name="Idusuario" />
+            </Principal>
+            <Dependent Role="usuario_detalle">
+              <PropertyRef Name="Idusuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fr_usuarios_tiendas">
+          <End Role="usuarios_tienda" Type="Self.usuarios_tienda" Multiplicity="1" />
+          <End Role="usuario_sesion" Type="Self.usuario_sesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios_tienda">
+              <PropertyRef Name="Idusuario" />
+            </Principal>
+            <Dependent Role="usuario_sesion">
+              <PropertyRef Name="Idusuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="proyectotiendaModelStoreContainer">
           <EntitySet Name="clientes" EntityType="Self.clientes" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="creditos" EntityType="Self.creditos" Schema="proyectotienda" store:Type="Tables" />
@@ -258,12 +424,57 @@
           <EntitySet Name="productos" EntityType="Self.productos" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="promocion" EntityType="Self.promocion" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="proveedor" EntityType="Self.proveedor" Schema="proyectotienda" store:Type="Tables" />
+          <EntitySet Name="tipo_credito" EntityType="Self.tipo_credito" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="tipo_ventas" EntityType="Self.tipo_ventas" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="unidad_medida" EntityType="Self.unidad_medida" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="usuario_detalle" EntityType="Self.usuario_detalle" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="usuario_sesion" EntityType="Self.usuario_sesion" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="usuarios_perfiles" EntityType="Self.usuarios_perfiles" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="usuarios_tienda" EntityType="Self.usuarios_tienda" Schema="proyectotienda" store:Type="Tables" />
+          <AssociationSet Name="fk_departamento" Association="Self.fk_departamento">
+            <End Role="departamento" EntitySet="departamento" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_factura" Association="Self.fk_factura">
+            <End Role="factura" EntitySet="factura" />
+            <End Role="detalle_factura" EntitySet="detalle_factura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_facturas" Association="Self.fk_facturas">
+            <End Role="factura" EntitySet="factura" />
+            <End Role="pagos" EntitySet="pagos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_producto" Association="Self.fk_producto">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="detalle_factura" EntitySet="detalle_factura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos" Association="Self.fk_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="promocion" EntitySet="promocion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_proveedor" Association="Self.fk_proveedor">
+            <End Role="proveedor" EntitySet="proveedor" />
+            <End Role="facturas_proveedor" EntitySet="facturas_proveedor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipo_credito" Association="Self.fk_tipo_credito">
+            <End Role="tipo_credito" EntitySet="tipo_credito" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipo_ventas" Association="Self.fk_tipo_ventas">
+            <End Role="tipo_ventas" EntitySet="tipo_ventas" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarios_perfiles" Association="Self.fk_usuarios_perfiles">
+            <End Role="usuarios_perfiles" EntitySet="usuarios_perfiles" />
+            <End Role="usuarios_tienda" EntitySet="usuarios_tienda" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarios_tienda" Association="Self.fk_usuarios_tienda">
+            <End Role="usuarios_tienda" EntitySet="usuarios_tienda" />
+            <End Role="usuario_detalle" EntitySet="usuario_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="fr_usuarios_tiendas" Association="Self.fr_usuarios_tiendas">
+            <End Role="usuarios_tienda" EntitySet="usuarios_tienda" />
+            <End Role="usuario_sesion" EntitySet="usuario_sesion" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -282,12 +493,57 @@
           <EntitySet Name="productos" EntityType="proyectotiendaModel.productos" />
           <EntitySet Name="promocion" EntityType="proyectotiendaModel.promocion" />
           <EntitySet Name="proveedor" EntityType="proyectotiendaModel.proveedor" />
+          <EntitySet Name="tipo_credito" EntityType="proyectotiendaModel.tipo_credito" />
           <EntitySet Name="tipo_ventas" EntityType="proyectotiendaModel.tipo_ventas" />
           <EntitySet Name="unidad_medida" EntityType="proyectotiendaModel.unidad_medida" />
-          <EntitySet Name="usuarios_perfiles" EntityType="proyectotiendaModel.usuarios_perfiles" />
-          <EntitySet Name="usuarios_tienda" EntityType="proyectotiendaModel.usuarios_tienda" />
           <EntitySet Name="usuario_detalle" EntityType="proyectotiendaModel.usuario_detalle" />
           <EntitySet Name="usuario_sesion" EntityType="proyectotiendaModel.usuario_sesion" />
+          <EntitySet Name="usuarios_perfiles" EntityType="proyectotiendaModel.usuarios_perfiles" />
+          <EntitySet Name="usuarios_tienda" EntityType="proyectotiendaModel.usuarios_tienda" />
+          <AssociationSet Name="fk_tipo_credito" Association="proyectotiendaModel.fk_tipo_credito">
+            <End Role="tipo_credito" EntitySet="tipo_credito" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_departamento" Association="proyectotiendaModel.fk_departamento">
+            <End Role="departamento" EntitySet="departamento" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_factura" Association="proyectotiendaModel.fk_factura">
+            <End Role="factura" EntitySet="factura" />
+            <End Role="detalle_factura" EntitySet="detalle_factura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_producto" Association="proyectotiendaModel.fk_producto">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="detalle_factura" EntitySet="detalle_factura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_facturas" Association="proyectotiendaModel.fk_facturas">
+            <End Role="factura" EntitySet="factura" />
+            <End Role="pagos" EntitySet="pagos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_proveedor" Association="proyectotiendaModel.fk_proveedor">
+            <End Role="proveedor" EntitySet="proveedor" />
+            <End Role="facturas_proveedor" EntitySet="facturas_proveedor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos" Association="proyectotiendaModel.fk_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="promocion" EntitySet="promocion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipo_ventas" Association="proyectotiendaModel.fk_tipo_ventas">
+            <End Role="tipo_ventas" EntitySet="tipo_ventas" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarios_tienda" Association="proyectotiendaModel.fk_usuarios_tienda">
+            <End Role="usuarios_tienda" EntitySet="usuarios_tienda" />
+            <End Role="usuario_detalle" EntitySet="usuario_detalle" />
+          </AssociationSet>
+          <AssociationSet Name="fr_usuarios_tiendas" Association="proyectotiendaModel.fr_usuarios_tiendas">
+            <End Role="usuarios_tienda" EntitySet="usuarios_tienda" />
+            <End Role="usuario_sesion" EntitySet="usuario_sesion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarios_perfiles" Association="proyectotiendaModel.fk_usuarios_perfiles">
+            <End Role="usuarios_perfiles" EntitySet="usuarios_perfiles" />
+            <End Role="usuarios_tienda" EntitySet="usuarios_tienda" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="clientes">
           <Key>
@@ -298,11 +554,16 @@
           <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Fecha_baja" Type="DateTime" />
           <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Primer_nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Segundo_nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Primer_apellido" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Segundo_apellido" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Direccion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Telefono" Type="Int32" />
-          <Property Name="Limite_credito" Type="Int32" />
+          <Property Name="Id_tipocredito" Type="Int32" Nullable="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tipo_credito" Relationship="proyectotiendaModel.fk_tipo_credito" FromRole="clientes" ToRole="tipo_credito" />
+          <Property Name="Cantidad_credito" Type="Int32" />
         </EntityType>
         <EntityType Name="creditos">
           <Key>
@@ -330,6 +591,7 @@
           <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="productos" Relationship="proyectotiendaModel.fk_departamento" FromRole="departamento" ToRole="productos" />
         </EntityType>
         <EntityType Name="detalle_factura">
           <Key>
@@ -341,10 +603,12 @@
           <Property Name="Fecha_baja" Type="DateTime" />
           <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Id_factura" Type="Int32" Nullable="false" />
-          <Property Name="Id_producto" Type="Int32" Nullable="false" />
+          <Property Name="Idproducto" Type="Int32" Nullable="false" />
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
           <Property Name="Monto" Type="Decimal" Nullable="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="factura" Relationship="proyectotiendaModel.fk_factura" FromRole="detalle_factura" ToRole="factura" />
+          <NavigationProperty Name="productos" Relationship="proyectotiendaModel.fk_producto" FromRole="detalle_factura" ToRole="productos" />
         </EntityType>
         <EntityType Name="factura">
           <Key>
@@ -359,6 +623,8 @@
           <Property Name="Num_factura" Type="Int32" Nullable="false" />
           <Property Name="Monto_total" Type="Decimal" Nullable="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="detalle_factura" Relationship="proyectotiendaModel.fk_factura" FromRole="factura" ToRole="detalle_factura" />
+          <NavigationProperty Name="pagos" Relationship="proyectotiendaModel.fk_facturas" FromRole="factura" ToRole="pagos" />
         </EntityType>
         <EntityType Name="facturas_proveedor">
           <Key>
@@ -370,19 +636,26 @@
           <Property Name="Fecha_baja" Type="DateTime" />
           <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Codigo_producto" Type="Int32" Nullable="false" />
+          <Property Name="Id_proveedor" Type="Int32" Nullable="false" />
           <Property Name="Cantidad_producto" Type="Int32" Nullable="false" />
           <Property Name="Precio_compra" Type="Decimal" Nullable="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="proveedor" Relationship="proyectotiendaModel.fk_proveedor" FromRole="facturas_proveedor" ToRole="proveedor" />
         </EntityType>
         <EntityType Name="lista_permisos">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Id_permiso" />
           </Key>
-          <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TEXTO" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Id_permiso" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="Usuario_alta" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_baja" Type="DateTime" />
+          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="SELECCIONADO" Type="SByte" Nullable="false" />
           <Property Name="GRUPO" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="INICIO_GRUPO" Type="SByte" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="opciones">
           <Key>
@@ -403,11 +676,12 @@
           <Property Name="Idpagos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
           <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Fecha_baja" Type="DateTime" />
+          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Id_factura" Type="Int32" />
           <Property Name="Monto_pagado" Type="Decimal" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="factura" Relationship="proyectotiendaModel.fk_facturas" FromRole="pagos" ToRole="factura" />
         </EntityType>
         <EntityType Name="productos">
           <Key>
@@ -421,14 +695,18 @@
           <Property Name="Codigo_producto" Type="Int32" Nullable="false" />
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
-          <Property Name="Tipo_venta" Type="Int32" />
+          <Property Name="Id_tipoventas" Type="Int32" Nullable="false" />
           <Property Name="Precio_costo" Type="Decimal" Nullable="false" />
           <Property Name="Precio_venta" Type="Decimal" Nullable="false" />
           <Property Name="Precio_mayoreo" Type="Decimal" Nullable="false" />
-          <Property Name="Coddepartamento" Type="Int32" Nullable="false" />
-          <Property Name="Usa_inventario" Type="Int32" />
+          <Property Name="Iddepartamento" Type="Int32" Nullable="false" />
+          <Property Name="Usa_inventario" Type="Int32" Nullable="false" />
           <Property Name="Cantidad_actual" Type="Int32" />
           <Property Name="Cantidad_minima" Type="Int32" />
+          <NavigationProperty Name="departamento" Relationship="proyectotiendaModel.fk_departamento" FromRole="productos" ToRole="departamento" />
+          <NavigationProperty Name="detalle_factura" Relationship="proyectotiendaModel.fk_producto" FromRole="productos" ToRole="detalle_factura" />
+          <NavigationProperty Name="promocion" Relationship="proyectotiendaModel.fk_productos" FromRole="productos" ToRole="promocion" />
+          <NavigationProperty Name="tipo_ventas" Relationship="proyectotiendaModel.fk_tipo_ventas" FromRole="productos" ToRole="tipo_ventas" />
         </EntityType>
         <EntityType Name="promocion">
           <Key>
@@ -439,17 +717,18 @@
           <Property Name="Fecha_baja" Type="DateTime" />
           <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Nombre_promocion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Cod_producto" Type="Int32" Nullable="false" />
+          <Property Name="Id_producto" Type="Int32" Nullable="false" />
           <Property Name="Cant_desde" Type="Int32" Nullable="false" />
           <Property Name="Cant_hasta" Type="Int32" Nullable="false" />
           <Property Name="Precio_unitario" Type="Int32" Nullable="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="productos" Relationship="proyectotiendaModel.fk_productos" FromRole="promocion" ToRole="productos" />
         </EntityType>
         <EntityType Name="proveedor">
           <Key>
-            <PropertyRef Name="idProveedor" />
+            <PropertyRef Name="IdProveedor" />
           </Key>
-          <Property Name="idProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
           <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Fecha_baja" Type="DateTime" />
@@ -459,14 +738,33 @@
           <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Direccion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="facturas_proveedor" Relationship="proyectotiendaModel.fk_proveedor" FromRole="proveedor" ToRole="facturas_proveedor" />
+        </EntityType>
+        <EntityType Name="tipo_credito">
+          <Key>
+            <PropertyRef Name="Id_tipocredito" />
+          </Key>
+          <Property Name="Id_tipocredito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_baja" Type="DateTime" />
+          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="clientes" Relationship="proyectotiendaModel.fk_tipo_credito" FromRole="tipo_credito" ToRole="clientes" />
         </EntityType>
         <EntityType Name="tipo_ventas">
           <Key>
-            <PropertyRef Name="idtipo_ventas" />
+            <PropertyRef Name="Id_tipoventas" />
           </Key>
-          <Property Name="idtipo_ventas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_tipoventas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_baja" Type="DateTime" />
+          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="productos" Relationship="proyectotiendaModel.fk_tipo_ventas" FromRole="tipo_ventas" ToRole="productos" />
         </EntityType>
         <EntityType Name="unidad_medida">
           <Key>
@@ -481,12 +779,50 @@
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="usuario_detalle">
+          <Key>
+            <PropertyRef Name="Idusuariodetalle" />
+          </Key>
+          <Property Name="Idusuariodetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_baja" Type="DateTime" />
+          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Idusuario" Type="Int32" Nullable="false" />
+          <Property Name="Primer_nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Segundo_nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Primer_apellido" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Segundo_apellido" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="Int32" />
+          <Property Name="Direccion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuarios_tienda" Relationship="proyectotiendaModel.fk_usuarios_tienda" FromRole="usuario_detalle" ToRole="usuarios_tienda" />
+        </EntityType>
+        <EntityType Name="usuario_sesion">
+          <Key>
+            <PropertyRef Name="Idusuario_sesion" />
+          </Key>
+          <Property Name="Idusuario_sesion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_baja" Type="DateTime" />
+          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Idusuario" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuarios_tienda" Relationship="proyectotiendaModel.fr_usuarios_tiendas" FromRole="usuario_sesion" ToRole="usuarios_tienda" />
+        </EntityType>
         <EntityType Name="usuarios_perfiles">
           <Key>
-            <PropertyRef Name="perfil" />
+            <PropertyRef Name="Id_perfil" />
           </Key>
-          <Property Name="perfil" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="codigo_perfil" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="Id_perfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_baja" Type="DateTime" />
+          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion_perfil" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Codigo_accesos_perfil" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuarios_tienda" Relationship="proyectotiendaModel.fk_usuarios_perfiles" FromRole="usuarios_perfiles" ToRole="usuarios_tienda" />
         </EntityType>
         <EntityType Name="usuarios_tienda">
           <Key>
@@ -499,37 +835,145 @@
           <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Login" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Contraseña" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Perfil" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Id_perfil" Type="Int32" Nullable="false" />
           <Property Name="Estado_usuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuario_detalle" Relationship="proyectotiendaModel.fk_usuarios_tienda" FromRole="usuarios_tienda" ToRole="usuario_detalle" />
+          <NavigationProperty Name="usuario_sesion" Relationship="proyectotiendaModel.fr_usuarios_tiendas" FromRole="usuarios_tienda" ToRole="usuario_sesion" />
+          <NavigationProperty Name="usuarios_perfiles" Relationship="proyectotiendaModel.fk_usuarios_perfiles" FromRole="usuarios_tienda" ToRole="usuarios_perfiles" />
         </EntityType>
-        <EntityType Name="usuario_detalle">
-          <Key>
-            <PropertyRef Name="Idusuariodetalle" />
-          </Key>
-          <Property Name="Idusuariodetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
-          <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Fecha_baja" Type="DateTime" />
-          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Idusuario" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Apellido" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Telefono" Type="Int32" />
-          <Property Name="Direccion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="usuario_sesion">
-          <Key>
-            <PropertyRef Name="Idusuario_sesion" />
-          </Key>
-          <Property Name="Idusuario_sesion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
-          <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Fecha_baja" Type="DateTime" />
-          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Id_usuario" Type="Int32" Nullable="false" />
-          <Property Name="Estado" Type="Int32" Nullable="false" />
-        </EntityType>
-      </Schema>
+        <Association Name="fk_tipo_credito">
+          <End Type="proyectotiendaModel.tipo_credito" Role="tipo_credito" Multiplicity="1" />
+          <End Type="proyectotiendaModel.clientes" Role="clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_credito">
+              <PropertyRef Name="Id_tipocredito" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="Id_tipocredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_departamento">
+          <End Type="proyectotiendaModel.departamento" Role="departamento" Multiplicity="1" />
+          <End Type="proyectotiendaModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departamento">
+              <PropertyRef Name="Iddepartmento" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="Iddepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_factura">
+          <End Type="proyectotiendaModel.factura" Role="factura" Multiplicity="1" />
+          <End Type="proyectotiendaModel.detalle_factura" Role="detalle_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="factura">
+              <PropertyRef Name="Idfactura" />
+            </Principal>
+            <Dependent Role="detalle_factura">
+              <PropertyRef Name="Id_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_producto">
+          <End Type="proyectotiendaModel.productos" Role="productos" Multiplicity="1" />
+          <End Type="proyectotiendaModel.detalle_factura" Role="detalle_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="Idproducto" />
+            </Principal>
+            <Dependent Role="detalle_factura">
+              <PropertyRef Name="Idproducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_facturas">
+          <End Type="proyectotiendaModel.factura" Role="factura" Multiplicity="0..1" />
+          <End Type="proyectotiendaModel.pagos" Role="pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="factura">
+              <PropertyRef Name="Idfactura" />
+            </Principal>
+            <Dependent Role="pagos">
+              <PropertyRef Name="Id_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_proveedor">
+          <End Type="proyectotiendaModel.proveedor" Role="proveedor" Multiplicity="1" />
+          <End Type="proyectotiendaModel.facturas_proveedor" Role="facturas_proveedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proveedor">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="facturas_proveedor">
+              <PropertyRef Name="Id_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos">
+          <End Type="proyectotiendaModel.productos" Role="productos" Multiplicity="1" />
+          <End Type="proyectotiendaModel.promocion" Role="promocion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="Idproducto" />
+            </Principal>
+            <Dependent Role="promocion">
+              <PropertyRef Name="Id_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipo_ventas">
+          <End Type="proyectotiendaModel.tipo_ventas" Role="tipo_ventas" Multiplicity="1" />
+          <End Type="proyectotiendaModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_ventas">
+              <PropertyRef Name="Id_tipoventas" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="Id_tipoventas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarios_tienda">
+          <End Type="proyectotiendaModel.usuarios_tienda" Role="usuarios_tienda" Multiplicity="1" />
+          <End Type="proyectotiendaModel.usuario_detalle" Role="usuario_detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios_tienda">
+              <PropertyRef Name="Idusuario" />
+            </Principal>
+            <Dependent Role="usuario_detalle">
+              <PropertyRef Name="Idusuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fr_usuarios_tiendas">
+          <End Type="proyectotiendaModel.usuarios_tienda" Role="usuarios_tienda" Multiplicity="1" />
+          <End Type="proyectotiendaModel.usuario_sesion" Role="usuario_sesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios_tienda">
+              <PropertyRef Name="Idusuario" />
+            </Principal>
+            <Dependent Role="usuario_sesion">
+              <PropertyRef Name="Idusuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarios_perfiles">
+          <End Type="proyectotiendaModel.usuarios_perfiles" Role="usuarios_perfiles" Multiplicity="1" />
+          <End Type="proyectotiendaModel.usuarios_tienda" Role="usuarios_tienda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios_perfiles">
+              <PropertyRef Name="Id_perfil" />
+            </Principal>
+            <Dependent Role="usuarios_tienda">
+              <PropertyRef Name="Id_perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -538,11 +982,15 @@
           <EntitySetMapping Name="clientes">
             <EntityTypeMapping TypeName="proyectotiendaModel.clientes">
               <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="Cantidad_credito" ColumnName="Cantidad_credito" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Limite_credito" ColumnName="Limite_credito" />
+                <ScalarProperty Name="Id_tipocredito" ColumnName="Id_tipocredito" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="Direccion" ColumnName="Direccion" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Segundo_apellido" ColumnName="Segundo_apellido" />
+                <ScalarProperty Name="Primer_apellido" ColumnName="Primer_apellido" />
+                <ScalarProperty Name="Segundo_nombre" ColumnName="Segundo_nombre" />
+                <ScalarProperty Name="Primer_nombre" ColumnName="Primer_nombre" />
                 <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
                 <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
                 <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
@@ -586,7 +1034,7 @@
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Monto" ColumnName="Monto" />
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="Id_producto" ColumnName="Id_producto" />
+                <ScalarProperty Name="Idproducto" ColumnName="Idproducto" />
                 <ScalarProperty Name="Id_factura" ColumnName="Id_factura" />
                 <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
                 <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
@@ -617,6 +1065,7 @@
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Precio_compra" ColumnName="Precio_compra" />
                 <ScalarProperty Name="Cantidad_producto" ColumnName="Cantidad_producto" />
+                <ScalarProperty Name="Id_proveedor" ColumnName="Id_proveedor" />
                 <ScalarProperty Name="Codigo_producto" ColumnName="Codigo_producto" />
                 <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
                 <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
@@ -629,11 +1078,16 @@
           <EntitySetMapping Name="lista_permisos">
             <EntityTypeMapping TypeName="proyectotiendaModel.lista_permisos">
               <MappingFragment StoreEntitySet="lista_permisos">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="INICIO_GRUPO" ColumnName="INICIO_GRUPO" />
                 <ScalarProperty Name="GRUPO" ColumnName="GRUPO" />
                 <ScalarProperty Name="SELECCIONADO" ColumnName="SELECCIONADO" />
-                <ScalarProperty Name="TEXTO" ColumnName="TEXTO" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
+                <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
+                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+                <ScalarProperty Name="Id_permiso" ColumnName="Id_permiso" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -656,8 +1110,8 @@
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Monto_pagado" ColumnName="Monto_pagado" />
                 <ScalarProperty Name="Id_factura" ColumnName="Id_factura" />
-                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
                 <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
                 <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
                 <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
                 <ScalarProperty Name="Idpagos" ColumnName="Idpagos" />
@@ -670,11 +1124,11 @@
                 <ScalarProperty Name="Cantidad_minima" ColumnName="Cantidad_minima" />
                 <ScalarProperty Name="Cantidad_actual" ColumnName="Cantidad_actual" />
                 <ScalarProperty Name="Usa_inventario" ColumnName="Usa_inventario" />
-                <ScalarProperty Name="Coddepartamento" ColumnName="Coddepartamento" />
+                <ScalarProperty Name="Iddepartamento" ColumnName="Iddepartamento" />
                 <ScalarProperty Name="Precio_mayoreo" ColumnName="Precio_mayoreo" />
                 <ScalarProperty Name="Precio_venta" ColumnName="Precio_venta" />
                 <ScalarProperty Name="Precio_costo" ColumnName="Precio_costo" />
-                <ScalarProperty Name="Tipo_venta" ColumnName="Tipo_venta" />
+                <ScalarProperty Name="Id_tipoventas" ColumnName="Id_tipoventas" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Codigo_producto" ColumnName="Codigo_producto" />
@@ -693,7 +1147,7 @@
                 <ScalarProperty Name="Precio_unitario" ColumnName="Precio_unitario" />
                 <ScalarProperty Name="Cant_hasta" ColumnName="Cant_hasta" />
                 <ScalarProperty Name="Cant_desde" ColumnName="Cant_desde" />
-                <ScalarProperty Name="Cod_producto" ColumnName="Cod_producto" />
+                <ScalarProperty Name="Id_producto" ColumnName="Id_producto" />
                 <ScalarProperty Name="Nombre_promocion" ColumnName="Nombre_promocion" />
                 <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
                 <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
@@ -714,7 +1168,20 @@
                 <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
                 <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
                 <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
-                <ScalarProperty Name="idProveedor" ColumnName="idProveedor" />
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipo_credito">
+            <EntityTypeMapping TypeName="proyectotiendaModel.tipo_credito">
+              <MappingFragment StoreEntitySet="tipo_credito">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
+                <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
+                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+                <ScalarProperty Name="Id_tipocredito" ColumnName="Id_tipocredito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -723,7 +1190,11 @@
               <MappingFragment StoreEntitySet="tipo_ventas">
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="idtipo_ventas" ColumnName="idtipo_ventas" />
+                <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
+                <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
+                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+                <ScalarProperty Name="Id_tipoventas" ColumnName="Id_tipoventas" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -741,36 +1212,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="usuarios_perfiles">
-            <EntityTypeMapping TypeName="proyectotiendaModel.usuarios_perfiles">
-              <MappingFragment StoreEntitySet="usuarios_perfiles">
-                <ScalarProperty Name="codigo_perfil" ColumnName="codigo_perfil" />
-                <ScalarProperty Name="perfil" ColumnName="perfil" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="usuarios_tienda">
-            <EntityTypeMapping TypeName="proyectotiendaModel.usuarios_tienda">
-              <MappingFragment StoreEntitySet="usuarios_tienda">
-                <ScalarProperty Name="Estado_usuario" ColumnName="Estado_usuario" />
-                <ScalarProperty Name="Perfil" ColumnName="Perfil" />
-                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
-                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
-                <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
-                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
-                <ScalarProperty Name="Idusuario" ColumnName="Idusuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="usuario_detalle">
             <EntityTypeMapping TypeName="proyectotiendaModel.usuario_detalle">
               <MappingFragment StoreEntitySet="usuario_detalle">
                 <ScalarProperty Name="Direccion" ColumnName="Direccion" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
-                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Segundo_apellido" ColumnName="Segundo_apellido" />
+                <ScalarProperty Name="Primer_apellido" ColumnName="Primer_apellido" />
+                <ScalarProperty Name="Segundo_nombre" ColumnName="Segundo_nombre" />
+                <ScalarProperty Name="Primer_nombre" ColumnName="Primer_nombre" />
                 <ScalarProperty Name="Idusuario" ColumnName="Idusuario" />
                 <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
                 <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
@@ -784,12 +1234,41 @@
             <EntityTypeMapping TypeName="proyectotiendaModel.usuario_sesion">
               <MappingFragment StoreEntitySet="usuario_sesion">
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Id_usuario" ColumnName="Id_usuario" />
+                <ScalarProperty Name="Idusuario" ColumnName="Idusuario" />
                 <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
                 <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
                 <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
                 <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
                 <ScalarProperty Name="Idusuario_sesion" ColumnName="Idusuario_sesion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios_perfiles">
+            <EntityTypeMapping TypeName="proyectotiendaModel.usuarios_perfiles">
+              <MappingFragment StoreEntitySet="usuarios_perfiles">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Codigo_accesos_perfil" ColumnName="Codigo_accesos_perfil" />
+                <ScalarProperty Name="Descripcion_perfil" ColumnName="Descripcion_perfil" />
+                <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
+                <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
+                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+                <ScalarProperty Name="Id_perfil" ColumnName="Id_perfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios_tienda">
+            <EntityTypeMapping TypeName="proyectotiendaModel.usuarios_tienda">
+              <MappingFragment StoreEntitySet="usuarios_tienda">
+                <ScalarProperty Name="Estado_usuario" ColumnName="Estado_usuario" />
+                <ScalarProperty Name="Id_perfil" ColumnName="Id_perfil" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
+                <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
+                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+                <ScalarProperty Name="Idusuario" ColumnName="Idusuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

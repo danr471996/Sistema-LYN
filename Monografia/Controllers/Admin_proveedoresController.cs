@@ -114,7 +114,7 @@ namespace Monografia.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var datosproveedores = (db.proveedor.Where(x => x.idProveedor == proveedor.idProveedor).FirstOrDefault());
+                    var datosproveedores = (db.proveedor.Where(x => x.IdProveedor == proveedor.IdProveedor).FirstOrDefault());
                     datosproveedores.Descripcion = proveedor.Descripcion;
                     datosproveedores.Direccion = proveedor.Direccion;
                     datosproveedores.Email = proveedor.Email;
@@ -164,7 +164,7 @@ namespace Monografia.Controllers
         {
             try
             {
-                var datosproveedor = (from d in db.proveedor where d.idProveedor == id select d).FirstOrDefault();
+                var datosproveedor = (from d in db.proveedor where d.IdProveedor == id select d).FirstOrDefault();
                 datosproveedor.Fecha_baja = DateTime.Now;
                 datosproveedor.Usuario_baja = (string)Session["usuario_logueado"];
                 datosproveedor.Estado = 2;

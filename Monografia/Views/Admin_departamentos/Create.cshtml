@@ -1,25 +1,27 @@
 ﻿@model Monografia.Models.departamento
 
-@{
-    ViewBag.Title = "Crear promocion";
-}
 @Scripts.Render("~/bundles/jqueryval")
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="row col-lg-12">
-            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-            
-                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+    <div class="card">
+        <div class="card-header">
+            <h2>Nuevo Departamento</h2>
         </div>
+        <div class="card-body">
+            <div class="row col-lg-12">
+                @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
 
-        <div class="row col-lg-12">
-           
-                <input type="submit" value="Guardar" class="btn btn-primary" />
+                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
+
+            </div>
         </div>
+        <div class="card-footer">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save">Guardar</i>
+                </button>
+        </div>
+    </div>
+
 }
 

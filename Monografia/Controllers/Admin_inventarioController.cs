@@ -25,21 +25,18 @@ namespace Monografia.Controllers
                 var model = new List<Modelo_contenedor>();
 
 
-                var p = db.productos.Join(db.departamento,
-                                a => a.Coddepartamento,
-                                b => b.Iddepartmento,
-                                (x, y) => new { x, y }).Where(x => x.x.Cantidad_actual < x.x.Cantidad_minima).ToList();
+                var p = db.productos.Include(a =>a.departamento).Where(x => x.Cantidad_actual < x.Cantidad_minima).ToList();
 
                 foreach (var item in p)
                 {
                     model.Add(new Modelo_contenedor
                     {
-                        codigo_producto1 = item.x.Codigo_producto,
-                        descripcionproducto1 = item.x.Descripcion,
-                        preciodeventa1 = item.x.Precio_venta,
-                        cantidaactual1 = item.x.Cantidad_actual,
-                        cantidaminima1 = item.x.Cantidad_minima,
-                        descripciondepartamento = item.y.Descripcion
+                        codigo_producto1 = item.Codigo_producto,
+                        descripcionproducto1 = item.Descripcion,
+                        preciodeventa1 = item.Precio_venta,
+                        cantidaactual1 = item.Cantidad_actual,
+                        cantidaminima1 = item.Cantidad_minima,
+                        descripciondepartamento = item.departamento.Descripcion
                     });
                 }
 
@@ -66,10 +63,7 @@ namespace Monografia.Controllers
                 if (vistaaccion.Contains("productos_bajos_inventario"))
                 {
 
-                    var listaproductos = db.productos.Join(db.departamento,
-                                 a => a.Coddepartamento,
-                                 b => b.Iddepartmento,
-                                 (x, y) => new { x, y }).Where(x => x.x.Cantidad_actual < x.x.Cantidad_minima).ToList();
+                    var listaproductos = db.productos.Include(a => a.departamento).Where(x => x.Cantidad_actual < x.Cantidad_minima).ToList();
 
                     nombrearchivo = "Productos bajos en inventario " + DateTime.Now.Date.ToString("dd-MM-yyyy") + ".xlsx";
 
@@ -83,20 +77,14 @@ namespace Monografia.Controllers
 
                     foreach (var item in listaproductos)
                     {
-                        dt.Rows.Add(item.x.Codigo_producto, item.x.Descripcion, item.x.Precio_venta, item.x.Cantidad_actual, item.x.Cantidad_minima, item.y.Descripcion);
+                        dt.Rows.Add(item.Codigo_producto, item.Descripcion, item.Precio_venta, item.Cantidad_actual, item.Cantidad_minima, item.departamento.Descripcion);
                     }
 
                 }
                 else
                 {
                     int codigodepart = Convert.ToInt32(Session["cod_depart"]);
-                    var listaproductos = int.Parse(Session["cod_depart"].ToString()) == 0 ? db.productos.Join(db.departamento,
-                             a => a.Coddepartamento,
-                             b => b.Iddepartmento,
-                             (x, y) => new { x, y }).ToList() : db.productos.Join(db.departamento,
-                             a => a.Coddepartamento,
-                             b => b.Iddepartmento,
-                             (x, y) => new { x, y }).Where(x => x.x.Coddepartamento == codigodepart).ToList();
+                    var listaproductos = int.Parse(Session["cod_depart"].ToString()) == 0 ? db.productos.Include(a => a.departamento).ToList() : db.productos.Include(a => a.departamento).Where(x => x.Iddepartamento == codigodepart).ToList();
 
 
 
@@ -111,7 +99,7 @@ namespace Monografia.Controllers
 
                     foreach (var item in listaproductos)
                     {
-                        dt.Rows.Add(item.x.Codigo_producto, item.x.Descripcion, item.x.Precio_costo, item.x.Precio_venta, item.x.Cantidad_actual, item.x.Cantidad_minima);
+                        dt.Rows.Add(item.Codigo_producto, item.Descripcion, item.Precio_costo, item.Precio_venta, item.Cantidad_actual, item.Cantidad_minima);
                     }
                 }
 
@@ -233,47 +221,43 @@ namespace Monografia.Controllers
         {
 
             Modelo_contenedor modelo_contenedor = new Modelo_contenedor();
-            var producto = new List<productos>();
+            modelo_contenedor.listaproductos = new List<productos>();
+            modelo_contenedor.listadepartamento = new List<departamento>();
+
+            List<productos> listaproducto = new List<productos>();
 
             try
             {
-                Session["cod_depart"] = productos.Coddepartamento;
+                Session["cod_depart"] = productos.Iddepartamento;
 
-                if (productos.Coddepartamento != 0)
+                if (productos.Iddepartamento != 0)
                 {
-                    producto = (from x in db.productos where x.Estado == 1 && x.Coddepartamento == productos.Coddepartamento select x).ToList();
-                    Session["cantidad_inventario"] = (from x in db.productos where x.Estado == 1 && x.Coddepartamento == productos.Coddepartamento select x.Cantidad_actual).Sum().ToString();
-                    int? cantidadtotal = (from x in db.productos where x.Estado == 1 && x.Coddepartamento == productos.Coddepartamento select x.Cantidad_actual).Sum();
-                    decimal? costo = (from x in db.productos where x.Estado == 1 && x.Coddepartamento == productos.Coddepartamento select x.Precio_costo).Sum();
-                    Session["costo_inventario"] = (cantidadtotal * costo).ToString();
-                }
-                else if (productos.Coddepartamento != 001)
-                {
-                    producto = (from x in db.productos where x.Estado == 1 select x).ToList();
-                    Session["cantidad_inventario"] = (from x in db.productos where x.Estado == 1 select x.Cantidad_actual).Sum().ToString();
-                    int? cantidadtotal = (from x in db.productos where x.Estado == 1 select x.Cantidad_actual).Sum();
-                    decimal? costo = (from x in db.productos where x.Estado == 1 select x.Precio_costo).Sum();
+                    listaproducto = (from x in db.productos where x.Estado == 1 && x.Iddepartamento == productos.Iddepartamento select x).ToList();
+                    int? cantidadtotal=listaproducto.Select(x => x.Cantidad_actual).Sum();
+                    decimal? costo = listaproducto.Select(x => x.Precio_costo).Sum();
+                    Session["cantidad_inventario"] = cantidadtotal.ToString();
                     Session["costo_inventario"] = (cantidadtotal * costo).ToString();
                 }
                 else
                 {
-                    producto = (from x in db.productos where x.Estado == 1 select x).ToList();
-                    Session["cantidad_inventario"] = (from x in db.productos where x.Estado == 1 select x.Cantidad_actual).Sum().ToString();
-                    int? cantidadtotal = (from x in db.productos where x.Estado == 1 select x.Cantidad_actual).Sum();
-                    decimal? costo = (from x in db.productos where x.Estado == 1 select x.Precio_costo).Sum();
+                    listaproducto = (from x in db.productos where x.Estado == 1 select x).ToList();
+                    int? cantidadtotal = listaproducto.Select(x => x.Cantidad_actual).Sum();
+                    decimal? costo = listaproducto.Select(x => x.Precio_costo).Sum();
+                    Session["cantidad_inventario"] = cantidadtotal.ToString();
                     Session["costo_inventario"] = (cantidadtotal * costo).ToString();
                 }
+        
 
-                modelo_contenedor.listaproductos = new List<productos>();
-                foreach (var item in producto)
+               
+                foreach (var item in listaproducto)
                 {
 
                     modelo_contenedor.listaproductos.Add(item);
                 }
-                var departamentos = from u in db.departamento where u.Estado == 1 select u;
-                modelo_contenedor.listadepartamento = new List<departamento>();
-                modelo_contenedor.listadepartamento.Add(new departamento { Descripcion = "Sin departamento", Iddepartmento = 001 });
-                foreach (var item in departamentos)
+                var listadepartamentos = from u in db.departamento where u.Estado == 1 select u;
+          
+
+                foreach (var item in listadepartamentos)
                 {
 
                     modelo_contenedor.listadepartamento.Add(item);
@@ -282,7 +266,7 @@ namespace Monografia.Controllers
 
                 return View(modelo_contenedor);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -299,14 +283,11 @@ namespace Monografia.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                var productos = db.productos.Join(db.departamento,
-                                 a => a.Coddepartamento,
-                                 b => b.Iddepartmento,
-                                 (x, y) => new { x, y }).Where(x => x.x.Codigo_producto == id2).FirstOrDefault();
+                var productos = db.productos.Include(a => a.departamento).Where(x => x.Codigo_producto == id2).FirstOrDefault();
 
                 Modelo_contenedor = new Modelo_contenedor();
 
-                Modelo_contenedor.productos = productos.x;
+                Modelo_contenedor.productos = productos;
                 //producto = db.productos.Find(id);
 
                 if (Modelo_contenedor == null)
@@ -315,7 +296,7 @@ namespace Monografia.Controllers
                 }
                 return PartialView(Modelo_contenedor);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -334,16 +315,28 @@ namespace Monografia.Controllers
                 {
 
                     var producto = db.productos.Where(x => x.Codigo_producto == productos.Codigo_producto).FirstOrDefault();
-
-                    producto.Cantidad_actual = producto.Cantidad_actual + agregar_cantidad;
-
-                    db.SaveChanges();
-
-                    return Json(new { success = true });
+                    if (producto!=null)
+                    {
+                        if (producto.Usa_inventario!=2)
+                        {
+                            producto.Cantidad_actual = producto.Cantidad_actual==null?0 + agregar_cantidad: producto.Cantidad_actual+ agregar_cantidad;
+                            db.SaveChanges();
+                            return Json(new { success = true });
+                        }
+                        else
+                        {
+                            return Json(new { success = false });
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { success = false });
+                    }
+                     
                 }
                 return PartialView(productos);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;

@@ -17,10 +17,12 @@ namespace Monografia.Models
         public int Idpagos { get; set; }
         public System.DateTime Fecha_alta { get; set; }
         public string Usuario_alta { get; set; }
-        public string Usuario_baja { get; set; }
         public Nullable<System.DateTime> Fecha_baja { get; set; }
+        public string Usuario_baja { get; set; }
         public Nullable<int> Id_factura { get; set; }
         public Nullable<decimal> Monto_pagado { get; set; }
         public int Estado { get; set; }
+    
+        public virtual factura factura { get; set; }
     }
 }

@@ -10,6 +10,8 @@ namespace Monografia.Models
     public class Modelo_contenedor
     {
         #region Modelos_contenidos
+        public clientes cliente { get; set; }
+        public tipo_credito tipocredito { get; set; }
         public usuarios_tienda usuarios_tienda { get; set; }
         public usuario_detalle usuario_detalle { get; set; }
         public productos productos { get; set; }
@@ -20,8 +22,10 @@ namespace Monografia.Models
         public usuario_sesion datosesion { get; set; }
 
         #endregion
-
+        public List<tipo_credito> listatipocredito { get; set; }
+        
         public List<departamento> listadepartamento { get; set; }
+        public List<perfiles> listaperfiles { get; set; }
         public List<productos> listaproductos { get; set; }
 
 

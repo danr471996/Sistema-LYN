@@ -14,7 +14,13 @@ namespace Monografia.Models
     
     public partial class proveedor
     {
-        public int idProveedor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public proveedor()
+        {
+            this.facturas_proveedor = new HashSet<facturas_proveedor>();
+        }
+    
+        public int IdProveedor { get; set; }
         public System.DateTime Fecha_alta { get; set; }
         public string Usuario_alta { get; set; }
         public Nullable<System.DateTime> Fecha_baja { get; set; }
@@ -24,5 +30,8 @@ namespace Monografia.Models
         public string Email { get; set; }
         public string Direccion { get; set; }
         public int Estado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<facturas_proveedor> facturas_proveedor { get; set; }
     }
 }

@@ -37,11 +37,12 @@ namespace Monografia.Models
         public virtual DbSet<productos> productos { get; set; }
         public virtual DbSet<promocion> promocion { get; set; }
         public virtual DbSet<proveedor> proveedor { get; set; }
+        public virtual DbSet<tipo_credito> tipo_credito { get; set; }
         public virtual DbSet<tipo_ventas> tipo_ventas { get; set; }
         public virtual DbSet<unidad_medida> unidad_medida { get; set; }
-        public virtual DbSet<usuarios_perfiles> usuarios_perfiles { get; set; }
-        public virtual DbSet<usuarios_tienda> usuarios_tienda { get; set; }
         public virtual DbSet<usuario_detalle> usuario_detalle { get; set; }
         public virtual DbSet<usuario_sesion> usuario_sesion { get; set; }
+        public virtual DbSet<usuarios_perfiles> usuarios_perfiles { get; set; }
+        public virtual DbSet<usuarios_tienda> usuarios_tienda { get; set; }
     }
 }

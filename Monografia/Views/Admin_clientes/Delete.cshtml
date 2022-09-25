@@ -2,54 +2,61 @@
 
 @{
     ViewBag.Title = "Inactivar cliente";
-    //Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
 @Scripts.Render("~/bundles/jqueryval")
 
-<h3>¿Está seguro de eliminar este cliente?</h3>
-<div>
+<div class="card">
+    <div class="card-header">
+        <h4>¿Está seguro de eliminar este cliente?</h4>
+    </div>
+    <div class="card-body">
+        <dl class="dl-horizontal">
 
-    <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayName("Nombres y Apellidos:")
+            </dt>
 
-        <dt>
-            @Html.DisplayName("Nombres y Apellidos")
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Primer_nombre)
+                @Html.DisplayFor(model => model.Segundo_nombre)
+                @Html.DisplayFor(model => model.Primer_apellido)
+                @Html.DisplayFor(model => model.Segundo_apellido)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
+            <dt>
+                @Html.DisplayName("Dirección:")
+            </dt>
 
-        <dt>
-            @Html.DisplayName("dirección")
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Direccion)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Direccion)
-        </dd>
+            <dt>
+                @Html.DisplayName("Teléfono:")
+            </dt>
 
-        <dt>
-            @Html.DisplayName("Teléfono")
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Telefono)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
+            <dt>
+                @Html.DisplayName("Tipo de crédito:")
+            </dt>
 
-        <dt>
-            @Html.DisplayName("Límite de crédito")
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.tipo_credito.Descripcion)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Limite_credito)
-        </dd>
+        </dl>
+    </div>
+    <div class="card-footer text-center">
 
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="row col-lg-12">
-            <input type="submit" value="Eliminar" class="btn btn-primary" /> 
-        </div>
-    }
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"> Guardar</i>
+                </button>
+        }
+    </div>
 </div>

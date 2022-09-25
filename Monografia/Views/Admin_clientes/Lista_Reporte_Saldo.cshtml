@@ -1,23 +1,21 @@
 ﻿@model IEnumerable<Monografia.Models.Modelo_contenedor>
 
 @{
-    ViewBag.Title = "Reporte de Saldo";
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
 
-<h2> @ViewBag.Title</h2>
+<div class="card">
+    <div class="card-header">
+        <h2>Reporte de Saldo</h2>
+    </div>
 
-<div class="row col-lg-12">
-   
-    @Html.Label(" ", "Total de créditos pendientes ", htmlAttributes: new { @class = "control-label col-lg-3 col-md-3 col-xs-12", @style = "color:forestgreen" })
-    @Html.Label(" ",(string)Session["cantidad_saldo"], htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
-  
-   
-</div>
+    <div class="card-body">
+        <div class="row col-lg-12">
 
-<br>
-        <div  class="row">
-
+            @Html.Label(" ", "Total de créditos pendientes ", htmlAttributes: new { @class = "control-label col-lg-3 col-md-3 col-xs-12", @style = "color:forestgreen" })
+            @Html.Label(" ", (string)Session["cantidad_saldo"], htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
+        </div>
+        <div class="card">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -48,7 +46,7 @@
                     </tr>
 
                 </thead>
-               
+
 
                 @foreach (var item in Model)
             {
@@ -75,11 +73,16 @@
                                 @Html.DisplayFor(modelItem => item.fechapago)
                             </td>
 
-
                         </tr>
                     </tbody>
                 }
-                 
             </table>
         </div>
+    </div>
+</div>
+
+
+
+
+
 

@@ -1,62 +1,82 @@
-﻿@model Monografia.Models.clientes
+﻿@model Monografia.Models.Modelo_contenedor
 
 @{
     ViewBag.Title = "Modificar Cliente";
-    //Layout = "~/Views/Menu/Menu_tienda.cshtml";
+
 }
 @Scripts.Render("~/bundles/jqueryval")
+<style>
+    #dvcantcredito {
+        display: none;
+    }
+</style>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h4>@ViewBag.Title</h4>
+    <div class="card">
+        <div class="card-header">
+            <h4>Editar cliente</h4>
         </div>
-        <div class="panel-body">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Idcliente)
-
-            <div class="row col-lg-12" style="color:gray">
-                <h5>- Cambie la información deseada del cliente y haga clic en guardar cambios:</h5>
-            </div>
+        <div class="card-body">
+            @Html.HiddenFor(model => model.cliente.Idcliente)
             <br>
+            <form class="row g-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.Label("Primer Nombre", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.cliente.Primer_nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.Label("Segundo Nombre", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.cliente.Segundo_nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
 
-            <div class="row col-lg-12">
-                @Html.Label("Nombres y apellidos", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.Label("Primer Apellido", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.cliente.Primer_apellido, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.Label("Segundo Apellido", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.cliente.Segundo_apellido, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.Label("Dirección", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.cliente.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.Label("Teléfono", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.cliente.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.Label("Tipo de crédito", htmlAttributes: new { @class = "form-label" })
+                        @Html.DropDownListFor(model => model.cliente.Id_tipocredito, new SelectList(Model.listatipocredito, "Id_tipocredito", "Descripcion"), "Seleccione tipo", new { @class = "form-control", @id = "dltipocredito" })
+                    </div>
+                </div>
+                <br>
+                <div class="row" id="dvcantcredito">
+                    <div class="col-md-6">
+                        @Html.Label("Cantidad de crédito", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.cliente.Cantidad_credito, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"> Guardar</i>
+            </button>
 
-                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-
-            </div>
-            <br>
-            <div class="row col-lg-12 ">
-                @Html.Label("Dirección", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-
-                @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-                @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
-
-            </div>
-            <br>
-            <div class="row col-lg-12">
-                @Html.Label("Teléfono", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-
-                @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-                @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
-
-            </div>
-            <br>
-            <div class="row col-lg-12">
-                @Html.Label("Limite de crédito", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-
-                @Html.EditorFor(model => model.Limite_credito, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-                @Html.ValidationMessageFor(model => model.Limite_credito, "", new { @class = "text-danger" })
-            </div>
         </div>
     </div>
-            <div class="row col-lg-12">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-            </div>
-       
-        }
+
+}

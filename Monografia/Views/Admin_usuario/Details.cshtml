@@ -1,12 +1,14 @@
 ﻿@model Monografia.Models.Modelo_contenedor
 @Scripts.Render("~/bundles/jqueryval")
-    <div>
-        <h4>usuarios_tienda</h4>
-        <hr />
+<div class="card">
+    <div class="card-header">
+        <h2>Detalle usuarios</h2>
+    </div>
+    <div class="card-body">
         <dl class="dl-horizontal">
 
             <dt>
-                @Html.DisplayNameFor(model => model.usuario_detalle.Nombre)
+                @Html.Display("Nombre")
             </dt>
 
             <dd>
@@ -14,15 +16,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.usuario_detalle.Apellido)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.usuario_detalle.Apellido)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.usuario_detalle.Direccion)
+                @Html.Display("Dirección")
             </dt>
 
             <dd>
@@ -30,7 +24,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.usuario_detalle.Telefono)
+                @Html.Display("Teléfono")
             </dt>
 
             <dd>
@@ -38,3 +32,5 @@
             </dd>
         </dl>
     </div>
+
+</div>

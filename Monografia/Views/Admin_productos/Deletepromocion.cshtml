@@ -1,46 +1,42 @@
 ﻿@model Monografia.Models.promocion
 
-@{
-    ViewBag.Title = "Eliminar promoción";
-}
+
 @Scripts.Render("~/bundles/jqueryval")
 
-<h3>Está seguro de eliminar esta promocion?</h3>
-<div>
+<div class="card">
+    <div class="card-header">
+        <h3>Está seguro de eliminar esta promocion?</h3>
+    </div>
+    <div class="card-body">
+        <dl class="dl-horizontal">
 
-    <dl class="dl-horizontal">
-        
-        <dt>
-            @Html.DisplayName("Nombre de promoción")
-        </dt>
+            <dt>
+                @Html.DisplayName("Nombre de promoción")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nombre_promocion)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Nombre_promocion)
+            </dd>
 
-        <dt>
-            @Html.DisplayName("Código de producto")
-        </dt>
+            <dt>
+                @Html.DisplayName("Código de producto")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cod_producto)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.productos.Codigo_producto)
+            </dd>
 
-        <dt>
-            @Html.DisplayName("Estado")
-        </dt>
+        </dl>
+    </div>
+    <div class="card-footer">
+        @using (Html.BeginForm())
+        {
 
-        <dd>
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="row col-lg-12">
-            <input type="submit" value="Delete" class="btn btn-primary" /> |
-        </div>
-    }
+            <div class="row col-lg-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save">Guardar</i>
+                </button>
+            </div>
+        }
+    </div>
 </div>

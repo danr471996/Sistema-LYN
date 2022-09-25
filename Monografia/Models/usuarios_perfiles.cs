@@ -14,7 +14,22 @@ namespace Monografia.Models
     
     public partial class usuarios_perfiles
     {
-        public string perfil { get; set; }
-        public string codigo_perfil { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public usuarios_perfiles()
+        {
+            this.usuarios_tienda = new HashSet<usuarios_tienda>();
+        }
+    
+        public int Id_perfil { get; set; }
+        public System.DateTime Fecha_alta { get; set; }
+        public string Usuario_alta { get; set; }
+        public Nullable<System.DateTime> Fecha_baja { get; set; }
+        public string Usuario_baja { get; set; }
+        public string Descripcion_perfil { get; set; }
+        public string Codigo_accesos_perfil { get; set; }
+        public int Estado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<usuarios_tienda> usuarios_tienda { get; set; }
     }
 }

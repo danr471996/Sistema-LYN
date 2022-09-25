@@ -5,24 +5,36 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9156f49a3b07462f979cc441b2809f1b" Name="Diagram1" ZoomLevel="78">
-        <EntityTypeShape EntityType="proyectotiendaModel.clientes" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.creditos" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.departamento" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.detalle_factura" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.factura" Width="1.5" PointX="2.75" PointY="4.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.facturas_proveedor" Width="1.5" PointX="4.75" PointY="4.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.lista_permisos" Width="1.5" PointX="6.75" PointY="0.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.opciones" Width="1.5" PointX="6.75" PointY="3.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.pagos" Width="1.5" PointX="6.75" PointY="7.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.productos" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.promocion" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.proveedor" Width="1.5" PointX="2.75" PointY="8.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.tipo_ventas" Width="1.5" PointX="8.75" PointY="5.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.unidad_medida" Width="1.5" PointX="8.75" PointY="8.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.usuarios_perfiles" Width="1.5" PointX="10.75" PointY="4.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.usuarios_tienda" Width="1.5" PointX="10.75" PointY="7.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.usuario_detalle" Width="1.5" PointX="11.375" PointY="0.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.usuario_sesion" Width="1.5" PointX="5.375" PointY="11.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.clientes" Width="1.5" PointX="10" PointY="10.25" />
+        <EntityTypeShape EntityType="proyectotiendaModel.creditos" Width="1.5" PointX="0.75" PointY="15" />
+        <EntityTypeShape EntityType="proyectotiendaModel.departamento" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.detalle_factura" Width="1.5" PointX="5.25" PointY="4.375" />
+        <EntityTypeShape EntityType="proyectotiendaModel.factura" Width="1.5" PointX="3" PointY="10.5" />
+        <EntityTypeShape EntityType="proyectotiendaModel.facturas_proveedor" Width="1.5" PointX="15" PointY="10.25" />
+        <EntityTypeShape EntityType="proyectotiendaModel.lista_permisos" Width="1.5" PointX="7.75" PointY="15" />
+        <EntityTypeShape EntityType="proyectotiendaModel.opciones" Width="1.5" PointX="9.75" PointY="15" />
+        <EntityTypeShape EntityType="proyectotiendaModel.pagos" Width="1.5" PointX="5.25" PointY="12.625" />
+        <EntityTypeShape EntityType="proyectotiendaModel.productos" Width="1.5" PointX="3" PointY="3.625" />
+        <EntityTypeShape EntityType="proyectotiendaModel.promocion" Width="1.5" PointX="5.25" PointY="8.5" />
+        <EntityTypeShape EntityType="proyectotiendaModel.proveedor" Width="1.5" PointX="12.75" PointY="10.25" />
+        <EntityTypeShape EntityType="proyectotiendaModel.tipo_credito" Width="1.5" PointX="7.75" PointY="10.875" />
+        <EntityTypeShape EntityType="proyectotiendaModel.tipo_ventas" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.unidad_medida" Width="1.5" PointX="11.75" PointY="15" />
+        <EntityTypeShape EntityType="proyectotiendaModel.usuario_detalle" Width="1.5" PointX="12.25" PointY="2.375" />
+        <EntityTypeShape EntityType="proyectotiendaModel.usuario_sesion" Width="1.5" PointX="12.25" PointY="6.625" />
+        <EntityTypeShape EntityType="proyectotiendaModel.usuarios_perfiles" Width="1.5" PointX="7.75" PointY="4.5" />
+        <EntityTypeShape EntityType="proyectotiendaModel.usuarios_tienda" Width="1.5" PointX="10" PointY="4.125" />
+        <AssociationConnector Association="proyectotiendaModel.fk_tipo_credito" />
+        <AssociationConnector Association="proyectotiendaModel.fk_departamento" />
+        <AssociationConnector Association="proyectotiendaModel.fk_factura" />
+        <AssociationConnector Association="proyectotiendaModel.fk_producto" />
+        <AssociationConnector Association="proyectotiendaModel.fk_facturas" />
+        <AssociationConnector Association="proyectotiendaModel.fk_proveedor" />
+        <AssociationConnector Association="proyectotiendaModel.fk_productos" />
+        <AssociationConnector Association="proyectotiendaModel.fk_tipo_ventas" />
+        <AssociationConnector Association="proyectotiendaModel.fk_usuarios_tienda" />
+        <AssociationConnector Association="proyectotiendaModel.fr_usuarios_tiendas" />
+        <AssociationConnector Association="proyectotiendaModel.fk_usuarios_perfiles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

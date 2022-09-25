@@ -5,74 +5,90 @@
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
 @Styles.Render("~/Content/datatables")
-<h2>Estado_cuenta</h2>
-@Html.Label(" ", "Nombre Cliente", htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
-@Html.Label(" ", (string)Session["nomcliente"], htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
-@Html.Label(" ", "Limite de crédito", htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
-@Html.Label(" ", Session["limitecredito"].ToString(), htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
-@Html.Label(" ", "Saldo Actual", htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
-@Html.Label(" ", Session["Saldoactual"].ToString(), htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
-<p>
-    @Html.ActionLink("Abonar", "Abono", "" , new { data_modal = "", @class = "btn btn-primary" })
-    &nbsp
-    @Html.ActionLink("Liquidar deuda", "Lista_Reporte_Saldo", "", new { @class = "btn btn-primary" })
-    &nbsp
-    @Html.ActionLink("Detalle de abonos", "Lista_de_abonos", "", new { data_modal = "", @class = "btn btn-primary" })
-</p>
 
-<table id="example" class="table table-striped">
-    <thead>
-        <tr>
-            <th>@Html.DisplayName("Id de cliente")</th>
-            <th>@Html.DisplayName("Id de factura")</th>
-            <th>@Html.DisplayName("Fecha de Factura")</th>
-        </tr>
-    </thead> 
+<div class="card">
+    <div class="card-header">
+        <h2>Estado cuenta del cliente</h2>
+    </div>
+    <div>
+        @Html.Label(" ", "Nombre Cliente", htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
+        @Html.Label(" ", (string)Session["nomcliente"], htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
+        @Html.Label(" ", "Limite de crédito", htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
+        @Html.Label(" ", Session["limitecredito"].ToString(), htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
+        @Html.Label(" ", "Saldo Actual", htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
+        @Html.Label(" ", Session["Saldoactual"].ToString(), htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h2>Facturas del cliente</h2>
+        </div>
+        <div class="card-body">
+            <table id="tbfacturas" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayName("Id de cliente")</th>
+                        <th>@Html.DisplayName("Id de factura")</th>
+                        <th>@Html.DisplayName("Fecha de Factura")</th>
+                    </tr>
+                </thead>
 
-    <tbody>
-@foreach (var item in Model)
-{
- 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.idcliente2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.idfacturas)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechasfacturas)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
 
-<br/>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.idcliente2)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.idfacturas)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fechasfacturas)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
-<table id="example2" class="table table-striped">
-    <thead>
-        <tr>
-            <th>@Html.DisplayName("Descripcion del producto")</th>
+    </div>
 
-            <th>@Html.DisplayName("Precio venta")</th>
+    <div class="card">
+        <div class="card-header">
+            <h2>Detalle de Factura</h2>
+        </div>
+        <div class="card-body">
 
-            <th>@Html.DisplayName("Cantidad")</th>
+            <table id="tbdetallefactura" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayName("Descripcion del producto")</th>
 
-            <th>@Html.DisplayName("Importe")</th>
-        </tr>
-    </thead>
-    <tbody>
+                        <th>@Html.DisplayName("Precio venta")</th>
 
-    </tbody> 
-</table>
+                        <th>@Html.DisplayName("Cantidad")</th>
+
+                        <th>@Html.DisplayName("Importe")</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+
 
 @section Scripts {
    @Scripts.Render("~/bundles/datatables")
     <script type="text/javascript">
     $(document).ready(function () {
 
-        $('#example').DataTable({
+        $('#tbfacturas').DataTable({
             "language": {
                 "url": "/Scripts/es_es.json"
             },
@@ -90,15 +106,15 @@
 
         })
 
-        $('#example2').DataTable({
+        $('#tbdetallefactura').DataTable({
             "language": {
                 "url": "/Scripts/es_es.json"
             }
         })
 
-        var table = $('#example').dataTable();
+        var table = $('#tbfacturas').dataTable();
 
-        $('#example tbody').on('click', 'tr', function () {
+        $('#tbfacturas tbody').on('click', 'tr', function () {
 
             if ( $(this).hasClass('selected') ) {
                 $(this).removeClass('selected');
@@ -127,8 +143,8 @@
                     contentType: dataType,
                     data: JSON.stringify(data),
                     success: function (data) {
-                            $('#example2').dataTable().fnDestroy();
-                            $('#example2').DataTable({
+                        $('#tbdetallefactura').dataTable().fnDestroy();
+                        $('#tbdetallefactura').DataTable({
                                 destroy: true,
                                 data: data,
                                 language: {

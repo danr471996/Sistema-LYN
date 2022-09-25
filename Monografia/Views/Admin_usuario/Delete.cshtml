@@ -2,23 +2,24 @@
 
 
 @Scripts.Render("~/bundles/jqueryval")
-    <h3>¿Está seguro de eliminar este usuario?</h3>
-    <div>
-
-        <hr />
+<div class="card">
+    <div class="card-header">
+        <h3>¿Está seguro de eliminar este usuario?</h3>
+    </div>
+    <div class="card-body">
         <dl class="dl-horizontal">
-           
+
 
             <dt>
-                @Html.DisplayNameFor(model => model.Contraseña)
+                @Html.Display("Nombre")
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Contraseña)
+                @Html.DisplayFor(model => model.usuario_detalle.Nombre)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Perfil)
+                @Html.DisplayName("Perfil")
             </dt>
 
             <dd>
@@ -26,13 +27,16 @@
             </dd>
 
         </dl>
-
+    </div>
+    <div class="card-footer">
         @using (Html.BeginForm())
         {
-            @Html.AntiForgeryToken()
-
-            <div class="form-actions no-color">
-                <input type="submit" value="Eliminar" class="btn btn-primary" /> |
+            <div class="row col-lg-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"> Guardar</i>
+                </button>
+   
             </div>
         }
     </div>
+</div>

@@ -14,6 +14,13 @@ namespace Monografia.Models
     
     public partial class factura
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public factura()
+        {
+            this.detalle_factura = new HashSet<detalle_factura>();
+            this.pagos = new HashSet<pagos>();
+        }
+    
         public int Idfactura { get; set; }
         public System.DateTime Fecha_alta { get; set; }
         public string Usuario_alta { get; set; }
@@ -23,5 +30,10 @@ namespace Monografia.Models
         public int Num_factura { get; set; }
         public decimal Monto_total { get; set; }
         public int Estado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalle_factura> detalle_factura { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<pagos> pagos { get; set; }
     }
 }

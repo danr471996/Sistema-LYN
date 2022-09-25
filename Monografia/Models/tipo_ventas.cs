@@ -14,8 +14,21 @@ namespace Monografia.Models
     
     public partial class tipo_ventas
     {
-        public int idtipo_ventas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tipo_ventas()
+        {
+            this.productos = new HashSet<productos>();
+        }
+    
+        public int Id_tipoventas { get; set; }
+        public System.DateTime Fecha_alta { get; set; }
+        public string Usuario_alta { get; set; }
+        public Nullable<System.DateTime> Fecha_baja { get; set; }
+        public string Usuario_baja { get; set; }
         public string Descripcion { get; set; }
         public int Estado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productos> productos { get; set; }
     }
 }

@@ -19,10 +19,16 @@ namespace Monografia.Models
         public string Usuario_alta { get; set; }
         public Nullable<System.DateTime> Fecha_baja { get; set; }
         public string Usuario_baja { get; set; }
-        public string Nombre { get; set; }
+        public string Primer_nombre { get; set; }
+        public string Segundo_nombre { get; set; }
+        public string Primer_apellido { get; set; }
+        public string Segundo_apellido { get; set; }
         public string Direccion { get; set; }
         public Nullable<int> Telefono { get; set; }
-        public Nullable<int> Limite_credito { get; set; }
+        public int Id_tipocredito { get; set; }
         public int Estado { get; set; }
+        public Nullable<int> Cantidad_credito { get; set; }
+    
+        public virtual tipo_credito tipo_credito { get; set; }
     }
 }

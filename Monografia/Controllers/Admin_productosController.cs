@@ -33,6 +33,7 @@ namespace Monografia.Controllers
 
                     modelo_contenedor.listadepartamento.Add(item);
                 }
+               
                 return PartialView(modelo_contenedor);
             }
             catch (Exception)
@@ -141,11 +142,11 @@ namespace Monografia.Controllers
                     }
                     producto.Codigo_producto = modelocontenedor.productos.Codigo_producto;
                     producto.Descripcion = modelocontenedor.productos.Descripcion;
-                    producto.Tipo_venta = modelocontenedor.productos.Tipo_venta;
+                    producto.Id_tipoventas = modelocontenedor.productos.Id_tipoventas;
                     producto.Precio_costo = modelocontenedor.productos.Precio_costo;
                     producto.Precio_venta = modelocontenedor.productos.Precio_venta;
                     producto.Precio_mayoreo = modelocontenedor.productos.Precio_mayoreo;
-                    producto.Coddepartamento = modelocontenedor.productos.Coddepartamento;
+                    producto.Iddepartamento = modelocontenedor.productos.Iddepartamento;
                     producto.Usa_inventario = modelocontenedor.productos.Usa_inventario;
                     producto.Cantidad_actual = modelocontenedor.productos.Cantidad_actual;
                     producto.Cantidad_minima = modelocontenedor.productos.Cantidad_minima;
@@ -236,42 +237,44 @@ namespace Monografia.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Createpromocion(promocion promocion)
+        public ActionResult Createpromocion(promocion promocion,int? Codigo_producto)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (Codigo_producto!=null)
                 {
 
-                    var codigoproducto = (from u in db.productos
-                                          where u.Codigo_producto == promocion.Cod_producto
-                                       && u.Estado == 1
-                                          select new
-                                          {
-                                              u
-                                          }).FirstOrDefault();
-                    if (codigoproducto == null)
+                    if (ModelState.IsValid)
                     {
-                        ViewBag.listapromocion = db.promocion.ToList();
-                    }
-                    else
-                    {
-                        promocion.Fecha_alta = DateTime.Now;
-                        promocion.Estado = 1;
-                        db.promocion.Add(promocion);
-                        db.SaveChanges();
+              
+
+                        var codigoproducto = (from u in db.productos
+                                              where u.Codigo_producto == Codigo_producto
+                                           && u.Estado == 1
+                                              select new
+                                              {
+                                                  u
+                                              }).FirstOrDefault();
+
+                            if (codigoproducto != null)
+                            {
+
+                                promocion.Fecha_alta = DateTime.Now;
+                                promocion.Estado = 1;
+                                promocion.Id_producto = codigoproducto.u.Idproducto;
+                                db.promocion.Add(promocion);
+                                db.SaveChanges();
+                       
+                            }
+                   
 
                     }
-
-
                 }
-                else
-                {
-                    ViewBag.listapromocion = db.promocion.ToList();
-                }
+
+                ViewBag.listapromocion = db.promocion.ToList();
                 return View();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -285,18 +288,26 @@ namespace Monografia.Controllers
         {
             try
             {
-                if (id == null)
+                if (id != null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+           
+                    promocion promocion = db.promocion.Find(id);
+                    if (promocion == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    else
+                    {
+                        return PartialView(promocion);
+                    }
                 }
-                promocion promocion = db.promocion.Find(id);
-                if (promocion == null)
-                {
-                    return HttpNotFound();
+                else
+	            {
+                  return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                return PartialView(promocion);
+           
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;

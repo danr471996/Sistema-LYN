@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Monografia.Models;
@@ -11,12 +14,13 @@ namespace Monografia.Controllers
     public class UsuariologinController : Controller
     {
 
-        proyectotiendaEntities db = new proyectotiendaEntities();
-        usuario_sesion datosesion = null;
+       private proyectotiendaEntities db = new proyectotiendaEntities();
+       usuario_sesion datosesion = null;
 
         // GET: Usuariologin
         public ActionResult Login()
         {
+            
             return View();
         }
 
@@ -25,28 +29,26 @@ namespace Monografia.Controllers
         {
             try
             {
+              
+                var login =  db.usuarios_tienda.Where(x =>x.Login.Equals(usuariologin.Login)
+                                && x.Contraseña.Equals(usuariologin.Contraseña) && x.Estado_usuario==1).FirstOrDefault();
 
-                var login =  db.usuarios_tienda.Join( db.usuario_detalle,
-                            a => a.Idusuario,
-                            b => b.Idusuario,
-                            (x, y) => new { x,y }).Where(x =>x.x.Login.Equals(usuariologin.Login)
-                                && x.x.Contraseña.Equals(usuariologin.Contraseña) && x.x.Estado_usuario==1).FirstOrDefault();
-
-                Session["Idusuario"] = login.x.Idusuario;
-                Session["usuario_logueado"] =login.x.Login;
-                Session["Nombreuusuario"] = login.y.Nombre;
-                if (login != null && login.x.Perfil == "Admin")
+                Session["Idusuario"] = login.Idusuario;
+                Session["usuario_logueado"] =login.Login;
+                Session["Nombreuusuario"] = login.usuario_detalle.FirstOrDefault().Primer_nombre +" " + login.usuario_detalle.FirstOrDefault().Primer_apellido;
+                Session["Perfil"] = login.usuarios_perfiles.Descripcion_perfil;
+                if (login != null && login.usuarios_perfiles.Descripcion_perfil == "Admin")
                 {
-                    var sesion = db.usuario_sesion.Where(x => x.Id_usuario == login.x.Idusuario && x.Estado == 1).FirstOrDefault();
+                    var sesion = login.usuario_sesion.Where(x=>x.Estado==1).FirstOrDefault();
                     if (sesion != null)
                     {
                         return RedirectToAction("Login", "Usuariologin");
                     }
                     else {
                         datosesion = new usuario_sesion();
-                        datosesion.Usuario_alta = login.x.Login;
+                        datosesion.Usuario_alta = login.Login;
                         datosesion.Fecha_alta = DateTime.Now;
-                        datosesion.Id_usuario = login.x.Idusuario;
+                        datosesion.Idusuario = login.Idusuario;
                         datosesion.Estado = 1;
                         db.usuario_sesion.Add(datosesion);
                         db.SaveChanges();
@@ -67,8 +69,84 @@ namespace Monografia.Controllers
             }
         }
 
-        public ActionResult Paginainicio()
+        public ActionResult Paginainicio(string filtroventas,string filtroingresos,string filtroclientes)
         {
+            int cantidadventas = 0,cantidadclientes=0;
+            decimal cantidadingresos = 0;
+            var datosfactura = db.factura.ToList();
+
+            if (filtroventas == null)
+            {
+                cantidadventas = datosfactura.Count();
+                ViewBag.tipofiltroventas = "Todos los años";
+                ViewBag.cantidadventas = cantidadventas;
+            }
+            else {
+         
+                ViewBag.tipofiltroventas = filtroventas=="hoy"? filtroventas:"este "+ filtroventas;
+                if (filtroventas == "hoy")
+                {
+                    cantidadventas = datosfactura.Where(x =>x.Fecha_alta.Day==DateTime.Now.Day).Count();
+                    
+                }
+                else if (filtroventas == "mes")
+                {
+                    cantidadventas = datosfactura.Where(x => x.Fecha_alta.Month == DateTime.Now.Month).Count();
+                }
+                else {
+                    cantidadventas = datosfactura.Where(x => x.Fecha_alta.Year == DateTime.Now.Year).Count();
+                }
+                ViewBag.cantidadventas = cantidadventas;
+            }
+
+            if (filtroingresos == null)
+            {
+                cantidadingresos = datosfactura.Select(x => x.Monto_total).Sum();
+                ViewBag.tipofiltroingresos = "Todos los años";
+                ViewBag.cantidadingresos = cantidadingresos;
+            }
+            else
+            {
+                ViewBag.tipofiltroingresos = filtroingresos == "hoy" ? filtroingresos : "este " + filtroingresos; 
+                if (filtroingresos == "hoy")
+                {
+                    cantidadingresos = datosfactura.Where(x => x.Fecha_alta.Day == DateTime.Now.Day).Select(x => x.Monto_total).Sum();
+                }
+                else if (filtroingresos == "mes")
+                {
+                    cantidadingresos = datosfactura.Where(x => x.Fecha_alta.Month == DateTime.Now.Month).Select(x => x.Monto_total).Sum();
+                }
+                else
+                {
+                    cantidadingresos = datosfactura.Where(x => x.Fecha_alta.Year == DateTime.Now.Year).Select(x => x.Monto_total).Sum();
+                }
+                ViewBag.cantidadingresos = cantidadingresos;
+            }
+
+            if (filtroclientes == null)
+            {
+                cantidadclientes = datosfactura.Count();
+                ViewBag.tipofiltroclientes = "Todos los años";
+                ViewBag.cantidadclientes = cantidadclientes;
+            }
+            else
+            { 
+
+                ViewBag.tipofiltroclientes = filtroclientes == "hoy" ? filtroclientes : "este " + filtroclientes; 
+                if (filtroclientes == "hoy")
+                {
+                    cantidadclientes = datosfactura.Where(x => x.Fecha_alta.Day == DateTime.Now.Day).Count();
+                }
+                else if (filtroclientes == "mes")
+                {
+                    cantidadclientes = datosfactura.Where(x => x.Fecha_alta.Month == DateTime.Now.Month).Count();
+                }
+                else
+                {
+                    cantidadclientes = datosfactura.Where(x => x.Fecha_alta.Year == DateTime.Now.Year).Count();
+                }
+                ViewBag.cantidadclientes = cantidadclientes;
+            }
             return View();
         }
         public ActionResult Logout()
@@ -79,7 +157,7 @@ namespace Monografia.Controllers
                 FormsAuthentication.SignOut();
                 Session.Abandon();
 
-                var sesion = db.usuario_sesion.Where(x => x.Id_usuario == idusuario && x.Estado == 1).FirstOrDefault();
+                var sesion = db.usuario_sesion.Where(x => x.Idusuario == idusuario && x.Estado == 1).FirstOrDefault();
 
                 if (sesion != null)
                 {
@@ -97,6 +175,13 @@ namespace Monografia.Controllers
                 throw;
             }
           
+        }
+        [ChildActionOnly]
+        public ActionResult mostrarnotificaciones()
+        {
+            var listaprodbajosinvent= db.productos.Where(x => x.Cantidad_actual < x.Cantidad_minima).ToList();
+            ViewBag.cantidadprodbajos = listaprodbajosinvent.Count();
+            return PartialView("_notificaciones");
         }
         public ActionResult Sesiones_usuario() {
          
@@ -123,12 +208,21 @@ namespace Monografia.Controllers
                 db.SaveChanges();
                 return Json(new { success = true });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
             }
 
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

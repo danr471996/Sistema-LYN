@@ -4,97 +4,102 @@
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
 @Styles.Render("~/Content/datatables")
+<div class="card">
+    <div class="card-header">
+        <h2>Productos</h2>
+    </div>
+    <a data-modal="" href=@Url.Action("Create", "Admin_productos") class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar roductos</a>
+    &nbsp
+    <a href=@Url.Action("Createpromocion", "Admin_productos") class="btn btn-primary"> <span class="fa fa-star"></span> Agregar promocion</a>
 
-    <p>
-        <br> 
-        <a data-modal="" href=@Url.Action("Create", "Admin_productos") class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar roductos</a>
-            &nbsp
-        <a href=@Url.Action("Createpromocion", "Admin_productos") class="btn btn-primary"> <span class="fa fa-star"></span> Agregar promocion</a>
-       
-    </p>
-       
-    <table id="jquerydatatable" class="table table-striped">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayName("Código de producto")
-                </th>
-                <th>
-                    @Html.DisplayName("Descripción")
-                </th>
-                <th>
-                    @Html.DisplayName("Cantidad actual")
-                </th>
-                <th>
-                    @Html.DisplayName("Cantidad minima")
-                </th>
-                <th>
-                    @Html.DisplayName("Posee inventario")
-                </th>
-                <th>
-                    @Html.DisplayName("Estado")
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <div class="card-body">
+
+        <table id="jquerydatatable" class="table table-striped">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Codigo_producto)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descripcion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cantidad_actual)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cantidad_minima)
-                    </td>
-                    <td>
-                        @if (item.Usa_inventario == 1)
-                {
-
-                            <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
-                                Si
-
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
-                                No
-                            </div>
-                        }
-                    </td>
-
-                    <td>
-                        @if (item.Estado == 1)
-                {
-
-                            <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
-                                Activo
-
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
-                                Inactivo
-
-                            </div>
-                        }
-                    </td>
-                    <td>
-                        <a data-modal="" href=@Url.Action("Edit", "Admin_productos", new { id = item.Idproducto }) class="btn btn-success"> <span class="fa fa-edit"></span></a>  |
-                        <a data-modal="" href=@Url.Action("Delete", "Admin_productos", new { id = item.Idproducto, id2 = item.Codigo_producto }) class="btn btn-danger"> <span class="fa fa-trash"></span></a> 
-                    </td>
+                    <th>
+                        @Html.DisplayName("Código de producto")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Descripción")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Cantidad actual")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Cantidad minima")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Posee inventario")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Estado")
+                    </th>
+                    <th>Acciones</th>
                 </tr>
-            }
-        </tbody>
-</table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Codigo_producto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cantidad_actual)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cantidad_minima)
+                        </td>
+                        <td>
+                            @if (item.Usa_inventario == 1)
+                {
+
+                                <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
+                                    Si
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
+                                    No
+                                </div>
+                            }
+                        </td>
+
+                        <td>
+                            @if (item.Estado == 1)
+                {
+
+                                <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
+                                    Activo
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
+                                    Inactivo
+
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            <a data-modal="" href=@Url.Action("Edit", "Admin_productos", new { id = item.Idproducto }) class="btn btn-success"> <span class="fa fa-edit"></span></a>
+                            <a data-modal="" href=@Url.Action("Delete", "Admin_productos", new { id = item.Idproducto, id2 = item.Codigo_producto }) class="btn btn-danger"> <span class="fa fa-trash"></span></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
 
 @section Scripts
 {

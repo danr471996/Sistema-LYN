@@ -19,7 +19,9 @@ namespace Monografia.Models
         public string Usuario_alta { get; set; }
         public Nullable<System.DateTime> Fecha_baja { get; set; }
         public string Usuario_baja { get; set; }
-        public int Id_usuario { get; set; }
+        public int Idusuario { get; set; }
         public int Estado { get; set; }
+    
+        public virtual usuarios_tienda usuarios_tienda { get; set; }
     }
 }

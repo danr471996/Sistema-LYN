@@ -1,47 +1,51 @@
 ﻿@model Monografia.Models.proveedor
 
-@{
-    ViewBag.Title = "Details";
-}
+
 
 @Scripts.Render("~/bundles/jqueryval")
-<div>
-    <h4>proveedor</h4>
-    <hr />
-    <dl class="dl-horizontal">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
+<div class="card">
+    <div class="card-header">
+        <h2>Detalle proveedor</h2>
+    </div>
+    <div class="card-body">
 
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
+        <dl class="dl-horizontal">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
+            <dt>
+                @Html.Display("Descripción")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+            <dt>
+                @Html.Display("Teléfono")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Telefono)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Direccion)
-        </dt>
+            <dt>
+                @Html.Display("Correo")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Direccion)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
 
+            <dt>
+                @Html.Display("Dirección")
+            </dt>
 
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.Direccion)
+            </dd>
+
+        </dl>
+    </div>
+
 </div>
+

@@ -14,10 +14,15 @@ namespace Monografia.Models
     
     public partial class lista_permisos
     {
-        public string ID { get; set; }
-        public string TEXTO { get; set; }
+        public string Id_permiso { get; set; }
+        public System.DateTime Fecha_alta { get; set; }
+        public string Usuario_alta { get; set; }
+        public Nullable<System.DateTime> Fecha_baja { get; set; }
+        public string Usuario_baja { get; set; }
+        public string Descripcion { get; set; }
         public sbyte SELECCIONADO { get; set; }
         public string GRUPO { get; set; }
         public sbyte INICIO_GRUPO { get; set; }
+        public int Estado { get; set; }
     }
 }

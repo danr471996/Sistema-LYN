@@ -14,6 +14,13 @@ namespace Monografia.Models
     
     public partial class productos
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public productos()
+        {
+            this.detalle_factura = new HashSet<detalle_factura>();
+            this.promocion = new HashSet<promocion>();
+        }
+    
         public int Idproducto { get; set; }
         public System.DateTime Fecha_alta { get; set; }
         public string Usuario_alta { get; set; }
@@ -22,13 +29,20 @@ namespace Monografia.Models
         public int Codigo_producto { get; set; }
         public string Descripcion { get; set; }
         public int Estado { get; set; }
-        public Nullable<int> Tipo_venta { get; set; }
+        public int Id_tipoventas { get; set; }
         public decimal Precio_costo { get; set; }
         public decimal Precio_venta { get; set; }
         public decimal Precio_mayoreo { get; set; }
-        public int Coddepartamento { get; set; }
-        public Nullable<int> Usa_inventario { get; set; }
+        public int Iddepartamento { get; set; }
+        public int Usa_inventario { get; set; }
         public Nullable<int> Cantidad_actual { get; set; }
         public Nullable<int> Cantidad_minima { get; set; }
+    
+        public virtual departamento departamento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalle_factura> detalle_factura { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<promocion> promocion { get; set; }
+        public virtual tipo_ventas tipo_ventas { get; set; }
     }
 }

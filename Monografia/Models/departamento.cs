@@ -14,6 +14,12 @@ namespace Monografia.Models
     
     public partial class departamento
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public departamento()
+        {
+            this.productos = new HashSet<productos>();
+        }
+    
         public int Iddepartmento { get; set; }
         public System.DateTime Fecha_alta { get; set; }
         public string Usuario_alta { get; set; }
@@ -21,5 +27,8 @@ namespace Monografia.Models
         public string Usuario_baja { get; set; }
         public string Descripcion { get; set; }
         public int Estado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productos> productos { get; set; }
     }
 }

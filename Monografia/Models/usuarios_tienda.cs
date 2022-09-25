@@ -14,6 +14,13 @@ namespace Monografia.Models
     
     public partial class usuarios_tienda
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public usuarios_tienda()
+        {
+            this.usuario_detalle = new HashSet<usuario_detalle>();
+            this.usuario_sesion = new HashSet<usuario_sesion>();
+        }
+    
         public int Idusuario { get; set; }
         public System.DateTime Fecha_alta { get; set; }
         public string Usuario_alta { get; set; }
@@ -21,7 +28,13 @@ namespace Monografia.Models
         public string Usuario_baja { get; set; }
         public string Login { get; set; }
         public string Contraseña { get; set; }
-        public string Perfil { get; set; }
+        public int Id_perfil { get; set; }
         public int Estado_usuario { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<usuario_detalle> usuario_detalle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<usuario_sesion> usuario_sesion { get; set; }
+        public virtual usuarios_perfiles usuarios_perfiles { get; set; }
     }
 }

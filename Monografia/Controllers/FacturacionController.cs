@@ -123,7 +123,7 @@ namespace Monografia.Controllers
                 detallefact.Fecha_alta = DateTime.Now;
                 detallefact.Usuario_alta = (string)Session["usuario_logueado"];
                 detallefact.Id_factura = factura.Idfactura;
-                detallefact.Id_producto = db.productos.Where(x => x.Codigo_producto == item.CodProd).FirstOrDefault().Idproducto;
+                detallefact.Idproducto = db.productos.Where(x => x.Codigo_producto == item.CodProd).FirstOrDefault().Idproducto;
                 detallefact.Cantidad = item.Cant;
                 detallefact.Monto = item.Impor;
                 detallefact.Estado = 1;

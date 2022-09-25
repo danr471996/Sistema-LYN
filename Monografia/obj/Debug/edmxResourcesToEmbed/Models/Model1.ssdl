@@ -9,10 +9,14 @@
     <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
     <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
-    <Property Name="Nombre" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Primer_nombre" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Segundo_nombre" Type="varchar" MaxLength="45" />
+    <Property Name="Primer_apellido" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Segundo_apellido" Type="varchar" MaxLength="45" />
     <Property Name="Direccion" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Telefono" Type="int" />
-    <Property Name="Limite_credito" Type="int" />
+    <Property Name="Id_tipocredito" Type="int" Nullable="false" />
+    <Property Name="Cantidad_credito" Type="int" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="creditos">
@@ -52,7 +56,7 @@
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
     <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
     <Property Name="Id_factura" Type="int" Nullable="false" />
-    <Property Name="Id_producto" Type="int" Nullable="false" />
+    <Property Name="Idproducto" Type="int" Nullable="false" />
     <Property Name="Cantidad" Type="int" Nullable="false" />
     <Property Name="Monto" Type="decimal" Precision="15" Scale="2" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
@@ -81,19 +85,25 @@
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
     <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
     <Property Name="Codigo_producto" Type="int" Nullable="false" />
+    <Property Name="Id_proveedor" Type="int" Nullable="false" />
     <Property Name="Cantidad_producto" Type="int" Nullable="false" />
     <Property Name="Precio_compra" Type="decimal" Precision="15" Scale="2" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="lista_permisos">
     <Key>
-      <PropertyRef Name="ID" />
+      <PropertyRef Name="Id_permiso" />
     </Key>
-    <Property Name="ID" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="TEXTO" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="Id_permiso" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="Usuario_alta" Type="varchar" MaxLength="45" />
+    <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+    <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="300" Nullable="false" />
     <Property Name="SELECCIONADO" Type="tinyint" Nullable="false" />
     <Property Name="GRUPO" Type="varchar" MaxLength="300" Nullable="false" />
     <Property Name="INICIO_GRUPO" Type="tinyint" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="opciones">
     <Key>
@@ -114,8 +124,8 @@
     <Property Name="Idpagos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
     <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+    <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
     <Property Name="Id_factura" Type="int" />
     <Property Name="Monto_pagado" Type="decimal" Precision="15" Scale="2" />
     <Property Name="Estado" Type="int" Nullable="false" />
@@ -132,12 +142,12 @@
     <Property Name="Codigo_producto" Type="int" Nullable="false" />
     <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
-    <Property Name="Tipo_venta" Type="int" />
+    <Property Name="Id_tipoventas" Type="int" Nullable="false" />
     <Property Name="Precio_costo" Type="decimal" Precision="15" Scale="2" Nullable="false" />
     <Property Name="Precio_venta" Type="decimal" Precision="15" Scale="2" Nullable="false" />
     <Property Name="Precio_mayoreo" Type="decimal" Precision="15" Scale="2" Nullable="false" />
-    <Property Name="Coddepartamento" Type="int" Nullable="false" />
-    <Property Name="Usa_inventario" Type="int" />
+    <Property Name="Iddepartamento" Type="int" Nullable="false" />
+    <Property Name="Usa_inventario" Type="int" Nullable="false" />
     <Property Name="Cantidad_actual" Type="int" />
     <Property Name="Cantidad_minima" Type="int" />
   </EntityType>
@@ -150,7 +160,7 @@
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
     <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
     <Property Name="Nombre_promocion" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="Cod_producto" Type="int" Nullable="false" />
+    <Property Name="Id_producto" Type="int" Nullable="false" />
     <Property Name="Cant_desde" Type="int" Nullable="false" />
     <Property Name="Cant_hasta" Type="int" Nullable="false" />
     <Property Name="Precio_unitario" Type="int" Nullable="false" />
@@ -158,9 +168,9 @@
   </EntityType>
   <EntityType Name="proveedor">
     <Key>
-      <PropertyRef Name="idProveedor" />
+      <PropertyRef Name="IdProveedor" />
     </Key>
-    <Property Name="idProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
     <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
@@ -171,11 +181,27 @@
     <Property Name="Direccion" Type="varchar" MaxLength="45" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="tipo_credito">
+    <Key>
+      <PropertyRef Name="Id_tipocredito" />
+    </Key>
+    <Property Name="Id_tipocredito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+    <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="tipo_ventas">
     <Key>
-      <PropertyRef Name="idtipo_ventas" />
+      <PropertyRef Name="Id_tipoventas" />
     </Key>
-    <Property Name="idtipo_ventas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_tipoventas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+    <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
     <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
@@ -202,8 +228,10 @@
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
     <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
     <Property Name="Idusuario" Type="int" Nullable="false" />
-    <Property Name="Nombre" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="Apellido" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Primer_nombre" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Segundo_nombre" Type="varchar" MaxLength="45" />
+    <Property Name="Primer_apellido" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Segundo_apellido" Type="varchar" MaxLength="45" />
     <Property Name="Telefono" Type="int" />
     <Property Name="Direccion" Type="varchar" MaxLength="100" Nullable="false" />
   </EntityType>
@@ -216,15 +244,21 @@
     <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
     <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
-    <Property Name="Id_usuario" Type="int" Nullable="false" />
+    <Property Name="Idusuario" Type="int" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="usuarios_perfiles">
     <Key>
-      <PropertyRef Name="perfil" />
+      <PropertyRef Name="Id_perfil" />
     </Key>
-    <Property Name="perfil" Type="varchar" MaxLength="200" Nullable="false" />
-    <Property Name="codigo_perfil" Type="varchar" MaxLength="350" Nullable="false" />
+    <Property Name="Id_perfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+    <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+    <Property Name="Descripcion_perfil" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Codigo_accesos_perfil" Type="varchar" MaxLength="350" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="usuarios_tienda">
     <Key>
@@ -237,9 +271,141 @@
     <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
     <Property Name="Login" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Contraseña" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="Perfil" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Id_perfil" Type="int" Nullable="false" />
     <Property Name="Estado_usuario" Type="int" Nullable="false" />
   </EntityType>
+  <Association Name="fk_departamento">
+    <End Role="departamento" Type="Self.departamento" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="departamento">
+        <PropertyRef Name="Iddepartmento" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="Iddepartamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_factura">
+    <End Role="factura" Type="Self.factura" Multiplicity="1" />
+    <End Role="detalle_factura" Type="Self.detalle_factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="factura">
+        <PropertyRef Name="Idfactura" />
+      </Principal>
+      <Dependent Role="detalle_factura">
+        <PropertyRef Name="Id_factura" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_facturas">
+    <End Role="factura" Type="Self.factura" Multiplicity="0..1" />
+    <End Role="pagos" Type="Self.pagos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="factura">
+        <PropertyRef Name="Idfactura" />
+      </Principal>
+      <Dependent Role="pagos">
+        <PropertyRef Name="Id_factura" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_producto">
+    <End Role="productos" Type="Self.productos" Multiplicity="1" />
+    <End Role="detalle_factura" Type="Self.detalle_factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="Idproducto" />
+      </Principal>
+      <Dependent Role="detalle_factura">
+        <PropertyRef Name="Idproducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_productos">
+    <End Role="productos" Type="Self.productos" Multiplicity="1" />
+    <End Role="promocion" Type="Self.promocion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="Idproducto" />
+      </Principal>
+      <Dependent Role="promocion">
+        <PropertyRef Name="Id_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_proveedor">
+    <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
+    <End Role="facturas_proveedor" Type="Self.facturas_proveedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedor">
+        <PropertyRef Name="IdProveedor" />
+      </Principal>
+      <Dependent Role="facturas_proveedor">
+        <PropertyRef Name="Id_proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tipo_credito">
+    <End Role="tipo_credito" Type="Self.tipo_credito" Multiplicity="1" />
+    <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo_credito">
+        <PropertyRef Name="Id_tipocredito" />
+      </Principal>
+      <Dependent Role="clientes">
+        <PropertyRef Name="Id_tipocredito" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tipo_ventas">
+    <End Role="tipo_ventas" Type="Self.tipo_ventas" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo_ventas">
+        <PropertyRef Name="Id_tipoventas" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="Id_tipoventas" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_usuarios_perfiles">
+    <End Role="usuarios_perfiles" Type="Self.usuarios_perfiles" Multiplicity="1" />
+    <End Role="usuarios_tienda" Type="Self.usuarios_tienda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios_perfiles">
+        <PropertyRef Name="Id_perfil" />
+      </Principal>
+      <Dependent Role="usuarios_tienda">
+        <PropertyRef Name="Id_perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_usuarios_tienda">
+    <End Role="usuarios_tienda" Type="Self.usuarios_tienda" Multiplicity="1" />
+    <End Role="usuario_detalle" Type="Self.usuario_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios_tienda">
+        <PropertyRef Name="Idusuario" />
+      </Principal>
+      <Dependent Role="usuario_detalle">
+        <PropertyRef Name="Idusuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fr_usuarios_tiendas">
+    <End Role="usuarios_tienda" Type="Self.usuarios_tienda" Multiplicity="1" />
+    <End Role="usuario_sesion" Type="Self.usuario_sesion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios_tienda">
+        <PropertyRef Name="Idusuario" />
+      </Principal>
+      <Dependent Role="usuario_sesion">
+        <PropertyRef Name="Idusuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="proyectotiendaModelStoreContainer">
     <EntitySet Name="clientes" EntityType="Self.clientes" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="creditos" EntityType="Self.creditos" Schema="proyectotienda" store:Type="Tables" />
@@ -253,11 +419,56 @@
     <EntitySet Name="productos" EntityType="Self.productos" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="promocion" EntityType="Self.promocion" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="proveedor" EntityType="Self.proveedor" Schema="proyectotienda" store:Type="Tables" />
+    <EntitySet Name="tipo_credito" EntityType="Self.tipo_credito" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="tipo_ventas" EntityType="Self.tipo_ventas" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="unidad_medida" EntityType="Self.unidad_medida" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="usuario_detalle" EntityType="Self.usuario_detalle" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="usuario_sesion" EntityType="Self.usuario_sesion" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="usuarios_perfiles" EntityType="Self.usuarios_perfiles" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="usuarios_tienda" EntityType="Self.usuarios_tienda" Schema="proyectotienda" store:Type="Tables" />
+    <AssociationSet Name="fk_departamento" Association="Self.fk_departamento">
+      <End Role="departamento" EntitySet="departamento" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_factura" Association="Self.fk_factura">
+      <End Role="factura" EntitySet="factura" />
+      <End Role="detalle_factura" EntitySet="detalle_factura" />
+    </AssociationSet>
+    <AssociationSet Name="fk_facturas" Association="Self.fk_facturas">
+      <End Role="factura" EntitySet="factura" />
+      <End Role="pagos" EntitySet="pagos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_producto" Association="Self.fk_producto">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="detalle_factura" EntitySet="detalle_factura" />
+    </AssociationSet>
+    <AssociationSet Name="fk_productos" Association="Self.fk_productos">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="promocion" EntitySet="promocion" />
+    </AssociationSet>
+    <AssociationSet Name="fk_proveedor" Association="Self.fk_proveedor">
+      <End Role="proveedor" EntitySet="proveedor" />
+      <End Role="facturas_proveedor" EntitySet="facturas_proveedor" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tipo_credito" Association="Self.fk_tipo_credito">
+      <End Role="tipo_credito" EntitySet="tipo_credito" />
+      <End Role="clientes" EntitySet="clientes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tipo_ventas" Association="Self.fk_tipo_ventas">
+      <End Role="tipo_ventas" EntitySet="tipo_ventas" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_usuarios_perfiles" Association="Self.fk_usuarios_perfiles">
+      <End Role="usuarios_perfiles" EntitySet="usuarios_perfiles" />
+      <End Role="usuarios_tienda" EntitySet="usuarios_tienda" />
+    </AssociationSet>
+    <AssociationSet Name="fk_usuarios_tienda" Association="Self.fk_usuarios_tienda">
+      <End Role="usuarios_tienda" EntitySet="usuarios_tienda" />
+      <End Role="usuario_detalle" EntitySet="usuario_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="fr_usuarios_tiendas" Association="Self.fr_usuarios_tiendas">
+      <End Role="usuarios_tienda" EntitySet="usuarios_tienda" />
+      <End Role="usuario_sesion" EntitySet="usuario_sesion" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

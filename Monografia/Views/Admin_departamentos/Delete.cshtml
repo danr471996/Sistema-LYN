@@ -4,24 +4,36 @@
     ViewBag.Title = "Eliminar departamento";
 }
 @Scripts.Render("~/bundles/jqueryval")
-<h3>¿Está seguro de eliminar este departamento?</h3>
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayName("Descripción")
-        </dt>
+<div class="card">
+    <div class="card-header">
+        <h3>¿Está seguro de eliminar este departamento?</h3>
+    </div>
+    <div class="card-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayName("Descripción")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
+    <div class="card-footer">
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
 
-        <div class="row col-lg-12">
-            <input type="submit" value="Eliminar" class="btn btn-primary" /> 
-        </div>
-    }
+        @using (Html.BeginForm())
+        {
+
+            <div class="row col-lg-12">
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"> Guardar</i>
+                </button>
+            </div>
+        }
+    </div>
 </div>
+
+

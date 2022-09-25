@@ -1,75 +1,77 @@
-﻿@model Monografia.Models.clientes
+﻿@model Monografia.Models.Modelo_contenedor
 
-@{
-    ViewBag.Title = "Nuevo Cliente";
-    //Layout = "~/Views/Menu/Menu_tienda.cshtml";
-}
 @Scripts.Render("~/bundles/jqueryval")
-<section>
+<style>
+        #dvcantcredito{
+       display:none;
+      
+    }
+</style>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h4>@ViewBag.Title</h4>
-
-                </div>
-                <div class="panel-body">
-
-                    <div class="row " style="color:gray">
-                        <h5>- Llene la siguiente información acerca del nuevo cliente:</h5>
-                    </div>
-                    <br>
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="row">
-                        <div class="form-group text-center">
-                            @Html.Label("Nombres y Apellidos", htmlAttributes: new { @class = "control-label col-lg-4" })
-
-                            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control col-lg-2 ", style = "margin: 0 auto;" } })
-                            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="form-group text-center ">
-                            @Html.Label("Dirección", htmlAttributes: new { @class = "control-label col-lg-4 " })
-                            @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control col-lg-2 ", style = "margin: 0 auto;" } })
-                            @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="form-group text-center ">
-                            @Html.Label("Teléfono", htmlAttributes: new { @class = "control-label col-lg-4 " })
-                            @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control col-lg-2 ", style = "margin: 0 auto;" } })
-                            @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
-
-                        </div>
-                    </div>
-                        <br>
-                    <div class="row">
-                        <div class="form-group text-center ">
-                            @Html.Label("Limite de crédito", htmlAttributes: new { @class = "control-label col-lg-4 " })
-
-                            @Html.EditorFor(model => model.Limite_credito, new { htmlAttributes = new { @class = "form-control col-lg-2 ", style = "margin: 0 auto;" } })
-                         
-                            @Html.ValidationMessageFor(model => model.Limite_credito, "", new { @class = "text-danger" })
-
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="form-group text-center ">
-                            @Html.Label("(si el limite de credito es 0, el cliente no tiene limite)", htmlAttributes: new { @class = "control-label ", style = "margin: 0 auto;"})
-                        </div>
-                    </div>
-                    </div>
+        <div class="card">
+            <div class="card-header">
+                <h4>Nuevo cliente</h4>
             </div>
-            <div class="row">
-                <div class="form-group text-right ">
-                    <input type="submit" value="Guardar" class="btn btn-primary btn-block col-lg-12 " , style="margin: 0 auto;" />
+            <div class="card-body">
+                <br>
+                <form class="row g-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.Label("Primer Nombre", htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.cliente.Primer_nombre, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.Label("Segundo Nombre", htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.cliente.Segundo_nombre, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
 
-                </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.Label("Primer Apellido", htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.cliente.Primer_apellido, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.Label("Segundo Apellido", htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.cliente.Segundo_apellido, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.Label("Dirección", htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.cliente.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.Label("Teléfono", htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.cliente.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.Label("Tipo de crédito", htmlAttributes: new { @class = "form-label" })
+                            @Html.DropDownListFor(model => model.cliente.Id_tipocredito, new SelectList(Model.listatipocredito, "Id_tipocredito", "Descripcion"), "Seleccione tipo", new { @class = "form-control", @id = "dltipocredito" })
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" id="dvcantcredito">
+                        <div class="col-md-6">
+                            @Html.Label("Cantidad de crédito", htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.cliente.Cantidad_credito, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </form>
             </div>
+            <div class="card-footer text-center">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"> Guardar</i>
+                </button>
+
+            </div>
+        </div>
     }
-</section>
+

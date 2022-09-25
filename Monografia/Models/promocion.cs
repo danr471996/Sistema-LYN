@@ -19,10 +19,12 @@ namespace Monografia.Models
         public Nullable<System.DateTime> Fecha_baja { get; set; }
         public string Usuario_baja { get; set; }
         public string Nombre_promocion { get; set; }
-        public int Cod_producto { get; set; }
+        public int Id_producto { get; set; }
         public int Cant_desde { get; set; }
         public int Cant_hasta { get; set; }
         public int Precio_unitario { get; set; }
         public int Estado { get; set; }
+    
+        public virtual productos productos { get; set; }
     }
 }
