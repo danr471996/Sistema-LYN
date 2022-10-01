@@ -1,81 +1,91 @@
 ﻿@model IEnumerable<Monografia.Models.Modelo_contenedor>
 
 @{
-    ViewBag.Title = "Estado_cuenta";
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
 @Styles.Render("~/Content/datatables")
 
 <div class="card">
     <div class="card-header">
-        <h2>Estado cuenta del cliente</h2>
+        <h4>Estado cuenta del cliente</h4>
     </div>
-    <div>
-        @Html.Label(" ", "Nombre Cliente", htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
-        @Html.Label(" ", (string)Session["nomcliente"], htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
-        @Html.Label(" ", "Limite de crédito", htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
-        @Html.Label(" ", Session["limitecredito"].ToString(), htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
-        @Html.Label(" ", "Saldo Actual", htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
-        @Html.Label(" ", Session["Saldoactual"].ToString(), htmlAttributes: new { @class = "control-label col-lg-2 col-md-3 col-xs-12", @style = "color:forestgreen" })
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <h2>Facturas del cliente</h2>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                @Html.Label(" ", "Nombre Cliente", htmlAttributes: new { @class = "form-label", @style = "color:forestgreen" })
+                @Html.Label(" ", (string)Session["nomcliente"], htmlAttributes: new { @class = "form-label", @style = "color:forestgreen" })
+            </div>
+            <div class="col-md-4">
+                @Html.Label(" ", "Limite de crédito", htmlAttributes: new { @class = "form-label", @style = "color:forestgreen" })
+                @Html.Label(" ", Session["limitecredito"].ToString(), htmlAttributes: new { @class = "form-label", @style = "color:forestgreen" })
+            </div>
+            <div class="col-md-4">
+                @Html.Label(" ", "Saldo Actual", htmlAttributes: new { @class = "form-label", @style = "color:forestgreen" })
+                @Html.Label(" ", Session["Saldoactual"].ToString(), htmlAttributes: new { @class = "form-label", @style = "color:forestgreen" })
+            </div>
         </div>
-        <div class="card-body">
-            <table id="tbfacturas" class="table table-striped">
-                <thead>
+    </div>
+
+</div>
+<div class="card">
+    <div class="card-header">
+        <h4>Facturas del cliente</h4>
+    </div>
+    <div class="card-body">
+        <br>
+        <br>
+        <table id="tbfacturas" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayName("Id de cliente")</th>
+                    <th>@Html.DisplayName("Id de factura")</th>
+                    <th>@Html.DisplayName("Fecha de Factura")</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+
                     <tr>
-                        <th>@Html.DisplayName("Id de cliente")</th>
-                        <th>@Html.DisplayName("Id de factura")</th>
-                        <th>@Html.DisplayName("Fecha de Factura")</th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.idcliente2)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.idfacturas)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fechasfacturas)
+                        </td>
                     </tr>
-                </thead>
-
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.idcliente2)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.idfacturas)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.fechasfacturas)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-
+                }
+            </tbody>
+        </table>
     </div>
 
-    <div class="card">
-        <div class="card-header">
-            <h2>Detalle de Factura</h2>
-        </div>
-        <div class="card-body">
+</div>
 
-            <table id="tbdetallefactura" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>@Html.DisplayName("Descripcion del producto")</th>
+<div class="card">
+    <div class="card-header">
+        <h4>Detalle de Factura</h4>
+    </div>
+    <div class="card-body">
+        <br>
+        <br>
+        <table id="tbdetallefactura" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayName("Descripcion del producto")</th>
 
-                        <th>@Html.DisplayName("Precio venta")</th>
+                    <th>@Html.DisplayName("Precio venta")</th>
 
-                        <th>@Html.DisplayName("Cantidad")</th>
+                    <th>@Html.DisplayName("Cantidad")</th>
 
-                        <th>@Html.DisplayName("Importe")</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-
+                    <th>@Html.DisplayName("Importe")</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
 
 </div>

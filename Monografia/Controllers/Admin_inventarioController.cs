@@ -273,7 +273,7 @@ namespace Monografia.Controllers
             }
           
         }
-
+       
         public ActionResult editar_inventario(int? id, int id2)
         {
             Modelo_contenedor Modelo_contenedor = new Modelo_contenedor();
@@ -344,6 +344,8 @@ namespace Monografia.Controllers
         
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult agregar_inventario(int? id_producto)
         {
             try
@@ -404,7 +406,8 @@ namespace Monografia.Controllers
         
         }
 
-        // GET: productos/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult ajuste_inventario(int? id_producto)
         {
             try

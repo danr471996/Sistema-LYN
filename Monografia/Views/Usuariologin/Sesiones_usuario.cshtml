@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<Monografia.Models.usuario_sesion>
 
 @{
-    ViewBag.Title = "Sesiones_usuario";
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
 
@@ -9,10 +8,12 @@
 
 <div class="card">
     <div class="card-header">
-        <h2>Sesiones de usuarios</h2>
+        <h4 class="text-center">Sesiones de usuarios</h4>
     </div>
     <div class="card-body">
-        <table id="jquerydatatable" class="table table-striped">
+        <br>
+        <br>
+        <table id="tbsesiones" class="table table-bordered">
             <thead>
                 <tr>
                     <th>
@@ -42,14 +43,14 @@
                             @if (item.Estado == 1)
                             {
 
-                                <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
+                                <div class="form-control " style="width:100%; border-radius:100px;color:#37c406;text-align:center">
                                     Activo
 
                                 </div>
                             }
                             else
                             {
-                                <div class="form-control" style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
+                                <div class="form-control" style="width:100%; border-radius:100px;color:#d00b0b;text-align:center">
                                     Inactivo
                                 </div>
                             }
@@ -73,7 +74,7 @@
     @Scripts.Render("~/bundles/datatables")
     <script type="text/javascript">
             $(document).ready(function () {
-               $('#jquerydatatable').DataTable({
+                $('#tbsesiones').DataTable({
                     "language": {
                         "url":"/Scripts/es_es.json"
                     }

@@ -4,28 +4,33 @@
 @Scripts.Render("~/bundles/jqueryval")
 @using (Html.BeginForm("editar_inventario", "Admin_inventario", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     <div class="card">
         <div class="card-header">
-            <h2>Editar inventario</h2>
+            <h4>Editar inventario</h4>
         </div>
         <div class="card-body">
-            <div class="row col-lg-12">
-                @Html.Label("Código de producto", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-                @Html.EditorFor(model => model.productos.Codigo_producto, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12", @readonly = true } })
-            </div>
             <br>
-            <div class="row col-lg-12">
-                @Html.Label("Cantidad", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-                @Html.Editor("agregar_cantidad", new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-            </div>
-
+            <form class="row g-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.Label("Código de producto", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.productos.Codigo_producto, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.Label("","Cantidad", htmlAttributes: new { @class = "form-label" })
+                        @Html.Editor("agregar_cantidad", new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="card-footer">
-            <div class="row col-lg-12">
+        <div class="card-footer text-center">
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-save">Guardar</i>
                 </button>
-            </div>
         </div>
     </div>
 }

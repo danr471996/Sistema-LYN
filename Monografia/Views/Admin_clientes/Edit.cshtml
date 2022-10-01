@@ -1,15 +1,7 @@
 ﻿@model Monografia.Models.Modelo_contenedor
 
-@{
-    ViewBag.Title = "Modificar Cliente";
-
-}
 @Scripts.Render("~/bundles/jqueryval")
-<style>
-    #dvcantcredito {
-        display: none;
-    }
-</style>
+@Scripts.Render("~/bundles/jqueryformularios")
 
 @using (Html.BeginForm())
 {
@@ -18,10 +10,10 @@
         <div class="card-header">
             <h4>Editar cliente</h4>
         </div>
-        <div class="card-body">
+        <div class="card-body" id="frmdatosclientes">
             @Html.HiddenFor(model => model.cliente.Idcliente)
             <br>
-            <form class="row g-3">
+            <form class="row g-3" >
                 <div class="row">
                     <div class="col-md-6">
                         @Html.Label("Primer Nombre", htmlAttributes: new { @class = "form-label" })
@@ -59,16 +51,10 @@
                     </div>
                     <div class="col-md-6">
                         @Html.Label("Tipo de crédito", htmlAttributes: new { @class = "form-label" })
-                        @Html.DropDownListFor(model => model.cliente.Id_tipocredito, new SelectList(Model.listatipocredito, "Id_tipocredito", "Descripcion"), "Seleccione tipo", new { @class = "form-control", @id = "dltipocredito" })
+                        @Html.DropDownListFor(model => model.cliente.Id_tipocredito, new SelectList(Model.listatipocredito, "Id_tipocredito", "Descripcion"), "Seleccione tipo", new { @class = "form-select", @id = "dltipocredito" })
                     </div>
                 </div>
-                <br>
-                <div class="row" id="dvcantcredito">
-                    <div class="col-md-6">
-                        @Html.Label("Cantidad de crédito", htmlAttributes: new { @class = "form-label" })
-                        @Html.EditorFor(model => model.cliente.Cantidad_credito, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                </div>
+                <br>     
             </form>
         </div>
         <div class="card-footer text-center">
@@ -80,3 +66,14 @@
     </div>
 
 }
+
+<script id="prueba" type="text/template">
+    <div class="row" id="dvcantcredito">
+        <div class="col-md-6">
+            @Html.Label("Cantidad de crédito", htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(model => model.cliente.Cantidad_credito, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+
+    </div>
+</script>

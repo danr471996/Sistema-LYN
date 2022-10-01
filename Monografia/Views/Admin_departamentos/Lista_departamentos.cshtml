@@ -3,58 +3,78 @@
 @{
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
-
+@Styles.Render("~/Content/datatables")
 <div class="card">
     <div class="card-header">
-        <h2>Departamentos</h2>
+        <h4>Departamentos</h4>
     </div>
-    <a data-modal="" href=@Url.Action("Create", "Admin_departamentos") class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar Departamento</a>
-    <div class="card-body">
-        
-        <table class="table table-striped">
-            <tr>
-                <th>
-                    @Html.DisplayName("Descripción")
-                </th>
-                <th>
-                    @Html.DisplayName("Estado")
-                </th>
-                <th>Acciones</th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+   
+      
+        <div class="card-body">
+            <br>
+            <div class="row col-md-2">
+                <a data-modal="" href=@Url.Action("Create", "Admin_departamentos") class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar Departamento</a>
+            </div>
+            <br>
+            <br>
+            <table id="tbdepartamentos" class="table table-bordered">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descripcion)
-                    </td>
-                    <td>
-                        @if (item.Estado == 1)
-                        {
-
-                            <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
-                                Activo
-
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
-                                Inactivo
-
-                            </div>
-                        }
-                    </td>
-                    <td>
-                        <a data-modal="" href=@Url.Action("Edit", "Admin_departamentos", new { id = item.Iddepartmento }) class="btn btn-success"> <span class="fa fa-edit"></span></a>  |
-                        <a data-modal="" href=@Url.Action("Delete", "Admin_departamentos", new { id = item.Iddepartmento }) class="btn btn-danger"> <span class="fa fa-trash"></span></a> |
-                    </td>
+                    <th>
+                        @Html.DisplayName("Descripción")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Estado")
+                    </th>
+                    <th>Acciones</th>
                 </tr>
-            }
 
-        </table>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @if (item.Estado == 1)
+                            {
+
+                                <div class="form-control " style="width:100%; border-radius:100px;color:#37c406;text-align:center">
+                                    Activo
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-control " style="width:100%; border-radius:100px;color:#d00b0b;text-align:center">
+                                    Inactivo
+
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            <a data-modal="" href=@Url.Action("Edit", "Admin_departamentos", new { id = item.Iddepartmento }) class="btn btn-success"> <span class="fa fa-edit"></span></a>  |
+                            <a data-modal="" href=@Url.Action("Delete", "Admin_departamentos", new { id = item.Iddepartmento }) class="btn btn-danger"> <span class="fa fa-trash"></span></a> |
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+
     </div>
 
-</div>
 
+@section Scripts
+{
+    @Scripts.Render("~/bundles/datatables")
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('#tbdepartamentos').DataTable({
+                    "language": {
+                        "url": "/Scripts/es_es.json"
+                    }
+                })
+            });
 
+    </script>
+}

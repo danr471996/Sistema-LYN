@@ -5,32 +5,39 @@
 @Scripts.Render("~/bundles/jqueryval")
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
     <div class="card">
         <div class="card-header">
-            <h2>Nuevo proveedor</h2>
+            <h4>Nuevo proveedor</h4>
         </div>
         <div class="card-body">
-            <div class="row col-lg-12">
-                @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
+            <br>
+            <form class="row g-3">
 
-            <div class="row col-lg-12">
-                @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-
-            <div class="row col-lg-12">
-                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-
-            <div class="row col-lg-12">
-                @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-        <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </form>
+</div>
+        <div class="card-footer text-center">
             <button type="submit" class="btn btn-primary">
                 <i class="fa fa-save">Guardar</i>
             </button>

@@ -6,15 +6,19 @@
 @Styles.Render("~/Content/datatables")
 <div class="card">
     <div class="card-header">
-        <h2>Productos</h2>
+        <h4 class="text-center">Productos</h4>
     </div>
-    <a data-modal="" href=@Url.Action("Create", "Admin_productos") class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar roductos</a>
-    &nbsp
-    <a href=@Url.Action("Createpromocion", "Admin_productos") class="btn btn-primary"> <span class="fa fa-star"></span> Agregar promocion</a>
 
     <div class="card-body">
-
-        <table id="jquerydatatable" class="table table-striped">
+        <br>
+        <div class="row">
+            <div class="col-md-2">
+                <a data-modal="" href=@Url.Action("Create", "Admin_productos") class="btn btn-primary"> <i class="fa fa-plus"></i>Agregar productos</a>
+            </div>
+        </div>
+        <br>
+        <br>
+        <table id="tbproductos" class="table table-bordered">
             <thead>
                 <tr>
                     <th>
@@ -58,14 +62,14 @@
                             @if (item.Usa_inventario == 1)
                 {
 
-                                <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
+                                <div class="form-control " style="width:100%; border-radius:100px;color:#37c406;text-align:center">
                                     Si
 
                                 </div>
                             }
                             else
                             {
-                                <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
+                                <div class="form-control " style="width:100%; border-radius:100px;color:#d00b0b;text-align:center">
                                     No
                                 </div>
                             }
@@ -75,14 +79,14 @@
                             @if (item.Estado == 1)
                 {
 
-                                <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
+                                <div class="form-control " style="width:100%; border-radius:100px;color:#37c406;text-align:center">
                                     Activo
 
                                 </div>
                             }
                             else
                             {
-                                <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
+                                <div class="form-control " style="width:100%; border-radius:100px;color:#d00b0b;text-align:center">
                                     Inactivo
 
                                 </div>
@@ -106,7 +110,7 @@
     @Scripts.Render("~/bundles/datatables")
     <script type="text/javascript">
             $(document).ready(function () {
-               $('#jquerydatatable').DataTable({
+                $('#tbproductos').DataTable({
                     "language": {
                         "url":"/Scripts/es_es.json"
                     }

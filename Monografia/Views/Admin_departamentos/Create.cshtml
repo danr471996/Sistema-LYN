@@ -4,19 +4,24 @@
 
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
     <div class="card">
         <div class="card-header">
-            <h2>Nuevo Departamento</h2>
+            <h4>Nuevo Departamento</h4>
         </div>
         <div class="card-body">
-            <div class="row col-lg-12">
-                @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
+            <br>
+            <form class="row g-3">
 
-                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-
-            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="card-footer">
+        <div class="card-footer text-center">
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-save">Guardar</i>
                 </button>

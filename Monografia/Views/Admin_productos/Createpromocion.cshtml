@@ -7,140 +7,140 @@
 @Styles.Render("~/Content/datatables")
 
 <div class="card">
-    <div class="card-header">
-        <h2>Promoción</h2>
-    </div>
-    <div class="card-body">
-        @using (Html.BeginForm())
-        {
-            <div class="card">
-                <div class="card-header">
-                    <h2>Nueva Promoción</h2>
-                </div>
-                <div class="card-body">
-                    <div class="row col-lg-12">
-                        @Html.Label("Nombre de promoción", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-                        @Html.EditorFor(model => model.Nombre_promocion, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-
-                    </div>
-                    <br>
-                    <div class="row col-lg-12">
-                        @Html.Label("Código de producto", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-                        @Html.Editor("Codigo_producto", new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-
-                    </div>
-                    <br>
-                    <div class="row col-lg-12">
-                        @Html.Label("Cantidad desde", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-                        @Html.EditorFor(model => model.Cant_desde, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-
-                    </div>
-                    <br>
-                    <div class="row col-lg-12">
-                        @Html.Label("Cantidad hasta", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-                        @Html.EditorFor(model => model.Cant_hasta, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-
-                    </div>
-                    <br>
-                    <div class="row col-lg-12">
-                        @Html.Label("Precio unitario", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-                        @Html.EditorFor(model => model.Precio_unitario, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-                        )
-                    </div>
-
-                    <div class="row col-lg-12">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-save"> Guardar</i>
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h2>Promociones</h2>
-                </div>
-                <div class="card-body">
-                    <table id="jquerydatatable" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>
-                                    @Html.DisplayName("Nombre de promoción")
-                                </th>
-                                <th>
-                                    @Html.DisplayName("Codigo de producto")
-                                </th>
-                                <th>
-                                    @Html.DisplayName("Cantidad desde")
-                                </th>
-                                <th>
-                                    @Html.DisplayName("Cantidad hasta")
-                                </th>
-                                <th>
-                                    @Html.DisplayName("Precio unitario")
-                                </th>
-                                <th>
-                                    @Html.DisplayName("Estado")
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in (List<Monografia.Models.promocion>)ViewBag.listapromocion)
-                {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Nombre_promocion)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.productos.Codigo_producto)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cant_desde)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cant_hasta)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Precio_unitario)
-                                    </td>
-                                    <td>
-                                        @if (item.Estado == 1)
-                                        {
-                                            <div class="form-control " style="width:70px; border-radius:60px;color:#37c406;text-align:center">
-                                                Activo
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="form-control " style="width:70px; border-radius:100px;color:#d00b0b;text-align:center">
-                                                Inactivo
-                                            </div>
-                                        }
-                                    </td>
-                                    <td>
-                                        <a data-modal="" href=@Url.Action("Deletepromocion", "Admin_productos",new { id = item.Idpromocion }) class="btn btn-danger"> <span class="fa fa-trash"></span></a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-        }
-    </div>
-
+        <h4 class="text-center">Promoción</h4>
 </div>
-   
+@using (Html.BeginForm())
+{
+    <div class="card">
+        <div class="card-header">
+            <h4>Nueva Promoción</h4>
+        </div>
+        <div class="card-body">
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.Label("Nombre de promoción", htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Nombre_promocion, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-6">
+                    @Html.Label("Código de producto", htmlAttributes: new { @class = "form-label" })
+                    @Html.Editor("Codigo_producto", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.Label("Cantidad desde", htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Cant_desde, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-6">
+                    @Html.Label("Cantidad hasta", htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Cant_hasta, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.Label("Precio unitario", htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Precio_unitario, new { htmlAttributes = new { @class = "form-control" } }))
+                </div>
+            </div>
+            <br>
+            <div class="row text-center">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-save"> Guardar</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Promociones</h4>
+        </div>
+        <div class="card-body">
+            <br>
+            <br>
+            <table id="tbpromocion" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Nombre de promoción")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Codigo de producto")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Cantidad desde")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Cantidad hasta")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Precio unitario")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Estado")
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (List<Monografia.Models.promocion>)ViewBag.listapromocion)
+                {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre_promocion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.productos.Codigo_producto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cant_desde)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cant_hasta)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Precio_unitario)
+                            </td>
+                            <td>
+                                @if (item.Estado == 1)
+                                {
+                                    <div class="form-control " style="width:100%; border-radius:100px;color:#37c406;text-align:center">
+                                        Activo
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-control " style="width:100%; border-radius:100px;color:#d00b0b;text-align:center">
+                                        Inactivo
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <a data-modal="" href=@Url.Action("Deletepromocion", "Admin_productos",new { id = item.Idpromocion }) class="btn btn-danger"> <span class="fa fa-trash"></span></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+}
+
+
 
 @section Scripts
 {
     @Scripts.Render("~/bundles/datatables")
     <script type="text/javascript">
             $(document).ready(function () {
-               $('#jquerydatatable').DataTable({
+                $('#tbpromocion').DataTable({
                     "language": {
                         "url":"/Scripts/es_es.json"
                     }

@@ -3,21 +3,25 @@
 @{
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
-
+@Styles.Render("~/Content/datatables")
 <div class="card">
     <div class="card-header">
-        <h2>Productos Bajos en inventario</h2>
+        <h4>Productos Bajos en inventario</h4>
     </div>
-    <div>
-        @using (Html.BeginForm("exportarexcel", "Admin_inventario", FormMethod.Post))
-        {
-            <button type="submit" class="btn btn-success">
-                <i class="fa fa-file-excel">Exportar Excel</i>
-            </button>
-        }
-    </div>
+  
     <div class="card-body">
-        <table class="table table-striped">
+        <br>
+        <div class="row col-md-6">
+            @using (Html.BeginForm("exportarexcel", "Admin_inventario", FormMethod.Post))
+            {
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-file-excel">&nbsp;Exportar Excel</i>
+                </button>
+            }
+        </div>
+        <br>
+        <br>
+        <table id="tbprodbajos" class="table table-bordered">
             <tr>
                 <th>
                     @Html.DisplayName("Código de producto")
@@ -71,4 +75,18 @@
 
 
 
+@section Scripts
+{
+    @Scripts.Render("~/bundles/datatables")
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('#tbprodbajos').DataTable({
+                    "language": {
+                        "url": "/Scripts/es_es.json"
+                    }
+                })
+            });
+
+    </script>
+}
 

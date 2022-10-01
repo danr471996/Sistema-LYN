@@ -6,64 +6,65 @@
 
 
 <div class="card">
-    <div class="card-header">
-        <h2>Inventario</h2>
-    </div>
-    <div>
-        @Html.ActionLink("Agregar inventario", "agregar_inventario", "Admin_inventario", new { @class = "btn btn-primary" })
-        &nbsp
-        @Html.ActionLink("Ajustes", "ajuste_inventario", "Admin_inventario", new { @class = "btn btn-primary" })
-    </div>
-  @using (Html.BeginForm("ajuste_inventario", "Admin_inventario", FormMethod.Post))
-  {
+    <h4>Inventario</h4>
+</div>
+@using (Html.BeginForm("ajuste_inventario", "Admin_inventario", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <h4>Buscar producto</h4>
+        </div>
+        <div class="card-body">
+            <br>
+            <div class="row col-md-6">
+                @Html.Label("Código de producto", htmlAttributes: new { @class = "form-label" })
+                <div class="input-group mb-3">
+                    @Html.Editor("id_producto", new { htmlAttributes = new { @class = "form-control", @aria_describedby = "btnbuscar" } })
 
-        <div class="card">
-            <div class="card-header">
-                <h2>Buscar producto</h2>
-            </div>
-            <div class="card-body">
-                <div class="row col-lg-12">
-                    @Html.Label("Código de producto", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-
-                    <div class="input-group mb-3">
-                        @Html.Editor("id_producto", new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12", @aria_describedby = "btnbuscar" } })
-
-                        <button class="btn btn-outline-secondary" type="submit" id="btnbuscar">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
+                    <button class="btn btn-outline-secondary" type="submit" id="btnbuscar">
+                        <i class="fa fa-search"></i>
+                    </button>
                 </div>
-
             </div>
 
         </div>
-    }
 
-  @using (Html.BeginForm("ajuste_inventario2", "Admin_inventario", FormMethod.Post))
-  {
-        <div class="card">
-            <div class="card-header">
-                <h2>Ajustar inventario</h2>
+    </div>
+}
+
+@using (Html.BeginForm("ajuste_inventario2", "Admin_inventario", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <h4>Ajustar inventario</h4>
+        </div>
+        <div class="card-body">
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.Label("Descripción", htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                </div>
             </div>
-            <div class="card-body">
-                <div class="row col-lg-12">
-                    @Html.Label("Descripción", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12", @readonly = true } })
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.Label("Cantidad actual", htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Cantidad_actual, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                 </div>
-
-                <div class="row col-lg-12">
-                    @Html.Label("Cantidad actual", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-                    @Html.EditorFor(model => model.Cantidad_actual, new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12", @readonly = true } })
-
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.Label("Cantidad a ajustar", htmlAttributes: new { @class = "form-label" })
+                    @Html.Editor("agregar_cantidad", new { htmlAttributes = new { @class = "form-control" } })
                 </div>
-
-                <div class="row col-lg-12">
-                    @Html.Label("Cantidad a ajustar", htmlAttributes: new { @class = "control-label col-lg-4 col-md-6 col-xs-12" })
-                    @Html.Editor("agregar_cantidad", new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-
-                </div>
-
-                <div class="row col-lg-12">
+            </div>
+            <br>
+            <div class="row text-center">
+                <div class="col-md-6">
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-save">
                             Guardar
@@ -71,10 +72,10 @@
                     </button>
                 </div>
             </div>
-
         </div>
-    }
+
     </div>
+}
 
 
  

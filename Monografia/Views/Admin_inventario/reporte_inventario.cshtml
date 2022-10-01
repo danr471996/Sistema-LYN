@@ -3,104 +3,131 @@
 @{
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
-<section>
-    <div class="card">
-        <div class="card-header">
-            <h2>Reporte de Inventario</h2>
-        </div>
-
-        <div class="card-body">
-            <div class="row col-lg-12">
-                @Html.Label("Costo de inventario", htmlAttributes: new { @class = "control-label col-lg-2 col-md-4 col-xs-4" })
-                @Html.Label("Cantidad de inventario", htmlAttributes: new { @class = "control-label col-lg-2 col-md-4 col-xs-4" })
-            </div>
-            <div class="row col-lg-12">
-
-                @Html.Label(" ", (string)Session["costo_inventario"], htmlAttributes: new { @class = "control-label col-lg-2 col-md-4 col-xs-4" })
-                @Html.Label(" ", (string)Session["cantidad_inventario"], htmlAttributes: new { @class = "control-label col-lg-2 col-md-4 col-xs-4" })
-            </div>
-            <div class="card">
-
-                <div class="card-body">
-                    <div class="row col-lg-12">
-                        @using (Html.BeginForm("reporte_inventario", "Admin_inventario", FormMethod.Post))
-                        {
-                            <p>
-                                @Html.Label("Departamento", htmlAttributes: new { @class = "control-label col-lg-2 col-md-4 col-xs-12" })
-                                @Html.DropDownListFor(model => model.productos.Iddepartamento, new SelectList(Model.listadepartamento, "Iddepartmento", "Descripcion"), "Todos los departamentos", new { @class = "form-control col-lg-2 col-md-4 col-xs-12", @onchange = "this.form.submit ();" })
-
-                            </p>
-                        }
-                        @using (Html.BeginForm("exportarexcel", "Admin_inventario", FormMethod.Post))
-                        {
-                            <button type="submit" class="btn btn-success col-lg-2 col-md-4 col-xs-12">
-                                <i class="fa fa-file-excel">Exportar excel</i>
-                            </button>
-
-                        }
-
-                    </div>
-
-
-                    <table class="table table-striped">
-                        <tr>
-                            <th>
-                                @Html.DisplayName("Código de producto")
-                            </th>
-                            <th>
-                                @Html.DisplayName("Descripción")
-                            </th>
-                            <th>
-                                @Html.DisplayName("Precio costo")
-                            </th>
-                            <th>
-                                @Html.DisplayName("Precio de venta")
-                            </th>
-                            <th>
-                                @Html.DisplayName("Cantidad actual")
-                            </th>
-                            <th>
-                                @Html.DisplayName("Cantidad mínima")
-                            </th>
-                            <th>Acciones</th>
-                        </tr>
-
-                        @foreach (var item in Model.listaproductos)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Codigo_producto)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Descripcion)
-                                </td>
-                                <th>
-                                    @Html.DisplayFor(modelItem => item.Precio_costo)
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Precio_venta)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Cantidad_actual)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Cantidad_minima)
-                                </td>
-                                <td>
-                                    <a data-modal="" href=@Url.Action("editar_inventario", "Admin_inventario", new { id = item.Idproducto, id2 = item.Codigo_producto }) class="btn btn-success"> <span class="fa fa-edit"></span></a>
-
-                                </td>
-                            </tr>
-                        }
-
-                    </table>
-                </div>
-
-            </div>
-        </div>
-
+@Styles.Render("~/Content/datatables")
+<div class="card">
+    <div class="card-header">
+        <h4>Reporte de Inventario</h4>
     </div>
-</section>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                @Html.Label("","Costo de inventario: ", htmlAttributes: new { @class = "form-label col-md-6" })
+                @Html.Label(" ", (string)Session["costo_inventario"], htmlAttributes: new { @class = "form-label col-md-6" })
+             
+            </div>
+            <div class="col-md-6 text-center">
+                @Html.Label("", "Cantidad de inventario: ", htmlAttributes: new { @class = "form-label col-md-6" })
+                @Html.Label(" ", (string)Session["cantidad_inventario"], htmlAttributes: new { @class = "form-label col-md-6" })
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                @using (Html.BeginForm("reporte_inventario", "Admin_inventario", FormMethod.Post))
+                {
+                    <div class="row">
+                        @Html.Label("","Departamento:", htmlAttributes: new { @class = "form-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.productos.Iddepartamento, new SelectList(Model.listadepartamento, "Iddepartmento", "Descripcion"), "Todos los departamentos", new { @class = "form-select", @onchange = "this.form.submit ();" })
+                        </div>
+                    </div>
+                      
+
+
+                        }
+             </div>
+            <div class="col-md-4">
+                @using (Html.BeginForm("exportarexcel", "Admin_inventario", FormMethod.Post))
+                {
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-file-excel">&nbsp;Exportar excel</i>
+                    </button>
+                }
+            </div>
+        </div>
+        <br>
+        <br>
+        <table id="tbreportinventario" class="table table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayName("Código de producto")
+                </th>
+                <th>
+                    @Html.DisplayName("Descripción")
+                </th>
+                <th>
+                    @Html.DisplayName("Precio costo")
+                </th>
+                <th>
+                    @Html.DisplayName("Precio de venta")
+                </th>
+                <th>
+                    @Html.DisplayName("Cantidad actual")
+                </th>
+                <th>
+                    @Html.DisplayName("Cantidad mínima")
+                </th>
+                <th>Acciones</th>
+            </tr>
+
+            @foreach (var item in Model.listaproductos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Codigo_producto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.Precio_costo)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio_venta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cantidad_actual)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cantidad_minima)
+                    </td>
+                    <td>
+                        <a data-modal="" href=@Url.Action("editar_inventario", "Admin_inventario", new { id = item.Idproducto, id2 = item.Codigo_producto }) class="btn btn-success rounded-circle"> <i class="fa fa-edit"></i></a>
+
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+</div>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/datatables")
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('#tbreportinventario').DataTable({
+                    "language": {
+                        "url": "/Scripts/es_es.json"
+                    }
+                })
+            });
+
+    </script>
+}
+
+
+
+
+
 
 
 

@@ -1,60 +1,66 @@
 ﻿@model Monografia.Models.Modelo_contenedor.facturacion
 
-@{
-    ViewBag.Title = "Delete";
-}
 
 @Scripts.Render("~/bundles/jqueryval")
-<h3>¿Está seguro de eliminar este producto de la lista de compras?</h3>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayName("Codigo de Producto")
-        </dt>
+<div class="card">
+    <div class="card-header">
+        <h4>¿Está seguro de eliminar este producto de la lista de compras?</h4>
+    </div>
+    <div class="card-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayName("Código de Producto")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CodProd)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.CodProd)
+            </dd>
 
-        <dt>
-            @Html.DisplayName("Descripcion")
-        </dt>
+            <dt>
+                @Html.DisplayName("Descripción")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Desc)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Desc)
+            </dd>
 
-        <dt>
-            @Html.DisplayName("Precio de Venta")
-        </dt>
+            <dt>
+                @Html.DisplayName("Precio de Venta")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.prec_vent)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.prec_vent)
+            </dd>
 
-        <dt>
-            @Html.DisplayName("Cantidad")
-        </dt>
+            <dt>
+                @Html.DisplayName("Cantidad")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cant)
-        </dd>
-        <dt>
-            @Html.DisplayName("Importe")
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Cant)
+            </dd>
+            <dt>
+                @Html.DisplayName("Importe")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Impor)
-        </dd>
-        
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.Impor)
+            </dd>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        </dl>
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Eliminar" class="btn btn-primary" /> 
-        </div>
-    }
+    </div>
+    <div class="card-footer text-center">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"> Guardar</i>
+            </button>
+        }
+    </div>
 </div>
+
+ 
+   
+

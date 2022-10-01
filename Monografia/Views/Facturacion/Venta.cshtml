@@ -1,94 +1,118 @@
 ﻿@model IEnumerable<Monografia.Models.Modelo_contenedor.facturacion>
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
      }
 
+<div class="card">
+    <div class="card-header">
+        <h4 class="text-center">Facturación </h4>
+    </div>
+    <div class="card-body">
+        <br>
+        @using (Html.BeginForm("Venta", "Facturacion", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
 
-<h2>Facturacion</h2>
+            <div class="row col-md-6">
+                @Html.Label("Código de producto", htmlAttributes: new { @class = "form-label" })
 
-
-      @using (Html.BeginForm("Venta", "Facturacion", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-
-
-          <div class="row">
-              
-              @Html.Label("Código de producto", htmlAttributes: new { @class = "control-label" })
-
-              @Html.Editor("codigoproducto", new { htmlAttributes = new { @class = "form-control " } })
-              <input type="submit" value="Agregar Producto" class="btn btn-primary" /> 
-          </div>
+                <div class="input-group mb-3">
+                    @Html.Editor("codigoproducto", new { htmlAttributes = new { @class = "form-control", @aria_describedby = "btnbuscar" } })
+                    <button class="btn btn-outline-secondary" type="submit" id="btnbuscar">
+                        <i class="fa fa-plus">Agregar producto</i>
+                    </button>
+                </div>
+            </div>
+        }
 
         <br>
-            }
+        <br>
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayName("Codigo de Producto")
+                </th>
+                <th>
+                    @Html.DisplayName("Descripcion")
+                </th>
+                <th>
+                    @Html.DisplayName("Precio de Venta")
+                </th>
+                <th>
+                    @Html.DisplayName("Cantidad")
+                </th>
+                <th>
+                    @Html.DisplayName("Importe")
+                </th>
+                <th>
+                    @Html.DisplayName("Existencia")
+                </th>
+                <th>
+                    Acciones
+                </th>
+
+            </tr>
 
 
-
-            <table class="table table-striped">
-                <tr>
-                    <th>
-                        @Html.DisplayName("Codigo de Producto")
-                    </th>
-                    <th>
-                        @Html.DisplayName("Descripcion")
-                    </th>
-                    <th>
-                        @Html.DisplayName("Precio de Venta")
-                    </th>
-                    <th>
-                        @Html.DisplayName("Cantidad")
-                    </th>
-                    <th>
-                        @Html.DisplayName("Importe")
-                    </th>
-                    <th>
-                        @Html.DisplayName("Existencia")
-                    </th>
-                    <th>
-                    </th>
-
-                </tr>
-
-
-                @if (Model != null)
-                {
-                    foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CodProd)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Desc)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.prec_vent)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Cant)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Impor)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.existencia)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Eliminar", "Delete", new { codigoproducto = item.CodProd }, new { data_modal = "", @class = "btn btn-danger" })
-                            </td>
-                        </tr>
-                    }
-                }
-
-            </table>
-            @using (Html.BeginForm("Facturar", "Facturacion", FormMethod.Get))
+            @if (Model != null)
             {
-            
-                @Html.ActionLink("Cobrar", "Facturar", new { data_modal = "", @class = "btn btn-danger" })
-
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodProd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.prec_vent)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cant)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Impor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.existencia)
+                        </td>
+                        <td>
+                            <a data-modal="" href=@Url.Action("Delete", "Facturacion",new { codigoproducto = item.CodProd }) class="btn btn-danger"> <span class="fa fa-trash"></span></a>
+                        </td>
+                    </tr>
+                }
             }
+
+        </table>
+
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="text-center">Operaciones</h4>
+    </div>
+    <div class="card-body">
+        <br>
+        <div class="row">
+            <div class="col-md-2">
+                @using (Html.BeginForm("Facturar", "Facturacion", FormMethod.Get))
+                {
+                    <a data-modal="" href=@Url.Action("Facturar", "Facturacion") class="btn btn-danger"> <i class="bi bi-cash-coin">&nbsp;Facturar</i></a>
+                }
+            </div>
+        </div>
+     
+    </div>
+</div>
+
+
+
+
+
+           
+          
 
 

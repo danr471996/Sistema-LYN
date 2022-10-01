@@ -7,22 +7,28 @@
 
 @using (Html.BeginForm())
 {
-<div class="card">
-    <div class="card-header">
-        <h2>Abono</h2>
-    </div>
-    <div class="card-body">
-              <div class="row col-lg-12">
-                @Html.Label("Ingrese monto abonar", htmlAttributes: new { @class = "control-label" })
-                @Html.Editor("agregar_cantidad", new { htmlAttributes = new { @class = "form-control col-lg-4 col-md-6 col-xs-12" } })
-            </div>
-    </div>
-    <div class="card-footer">
-        <button type="submit" class="btn btn-primary">
-            <i class="fa fa-save"> Guardar</i>
-        </button>
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <h4>Abono</h4>
+        </div>
+        <div class="card-body">
+            <br>
+            <form class="row g-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.Label("Ingrese monto abonar", htmlAttributes: new { @class = "form-label" })
+                        @Html.Editor("agregar_cantidad", new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"> Guardar</i>
+            </button>
 
+        </div>
     </div>
-</div>
 }
 

@@ -27,10 +27,6 @@ function bindForm(dialog) {
     // Suscribe el formulario en la ventana modal con el evento submit
     $('form', dialog).submit(function () {
         if ($(this).valid()) {
-            console.log(this.action);
-            console.log(this.method);
-            console.log($(this).serialize());
-            console.log(this.action);
             // Realiza una petición ajax
             $.ajax({
                 url: this.action,
@@ -39,7 +35,6 @@ function bindForm(dialog) {
                 success: function (result) {
                     // Si la petición es satisfactoria, se recarga la página actual
                     if (result.success) {
-                        console.log(result.success);
                         window.location = window.location;
                     } else {
                    

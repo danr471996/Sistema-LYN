@@ -16,8 +16,21 @@ namespace Monografia
                         "~/Scripts/modalform.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*",
-                        "~/Scripts/eventformularios.js"));
+                        "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new Bundle("~/bundles/jqueryformularios").Include(
+                    "~/Scripts/eventformularios.js"));
+
+            bundles.Add(new Bundle("~/bundles/jquerycustomproyecto").Include(
+                      "~/Scripts/vendor/apexcharts/apexcharts.min.js",
+                      "~/Scripts/vendor/bootstrap/js/bootstrap.bundle.min.js",
+                      "~/Scripts/vendor/chartjs/chart.min.js",
+                      "~/Scripts/vendor/echarts/echarts.min.js",
+                      "~/Scripts/vendor/quill/quill.min.js",
+                      "~/Scripts/vendor/phpemailform/validate.js",
+                       "~/Scripts/vendor/js/main.js"));
+
+
 
             // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información. De este modo, estará
             // preparado para la producción y podrá utilizar la herramienta de compilación disponible en http://modernizr.com para seleccionar solo las pruebas que necesite.
@@ -30,7 +43,16 @@ namespace Monografia
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/ Content/tooltip.css"));
+                      "~/Content/bootstrap.min.css"));
+
+            bundles.Add(new StyleBundle("~/Content/csscustomproyecto").Include(
+                    "~/Content/tooltip.css",
+                     "~/Scripts/vendor/bootstrap-icons/bootstrap-icons.css",
+                      "~/Scripts/vendor/boxicons/css/boxicons.min.css",
+                       "~/Scripts/vendor/quill/quill.snow.css",
+                        "~/Scripts/vendor/quill/quill.bubble.css",
+                         "~/Scripts/vendor/remixicon/remixicon.css",
+                          "~/Scripts/vendor/css/style.css"));
 
             bundles.Add(new StyleBundle("~/Content/fontawesome/css").Include(
                       "~/Content/fontawesome/css/all.css"));
@@ -39,15 +61,16 @@ namespace Monografia
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
 
                         "~/Scripts/Datatable/jquery.dataTables.min.js",
-
-                         "~/Scripts/Datatable/dataTables.bootstrap.min.js"));
+                         "~/Scripts/Datatable/dataTables.bootstrap5.min.js",
+                         "~/Scripts/Datatable/dataTables.select.min.js"));
+           
 
             bundles.Add(new StyleBundle("~/Content/datatables").Include(
 
-                     "~/Scripts/Datatable/dataTables.bootstrap.min.css",
-                     "~/Scripts/Datatable/jquery.dataTables.min.css"));
+                     "~/Scripts/Datatable/dataTables.bootstrap5.min.css",
+                     "~/Scripts/Datatable/select.bootstrap5.min.css"));
 
-
+            
         }
     }
 }

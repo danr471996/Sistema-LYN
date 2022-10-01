@@ -332,7 +332,7 @@ namespace Monografia.Controllers
         }
 
         // POST: clientes/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

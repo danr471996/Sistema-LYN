@@ -5,13 +5,13 @@
 
 <div class="card">
     <div class="card-header">
-        <h3>Está seguro de eliminar esta promocion?</h3>
+        <h4>Está seguro de eliminar esta promocion?</h4>
     </div>
     <div class="card-body">
         <dl class="dl-horizontal">
 
             <dt>
-                @Html.DisplayName("Nombre de promoción")
+                @Html.DisplayName("Nombre de promoción:")
             </dt>
 
             <dd>
@@ -19,7 +19,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayName("Código de producto")
+                @Html.DisplayName("Código de producto:")
             </dt>
 
             <dd>
@@ -28,15 +28,13 @@
 
         </dl>
     </div>
-    <div class="card-footer">
+    <div class="card-footer text-center">
         @using (Html.BeginForm())
         {
-
-            <div class="row col-lg-12">
+            @Html.AntiForgeryToken()
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-save">Guardar</i>
                 </button>
-            </div>
         }
     </div>
 </div>
