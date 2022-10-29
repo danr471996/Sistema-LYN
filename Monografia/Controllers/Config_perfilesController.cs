@@ -76,14 +76,14 @@ namespace Monografia.Controllers
         {          
             MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
             mysqlcon.Open();
-            MySqlCommand comando = new MySqlCommand("SELECT perfil FROM proyectotienda.usuarios_perfiles", mysqlcon);
+            MySqlCommand comando = new MySqlCommand("SELECT Descripcion_perfil FROM proyectotienda.usuarios_perfiles", mysqlcon);
             MySqlDataReader lector = comando.ExecuteReader();
             List<perfiles> lista_perfiles = new List<perfiles>();
 
             List<perfiles> perfiles = new List<perfiles>();
             while (lector.Read())
             {
-                perfiles.Add(new perfiles() { nom_perfil = lector["perfil"].ToString()});
+                perfiles.Add(new perfiles() { nom_perfil = lector["Descripcion_perfil"].ToString()});
             }
 
             mysqlcon.Close();
@@ -95,13 +95,13 @@ namespace Monografia.Controllers
         {
             MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
             mysqlcon.Open();
-            MySqlCommand comando = new MySqlCommand("SELECT * FROM lista_permisos order by id,inicio_grupo", mysqlcon);
+            MySqlCommand comando = new MySqlCommand("SELECT * FROM lista_permisos order by Id_permiso,inicio_grupo", mysqlcon);
             MySqlDataReader lector = comando.ExecuteReader();
 
             List<checkboxs> check = new List<checkboxs>();
             while (lector.Read())
             {
-                check.Add(new checkboxs() { id = lector["ID"].ToString(), texto = lector["TEXTO"].ToString(), seleccionado = Convert.ToBoolean(lector["SELECCIONADO"]), nombre_grupo = lector["GRUPO"].ToString(), inicio_grupo = Convert.ToBoolean(lector["INICIO_GRUPO"])});             
+                check.Add(new checkboxs() { id = lector["Id_permiso"].ToString(), texto = lector["Descripcion"].ToString(), seleccionado = Convert.ToBoolean(lector["SELECCIONADO"]), nombre_grupo = lector["GRUPO"].ToString(), inicio_grupo = Convert.ToBoolean(lector["INICIO_GRUPO"])});             
             }
 
             mysqlcon.Close();
@@ -112,13 +112,13 @@ namespace Monografia.Controllers
         {
             MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
             mysqlcon.Open();
-            MySqlCommand comando = new MySqlCommand("SELECT ID,TEXTO,((select codigo_perfil from usuarios_perfiles where perfil = '" + perfil + "') like (CONCAT('%|',ID,'|%')) ) AS SELECCIONADO,GRUPO,INICIO_GRUPO FROM lista_permisos order by id,inicio_grupo", mysqlcon);
+            MySqlCommand comando = new MySqlCommand("SELECT Id_permiso,Descripcion,((select codigo_perfil from usuarios_perfiles where perfil = '" + perfil + "') like (CONCAT('%|',Id_permiso,'|%')) ) AS SELECCIONADO,GRUPO,INICIO_GRUPO FROM lista_permisos order by Id_permiso,inicio_grupo", mysqlcon);
             MySqlDataReader lector = comando.ExecuteReader();
 
             List<checkboxs> check = new List<checkboxs>();
             while (lector.Read())
             {
-                check.Add(new checkboxs() { id = lector["ID"].ToString(), texto = lector["TEXTO"].ToString(), seleccionado = Convert.ToBoolean(lector["SELECCIONADO"]), nombre_grupo = lector["GRUPO"].ToString(), inicio_grupo = Convert.ToBoolean(lector["INICIO_GRUPO"]) });
+                check.Add(new checkboxs() { id = lector["Id_permiso"].ToString(), texto = lector["Descripcion"].ToString(), seleccionado = Convert.ToBoolean(lector["SELECCIONADO"]), nombre_grupo = lector["GRUPO"].ToString(), inicio_grupo = Convert.ToBoolean(lector["INICIO_GRUPO"]) });
             }
 
             mysqlcon.Close();

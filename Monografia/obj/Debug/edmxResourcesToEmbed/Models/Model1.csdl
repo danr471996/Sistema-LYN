@@ -81,9 +81,9 @@
     <Property Name="Direccion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Telefono" Type="Int32" />
     <Property Name="Id_tipocredito" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad_credito" Type="Int32" />
     <Property Name="Estado" Type="Int32" Nullable="false" />
     <NavigationProperty Name="tipo_credito" Relationship="proyectotiendaModel.fk_tipo_credito" FromRole="clientes" ToRole="tipo_credito" />
-    <Property Name="Cantidad_credito" Type="Int32" />
   </EntityType>
   <EntityType Name="creditos">
     <Key>

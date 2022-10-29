@@ -48,16 +48,10 @@
                     @Html.Label("Descripción", htmlAttributes: new { @class = "form-label" })
                     @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                 </div>
-
-            </div>
-            <br>
-            <div class="row">
                 <div class="col-md-6">
-
-                </div>@Html.Label("Cantidad actual", htmlAttributes: new { @class = "form-label" })
-                @Html.EditorFor(model => model.Cantidad_actual, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-
-
+                    @Html.Label("Cantidad actual", htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Cantidad_actual, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                </div>
             </div>
             <br>
             <div class="row">
@@ -70,7 +64,7 @@
             </div>
             <br>
             <div class="row text-center">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-save">
                             Guardar

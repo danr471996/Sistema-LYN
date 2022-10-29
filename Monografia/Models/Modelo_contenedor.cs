@@ -25,7 +25,7 @@ namespace Monografia.Models
         public List<tipo_credito> listatipocredito { get; set; }
         
         public List<departamento> listadepartamento { get; set; }
-        public List<perfiles> listaperfiles { get; set; }
+        public List<usuarios_perfiles> listaperfiles { get; set; }
         public List<productos> listaproductos { get; set; }
 
 
@@ -39,24 +39,15 @@ namespace Monografia.Models
         public string descripciondepartamento { get; set; }
         #endregion
 
-        //#region lista_productos_reporte_inventario
-        //public int idproducto { get; set; }
-        //public int codigo_producto2 { get; set; }
-        //public string descripcionproducto1 { get; set; }
-        //public decimal? preciocosto1 { get; set; }
-        //public decimal? preciodeventa1 { get; set; }
-        //public int? cantidaactual1 { get; set; }
-        //public int? cantidaminima1 { get; set; }
-        //#endregion
 
         #region lista_reporte_saldo
         public int idcliente { get; set; }
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public int? telefono { get; set; }
-        public int? limitecredito { get; set; }
+        public string limitecredito { get; set; }
         public decimal? saldo { get; set; }
-        public DateTime fechapago { get; set; }
+        public string fechapago { get; set; }
         #endregion
 
         #region Lista_facturas
@@ -69,11 +60,16 @@ namespace Monografia.Models
         public decimal importe { get; set; }
 
         #endregion
-   
 
 
-    #region Facturacion
-    public class  facturacion
+
+        #region Facturacion
+        public class Factura
+        {
+            public List<Ticket> listatickets { get; set; }
+
+        }
+        public class  producto
     {
         public int CodProd { get; set; }
         public string Desc { get; set; }
@@ -83,6 +79,11 @@ namespace Monografia.Models
         public int existencia { get; set; }
 
     }
+        public class Ticket
+        {
+            public int Numero_ticket { get; set; }
+            public List<producto> listaproductos { get; set; }
+        }
         #endregion
     }
 

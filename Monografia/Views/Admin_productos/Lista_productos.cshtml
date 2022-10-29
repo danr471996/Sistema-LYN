@@ -62,14 +62,14 @@
                             @if (item.Usa_inventario == 1)
                 {
 
-                                <div class="form-control " style="width:100%; border-radius:100px;color:#37c406;text-align:center">
+                                <div class="form-control" style="width:40%; border-radius:100px;color:#37c406;text-align:center">
                                     Si
 
                                 </div>
                             }
                             else
                             {
-                                <div class="form-control " style="width:100%; border-radius:100px;color:#d00b0b;text-align:center">
+                                <div class="form-control" style="width:40%; border-radius:100px;color:#d00b0b;text-align:center">
                                     No
                                 </div>
                             }
@@ -92,9 +92,9 @@
                                 </div>
                             }
                         </td>
-                        <td>
-                            <a data-modal="" href=@Url.Action("Edit", "Admin_productos", new { id = item.Idproducto }) class="btn btn-success"> <span class="fa fa-edit"></span></a>
-                            <a data-modal="" href=@Url.Action("Delete", "Admin_productos", new { id = item.Idproducto, id2 = item.Codigo_producto }) class="btn btn-danger"> <span class="fa fa-trash"></span></a>
+                        <td class="text-center">
+                            <a data-modal="" href=@Url.Action("Edit", "Admin_productos", new { id = item.Idproducto }) class="btn btn-success rounded-circle"> <span class="fa fa-edit"></span></a>
+                            <a data-modal="" href=@Url.Action("Delete", "Admin_productos", new { id = item.Idproducto, id2 = item.Codigo_producto }) class="btn btn-danger rounded-circle"> <span class="fa fa-trash"></span></a>
                         </td>
                     </tr>
                 }

@@ -22,52 +22,54 @@
         <br>
         <br>
         <table id="tbprodbajos" class="table table-bordered">
-            <tr>
-                <th>
-                    @Html.DisplayName("Código de producto")
-                </th>
-                <th>
-                    @Html.DisplayName("Descripción")
-                </th>
-                <th>
-                    @Html.DisplayName("Precio de venta")
-                </th>
-                <th>
-                    @Html.DisplayName("Cantidad actual")
-                </th>
-                <th>
-                    @Html.DisplayName("Cantidad mínima")
-                </th>
-                <th>
-                    @Html.DisplayName("Descripción de departamento")
-                </th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.codigo_producto1)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.descripcionproducto1)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.preciodeventa1)
-                    </td>
-                    <td class="text-danger " style="font-weight:bold">
-                        @Html.DisplayFor(modelItem => item.cantidaactual1)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.cantidaminima1)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.descripciondepartamento)
-                    </td>
+                    <th>
+                        @Html.DisplayName("Código de producto")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Descripción")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Precio de venta")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Cantidad actual")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Cantidad mínima")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Descripción de departamento")
+                    </th>
                 </tr>
-            }
-
-        </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.codigo_producto1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.descripcionproducto1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.preciodeventa1)
+                        </td>
+                        <td class="text-danger " style="font-weight:bold">
+                            @Html.DisplayFor(modelItem => item.cantidaactual1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.cantidaminima1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.descripciondepartamento)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+</table>
     </div>
 
 </div>

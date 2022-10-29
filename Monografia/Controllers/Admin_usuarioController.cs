@@ -30,12 +30,8 @@ namespace Monografia.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 Modelo_contenedor modelo_contenedor = new Modelo_contenedor();
-                modelo_contenedor.usuario_detalle = db.usuario_detalle.Find(id);
-                modelo_contenedor.usuarios_tienda = db.usuarios_tienda.Find(id);
-                if (modelo_contenedor == null)
-                {
-                    return HttpNotFound();
-                }
+                var detalleusuario= db.usuario_detalle.Find(id);
+                modelo_contenedor.usuario_detalle = detalleusuario;
                 return PartialView(modelo_contenedor);
             }
             catch (Exception ex)
@@ -49,9 +45,15 @@ namespace Monografia.Controllers
         // GET: usuarios_tienda/Create
         public ActionResult Create()
         {
-            return PartialView();
+            Modelo_contenedor model = new Modelo_contenedor();
+            cargarperfiles(model);
+            return PartialView(model);
         }
 
+        public void cargarperfiles(Modelo_contenedor model) {
+            model.listaperfiles = db.usuarios_perfiles.ToList();
+
+        }
         // POST: usuarios_tienda/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -98,12 +100,11 @@ namespace Monografia.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 Modelo_contenedor modelocontenedor = new Modelo_contenedor();
-                modelocontenedor.usuarios_tienda = db.usuarios_tienda.Find(id);
-                modelocontenedor.usuario_detalle = db.usuario_detalle.Find(id);
-                if (modelocontenedor == null)
-                {
-                    return HttpNotFound();
-                }
+                var usuarios = db.usuarios_tienda.Find(id);
+                modelocontenedor.usuarios_tienda = usuarios;
+                modelocontenedor.usuario_detalle = usuarios.usuario_detalle.FirstOrDefault();
+                cargarperfiles(modelocontenedor);
+
                 return PartialView(modelocontenedor);
 
             }
@@ -167,12 +168,9 @@ namespace Monografia.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                usuarios_tienda usuarios_tienda = db.usuarios_tienda.Find(id);
-                if (usuarios_tienda == null)
-                {
-                    return HttpNotFound();
-                }
-                return PartialView(usuarios_tienda);
+                usuarios_tienda usuariostienda = db.usuarios_tienda.Find(id);
+
+                return PartialView(usuariostienda);
             }
             catch (Exception ex)
             {

@@ -33,16 +33,16 @@
                 @using (Html.BeginForm("reporte_inventario", "Admin_inventario", FormMethod.Post))
                 {
                     <div class="row">
-                        @Html.Label("","Departamento:", htmlAttributes: new { @class = "form-label col-md-4" })
+                        @Html.Label("", "Departamento:", htmlAttributes: new { @class = "form-label col-md-4" })
                         <div class="col-md-8">
                             @Html.DropDownListFor(model => model.productos.Iddepartamento, new SelectList(Model.listadepartamento, "Iddepartmento", "Descripcion"), "Todos los departamentos", new { @class = "form-select", @onchange = "this.form.submit ();" })
                         </div>
                     </div>
-                      
 
 
-                        }
-             </div>
+
+                }
+            </div>
             <div class="col-md-4">
                 @using (Html.BeginForm("exportarexcel", "Admin_inventario", FormMethod.Post))
                 {
@@ -55,58 +55,62 @@
         <br>
         <br>
         <table id="tbreportinventario" class="table table-bordered">
-            <tr>
-                <th>
-                    @Html.DisplayName("Código de producto")
-                </th>
-                <th>
-                    @Html.DisplayName("Descripción")
-                </th>
-                <th>
-                    @Html.DisplayName("Precio costo")
-                </th>
-                <th>
-                    @Html.DisplayName("Precio de venta")
-                </th>
-                <th>
-                    @Html.DisplayName("Cantidad actual")
-                </th>
-                <th>
-                    @Html.DisplayName("Cantidad mínima")
-                </th>
-                <th>Acciones</th>
-            </tr>
-
-            @foreach (var item in Model.listaproductos)
-            {
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Codigo_producto)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descripcion)
-                    </td>
                     <th>
-                        @Html.DisplayFor(modelItem => item.Precio_costo)
+                        @Html.DisplayName("Código de producto")
                     </th>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Precio_venta)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cantidad_actual)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cantidad_minima)
-                    </td>
-                    <td>
-                        <a data-modal="" href=@Url.Action("editar_inventario", "Admin_inventario", new { id = item.Idproducto, id2 = item.Codigo_producto }) class="btn btn-success rounded-circle"> <i class="fa fa-edit"></i></a>
-
-                    </td>
+                    <th>
+                        @Html.DisplayName("Descripción")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Precio costo")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Precio de venta")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Cantidad actual")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Cantidad mínima")
+                    </th>
+                    <th>Acciones</th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var item in Model.listaproductos)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Codigo_producto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.Precio_costo)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio_venta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cantidad_actual)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cantidad_minima)
+                        </td>
+                        <td class="text-center">
+                            <a data-modal="" href=@Url.Action("editar_inventario", "Admin_inventario", new { id = item.Idproducto, id2 = item.Codigo_producto }) class="btn btn-success rounded-circle"> <i class="fa fa-edit"></i></a>
 
-        </table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+</table>
     </div>
+
+
 
 </div>
 @section Scripts

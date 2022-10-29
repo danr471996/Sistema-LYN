@@ -25,7 +25,7 @@
                     <th>
                         @Html.DisplayName("Estado")
                     </th>
-                    <th></th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,20 +43,20 @@
                             @if (item.Estado == 1)
                             {
 
-                                <div class="form-control " style="width:100%; border-radius:100px;color:#37c406;text-align:center">
+                                <div class="form-control " style="width:60%; border-radius:100px;color:#37c406;text-align:center">
                                     Activo
 
                                 </div>
                             }
                             else
                             {
-                                <div class="form-control" style="width:100%; border-radius:100px;color:#d00b0b;text-align:center">
+                                <div class="form-control" style="width:60%; border-radius:100px;color:#d00b0b;text-align:center">
                                     Inactivo
                                 </div>
                             }
                         </td>
-                        <td>
-                            <a data-modal="" href=@Url.Action("Delete", "Usuariologin",new { idsesion = item.Idusuario_sesion }) class="btn btn-danger"> <span class="fa fa-trash"></span></a>
+                        <td class="text-center">
+                            <a data-modal="" href=@Url.Action("Delete", "Usuariologin",new { idsesion = item.Idusuario_sesion }) class="btn btn-danger rounded-circle"> <i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 }

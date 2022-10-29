@@ -26,8 +26,8 @@ namespace Monografia.Models
         public string Direccion { get; set; }
         public Nullable<int> Telefono { get; set; }
         public int Id_tipocredito { get; set; }
-        public int Estado { get; set; }
         public Nullable<int> Cantidad_credito { get; set; }
+        public int Estado { get; set; }
     
         public virtual tipo_credito tipo_credito { get; set; }
     }

@@ -12,16 +12,16 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-4">
-                @Html.Label(" ", "Nombre Cliente", htmlAttributes: new { @class = "form-label", @style = "color:forestgreen" })
-                @Html.Label(" ", (string)Session["nomcliente"], htmlAttributes: new { @class = "form-label", @style = "color:forestgreen" })
+                @Html.Label(" ", "Nombre Cliente:", htmlAttributes: new { @class = "form-label" })
+                @Html.Label(" ", (string)Session["nomcliente"], htmlAttributes: new { @class = "form-label" })
             </div>
             <div class="col-md-4">
-                @Html.Label(" ", "Limite de crédito", htmlAttributes: new { @class = "form-label", @style = "color:forestgreen" })
-                @Html.Label(" ", Session["limitecredito"].ToString(), htmlAttributes: new { @class = "form-label", @style = "color:forestgreen" })
+                @Html.Label(" ", "Tipo de crédito:", htmlAttributes: new { @class = "form-label"})
+                @Html.Label(" ", Session["limitecredito"].ToString(), htmlAttributes: new { @class = "form-label"})
             </div>
             <div class="col-md-4">
-                @Html.Label(" ", "Saldo Actual", htmlAttributes: new { @class = "form-label", @style = "color:forestgreen" })
-                @Html.Label(" ", Session["Saldoactual"].ToString(), htmlAttributes: new { @class = "form-label", @style = "color:forestgreen" })
+                @Html.Label(" ", "Saldo Actual:", htmlAttributes: new { @class = "form-label"})
+                @Html.Label(" ", Session["Saldoactual"].ToString(), htmlAttributes: new { @class = "form-label"})
             </div>
         </div>
     </div>

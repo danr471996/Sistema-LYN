@@ -4,8 +4,8 @@
     <EntitySetMapping Name="clientes">
       <EntityTypeMapping TypeName="proyectotiendaModel.clientes">
         <MappingFragment StoreEntitySet="clientes">
-          <ScalarProperty Name="Cantidad_credito" ColumnName="Cantidad_credito" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Cantidad_credito" ColumnName="Cantidad_credito" />
           <ScalarProperty Name="Id_tipocredito" ColumnName="Id_tipocredito" />
           <ScalarProperty Name="Telefono" ColumnName="Telefono" />
           <ScalarProperty Name="Direccion" ColumnName="Direccion" />

@@ -2,16 +2,18 @@
 @Scripts.Render("~/bundles/jqueryval")
 @using (Html.BeginForm("Facturar", "Facturacion", FormMethod.Post))
 {
+    @Html.AntiForgeryToken();
     <div class="card">
         <div class="card-header">
             <h4>Cobrar</h4>
         </div>
         <div class="card-body">
+            @Html.Hidden("numeroticket", (int)ViewBag.numticket)
          <br>
             <div class="row text-center">
-                <div class="col-md-2">
-                    @Html.Label("Total a pagar", htmlAttributes: new { @class = "form-label" })
-                    @Html.Label(" ", (string)Session["totalpago"], htmlAttributes: new { @class = "form-label" })
+                <div class="col-md-12 h4">
+                    @Html.Label("Total a pagar:C$", htmlAttributes: new { @class = "form-label" })
+                    @Html.Label(" ", (string)ViewBag.totalpago, htmlAttributes: new { @class = "form-label" })
                 </div>
             </div>
             <div class="row">

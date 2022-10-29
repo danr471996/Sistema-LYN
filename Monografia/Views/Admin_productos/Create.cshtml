@@ -41,7 +41,7 @@
                             <div class="col-md-12">
                                 @Html.Label("Se vende:", htmlAttributes: new { @class = "form-label" })
                                 <div class="col-md-4">
-                                    @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 1,new { @class = "form-check-input" } )@Html.Label("Por unidad/pieza")
+                                    @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 1,new { @class = "form-check-input" } )@Html.Label("unidad/pieza")
 
                                 </div>
                                 <div class="col-md-4">
@@ -65,14 +65,14 @@
                                 @Html.EditorFor(model => model.productos.Precio_venta, new { htmlAttributes = new { @class = "form-control" } })
                             </div>
                             <div class="col-md-4">
-                                @Html.Label("Precio de mayoreo", htmlAttributes: new { @class = "form-label" })
+                                @Html.Label("Precio mayoreo", htmlAttributes: new { @class = "form-label" })
                                 @Html.EditorFor(model => model.productos.Precio_mayoreo, new { htmlAttributes = new { @class = "form-control" } })
 
                             </div>
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 @Html.Label("Departamento", htmlAttributes: new { @class = "form-label" })
                                 @Html.DropDownListFor(model => model.productos.Iddepartamento, new SelectList(Model.listadepartamento, "Iddepartmento", "Descripcion"), "Seleccione departamento", new { @class = "form-select" })
                             </div>

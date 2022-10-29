@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-md-6">
                     @Html.Label("Segundo Nombre", htmlAttributes: new { @class = "form-label" })
-                    @Html.EditorFor(model => model.usuario_detalle.Segundo_apellido, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.usuario_detalle.Segundo_nombre, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <div class="row">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-md-6">
                     @Html.Label("Perfil", htmlAttributes: new { @class = "form-label" })
-                    @Html.DropDownListFor(model => model.usuario.idperfil, new SelectList(Model.listaperfiles, "Idperfil", "Descripcion"), "Seleccione Perfil", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.usuarios_tienda.Id_perfil, new SelectList(Model.listaperfiles, "Id_perfil", "Descripcion_perfil"), "Seleccione Perfil", new { @class = "form-select" })
                 </div>
 
             </div>

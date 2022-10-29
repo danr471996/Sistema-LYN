@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Monografia.Models.factura>
+
+@{
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+
+@Styles.Render("~/Content/datatables")
+
+   <div class="card">
+
+    <div class="card-header">
+        <h4 class="text-center">Facturas</h4>
+    </div>
+
+    <div class="card-body">
+        <br>
+        <div class="row">
+
+            <table id="tbfacturas" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Fecha de factura")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Cajero")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Cliente")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Numero de factura")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Monto Factura")
+                        </th>
+                        <th>
+                            Acciones
+                        </th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fecha_alta)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Usuario_alta)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Idcliente)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Num_factura)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Monto_total)
+                            </td>
+                            <td class="text-center">
+                                <a data-modal="" href=@Url.Action("impresionfactura", "Facturacion", new { idfactura = item.Idfactura }) class="btn btn-danger rounded-circle"> <i class="fa fa-file-pdf"></i></a>        
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+    @section Scripts
+{
+        @Scripts.Render("~/bundles/datatables")
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#tbfacturas').DataTable({
+                    "language": {
+                        "url": "/Scripts/es_es.json"
+                    }
+                })
+            });
+           
+        </script>
+    }

@@ -13,52 +13,54 @@
         <div class="card-body">
             <br>
             <div class="row col-md-2">
-                <a data-modal="" href=@Url.Action("Create", "Admin_departamentos") class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar Departamento</a>
+                <a data-modal="" href=@Url.Action("Create", "Admin_departamentos") class="btn btn-primary"> <i class="fa fa-plus"></i> Agregar Departamento</a>
             </div>
             <br>
             <br>
             <table id="tbdepartamentos" class="table table-bordered">
-                <tr>
-                    <th>
-                        @Html.DisplayName("Descripción")
-                    </th>
-                    <th>
-                        @Html.DisplayName("Estado")
-                    </th>
-                    <th>Acciones</th>
-                </tr>
-
-                @foreach (var item in Model)
-            {
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
-                        </td>
-                        <td>
-                            @if (item.Estado == 1)
-                            {
-
-                                <div class="form-control " style="width:100%; border-radius:100px;color:#37c406;text-align:center">
-                                    Activo
-
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="form-control " style="width:100%; border-radius:100px;color:#d00b0b;text-align:center">
-                                    Inactivo
-
-                                </div>
-                            }
-                        </td>
-                        <td>
-                            <a data-modal="" href=@Url.Action("Edit", "Admin_departamentos", new { id = item.Iddepartmento }) class="btn btn-success"> <span class="fa fa-edit"></span></a>  |
-                            <a data-modal="" href=@Url.Action("Delete", "Admin_departamentos", new { id = item.Iddepartmento }) class="btn btn-danger"> <span class="fa fa-trash"></span></a> |
-                        </td>
+                        <th>
+                            @Html.DisplayName("Descripción")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Estado")
+                        </th>
+                        <th>Acciones</th>
                     </tr>
-                }
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+            {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Descripcion)
+                            </td>
+                            <td>
+                                @if (item.Estado == 1)
+                                {
 
-            </table>
+                                    <div class="form-control " style="width:40%; border-radius:100px;color:#37c406;text-align:center">
+                                        Activo
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-control " style="width:40%; border-radius:100px;color:#d00b0b;text-align:center">
+                                        Inactivo
+
+                                    </div>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <a data-modal="" href=@Url.Action("Edit", "Admin_departamentos", new { id = item.Iddepartmento }) class="btn btn-success rounded-circle"> <i class="fa fa-edit"></i></a>
+                                <a data-modal="" href=@Url.Action("Delete", "Admin_departamentos", new { id = item.Iddepartmento }) class="btn btn-danger rounded-circle"> <i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+</table>
         </div>
 
     </div>

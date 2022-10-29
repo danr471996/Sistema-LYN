@@ -13,8 +13,10 @@ namespace Monografia.Controllers
     public class FacturacionController : Controller
     {
         private proyectotiendaEntities db = new proyectotiendaEntities();
-        private Modelo_contenedor.facturacion modelofactura = null;
-        private List<Modelo_contenedor.facturacion> listamodelofactura = new List<Modelo_contenedor.facturacion>();
+        static Modelo_contenedor.Factura modelocontenedor = new Modelo_contenedor.Factura();
+        Modelo_contenedor.Ticket Ticket = null;
+        Modelo_contenedor.producto producto = null;
+        List<Modelo_contenedor.producto> listaproductos = null;
         public pagos pagos = null;
         private factura factura = null;
         private detalle_factura detallefact=null;
@@ -22,91 +24,83 @@ namespace Monografia.Controllers
         // GET: facturas
         public ActionResult Venta()
         {
-          
-            listamodelofactura = new List<Modelo_contenedor.facturacion>();
-            if (Session["ListaFactura"] != null)
-            {
-                listamodelofactura = (List<Modelo_contenedor.facturacion>) Session["ListaFactura"];
-                return View(listamodelofactura);
-            }
-            else
+            if (modelocontenedor.listatickets==null || modelocontenedor.listatickets.Count()==0)
             {
 
-                return View();
-
-
-
+                modelocontenedor.listatickets = new List<Modelo_contenedor.Ticket>();
+                Ticket = new Modelo_contenedor.Ticket();
+                listaproductos = new List<Modelo_contenedor.producto>();
+                Ticket.Numero_ticket = 1;
+                Ticket.listaproductos = listaproductos;
+                modelocontenedor.listatickets.Add(Ticket);
+                Session["ticketactivo"]= Ticket.Numero_ticket;
+                Session["calculototalpago"]=listaproductos.Sum(x => x.Impor);
+                Session["cantproducto"] = listaproductos.Sum(x => x.Cant);
             }
-
+           
+            return View(modelocontenedor);
 
         }
 
         [HttpPost]
-        public ActionResult Venta(int codigoproducto)
+        public ActionResult Venta(FormCollection fc)
         {
-            modelofactura = new Modelo_contenedor.facturacion();
-            listamodelofactura = new List<Modelo_contenedor.facturacion>();
-            if (Session["ListaFactura"] != null)
-            {
-                listamodelofactura = (List<Modelo_contenedor.facturacion>)Session["ListaFactura"];
-            }
+            var action = fc["action"];
 
-            var producto = (from x in db.productos where x.Codigo_producto == codigoproducto select x).FirstOrDefault();
-            if (producto!=null)
+            if (action == "agregarticket")
             {
-                var existeenlista = listamodelofactura.Where(x => x.CodProd == producto.Codigo_producto).FirstOrDefault();
-                if (existeenlista != null)
-                {
-                    existeenlista.Cant = existeenlista.Cant + 1;
-                    existeenlista.Impor = existeenlista.Cant * producto.Precio_venta;
-
-                }
-                else
-                {
-                    modelofactura.CodProd = producto.Codigo_producto;
-                    modelofactura.Desc = producto.Descripcion;
-                    modelofactura.prec_vent = producto.Precio_venta;
-                    modelofactura.Cant = 1;
-                    modelofactura.Impor = 1 * producto.Precio_venta;
-                    modelofactura.existencia = 20;
-                    listamodelofactura.Add(modelofactura);
-                }
-                
-                Session["ListaFactura"] = listamodelofactura;
-                Session["totalpago"]= listamodelofactura.Sum(x => x.Impor).ToString();
-                return View(listamodelofactura);
+                modelocontenedor = agregar_ticket(modelocontenedor);
             }
-            else
-            {
-                return View();
-            }
+         
+                return View(modelocontenedor);
          
         }
 
-     
+        public Modelo_contenedor.Factura agregar_ticket(Modelo_contenedor.Factura modelocontenedor)
+        {
+            if (modelocontenedor.listatickets.Count() <6)
+            {
+                Ticket = new Modelo_contenedor.Ticket();
+                List<Modelo_contenedor.producto> listaproductos = new List<Modelo_contenedor.producto>();
+                if (modelocontenedor.listatickets == null)
+                {
+                    modelocontenedor.listatickets = new List<Modelo_contenedor.Ticket>();
+                }
+
+                Ticket.Numero_ticket = modelocontenedor.listatickets.Select(x =>x.Numero_ticket).LastOrDefault() + 1;
+                Ticket.listaproductos = listaproductos;
+                modelocontenedor.listatickets.Add(Ticket);
+                Session["ticketactivo"] = Ticket.Numero_ticket;
+                Session["calculototalpago"] = listaproductos.Sum(x => x.Impor);
+                Session["cantproducto"] = listaproductos.Sum(x => x.Cant);
+            }
+         
+            return modelocontenedor;
+        }
 
         // GET: facturas/Edit/5
-        public ActionResult Facturar()
+        public ActionResult Facturar(int numticket)
         {
+            ViewBag.numticket = numticket;
+            var datosfacturar=modelocontenedor.listatickets.Where(x => x.Numero_ticket == numticket).FirstOrDefault();
+            ViewBag.totalpago= datosfacturar.listaproductos.Sum(x => x.Impor).ToString();
+        
             return PartialView();
         }
 
         // POST: facturas/Edit/5
         [HttpPost]
-        public ActionResult Facturar(decimal montopago)
+        public ActionResult Facturar(int numeroticket,decimal montopago)
         {
             decimal montototalfact = 0;
-            listamodelofactura = new List<Modelo_contenedor.facturacion>();
             pagos = new pagos();
             factura = new factura();
-           
 
-            if (Session["ListaFactura"] != null)
-            {
-                listamodelofactura = (List<Modelo_contenedor.facturacion>)Session["ListaFactura"];
-            }
 
-            montototalfact = listamodelofactura.Sum(x =>x.Impor);
+           var datosafacturar=  modelocontenedor.listatickets.Where(x => x.Numero_ticket == numeroticket).FirstOrDefault();
+            montototalfact = datosafacturar.listaproductos.Sum(x => x.Impor);
+       
+          
 
             //datos Factura
             factura.Fecha_alta = DateTime.Now;
@@ -115,9 +109,9 @@ namespace Monografia.Controllers
             factura.Monto_total = montototalfact;
             factura.Estado = 1;
             db.factura.Add(factura);
-            db.SaveChanges();
+
             //Detalle de factura
-            foreach (var item in listamodelofactura)
+            foreach (var item in datosafacturar.listaproductos)
             {
                 detallefact = new detalle_factura();
                 detallefact.Fecha_alta = DateTime.Now;
@@ -127,11 +121,9 @@ namespace Monografia.Controllers
                 detallefact.Cantidad = item.Cant;
                 detallefact.Monto = item.Impor;
                 detallefact.Estado = 1;
-                db.detalle_factura.Add(detallefact);
-                db.SaveChanges();
-               
+                factura.detalle_factura.Add(detallefact);
             }
-           
+
 
             //pago realizado
             pagos.Fecha_alta = DateTime.Now;
@@ -139,45 +131,123 @@ namespace Monografia.Controllers
             pagos.Id_factura = factura.Idfactura;
             pagos.Monto_pagado = montopago;
             pagos.Estado = 1;
-            db.pagos.Add(pagos);
+            factura.pagos.Add(pagos);
             db.SaveChanges();
+
+            //se elimina el ticket al realizar pago de factura
+            modelocontenedor.listatickets.Remove(datosafacturar);
+
             return Json(new { success = true });
         }
 
         // GET: facturas/Delete/5
-        public ActionResult Delete(int? codigoproducto)
+        public ActionResult Delete(int codigoproducto,int numeroticket)
         {
-            if (codigoproducto == null)
+            ViewBag.numticket = numeroticket;
+            ViewBag.codproducto = codigoproducto;
+            Modelo_contenedor.Factura datoseliminar = new Modelo_contenedor.Factura();
+            var ticket = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numeroticket).FirstOrDefault();
+            var producto=ticket.listaproductos.Where(x => x.CodProd == codigoproducto).FirstOrDefault();
+            datoseliminar.listatickets = new List<Modelo_contenedor.Ticket>();
+            datoseliminar.listatickets.Add(ticket);
+            foreach (var item in datoseliminar.listatickets)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                item.listaproductos = new List<Modelo_contenedor.producto>();
+                item.listaproductos.Add(producto);
             }
-            listamodelofactura = new List<Modelo_contenedor.facturacion>();
-            modelofactura = new Modelo_contenedor.facturacion();
-            if (Session["ListaFactura"] != null)
-            {
-                listamodelofactura = (List<Modelo_contenedor.facturacion>)Session["ListaFactura"];
-                modelofactura = listamodelofactura.Where(x => x.CodProd == codigoproducto).FirstOrDefault();
-            }
-
-            return PartialView(modelofactura);
+            return PartialView(datoseliminar);
         }
 
         // POST: facturas/Delete/5
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int codigoproducto)
+        public ActionResult DeleteConfirmed(int numeroticket,int codigoproducto)
         {
-            listamodelofactura = new List<Modelo_contenedor.facturacion>();
-            if (Session["ListaFactura"] != null)
+ 
+                var ticket = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numeroticket).FirstOrDefault();
+                var datosproducto = ticket.listaproductos.Where(x => x.CodProd == codigoproducto).FirstOrDefault();
+            if (datosproducto != null)
             {
-                listamodelofactura = (List<Modelo_contenedor.facturacion>)Session["ListaFactura"];
-                var existeenlista = listamodelofactura.Where(x => x.CodProd == codigoproducto).FirstOrDefault();
-                listamodelofactura.Remove(existeenlista);
-                Session["ListaFactura"] = listamodelofactura;
+                if (datosproducto.Cant == 1)
+                {
+                    ticket.listaproductos.Remove(datosproducto);
+                }
+                else
+                {
+                    datosproducto.Cant = datosproducto.Cant - 1;
+                    datosproducto.Impor = datosproducto.Cant * datosproducto.prec_vent;
+                }
+                Session["ticketactivo"] = ticket.Numero_ticket;
+                Session["calculototalpago"] = ticket.listaproductos.Sum(x => x.Impor);
+                Session["cantproducto"] = ticket.listaproductos.Sum(x => x.Cant);
             }
 
             return Json(new { success = true });
         }
 
+        public ActionResult Agregarproducto(int numticket)
+        {
+            ViewBag.numticket = numticket;
+            return PartialView();
+        }
+     
+        [HttpPost]
+        public ActionResult Agregarproducto(int numticket,int codproducto)
+        {
+
+            var existeproducto = (from x in db.productos where x.Codigo_producto == codproducto select x).FirstOrDefault();
+            if (existeproducto != null)
+            {
+                var ticket = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numticket).FirstOrDefault();
+                var listaproductos = ticket.listaproductos.Where(x => x.CodProd == codproducto).FirstOrDefault();
+                if (listaproductos != null)
+                {
+                    listaproductos.Cant = listaproductos.Cant + 1;
+                    listaproductos.Impor = listaproductos.Cant * existeproducto.Precio_venta;
+
+                }
+                else
+                {
+                    producto = new Modelo_contenedor.producto();
+                    producto.CodProd = existeproducto.Codigo_producto;
+                    producto.Desc = existeproducto.Descripcion;
+                    producto.prec_vent = existeproducto.Precio_venta;
+                    producto.Cant = 1;
+                    producto.Impor = 1 * existeproducto.Precio_venta;
+                    producto.existencia = 20;
+                    ticket.listaproductos.Add(producto);
+                }
+                Session["ticketactivo"] = ticket.Numero_ticket;
+                Session["calculototalpago"] = ticket.listaproductos.Sum(x => x.Impor);
+                Session["cantproducto"] = ticket.listaproductos.Sum(x => x.Cant);
+            }   
+            return Json(new { success = true });
+         
+        }
+
+        public ActionResult Lista_Facturas()
+        {
+            return View(db.factura.ToList());
+        }
+        public ActionResult impresionfactura(int idfactura)
+        {
+            return PartialView();
+        }
+        [HttpGet]
+        public ActionResult getsesiones()
+        {
+            return Json(new { ticketactivo = (int)Session["ticketactivo"], Totalpago = (decimal)Session["calculototalpago"], cantproducto = (int)Session["cantproducto"] }, JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpGet]
+        public ActionResult calculototalpago(int numticket)
+        {
+            var datosfacturar = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numticket).FirstOrDefault();
+            Session["calculototalpago"] = datosfacturar.listaproductos.Sum(x => x.Impor);
+            Session["cantproducto"] = datosfacturar.listaproductos.Sum(x => x.Cant);
+            Session["ticketactivo"] = numticket;
+            Session["cantproducto"] = datosfacturar.listaproductos.Sum(x => x.Cant);
+            return Json(new { Totalpago = (decimal)Session["calculototalpago"], cantproducto = (int)Session["cantproducto"] }, JsonRequestBehavior.AllowGet);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

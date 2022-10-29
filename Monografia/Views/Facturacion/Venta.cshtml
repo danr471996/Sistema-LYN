@@ -1,117 +1,198 @@
-﻿@model IEnumerable<Monografia.Models.Modelo_contenedor.facturacion>
+﻿@model Monografia.Models.Modelo_contenedor.Factura
 
 @{
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
      }
-
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+@using (Html.BeginForm("Venta", "Facturacion", FormMethod.Post))
+{
+   
 <div class="card">
     <div class="card-header">
         <h4 class="text-center">Facturación </h4>
     </div>
     <div class="card-body">
         <br>
-        @using (Html.BeginForm("Venta", "Facturacion", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="row col-md-6">
-                @Html.Label("Código de producto", htmlAttributes: new { @class = "form-label" })
-
-                <div class="input-group mb-3">
-                    @Html.Editor("codigoproducto", new { htmlAttributes = new { @class = "form-control", @aria_describedby = "btnbuscar" } })
-                    <button class="btn btn-outline-secondary" type="submit" id="btnbuscar">
-                        <i class="fa fa-plus">Agregar producto</i>
+   
+            <div class="row">
+                <div class="col-md-6">
+                    <a data-modal="" id="agregarproducto" class="btn btn-primary"> <i class="fa fa-plus">Agregar producto</i></a>
+                    <button class="btn btn-primary" type="submit" name="action" value="agregarticket">
+                        <i class="fa fa-plus">Agregar ticket</i>
                     </button>
+                 
                 </div>
             </div>
-        }
-
         <br>
         <br>
-        <table class="table table-bordered">
-            <tr>
-                <th>
-                    @Html.DisplayName("Codigo de Producto")
-                </th>
-                <th>
-                    @Html.DisplayName("Descripcion")
-                </th>
-                <th>
-                    @Html.DisplayName("Precio de Venta")
-                </th>
-                <th>
-                    @Html.DisplayName("Cantidad")
-                </th>
-                <th>
-                    @Html.DisplayName("Importe")
-                </th>
-                <th>
-                    @Html.DisplayName("Existencia")
-                </th>
-                <th>
-                    Acciones
-                </th>
+        <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
 
-            </tr>
-
-
-            @if (Model != null)
+            @if (Model.listatickets != null)
             {
-                foreach (var item in Model)
+                foreach (var tik in Model.listatickets)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CodProd)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Desc)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.prec_vent)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Cant)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Impor)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.existencia)
-                        </td>
-                        <td>
-                            <a data-modal="" href=@Url.Action("Delete", "Facturacion",new { codigoproducto = item.CodProd }) class="btn btn-danger"> <span class="fa fa-trash"></span></a>
-                        </td>
-                    </tr>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="@tik.Numero_ticket" name="ticket" data-bs-toggle="tab" data-bs-target="@($"#ticket"+ tik.Numero_ticket)" type="button" role="tab" aria-controls="@("producto"+tik.Numero_ticket)" aria-selected="true">Ticket #@tik.Numero_ticket</button>
+                    </li>
+                }
+            }
+          
+        </ul>
+        <div class="tab-content pt-2" id="borderedTabContent">
+            @if (Model.listatickets != null)
+            {
+                foreach (var tik in Model.listatickets)
+                {
+                    <div class="tab-pane fade" id="@($"ticket"+ tik.Numero_ticket)" role="tabpanel" aria-labelledby="@("producto-tab"+tik.Numero_ticket)">
+                        @if (tik.listaproductos.Count != 0)
+                        {
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Codigo de Producto")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Descripcion")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Precio de Venta")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Cantidad")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Importe")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Existencia")
+                                </th>
+                                <th>
+                                    Acciones
+                                </th>
+
+                            </tr>
+
+
+                                @foreach (var item in tik.listaproductos)
+                                {
+                                  
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CodProd)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Desc)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.prec_vent)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Cant)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Impor)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.existencia)
+                                        </td>
+                                        <td>
+                                            <a  id="eliminarproducto" data-modal="" href=@Url.Action("Delete", "Facturacion",new { codigoproducto = item.CodProd ,numeroticket= tik.Numero_ticket }) class="btn btn-danger rounded-circle"> <i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                        </table>
+                        }
+                        else
+                        {
+                            <div class="alert alert-primary fade show" role="alert">
+                                <i class="bi bi-info-circle me-1"></i>
+                               No se han registrados productos para este ticket!
+                            </div>
+                        }
+                    </div>
+
                 }
             }
 
-        </table>
+        </div><!-- End Bordered Tabs -->
+       
 
     </div>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <h4 class="text-center">Operaciones</h4>
-    </div>
-    <div class="card-body">
-        <br>
+    <div class="card-footer">
         <div class="row">
-            <div class="col-md-2">
-                @using (Html.BeginForm("Facturar", "Facturacion", FormMethod.Get))
-                {
-                    <a data-modal="" href=@Url.Action("Facturar", "Facturacion") class="btn btn-danger"> <i class="bi bi-cash-coin">&nbsp;Facturar</i></a>
-                }
+            <div class="col-md-6">
+               <i class="fa fa-list text-info" id="cantproducto"></i>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 id="totalpago">
+                        </h5>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-grid gap-2">
+                            <a data-modal="" id="facturar" class="btn btn-danger" style="width:auto"> <i class="bi bi-cash-coin">&nbsp;Facturar</i></a>
+                        </div>
+                   
+                    </div>
+                </div>
             </div>
         </div>
      
-    </div>
+       
+     </div>
+
 </div>
 
+        }
 
 
 
+<script type="text/javascript">
+  
+    $(document).ready(function () {
+        $.ajax({
+            url:'@Url.Action("getsesiones", "Facturacion")',
+            type:"GET",
+            success: function (result) {
+                $("#" + result.ticketactivo).click();
+                $("#totalpago").empty();
+                $("#cantproducto").empty();
+                $("#totalpago").append("Total a pagar:C$" + result.Totalpago);
+                $("#cantproducto").append("&nbsp;&nbsp;" + result.cantproducto + " productos en ticket actual");
+                
+            }
+        });
+    });
+    $('button').on("click", function () {
+        var nombreaccion = $(this).attr("name");
+        var idticket = $(this).attr("id");
+        if (nombreaccion == "ticket") {
+            $.ajax({
+                url: '@Url.Action("calculototalpago", "Facturacion")',
+                type:"GET",
+                data: { numticket: idticket },
+                success: function (result) {
+                    $("#totalpago").empty();
+                    $("#totalpago").append("Total a pagar:C$" + result.Totalpago);
+                    $("#cantproducto").empty();
+                    $("#cantproducto").append("&nbsp;&nbsp;"+ result.cantproducto +" productos en ticket actual");
+                }
+            });
+        }
+    })
 
+    $('a').on("click", function () {
+        var idaccion =$(this).attr("id");
+        var idticket = $("button.active").attr("id");
+        if (idaccion=="agregarproducto") {
+            $(this).attr('href', ('@Url.Action("Agregarproducto", "Facturacion", new { numticket = "idticket" })').replace("idticket", idticket));
+        }else if(idaccion=="facturar")
+        {
+            $(this).attr('href', ('@Url.Action("Facturar", "Facturacion", new { numticket = "idticket" })').replace("idticket", idticket));
+        }
+    })
+</script>
            
           
 

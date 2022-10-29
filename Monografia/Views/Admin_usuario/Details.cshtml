@@ -8,15 +8,19 @@
         <dl class="dl-horizontal">
 
             <dt>
-                @Html.Display("Nombre")
+                @Html.DisplayName("Nombre")
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.usuario_detalle.Nombre)
+                @Html.DisplayFor(model => model.usuario_detalle.Primer_nombre)
+                @Html.DisplayFor(model => model.usuario_detalle.Segundo_nombre)
+                @Html.DisplayFor(model => model.usuario_detalle.Primer_apellido)
+                @Html.DisplayFor(model => model.usuario_detalle.Segundo_apellido)
             </dd>
 
+
             <dt>
-                @Html.Display("Dirección")
+                @Html.DisplayName("Dirección")
             </dt>
 
             <dd>
@@ -24,7 +28,7 @@
             </dd>
 
             <dt>
-                @Html.Display("Teléfono")
+                @Html.DisplayName("Teléfono")
             </dt>
 
             <dd>

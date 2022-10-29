@@ -8,17 +8,15 @@
     </div>
     <div class="card-body">
         <dl class="dl-horizontal">
-
-
             <dt>
-                @Html.Display("Nombre")
+                @Html.DisplayName("Nombre")
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.usuario_detalle.Primer_Nombre)
+                @*@Html.DisplayFor(model => model.usuario_detalle)
                 @Html.DisplayFor(model => model.usuario_detalle.Segundo_nombre)
                 @Html.DisplayFor(model => model.usuario_detalle.Primer_apellido)
-                @Html.DisplayFor(model => model.usuario_detalle.Segundo_apellido)
+                @Html.DisplayFor(model => model.usuario_detalle.Segundo_apellido)*@
             </dd>
 
             <dt>
@@ -26,7 +24,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Perfil)
+                @Html.DisplayFor(model => model.usuarios_perfiles.Descripcion_perfil)
             </dd>
 
         </dl>

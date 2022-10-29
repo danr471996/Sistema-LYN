@@ -2373,6 +2373,9 @@
     <Content Include="Views\Facturacion\Venta.cshtml" />
     <Content Include="Views\Usuariologin\Sesiones_usuario.cshtml" />
     <Content Include="Views\Usuariologin\Delete.cshtml" />
+    <Content Include="Views\Facturacion\Lista_Facturas.cshtml" />
+    <Content Include="Views\Facturacion\impresionfactura.cshtml" />
+    <Content Include="Views\Facturacion\Agregarproducto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

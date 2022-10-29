@@ -14,7 +14,7 @@
     <div class="card-body">
         <br>
         <div class="col-md-2">
-            <a data-modal="" href=@Url.Action("Create", "Admin_proveedores") class="btn btn-primary"> <span class="fa fa-plus"></span> Agregar Proveedor</a>
+            <a data-modal="" href=@Url.Action("Create", "Admin_proveedores") class="btn btn-primary"> <i class="fa fa-plus"></i> Agregar Proveedor</a>
         </div>
         <br>
         <br>
@@ -72,10 +72,10 @@
                                 </div>
                             }
                         </td>
-                        <td>
-                            <a data-modal="" href=@Url.Action("Details", "Admin_proveedores", new { id = item.idProveedor }) class="btn btn-info"> <span class="fa fa-accessible-icon"></span></a>
-                            <a data-modal="" href=@Url.Action("Edit", "Admin_proveedores", new { id = item.idProveedor }) class="btn btn-success"> <span class="fa fa-edit"></span></a>
-                            <a data-modal="" href=@Url.Action("Delete", "Admin_proveedores", new { id = item.idProveedor }) class="btn btn-danger"> <span class="fa fa-trash"></span></a>
+                        <td class="text-center">
+                            <a data-modal="" href=@Url.Action("Details", "Admin_proveedores", new { id = item.IdProveedor }) class="btn btn-info rounded-circle"> <i class="fa fa-info"></i></a>
+                            <a data-modal="" href=@Url.Action("Edit", "Admin_proveedores", new { id = item.IdProveedor }) class="btn btn-success rounded-circle"> <i class="fa fa-edit"></i></a>
+                            <a data-modal="" href=@Url.Action("Delete", "Admin_proveedores", new { id = item.IdProveedor }) class="btn btn-danger rounded-circle"> <i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 }

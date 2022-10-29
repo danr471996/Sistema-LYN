@@ -7,7 +7,8 @@
 @Styles.Render("~/Content/datatables")
 
 <div class="card">
-        <h4 class="text-center">Promoción</h4>
+    <div class="card-header"><h4 class="text-center">Promoción</h4> </div>
+      
 </div>
 @using (Html.BeginForm())
 {
@@ -42,12 +43,12 @@
             <div class="row">
                 <div class="col-md-6">
                     @Html.Label("Precio unitario", htmlAttributes: new { @class = "form-label" })
-                    @Html.EditorFor(model => model.Precio_unitario, new { htmlAttributes = new { @class = "form-control" } }))
+                    @Html.EditorFor(model => model.Precio_unitario, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <br>
             <div class="row text-center">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-save"> Guardar</i>
                     </button>
@@ -85,7 +86,9 @@
                         <th>
                             @Html.DisplayName("Estado")
                         </th>
-                        <th></th>
+                        <th>
+                           Acciones
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -121,8 +124,8 @@
                                     </div>
                                 }
                             </td>
-                            <td>
-                                <a data-modal="" href=@Url.Action("Deletepromocion", "Admin_productos",new { id = item.Idpromocion }) class="btn btn-danger"> <span class="fa fa-trash"></span></a>
+                            <td class="text-center">
+                                <a data-modal="" href=@Url.Action("Deletepromocion", "Admin_productos",new { id = item.Idpromocion }) class="btn btn-danger rounded-circle"> <i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     }

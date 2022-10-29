@@ -344,8 +344,7 @@ namespace Monografia.Controllers
         
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+
         public ActionResult agregar_inventario(int? id_producto)
         {
             try
@@ -406,8 +405,6 @@ namespace Monografia.Controllers
         
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult ajuste_inventario(int? id_producto)
         {
             try

@@ -14,7 +14,7 @@
     <div class="card-body">
         <br>
         <div class="row col-md-2">
-            <a data-modal="" href=@Url.Action("Create", "Admin_usuario") class="btn btn-primary "> <span class="fa fa-plus"></span> Agregar usuario</a>
+            <a data-modal="" href=@Url.Action("Create", "Admin_usuario") class="btn btn-primary "> <i class="fa fa-plus"></i> Agregar usuario</a>
         </div>
         <br>
         <br>
@@ -47,29 +47,29 @@
                             @Html.DisplayFor(modelItem => item.Contraseña)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Perfil)
+                            @Html.DisplayFor(modelItem => item.usuarios_perfiles.Descripcion_perfil)
                         </td>
                         <td>
                             @if (item.Estado_usuario == 1)
                             {
 
-                                <div class="form-control " style="width:100%; border-radius:100px;color:#37c406;text-align:center">
+                                <div class="form-control " style="width:60%; border-radius:100px;color:#37c406;text-align:center">
                                     Activo
 
                                 </div>
                             }
                             else
                             {
-                                <div class="form-control " style="width:100%; border-radius:100px;color:#d00b0b;text-align:center">
+                                <div class="form-control " style="width:60%; border-radius:100px;color:#d00b0b;text-align:center">
                                     Inactivo
 
                                 </div>
                             }
                         </td>
-                        <td>
-                            <a data-modal="" href=@Url.Action("Edit", "Admin_usuario", new { id = item.Idusuario }) class="btn btn-success descripcion expand" data-title="Editar usuario"> <span class="fa fa-edit"></span></a>  |
-                            <a data-modal="" href=@Url.Action("Details", "Admin_usuario", new { id = item.Idusuario }) class="btn btn-info descripcion expand" data-title="info usuario"> <span class="fa fa-info"></span></a> |
-                            <a data-modal="" href=@Url.Action("Delete", "Admin_usuario", new { id = item.Idusuario }) class="btn btn-danger descripcion expand" data-title="Eliminar usuario"> <span class="fa fa-trash"></span></a>
+                        <td class="text-center">
+                            <a data-modal="" href=@Url.Action("Edit", "Admin_usuario", new { id = item.Idusuario }) class="btn btn-success rounded-circle descripcion expand" data-title="Editar usuario"> <i class="fa fa-edit"></i></a>
+                            <a data-modal="" href=@Url.Action("Details", "Admin_usuario", new { id = item.Idusuario }) class="btn btn-info rounded-circle descripcion expand" data-title="info usuario"> <i class="fa fa-info"></i></a>
+                            <a data-modal="" href=@Url.Action("Delete", "Admin_usuario", new { id = item.Idusuario }) class="btn btn-danger rounded-circle descripcion expand" data-title="Eliminar usuario"> <i class="fa fa-trash"></i></a>
 
                         </td>
                     </tr>

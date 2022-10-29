@@ -84,7 +84,7 @@ namespace Monografia.Controllers
                 var clientes = db.clientes.Where(x => x.Idcliente == id).FirstOrDefault();
                 Session["idcliente"] = clientes.Idcliente;
                 Session["nomcliente"] = clientes.Primer_nombre + " " + clientes.Primer_apellido;
-                Session["limitecredito"] = clientes.Id_tipocredito;
+                Session["limitecredito"] = clientes.tipo_credito.Descripcion;
                 Session["Saldoactual"] = (from x in db.creditos where x.Idcliente == id && x.Estado == 1 select (x.Importe_total - x.Importe_pagado)).Sum() == null ? 0 : (from x in db.creditos where x.Idcliente == id && x.Estado == 1 select (x.Importe_total - x.Importe_pagado)).Sum();
 
                 var listafacturas = (from u in db.factura
@@ -157,26 +157,26 @@ namespace Monografia.Controllers
                 List<Modelo_contenedor> modelo_contenedor = new List<Modelo_contenedor>();
 
                 decimal? saldo = (from x in db.creditos where x.Estado == 1 select (x.Importe_total - x.Importe_pagado)).Sum();
-                Session["cantidad_saldo"] = saldo.ToString();
+                Session["cantidad_saldo"] = saldo == null ? "0": saldo.ToString();
 
-                var clientes = db.clientes.ToList();
+                var clientes = db.clientes.Include(K =>K.tipo_credito).ToList();
                 foreach (var item in clientes)
                 {
-                    string patito = (from u in db.creditos
+                    DateTime fechaultimopago = (from u in db.creditos
                                      join p in db.pagos on u.Id_factura equals p.Id_factura
                                      where u.Idcliente == item.Idcliente
                                      orderby p.Idpagos descending
-                                     select p.Fecha_alta).Take(1).FirstOrDefault().ToString("dd-mm-yyyy");
+                                     select p.Fecha_alta).Take(1).FirstOrDefault();
                     modelo_contenedor.Add(new Modelo_contenedor
                     {
                         idcliente = item.Idcliente,
                         Nombre = item.Primer_nombre,
                         Direccion = item.Direccion,
                         telefono = item.Telefono,
-                        limitecredito = item.Id_tipocredito,
+                        limitecredito = item.tipo_credito.Descripcion,
                         saldo = (from x in db.creditos where x.Estado == 1 && x.Idcliente == item.Idcliente select (x.Importe_total - x.Importe_pagado)).Sum() == null ? 0 : (from x in db.creditos where x.Estado == 1 && x.Idcliente == item.Idcliente select (x.Importe_total - x.Importe_pagado)).Sum(),
 
-                        fechapago = DateTime.ParseExact(patito, "dd-mm-yyyy", null)
+                        fechapago = fechaultimopago == Convert.ToDateTime("01-01-0001") ? "": fechaultimopago.ToString()
                     });
                 }
 
