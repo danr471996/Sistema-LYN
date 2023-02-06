@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.4.8.3\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.4.8.3\build\Microsoft.TypeScript.MSBuild.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
@@ -74,11 +73,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
@@ -259,17 +258,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Admin_departamentosController.cs" />
     <Compile Include="Controllers\Admin_clientesController.cs" />
-    <Compile Include="Controllers\Config_AdministradorBDController.cs" />
-    <Compile Include="Controllers\Config_articulosprecargadosController.cs" />
-    <Compile Include="Controllers\Config_folioticketsController.cs" />
-    <Compile Include="Controllers\Config_formasdepagoController.cs" />
-    <Compile Include="Controllers\Config_impuestosController.cs" />
-    <Compile Include="Controllers\Config_menuController.cs" />
-    <Compile Include="Controllers\Config_opcioneshabilitadasController.cs" />
-    <Compile Include="Controllers\Config_perfilesController.cs" />
-    <Compile Include="Controllers\Config_simbolodemonedaController.cs" />
-    <Compile Include="Controllers\Config_ticketsController.cs" />
-    <Compile Include="Controllers\Config_unidadesdemedidaController.cs" />
+    <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\Admin_productosController.cs" />
     <Compile Include="Controllers\Admin_inventarioController.cs" />
     <Compile Include="Controllers\FacturacionController.cs" />
@@ -2352,17 +2341,6 @@
     <Content Include="Views\Admin_clientes\Abono.cshtml" />
     <Content Include="Views\Admin_clientes\Lista_de_abonos.cshtml" />
     <Content Include="Views\Admin_productos\Edit.cshtml" />
-    <Content Include="Views\Config_AdministradorBD\inicio_bd.cshtml" />
-    <Content Include="Views\Config_articulosprecargados\index.cshtml" />
-    <Content Include="Views\Config_foliotickets\Index.cshtml" />
-    <Content Include="Views\Config_formasdepago\Index.cshtml" />
-    <Content Include="Views\Config_impuestos\index.cshtml" />
-    <Content Include="Views\Config_opcioneshabilitadas\Index.cshtml" />
-    <Content Include="Views\Config_perfiles\Index.cshtml" />
-    <Content Include="Views\Config_simbolodemoneda\Index.cshtml" />
-    <Content Include="Views\Config_tickets\Index.cshtml" />
-    <Content Include="Views\Config_unidadesdemedida\Index.cshtml" />
-    <Content Include="Views\Config_menu\index.cshtml" />
     <Content Include="Views\Admin_proveedores\Create.cshtml" />
     <Content Include="Views\Admin_proveedores\Delete.cshtml" />
     <Content Include="Views\Admin_proveedores\Details.cshtml" />
@@ -2376,6 +2354,17 @@
     <Content Include="Views\Facturacion\Lista_Facturas.cshtml" />
     <Content Include="Views\Facturacion\impresionfactura.cshtml" />
     <Content Include="Views\Facturacion\Agregarproducto.cshtml" />
+    <Content Include="Views\Config\Folio.cshtml" />
+    <Content Include="Views\Config\Unidadesdemedida.cshtml" />
+    <Content Include="Views\Config\Formasdepago.cshtml" />
+    <Content Include="Views\Config\Impuestos.cshtml" />
+    <Content Include="Views\Config\Articulosprecargados.cshtml" />
+    <Content Include="Views\Config\Opcioneshabilitadas.cshtml" />
+    <Content Include="Views\Config\Perfiles.cshtml" />
+    <Content Include="Views\Config\Simbolodemoneda.cshtml" />
+    <Content Include="Views\Config\Tickets.cshtml" />
+    <Content Include="Views\Config\Administradorbd.cshtml" />
+    <Content Include="Views\Config\Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2425,11 +2414,8 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.4.8.3\build\Microsoft.TypeScript.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.4.8.3\build\Microsoft.TypeScript.MSBuild.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.4.8.3\build\Microsoft.TypeScript.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.4.8.3\build\Microsoft.TypeScript.MSBuild.targets'))" />
   </Target>
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
-  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.4.8.3\build\Microsoft.TypeScript.MSBuild.targets" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.4.8.3\build\Microsoft.TypeScript.MSBuild.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
