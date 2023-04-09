@@ -3,10 +3,10 @@
 @{
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
+@Styles.Render("~/Scripts/Datatable")
 
-@Styles.Render("~/Content/datatables")
 
-   <div class="card">
+   <div class="card border-start border-0 border-3 border-info">
 
     <div class="card-header">
         <h4 class="text-center">Clientes</h4>
@@ -15,88 +15,89 @@
     <div class="card-body">
         <br>
         <div class="row col-md-2">
-            <a data-modal="" href=@Url.Action("Create", "Admin_clientes") class="btn btn-primary"> <i class="fa fa-plus"></i> Agregar cliente</a>
+            <a data-modal="" href=@Url.Action("Create", "Admin_clientes") class="btn btn-primary"> <i class="fa fa-plus">Agregar</i></a>
         </div>
 
         <br>
         <br>
         <div class="row">
+            <table id="tbclientes" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Nombres y Apellidos")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Dirección")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Teléfono")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Tipo de Crédito")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Estado")
+                        </th>
+                        <th>
+                            Acciones
+                        </th>
+                    </tr>
 
-                <table id="tbclientes" class="table table-bordered">
-                    <thead>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+            {
                         <tr>
-                            <th>
-                                @Html.DisplayName("Nombres y Apellidos")
-                            </th>
-                            <th>
-                                @Html.DisplayName("Dirección")
-                            </th>
-                            <th>
-                                @Html.DisplayName("Teléfono")
-                            </th>
-                            <th>
-                                @Html.DisplayName("Tipo de Crédito")
-                            </th>
-                            <th>
-                                @Html.DisplayName("Estado")
-                            </th>
-                            <th>
-                                Acciones
-                            </th>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Primer_nombre)
+                                @Html.DisplayFor(modelItem => item.Segundo_nombre)
+                                @Html.DisplayFor(modelItem => item.Primer_apellido)
+                                @Html.DisplayFor(modelItem => item.Segundo_apellido)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Direccion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Telefono)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tipo_credito.Descripcion)
+                            </td>
+                            <td>
+                                @if (item.Estado == 1)
+                                {
+
+                                    <div class="form-control " style="width:100%; border-radius:100px;color:#37c406;text-align:center">
+                                        Activo
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-control " style="width:100%; border-radius:100px;color:#d00b0b;text-align:center">
+                                        Inactivo
+
+                                    </div>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <a data-modal="" href=@Url.Action("Edit", "Admin_clientes",new { id = item.Idcliente }) class="btn btn-success rounded-circle"> <i class="fa fa-edit"></i></a>
+                                <a data-modal="" href=@Url.Action("Delete", "Admin_clientes",new { id = item.Idcliente }) class="btn btn-danger rounded-circle"> <i class="fa fa-trash"></i></a>
+                                <a href=@Url.Action("Estado_cuenta", "Admin_clientes", new { id = item.Idcliente }) class="btn btn-info rounded-circle"> <i class="fa fa-money"></i></a>
+                            </td>
                         </tr>
+                    }
 
-                    </thead>
+                </tbody>
 
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Primer_nombre)
-                                    @Html.DisplayFor(modelItem => item.Segundo_nombre)
-                                    @Html.DisplayFor(modelItem => item.Primer_apellido)
-                                    @Html.DisplayFor(modelItem => item.Segundo_apellido)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Direccion)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Telefono)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.tipo_credito.Descripcion)
-                                </td>
-                                <td>
-                                    @if (item.Estado == 1)
-                                    {
-
-                                        <div class="form-control " style="width:100%; border-radius:100px;color:#37c406;text-align:center">
-                                            Activo
-
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="form-control " style="width:100%; border-radius:100px;color:#d00b0b;text-align:center">
-                                            Inactivo
-
-                                        </div>
-                                    }
-                                </td>
-                                <td class="text-center">
-                                    <a data-modal="" href=@Url.Action("Edit", "Admin_clientes",new { id = item.Idcliente }) class="btn btn-success rounded-circle"> <i class="fa fa-edit"></i></a>
-                                    <a data-modal="" href=@Url.Action("Delete", "Admin_clientes",new { id = item.Idcliente }) class="btn btn-danger rounded-circle"> <i class="fa fa-trash"></i></a>
-                                    <a href=@Url.Action("Estado_cuenta", "Admin_clientes", new { id = item.Idcliente }) class="btn btn-info rounded-circle"> <i class="fa fa-accessible-icon"></i></a>
-                                </td>
-                            </tr>
-                        }
-
-                    </tbody>
-
-                </table>
-                </div>
+            </table>
+        </div>
+              
     </div>
 </div>
+
 
     @section Scripts
 {
@@ -106,7 +107,10 @@
                 $('#tbclientes').DataTable({
                     "language": {
                         "url": "/Scripts/es_es.json"
-                    }
+                    },
+                    select: true,
+                    scrollX: true,
+                    scrollcollapse:true
                 })
             });
            

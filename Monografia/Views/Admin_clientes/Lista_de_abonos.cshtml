@@ -3,7 +3,7 @@
 @{
     Layout = null;
 }
-@Styles.Render("~/Content/datatables")
+@Styles.Render("~/Scripts/Datatable")
 <div class="card">
     <div class="card-header">
         <h4>Lista de abonos</h4>
@@ -11,7 +11,7 @@
     <div class="card-body">
         <br>
         <br>
-        <table id="tblistabonos" class="table table-bordered">
+        <table id="tblistabonos" class="table table-bordered" style="width:100%">
             <thead>
                 <tr>
                     <th>
@@ -46,7 +46,7 @@
                             @Html.DisplayFor(modelItem => item.Monto_pagado)
                         </td>
                         <td class="text-center">
-                            <a data-modal="" href=@Url.Action("Edit", "Admin_clientes",new { id = item.Idcliente }) class="btn btn-success"> <span class="fa fa-edit"></span></a>  
+                            <a data-modal="" href=@Url.Action("Edit", "Admin_clientes",new { id = item.Id_factura }) class="btn btn-success"> <span class="fa fa-edit"></span></a>  
                         </td>
                     </tr>
                 }

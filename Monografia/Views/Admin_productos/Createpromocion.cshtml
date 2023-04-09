@@ -4,15 +4,15 @@
 
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
-@Styles.Render("~/Content/datatables")
+@Styles.Render("~/Scripts/Datatable")
 
-<div class="card">
+<div class="card border-top border-0 border-3 border-success">
     <div class="card-header"><h4 class="text-center">Promoción</h4> </div>
       
 </div>
 @using (Html.BeginForm())
 {
-    <div class="card">
+    <div class="card border-start border-0 border-3 border-info">
         <div class="card-header">
             <h4>Nueva Promoción</h4>
         </div>
@@ -58,14 +58,14 @@
     </div>
 
 
-    <div class="card">
+    <div class="card border-start border-0 border-3 border-info">
         <div class="card-header">
             <h4>Promociones</h4>
         </div>
         <div class="card-body">
             <br>
             <br>
-            <table id="tbpromocion" class="table table-bordered">
+            <table id="tbpromocion" class="table table-bordered" style="width:100%">
                 <thead>
                     <tr>
                         <th>

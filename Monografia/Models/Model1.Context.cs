@@ -44,5 +44,7 @@ namespace Monografia.Models
         public virtual DbSet<usuario_sesion> usuario_sesion { get; set; }
         public virtual DbSet<usuarios_perfiles> usuarios_perfiles { get; set; }
         public virtual DbSet<usuarios_tienda> usuarios_tienda { get; set; }
+        public virtual DbSet<correlativos> correlativos { get; set; }
+        public virtual DbSet<formato_factura> formato_factura { get; set; }
     }
 }

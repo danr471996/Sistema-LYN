@@ -1076,6 +1076,7 @@ C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\MySql.Data
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Newtonsoft.Json.dll
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Owin.dll
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Renci.SshNet.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Select.HtmlToPdf.dll
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Buffers.dll
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Memory.dll
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.dll
@@ -1104,6 +1105,7 @@ C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Microsoft.
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\MySql.Data.xml
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\MySql.Data.EntityFramework.xml
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Renci.SshNet.xml
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Select.HtmlToPdf.xml
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Buffers.xml
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Memory.xml
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\System.Runtime.CompilerServices.Unsafe.xml
@@ -1146,6 +1148,7 @@ C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microso
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Google.resources.dll
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\bin\Select.Html.dep
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\obj\Debug\Monografia.csprojResolveAssemblyReference.cache
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\obj\Debug\Monografia.dll
 C:\Users\HANNAH\Desktop\proyecto monografia\Monografia\Monografia\obj\Debug\Monografia.pdb

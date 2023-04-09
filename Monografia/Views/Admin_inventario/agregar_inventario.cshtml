@@ -4,14 +4,14 @@
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
 
-<div class="card">
-        <h4 class="text-center">Inventario</h4>
+<div class="card border-top border-0 border-3 border-success">
+    <div class="card-header"><h4 class="text-center">Inventario</h4> </div>
 </div>
 
 @using (Html.BeginForm("agregar_inventario", "Admin_inventario", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <div class="card">
+    <div class="card border-start border-0 border-3 border-info">
         <div class="card-header">
             <h4>Buscar producto</h4>
         </div>
@@ -37,7 +37,7 @@
 @using (Html.BeginForm("agregar_inventario2", "Admin_inventario", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <div class="card">
+    <div class="card border-start border-0 border-3 border-info">
         <div class="card-header">
             <h2>Agregar inventario</h2>
         </div>

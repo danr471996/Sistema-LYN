@@ -3,8 +3,8 @@
 @{
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
-@Styles.Render("~/Content/datatables")
-<div class="card">
+@Styles.Render("~/Scripts/Datatable")
+<div class="card border-start border-0 border-3 border-info">
     <div class="card-header">
         <h4 class="text-center">Productos</h4>
     </div>
@@ -13,12 +13,12 @@
         <br>
         <div class="row">
             <div class="col-md-2">
-                <a data-modal="" href=@Url.Action("Create", "Admin_productos") class="btn btn-primary"> <i class="fa fa-plus"></i>Agregar productos</a>
+                <a data-modal="" href=@Url.Action("Create", "Admin_productos") class="btn btn-primary"> <i class="fa fa-plus">Agregar</i></a>
             </div>
         </div>
         <br>
         <br>
-        <table id="tbproductos" class="table table-bordered">
+        <table id="tbproductos" class="table table-bordered" style="width:100%">
             <thead>
                 <tr>
                     <th>

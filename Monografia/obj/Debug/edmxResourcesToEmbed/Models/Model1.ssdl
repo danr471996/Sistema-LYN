@@ -19,6 +19,18 @@
     <Property Name="Cantidad_credito" Type="int" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="correlativos">
+    <Key>
+      <PropertyRef Name="idCorrelativo_factura" />
+    </Key>
+    <Property Name="idCorrelativo_factura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+    <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+    <Property Name="Correlativo_factura" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="creditos">
     <Key>
       <PropertyRef Name="Idcredito" />
@@ -88,6 +100,19 @@
     <Property Name="Id_proveedor" Type="int" Nullable="false" />
     <Property Name="Cantidad_producto" Type="int" Nullable="false" />
     <Property Name="Precio_compra" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="formato_factura">
+    <Key>
+      <PropertyRef Name="idformato_factura" />
+    </Key>
+    <Property Name="idformato_factura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usuaro_alta" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+    <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+    <Property Name="Cabeza_factura" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Cuerpo_factura" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="lista_permisos">
@@ -408,11 +433,13 @@
   </Association>
   <EntityContainer Name="proyectotiendaModelStoreContainer">
     <EntitySet Name="clientes" EntityType="Self.clientes" Schema="proyectotienda" store:Type="Tables" />
+    <EntitySet Name="correlativos" EntityType="Self.correlativos" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="creditos" EntityType="Self.creditos" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="departamento" EntityType="Self.departamento" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="detalle_factura" EntityType="Self.detalle_factura" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="factura" EntityType="Self.factura" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="facturas_proveedor" EntityType="Self.facturas_proveedor" Schema="proyectotienda" store:Type="Tables" />
+    <EntitySet Name="formato_factura" EntityType="Self.formato_factura" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="lista_permisos" EntityType="Self.lista_permisos" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="opciones" EntityType="Self.opciones" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="pagos" EntityType="Self.pagos" Schema="proyectotienda" store:Type="Tables" />

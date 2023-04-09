@@ -58,4 +58,51 @@
         });
     }
 
+
+
+
+    $('#btndescargar').on("click", function () {
+        var factura = $('#idfactura').attr("value");
+        console.log(factura);
+            $.ajax({
+                url: '/Facturacion/downloadpdf',
+                type: "POST",
+                data: { idfactura: factura },
+                success: function (data, jqXHR, response) {
+                    if (jqXHR == "success") {
+                        var bytes = _base64ToArrayBuffer(data.message);
+                        saveByteArray(data.filename, bytes);
+                        window.location = window.location;
+                    }
+                }
+            });
+        
+    })
+
+    function _base64ToArrayBuffer(base64) {
+        var binary_string = window.atob(base64);
+        var len = binary_string.length;
+        var bytes = new Uint8Array(len);
+        for (var i = 0; i < len; i++) {
+            bytes[i] = binary_string.charCodeAt(i);
+        }
+        return bytes.buffer;
+    }
+
+    function saveByteArray(reportName, byte) {
+        var blob = new Blob([byte], { type: "application/octetstream" });
+        var isIE = false || !!document.documentMode;
+        if (isIE) {
+            window.navigator.msSaveBlob(blob, reportName);
+        } else {
+            var url = window.URL || window.webkitURL;
+            link = url.createObjectURL(blob);
+            var a = $("<a />");
+            a.attr("download", reportName);
+            a.attr("href", link);
+            $("body").append(a);
+            a[0].click();
+            $("body").remove(a);
+        }
+    };
 });

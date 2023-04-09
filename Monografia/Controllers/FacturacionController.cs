@@ -7,6 +7,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Monografia.Models;
+using System.Text;
+using SelectPdf;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Monografia.Controllers
 {
@@ -17,14 +21,15 @@ namespace Monografia.Controllers
         Modelo_contenedor.Ticket Ticket = null;
         Modelo_contenedor.producto producto = null;
         List<Modelo_contenedor.producto> listaproductos = null;
-        public pagos pagos = null;
+        correlativos datoscorrelativo = null;
+        private pagos pagos = null;
         private factura factura = null;
-        private detalle_factura detallefact=null;
-        
+        private detalle_factura detallefact = null;
+
         // GET: facturas
         public ActionResult Venta()
         {
-            if (modelocontenedor.listatickets==null || modelocontenedor.listatickets.Count()==0)
+            if (modelocontenedor.listatickets == null || modelocontenedor.listatickets.Count() == 0)
             {
 
                 modelocontenedor.listatickets = new List<Modelo_contenedor.Ticket>();
@@ -33,11 +38,11 @@ namespace Monografia.Controllers
                 Ticket.Numero_ticket = 1;
                 Ticket.listaproductos = listaproductos;
                 modelocontenedor.listatickets.Add(Ticket);
-                Session["ticketactivo"]= Ticket.Numero_ticket;
-                Session["calculototalpago"]=listaproductos.Sum(x => x.Impor);
+                Session["ticketactivo"] = Ticket.Numero_ticket;
+                Session["calculototalpago"] = listaproductos.Sum(x => x.Impor);
                 Session["cantproducto"] = listaproductos.Sum(x => x.Cant);
             }
-           
+
             return View(modelocontenedor);
 
         }
@@ -51,14 +56,14 @@ namespace Monografia.Controllers
             {
                 modelocontenedor = agregar_ticket(modelocontenedor);
             }
-         
-                return View(modelocontenedor);
-         
+
+            return View(modelocontenedor);
+
         }
 
         public Modelo_contenedor.Factura agregar_ticket(Modelo_contenedor.Factura modelocontenedor)
         {
-            if (modelocontenedor.listatickets.Count() <6)
+            if (modelocontenedor.listatickets.Count() < 6)
             {
                 Ticket = new Modelo_contenedor.Ticket();
                 List<Modelo_contenedor.producto> listaproductos = new List<Modelo_contenedor.producto>();
@@ -67,14 +72,14 @@ namespace Monografia.Controllers
                     modelocontenedor.listatickets = new List<Modelo_contenedor.Ticket>();
                 }
 
-                Ticket.Numero_ticket = modelocontenedor.listatickets.Select(x =>x.Numero_ticket).LastOrDefault() + 1;
+                Ticket.Numero_ticket = modelocontenedor.listatickets.Select(x => x.Numero_ticket).LastOrDefault() + 1;
                 Ticket.listaproductos = listaproductos;
                 modelocontenedor.listatickets.Add(Ticket);
                 Session["ticketactivo"] = Ticket.Numero_ticket;
                 Session["calculototalpago"] = listaproductos.Sum(x => x.Impor);
                 Session["cantproducto"] = listaproductos.Sum(x => x.Cant);
             }
-         
+
             return modelocontenedor;
         }
 
@@ -82,30 +87,43 @@ namespace Monografia.Controllers
         public ActionResult Facturar(int numticket)
         {
             ViewBag.numticket = numticket;
-            var datosfacturar=modelocontenedor.listatickets.Where(x => x.Numero_ticket == numticket).FirstOrDefault();
-            ViewBag.totalpago= datosfacturar.listaproductos.Sum(x => x.Impor).ToString();
-        
+            var datosfacturar = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numticket).FirstOrDefault();
+            ViewBag.totalpago = datosfacturar.listaproductos.Sum(x => x.Impor).ToString();
+
             return PartialView();
         }
 
         // POST: facturas/Edit/5
         [HttpPost]
-        public ActionResult Facturar(int numeroticket,decimal montopago)
+        public ActionResult Facturar(int numeroticket, decimal montopago)
         {
             decimal montototalfact = 0;
             pagos = new pagos();
             factura = new factura();
+            datoscorrelativo = new correlativos();
+            datoscorrelativo = db.correlativos.Where(x => x.idCorrelativo_factura == 1 && x.Estado == 1).FirstOrDefault();
+            if (datoscorrelativo == null)
+            {
+                datoscorrelativo.Correlativo_factura = 1;
+                datoscorrelativo.Estado = 1;
+                db.correlativos.Add(datoscorrelativo);
+                db.SaveChanges();
+            }
+            else
+            {
+                datoscorrelativo.Correlativo_factura = datoscorrelativo.Correlativo_factura + 1;
+                db.SaveChanges();
+            }
 
-
-           var datosafacturar=  modelocontenedor.listatickets.Where(x => x.Numero_ticket == numeroticket).FirstOrDefault();
+            var datosafacturar = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numeroticket).FirstOrDefault();
             montototalfact = datosafacturar.listaproductos.Sum(x => x.Impor);
-       
-          
+
+
 
             //datos Factura
             factura.Fecha_alta = DateTime.Now;
             factura.Usuario_alta = (string)Session["usuario_logueado"];
-            factura.Num_factura = 1;
+            factura.Num_factura = datoscorrelativo.Correlativo_factura;
             factura.Monto_total = montototalfact;
             factura.Estado = 1;
             db.factura.Add(factura);
@@ -141,13 +159,13 @@ namespace Monografia.Controllers
         }
 
         // GET: facturas/Delete/5
-        public ActionResult Delete(int codigoproducto,int numeroticket)
+        public ActionResult Delete(int codigoproducto, int numeroticket)
         {
             ViewBag.numticket = numeroticket;
             ViewBag.codproducto = codigoproducto;
             Modelo_contenedor.Factura datoseliminar = new Modelo_contenedor.Factura();
             var ticket = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numeroticket).FirstOrDefault();
-            var producto=ticket.listaproductos.Where(x => x.CodProd == codigoproducto).FirstOrDefault();
+            var producto = ticket.listaproductos.Where(x => x.CodProd == codigoproducto).FirstOrDefault();
             datoseliminar.listatickets = new List<Modelo_contenedor.Ticket>();
             datoseliminar.listatickets.Add(ticket);
             foreach (var item in datoseliminar.listatickets)
@@ -160,11 +178,11 @@ namespace Monografia.Controllers
 
         // POST: facturas/Delete/5
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int numeroticket,int codigoproducto)
+        public ActionResult DeleteConfirmed(int numeroticket, int codigoproducto)
         {
- 
-                var ticket = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numeroticket).FirstOrDefault();
-                var datosproducto = ticket.listaproductos.Where(x => x.CodProd == codigoproducto).FirstOrDefault();
+
+            var ticket = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numeroticket).FirstOrDefault();
+            var datosproducto = ticket.listaproductos.Where(x => x.CodProd == codigoproducto).FirstOrDefault();
             if (datosproducto != null)
             {
                 if (datosproducto.Cant == 1)
@@ -189,9 +207,9 @@ namespace Monografia.Controllers
             ViewBag.numticket = numticket;
             return PartialView();
         }
-     
+
         [HttpPost]
-        public ActionResult Agregarproducto(int numticket,int codproducto)
+        public ActionResult Agregarproducto(int numticket, int codproducto)
         {
 
             var existeproducto = (from x in db.productos where x.Codigo_producto == codproducto select x).FirstOrDefault();
@@ -219,19 +237,91 @@ namespace Monografia.Controllers
                 Session["ticketactivo"] = ticket.Numero_ticket;
                 Session["calculototalpago"] = ticket.listaproductos.Sum(x => x.Impor);
                 Session["cantproducto"] = ticket.listaproductos.Sum(x => x.Cant);
-            }   
+            }
             return Json(new { success = true });
-         
+
         }
 
         public ActionResult Lista_Facturas()
         {
             return View(db.factura.ToList());
         }
+
+
+
         public ActionResult impresionfactura(int idfactura)
         {
+            ViewBag.idfactura = idfactura;
+            TempData["idfactura"] = idfactura;
             return PartialView();
         }
+
+        [HttpPost]
+        public JsonResult downloadpdf(int idfactura )
+        {
+            factura = new factura();
+            factura = db.factura.Where(x => x.Idfactura == idfactura).FirstOrDefault();
+
+            var Nombrearchivo = "Factura" + factura.Num_factura + DateTime.Now.Year + DateTime.Now.Day + DateTime.Now.Second + ".pdf";
+     
+            return Json(new { filename = Nombrearchivo, message = Convert.ToBase64String(crearfactura(factura)) });
+        }
+
+        public  ActionResult getpdf(int idfactura)
+        {
+            factura = new factura();
+            factura = db.factura.Where(x => x.Idfactura == idfactura).FirstOrDefault();
+
+            return new FileContentResult(crearfactura(factura), "application/pdf");
+        }
+
+        public byte[] crearfactura(factura datosfactura)
+        {
+
+            string htmldocfactura = "";
+            var formatofactura = db.formato_factura.Where(x => x.idformato_factura == 1 && x.Estado == 1).FirstOrDefault();
+            htmldocfactura = formatofactura.Cabeza_factura;
+
+            StringBuilder tabledatosfactura = new StringBuilder();
+
+            tabledatosfactura.Append("<table>");
+            tabledatosfactura.Append("<thead>");
+            tabledatosfactura.Append("<tr>");
+            tabledatosfactura.Append("<th>Producto</th>");
+            tabledatosfactura.Append("<th>Descripcion</th>");
+            tabledatosfactura.Append("</tr>");
+            tabledatosfactura.Append("</thead>");
+            tabledatosfactura.Append("<tbody>");
+            tabledatosfactura.Append("<tr>");
+
+            foreach (var item in datosfactura.detalle_factura)
+            {
+                tabledatosfactura.Append("<td>" + item.productos.Codigo_producto + "</td>");
+                tabledatosfactura.Append("<td>" + item.productos.Descripcion + "</td>");
+            }
+            tabledatosfactura.Append("</tr>");
+            tabledatosfactura.Append("</tbody>");
+
+            tabledatosfactura.Append("</table>");
+            htmldocfactura += tabledatosfactura;
+            htmldocfactura += formatofactura.Cuerpo_factura;
+
+
+            HtmlToPdf convertidor = new HtmlToPdf();
+            convertidor.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            convertidor.Options.MarginLeft = 40;
+            convertidor.Options.MarginRight = 40;
+            convertidor.Options.MarginTop = 20;
+            PdfDocument doc = convertidor.ConvertHtmlString(htmldocfactura);
+
+            //bytes de doc con select pdf
+            byte[] pdfBytes = doc.Save();
+
+            return pdfBytes;
+
+
+        }
+
         [HttpGet]
         public ActionResult getsesiones()
         {

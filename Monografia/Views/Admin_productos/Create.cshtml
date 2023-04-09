@@ -80,8 +80,10 @@
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-md-6">
-                                @Html.Label("Producto Utiliza inventario ", new { @class = "form-label" })@Html.CheckBox("usainventario", false,  new { @id = "ckinventario", @class = "form-check-input" } )
+                            <div class="col-md-8">
+                                @Html.CheckBox("usainventario", false, new { @id = "ckinventario", @class = "form-check-input" })
+                                @Html.Label("Producto Utiliza inventario ", htmlAttributes: new { @class = "form-label" })
+                           
                             </div>
 
 

@@ -42,7 +42,6 @@ namespace Monografia
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
                       "~/Content/bootstrap.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/csscustomproyecto").Include(
@@ -65,8 +64,7 @@ namespace Monografia
                          "~/Scripts/Datatable/dataTables.select.min.js"));
            
 
-            bundles.Add(new StyleBundle("~/Content/datatables").Include(
-
+            bundles.Add(new StyleBundle("~/Scripts/Datatable").Include(
                      "~/Scripts/Datatable/dataTables.bootstrap5.min.css",
                      "~/Scripts/Datatable/select.bootstrap5.min.css"));
 

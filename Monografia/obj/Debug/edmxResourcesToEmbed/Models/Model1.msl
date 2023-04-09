@@ -294,5 +294,32 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="correlativos">
+      <EntityTypeMapping TypeName="proyectotiendaModel.correlativos">
+        <MappingFragment StoreEntitySet="correlativos">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Correlativo_factura" ColumnName="Correlativo_factura" />
+          <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
+          <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+          <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+          <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
+          <ScalarProperty Name="idCorrelativo_factura" ColumnName="idCorrelativo_factura" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="formato_factura">
+      <EntityTypeMapping TypeName="proyectotiendaModel.formato_factura">
+        <MappingFragment StoreEntitySet="formato_factura">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Cuerpo_factura" ColumnName="Cuerpo_factura" />
+          <ScalarProperty Name="Cabeza_factura" ColumnName="Cabeza_factura" />
+          <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
+          <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+          <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+          <ScalarProperty Name="Usuaro_alta" ColumnName="Usuaro_alta" />
+          <ScalarProperty Name="idformato_factura" ColumnName="idformato_factura" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

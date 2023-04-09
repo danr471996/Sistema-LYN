@@ -119,17 +119,9 @@
         "title": "Filtros Activos - %d"
     },
     "select": {
-        "cells": {
-            "1": "1 celda seleccionada",
-            "_": "$d celdas seleccionadas"
-        },
-        "columns": {
-            "1": "1 columna seleccionada",
-            "_": "%d columnas seleccionadas"
-        },
         "rows": {
             "1": "1 fila seleccionada",
-            "_": "%d filas seleccionadas"
+            "_": "%d fila seleccionada"
         }
     },
     "thousands": ".",
@@ -199,5 +191,5 @@
             "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
         }
     },
-    "info": "Mostrando _START_ a _END_ de _TOTAL_ registros"
+    "info": "Mostrando registros del _START_ al _END_, de un total de _TOTAL_ registros"
 }

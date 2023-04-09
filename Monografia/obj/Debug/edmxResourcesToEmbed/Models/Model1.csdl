@@ -64,6 +64,8 @@
       <End Role="usuarios_perfiles" EntitySet="usuarios_perfiles" />
       <End Role="usuarios_tienda" EntitySet="usuarios_tienda" />
     </AssociationSet>
+    <EntitySet Name="correlativos" EntityType="proyectotiendaModel.correlativos" />
+    <EntitySet Name="formato_factura" EntityType="proyectotiendaModel.formato_factura" />
   </EntityContainer>
   <EntityType Name="clientes">
     <Key>
@@ -493,4 +495,29 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="correlativos">
+    <Key>
+      <PropertyRef Name="idCorrelativo_factura" />
+    </Key>
+    <Property Name="idCorrelativo_factura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_baja" Type="DateTime" />
+    <Property Name="Correlativo_factura" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="formato_factura">
+    <Key>
+      <PropertyRef Name="idformato_factura" />
+    </Key>
+    <Property Name="idformato_factura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Usuaro_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_baja" Type="DateTime" />
+    <Property Name="Cabeza_factura" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Cuerpo_factura" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>

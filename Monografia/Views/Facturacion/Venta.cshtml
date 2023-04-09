@@ -7,7 +7,7 @@
 @using (Html.BeginForm("Venta", "Facturacion", FormMethod.Post))
 {
    
-<div class="card">
+<div class="card border-start border-0 border-3 border-info">
     <div class="card-header">
         <h4 class="text-center">Facturación </h4>
     </div>
@@ -17,10 +17,6 @@
             <div class="row">
                 <div class="col-md-6">
                     <a data-modal="" id="agregarproducto" class="btn btn-primary"> <i class="fa fa-plus">Agregar producto</i></a>
-                    <button class="btn btn-primary" type="submit" name="action" value="agregarticket">
-                        <i class="fa fa-plus">Agregar ticket</i>
-                    </button>
-                 
                 </div>
             </div>
         <br>
@@ -32,11 +28,13 @@
                 foreach (var tik in Model.listatickets)
                 {
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="@tik.Numero_ticket" name="ticket" data-bs-toggle="tab" data-bs-target="@($"#ticket"+ tik.Numero_ticket)" type="button" role="tab" aria-controls="@("producto"+tik.Numero_ticket)" aria-selected="true">Ticket #@tik.Numero_ticket</button>
+                        <button class="nav-link" id="@tik.Numero_ticket" name="ticket" data-bs-toggle="tab" data-bs-target="@($"#ticket"+ tik.Numero_ticket)" type="button" role="tab" aria-controls="@("producto"+tik.Numero_ticket)" aria-selected="true">Ticket #@tik.Numero_ticket <i class="btn btn-close"></i> </button>
                     </li>
                 }
             }
-          
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" name="action" value="agregarticket" type="submit" role="tab"><i class="fa fa-plus-circle">Agregar ticket</i></button>
+            </li>
         </ul>
         <div class="tab-content pt-2" id="borderedTabContent">
             @if (Model.listatickets != null)
@@ -131,7 +129,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="d-grid gap-2">
-                            <a data-modal="" id="facturar" class="btn btn-danger" style="width:auto"> <i class="bi bi-cash-coin">&nbsp;Facturar</i></a>
+                            <a data-modal="" id="facturar" class="btn btn-danger" style="width:auto"> <i class="fa fa-money-bill">&nbsp;Facturar</i></a>
                         </div>
                    
                     </div>
@@ -156,10 +154,8 @@
             type:"GET",
             success: function (result) {
                 $("#" + result.ticketactivo).click();
-                $("#totalpago").empty();
-                $("#cantproducto").empty();
-                $("#totalpago").append("Total a pagar:C$" + result.Totalpago);
-                $("#cantproducto").append("&nbsp;&nbsp;" + result.cantproducto + " productos en ticket actual");
+                limpiacampos();
+                muestradatos(result.Totalpago, result.cantproducto);
                 
             }
         });
@@ -173,14 +169,20 @@
                 type:"GET",
                 data: { numticket: idticket },
                 success: function (result) {
-                    $("#totalpago").empty();
-                    $("#totalpago").append("Total a pagar:C$" + result.Totalpago);
-                    $("#cantproducto").empty();
-                    $("#cantproducto").append("&nbsp;&nbsp;"+ result.cantproducto +" productos en ticket actual");
+                    limpiacampos();
+                    muestradatos(result.Totalpago,result.cantproducto);
                 }
             });
         }
     })
+    function limpiacampos() {
+        $("#totalpago").empty();
+        $("#cantproducto").empty();
+    }
+    function muestradatos(Totalpago, cantproducto) {
+        $("#totalpago").append("Total a pagar:C$" + Totalpago);
+        $("#cantproducto").append("&nbsp;&nbsp;" + cantproducto + " productos en ticket actual");
+    }
 
     $('a').on("click", function () {
         var idaccion =$(this).attr("id");
@@ -191,6 +193,11 @@
         {
             $(this).attr('href', ('@Url.Action("Facturar", "Facturacion", new { numticket = "idticket" })').replace("idticket", idticket));
         }
+    })
+    $('.btn-close').on("click", function () {
+        var idaccion = $(this).attr("id");
+        var idticket = $("button.active").attr("id");
+        console.log(idticket)
     })
 </script>
            

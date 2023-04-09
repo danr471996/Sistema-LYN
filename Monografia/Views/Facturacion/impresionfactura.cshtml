@@ -1,23 +1,23 @@
 ﻿
 @Scripts.Render("~/bundles/jqueryval")
-@using (Html.BeginForm("impresionfactura", "Facturacion", FormMethod.Post))
-{
+@Scripts.Render("~/bundles/jqueryformularios")
+
     <div class="card">
         <div class="card-header">
             <h4>Impresion</h4>
         </div>
         <div class="card-body">
+            <input id="idfactura" type="hidden" name="idfactura" value="@ViewBag.idfactura" />
             <br>
-            <iframe src="@ViewBag.archivo" title="testPdf"  width="100%"  height="100%">
-
-            </iframe>
+                <iframe id="docfactura" src="@(Url.Action("getpdf", "Facturacion", new {idfactura=@ViewBag.idfactura}) + "#toolbar=0")" title="testPdf" width="100%" height="400px"></iframe>
+           
             <br>
         </div>
         <div class="card-footer text-center">
-            <button type="submit" class="btn btn-outline-info">
+
+            <button class="btn btn-outline-info" id="btndescargar">
                 <i class="fa fa-file-download">Descargar factura </i>
             </button>
         </div>
     </div>
 
-}

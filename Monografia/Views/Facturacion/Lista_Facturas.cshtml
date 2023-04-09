@@ -4,9 +4,9 @@
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
 
-@Styles.Render("~/Content/datatables")
+@Styles.Render("~/Scripts/Datatable")
 
-   <div class="card">
+   <div class="card border-start border-0 border-3 border-info">
 
     <div class="card-header">
         <h4 class="text-center">Facturas</h4>
@@ -16,7 +16,7 @@
         <br>
         <div class="row">
 
-            <table id="tbfacturas" class="table table-bordered">
+            <table id="tbfacturas" class="table table-bordered" style="width:100%">
                 <thead>
                     <tr>
                         <th>

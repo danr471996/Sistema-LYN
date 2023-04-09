@@ -35,6 +35,8 @@
         <AssociationConnector Association="proyectotiendaModel.fk_usuarios_tienda" />
         <AssociationConnector Association="proyectotiendaModel.fr_usuarios_tiendas" />
         <AssociationConnector Association="proyectotiendaModel.fk_usuarios_perfiles" />
+        <EntityTypeShape EntityType="proyectotiendaModel.correlativos" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.formato_factura" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
