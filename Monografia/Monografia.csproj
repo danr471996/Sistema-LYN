@@ -264,17 +264,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Admin_departamentosController.cs" />
     <Compile Include="Controllers\Admin_clientesController.cs" />
-    <Compile Include="Controllers\Config_AdministradorBDController.cs" />
-    <Compile Include="Controllers\Config_articulosprecargadosController.cs" />
-    <Compile Include="Controllers\Config_folioticketsController.cs" />
-    <Compile Include="Controllers\Config_formasdepagoController.cs" />
-    <Compile Include="Controllers\Config_impuestosController.cs" />
-    <Compile Include="Controllers\Config_menuController.cs" />
-    <Compile Include="Controllers\Config_opcioneshabilitadasController.cs" />
-    <Compile Include="Controllers\Config_perfilesController.cs" />
-    <Compile Include="Controllers\Config_simbolodemonedaController.cs" />
-    <Compile Include="Controllers\Config_ticketsController.cs" />
-    <Compile Include="Controllers\Config_unidadesdemedidaController.cs" />
+    <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\Admin_productosController.cs" />
     <Compile Include="Controllers\Admin_inventarioController.cs" />
     <Compile Include="Controllers\FacturacionController.cs" />
@@ -283,6 +273,9 @@
     <Compile Include="Controllers\Admin_usuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cambiodolar.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\clientes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -308,6 +301,9 @@
     <Compile Include="Models\formato_factura.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\historial_inventario.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\lista_permisos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -328,6 +324,9 @@
     </Compile>
     <Compile Include="Models\Modelo_Config.cs" />
     <Compile Include="Models\Modelo_contenedor.cs" />
+    <Compile Include="Models\movimientos.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\opciones.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -344,6 +343,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tipo_credito.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tipo_movimento.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tipo_ventas.cs">
@@ -367,6 +369,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\toast\toastr.css" />
+    <Content Include="Content\toast\toastr.js" />
+    <Content Include="Content\toast\toastr.min.css" />
+    <Content Include="Content\toast\toastr.min.js" />
+    <Content Include="images\cash-flow.png" />
+    <Content Include="images\cash-machine.png" />
+    <Content Include="images\debit-card.png" />
+    <Content Include="Scripts\showtoast.js" />
     <Content Include="Scripts\vendor\css\style.css" />
     <Content Include="Scripts\vendor\img\apple-touch-icon.png" />
     <Content Include="Scripts\vendor\img\card.jpg" />
@@ -2112,7 +2122,6 @@
     <Content Include="Content\fontawesome\webfonts\fa-solid-900.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="images\banner.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -2300,6 +2309,9 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\toast\toastr.less" />
+    <Content Include="Content\toast\toastr.min.js.map" />
+    <Content Include="Content\toast\toastr.scss" />
     <None Include="Properties\PublishProfiles\PublicacionDavid.pubxml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\eventformularios.js" />
@@ -2364,17 +2376,6 @@
     <Content Include="Views\Admin_clientes\Abono.cshtml" />
     <Content Include="Views\Admin_clientes\Lista_de_abonos.cshtml" />
     <Content Include="Views\Admin_productos\Edit.cshtml" />
-    <Content Include="Views\Config_AdministradorBD\inicio_bd.cshtml" />
-    <Content Include="Views\Config_articulosprecargados\index.cshtml" />
-    <Content Include="Views\Config_foliotickets\Index.cshtml" />
-    <Content Include="Views\Config_formasdepago\Index.cshtml" />
-    <Content Include="Views\Config_impuestos\index.cshtml" />
-    <Content Include="Views\Config_opcioneshabilitadas\Index.cshtml" />
-    <Content Include="Views\Config_perfiles\Index.cshtml" />
-    <Content Include="Views\Config_simbolodemoneda\Index.cshtml" />
-    <Content Include="Views\Config_tickets\Index.cshtml" />
-    <Content Include="Views\Config_unidadesdemedida\Index.cshtml" />
-    <Content Include="Views\Config_menu\index.cshtml" />
     <Content Include="Views\Admin_proveedores\Create.cshtml" />
     <Content Include="Views\Admin_proveedores\Delete.cshtml" />
     <Content Include="Views\Admin_proveedores\Details.cshtml" />
@@ -2388,6 +2389,19 @@
     <Content Include="Views\Facturacion\Lista_Facturas.cshtml" />
     <Content Include="Views\Facturacion\impresionfactura.cshtml" />
     <Content Include="Views\Facturacion\Agregarproducto.cshtml" />
+    <Content Include="Views\Facturacion\reporte_de_movimientos.cshtml" />
+    <Content Include="Views\Facturacion\Deleteticket.cshtml" />
+    <Content Include="Views\Config\Administradorbd.cshtml" />
+    <Content Include="Views\Config\Articulosprecargados.cshtml" />
+    <Content Include="Views\Config\Folio.cshtml" />
+    <Content Include="Views\Config\Formasdepago.cshtml" />
+    <Content Include="Views\Config\Impuestos.cshtml" />
+    <Content Include="Views\Config\Menu.cshtml" />
+    <Content Include="Views\Config\Opcioneshabilitadas.cshtml" />
+    <Content Include="Views\Config\Perfiles.cshtml" />
+    <Content Include="Views\Config\Simbolodemoneda.cshtml" />
+    <Content Include="Views\Config\Tickets.cshtml" />
+    <Content Include="Views\Config\Unidadesdemedida.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,115 @@
+﻿@model  Monografia.Models.Modelo_contenedor
+
+@{
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+@Styles.Render("~/Scripts/Datatable")
+
+
+<div class="card border-start border-0 border-3 border-info">
+    <div class="card-header">
+        <h4>Reporte de movimientos de inventario</h4>
+    </div>
+    <div class="card-body">
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                @using (Html.BeginForm("reporte_de_movimientos", "Facturacion", FormMethod.Post))
+                {
+                    <div class="row">
+                        @Html.Label("", "Tipo de Movimento:", htmlAttributes: new { @class = "form-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.tipomovimiento.IdTipo_movimiento, new SelectList(Model.listatipomovimiento, "IdTipo_movimiento", "Descripcion"), "Seleccione", new { @class = "form-select", @onchange = "this.form.submit ();" })
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+        <br>
+        <br>
+        <table id="tbreportinventario" class="table table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Fecha")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Descripción")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Habia")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Tipo")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Cantidad")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Cajero")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Departamento")
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.listahistorialmov != null) { 
+                foreach (var item in Model.listahistorialmov)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_alta)
+                        </td>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.productos.Descripcion)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cantidad_anterior)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tipo_movimento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cantidad_actual)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Usuario_alta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.departamento.Descripcion)
+                        </td>
+
+                    </tr>
+                    }
+                    }             
+            </tbody>
+</table>
+    </div>
+
+
+
+</div>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/datatables")
+    <script type="text/javascript">
+        $(document).ready(function () {
+                $('#tbreportinventario').DataTable({
+                    "language": {
+                        "url": "/Scripts/es_es.json"
+                    }
+                })
+            });
+
+    </script>
+}
+
+
+
+
+
+
+
+

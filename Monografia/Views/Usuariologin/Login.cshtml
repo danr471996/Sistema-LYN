@@ -26,7 +26,7 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/fontawesome/css")
     @Styles.Render("~/Content/csscustomproyecto")
-
+    <link href="~/Content/toast/toastr.css" rel="stylesheet" />
 
     <style>
         .form-control:focus {
@@ -89,13 +89,13 @@
                                         <p class="text-center small">Ingrese usuario y contraseña</p>
                                     </div>
 
-                                    <form class="row g-3" method="post" novalidate>
+                                    <form class="row g-3">
 
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Usuario</label>
                                             <div class="form-group has-icons ">
                                                 <span class="bi bi-person form-control-feedback"></span>
-                                                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @type = "text", @name = "username", @id = "yourUsername", @placeholder = "Usuario", @required = true } })
+                                                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @type = "text", @name = "username", @id = "yourUsername", @placeholder = "Dnavas" } })
                                           
                                             </div>
                                         </div>
@@ -105,7 +105,7 @@
                                             <div class="form-group has-icons">
                                                 <span class="bi bi-key form-control-feedback"></span>
                                                 <div class="password-container">
-                                                    @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @class = "form-control", @type = "password", @name = "password", @placeholder = "Contraseña", @required = true, @id = "yourPassword" } })
+                                                    @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @class = "form-control", @type = "password", @name = "password", @placeholder = "*********", @id = "yourPassword" } })
                                                     <i class="bi bi-eye" id="eye"></i>
                                                  
                                                 </div>
@@ -117,7 +117,7 @@
 
 
                                         <div class="col-12">
-                                            <button class="btn btn-primary w-100" type="submit">Ingresar al Sistema</button>
+                                            <button id="btningreso" class="btn btn-primary w-100" >Ingresar al Sistema</button>
                                         </div>
                                     </form>
 
@@ -140,28 +140,15 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
+   
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jquerycustomproyecto")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/showtoast.js"></script>
+    <script src="~/Content/toast/toastr.js"></script>
+    @Scripts.Render("~/bundles/jqueryformularios")
+  
 
- 
-
-
-        <script>
-            const passwordField = document.querySelector("#yourPassword");
-            const eyeIcon = document.querySelector("#eye");
-           
-            eyeIcon.addEventListener('click', function (e) {
-                // toggle the type attribute
-                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordField.setAttribute('type', type);
-                // toggle the eye / eye slash icon
-                const typeicon = eyeIcon.getAttribute('class') === 'bi bi-eye' ? 'bi bi-eye-slash' : 'bi bi-eye';
-                eyeIcon.setAttribute('class', typeicon);
-            
-            });
-        </script>
-    
 
 </body>
 

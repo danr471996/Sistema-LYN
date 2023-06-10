@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
 
     $.ajaxSetup({ cache: false });
     // busca los elementos el atributo data-modal y le suscribe el evento click
@@ -7,8 +8,19 @@
         openmodal(this.href);
         return false;
     });
+    $('i[data-modal]').on('click', function (e) {
+        var idaccion = $(this).attr("id");
+        var idticket = $("button.active").attr("id");
+       var url = '/Facturacion/Deleteticket/?numeroticket=' + idticket;
+       //window.location.href = url;
+        // Abre la ventana modal con el formulario solicitado 
+       openmodal(url);
+        return false;
+    });
+
     $('#modalGenerica').on('hidden.bs.modal', function () {
         $('#contentModal').html('');
+
     })
 });
 function openmodal(url) {
@@ -24,6 +36,11 @@ function openmodal(url) {
     });
 }
 function bindForm(dialog) {
+
+    console.log(dialog)
+    if (dialog == false) {
+    window.location = window.location;
+    }else{
     // Suscribe el formulario en la ventana modal con el evento submit
     $('form', dialog).submit(function () {
         if ($(this).valid()) {
@@ -36,16 +53,28 @@ function bindForm(dialog) {
                     // Si la petición es satisfactoria, se recarga la página actual
                     if (result.success) {
                         window.location = window.location;
+                 
+                        sesionestadoproceso(true, result.mensaje);
+                  
                     } else {
-                   
-                        $('#contentModal').html(result);
-                        bindForm();
+                        sesionestadoproceso(false, result.mensaje);
+                        window.location = window.location;
+                        // $('#contentModal').html(result);
+                        // bindForm(false);
                     }
                 }
             });
+
             return false;
         } else {
             return false;
         }
+  
     });
+
+        }
+}
+function sesionestadoproceso(estadoproceso,mensaje) {
+    sessionStorage.setItem("estadoproceso", estadoproceso);
+    sessionStorage.setItem("mensaje", mensaje);
 }

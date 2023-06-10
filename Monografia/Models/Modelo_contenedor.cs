@@ -18,6 +18,7 @@ namespace Monografia.Models
         public departamento departamento { get; set; }
         public promocion promocion { get; set; }
         public creditos creditos { get; set; }
+        public tipo_movimento tipomovimiento { get; set; }
 
         public usuario_sesion datosesion { get; set; }
 
@@ -27,8 +28,8 @@ namespace Monografia.Models
         public List<departamento> listadepartamento { get; set; }
         public List<usuarios_perfiles> listaperfiles { get; set; }
         public List<productos> listaproductos { get; set; }
-
-
+        public List<tipo_movimento> listatipomovimiento { get; set; }
+        public List<historial_inventario> listahistorialmov { get; set; }
 
         #region lista_productos_bajo_inventario
         public int codigo_producto1 { get; set; }

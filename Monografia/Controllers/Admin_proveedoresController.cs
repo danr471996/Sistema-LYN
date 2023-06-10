@@ -66,7 +66,7 @@ namespace Monografia.Controllers
                     proveedor.Usuario_alta = (string)Session["usuario_logueado"];
                     db.proveedor.Add(proveedor);
                     db.SaveChanges();
-                    return Json(new { success = true });
+                    return Json(new { success = true, mensaje = "Se ha creado el proveedor satisfactoriamente." });
                 }
 
                 return PartialView(proveedor);
@@ -120,7 +120,7 @@ namespace Monografia.Controllers
                     datosproveedores.Email = proveedor.Email;
                     datosproveedores.Telefono = proveedor.Telefono;
                     db.SaveChanges();
-                    return Json(new { success = true });
+                    return Json(new { success = true, mensaje = "Se ha actualizado la informacion del proveedor satisfactoriamente." });
                 }
                 return PartialView(proveedor);
             }
@@ -169,7 +169,7 @@ namespace Monografia.Controllers
                 datosproveedor.Usuario_baja = (string)Session["usuario_logueado"];
                 datosproveedor.Estado = 2;
                 db.SaveChanges();
-                return Json(new { success = true });
+                return Json(new { success = true, mensaje = "Se ha inactivado el proveedor satisfactoriamente." });
             }
             catch (Exception)
             {

@@ -1,4 +1,70 @@
 ﻿$(document).ready(function () {
+
+    $.ajaxSetup({ cache: false });
+
+    const yourUsername = document.querySelector("#yourUsername");
+    const passwordField = document.querySelector("#yourPassword");
+    const eyeIcon = document.querySelector("#eye");
+
+
+    if (eyeIcon != null || yourUsername != null || passwordField != null) {
+        $('#btningreso').on("click", function () {
+            var datoslogin = {
+                Login: yourUsername.value,
+                Contraseña: passwordField.value
+            }
+            //form encoded data
+            var dataType = 'application/json; charset=utf-8';
+            $.ajax({
+                type: "POST",
+                url: '/usuariologin/Login',
+                dataType: 'json',
+                contentType: dataType,
+                data: JSON.stringify(datoslogin),
+                success: function (result) {
+                    console.log("termino peticion ajax")
+                    console.log(result)
+                    if (result.success) {
+                        console.log("entro a redirigir")
+                        window.location.href = '/Usuariologin/Paginainicio'
+                    } else {
+                        if (result.existeusuario == false) {
+                            console.log("entro usuario no existe")
+                            sesionestadoproceso(result.success, result.mensaje);
+                            toastsuccess();
+                            // window.location.href = '/Usuariologin/Login'
+                        } else {
+                            sesionestadoproceso(result.success, result.mensaje);
+                            toasterror();
+                        }
+
+
+                    }
+                }
+            });
+
+        });
+
+
+        eyeIcon.addEventListener('click', function (e) {
+            // toggle the type attribute
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            // toggle the eye / eye slash icon
+            const typeicon = eyeIcon.getAttribute('class') === 'bi bi-eye' ? 'bi bi-eye-slash' : 'bi bi-eye';
+            eyeIcon.setAttribute('class', typeicon);
+
+        });
+    }
+
+  
+           function sesionestadoproceso(estadoproceso, mensaje) {
+               sessionStorage.setItem("estadoproceso", estadoproceso);
+               sessionStorage.setItem("mensaje", mensaje);
+           }
+
+
+
     $('#dltipocredito').change(function () {
         $(this).find("option:selected").each(function () {
             var opcion = $(this).attr("value");

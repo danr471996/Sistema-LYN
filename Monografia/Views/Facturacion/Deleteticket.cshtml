@@ -1,0 +1,79 @@
+﻿@model Monografia.Models.Modelo_contenedor.Factura
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<div class="card">
+    <div class="card-header">
+        <h4>¿Está seguro de eliminar este ticket de la lista de tickets?</h4>
+    </div>
+    <div class="card-body">
+        @foreach (var item in Model.listatickets)
+        {
+
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayName("Numero de Ticket")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => item.Numero_ticket)
+                </dd>
+                @foreach (var item2 in item.listaproductos)
+                {
+                    <dt>
+                        @Html.DisplayName("Código de Producto")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model =>item2.CodProd )
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayName("Descripción")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => item2.Desc)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayName("Precio de Venta")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => item2.prec_vent)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayName("Cantidad")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => item2.Cant)
+                    </dd>
+                    <dt>
+                        @Html.DisplayName("Importe")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => item2.Impor)
+                    </dd>
+                }
+            </dl>
+        }
+    </div>
+    <div class="card-footer text-center">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"> Guardar</i>
+            </button>
+        }
+    </div>
+</div>
+
+ 
+   
+

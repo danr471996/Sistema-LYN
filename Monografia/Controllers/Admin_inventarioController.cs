@@ -273,7 +273,8 @@ namespace Monografia.Controllers
             }
           
         }
-       
+     
+
         public ActionResult editar_inventario(int? id, int id2)
         {
             Modelo_contenedor Modelo_contenedor = new Modelo_contenedor();
@@ -309,6 +310,7 @@ namespace Monografia.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult editar_inventario(productos productos, int? agregar_cantidad)
         {
+            int prodcantanterior = 0;
             try
             {
                 if (ModelState.IsValid)
@@ -319,7 +321,18 @@ namespace Monografia.Controllers
                     {
                         if (producto.Usa_inventario!=2)
                         {
+                            prodcantanterior = producto.Cantidad_actual == null ? 0 : Convert.ToInt32(producto.Cantidad_actual);
                             producto.Cantidad_actual = producto.Cantidad_actual==null?0 + agregar_cantidad: producto.Cantidad_actual+ agregar_cantidad;
+                            historial_inventario historialinventario = new historial_inventario();
+                            historialinventario.Fecha_alta = DateTime.Now;
+                            historialinventario.Usuario_alta = (string)Session["usuario_logueado"];
+                            historialinventario.Idproducto = producto.Idproducto;
+                            historialinventario.Tipo_movimiento = 1;
+                            historialinventario.Iddepartamento = producto.Iddepartamento;
+                            historialinventario.Cantidad_actual = Convert.ToInt32(producto.Cantidad_actual);
+                            historialinventario.Cantidad_anterior = prodcantanterior;
+                            historialinventario.Estado = 1;
+                            db.historial_inventario.Add(historialinventario);
                             db.SaveChanges();
                             return Json(new { success = true });
                         }
@@ -370,6 +383,7 @@ namespace Monografia.Controllers
         public ActionResult agregar_inventario2(productos productos, int? agregar_cantidad)
         {
             int? id_prod = 0;
+            int prodcantanterior = 0;
             try
             {
                 if (ModelState.IsValid)
@@ -378,8 +392,8 @@ namespace Monografia.Controllers
                     {
                         id_prod = (int)Session["id_prod"];
                     }
-                    productos obtener_producto = db.productos.Where(x => x.Codigo_producto == id_prod).FirstOrDefault();
-                    if (obtener_producto == null || agregar_cantidad == null)
+                    productos datosproducto = db.productos.Where(x => x.Codigo_producto == id_prod).FirstOrDefault();
+                    if (datosproducto == null || agregar_cantidad == null)
                     {
                         return RedirectToAction("agregar_inventario");
                     }
@@ -387,7 +401,18 @@ namespace Monografia.Controllers
                     {
                         if (agregar_cantidad != null)
                         {
-                            obtener_producto.Cantidad_actual = obtener_producto.Cantidad_actual + agregar_cantidad;
+                            prodcantanterior =  datosproducto.Cantidad_actual==null?0:Convert.ToInt32(datosproducto.Cantidad_actual);
+                            datosproducto.Cantidad_actual = datosproducto.Cantidad_actual == null ? 0+ agregar_cantidad:datosproducto.Cantidad_actual + agregar_cantidad;
+                            historial_inventario historialinventario = new historial_inventario();
+                            historialinventario.Fecha_alta = DateTime.Now;
+                            historialinventario.Usuario_alta = (string)Session["usuario_logueado"];
+                            historialinventario.Idproducto = datosproducto.Idproducto;
+                            historialinventario.Tipo_movimiento = 1;
+                            historialinventario.Iddepartamento = datosproducto.Iddepartamento;
+                            historialinventario.Cantidad_actual = Convert.ToInt32(datosproducto.Cantidad_actual);
+                            historialinventario.Cantidad_anterior = prodcantanterior;
+                            historialinventario.Estado = 1;
+                            db.historial_inventario.Add(historialinventario);
                             db.SaveChanges();
                             return RedirectToAction("agregar_inventario");
                         }
@@ -430,6 +455,7 @@ namespace Monografia.Controllers
         public ActionResult ajuste_inventario2(productos productos, int? agregar_cantidad)
         {
             int? id_prod = 0;
+            int prodcantanterior = 0;
             try
             {
                 if (ModelState.IsValid)
@@ -438,8 +464,8 @@ namespace Monografia.Controllers
                     {
                         id_prod = (int)Session["id_prod"];
                     }
-                    productos obtener_producto = db.productos.Where(x => x.Codigo_producto == id_prod).FirstOrDefault();
-                    if (obtener_producto == null || agregar_cantidad == null)
+                    productos datosproducto = db.productos.Where(x => x.Codigo_producto == id_prod).FirstOrDefault();
+                    if (datosproducto == null || agregar_cantidad == null)
                     {
                         return RedirectToAction("ajuste_inventario");
                     }
@@ -447,7 +473,18 @@ namespace Monografia.Controllers
                     {
                         if (agregar_cantidad != null)
                         {
-                            obtener_producto.Cantidad_actual = agregar_cantidad;
+                            prodcantanterior = datosproducto.Cantidad_actual == null ? 0 : Convert.ToInt32(datosproducto.Cantidad_actual);
+                            datosproducto.Cantidad_actual = agregar_cantidad;
+                            historial_inventario historialinventario = new historial_inventario();
+                            historialinventario.Fecha_alta = DateTime.Now;
+                            historialinventario.Usuario_alta = (string)Session["usuario_logueado"];
+                            historialinventario.Idproducto = datosproducto.Idproducto;
+                            historialinventario.Tipo_movimiento = 3;
+                            historialinventario.Iddepartamento = datosproducto.Iddepartamento;
+                            historialinventario.Cantidad_actual = Convert.ToInt32(datosproducto.Cantidad_actual);
+                            historialinventario.Cantidad_anterior = prodcantanterior;
+                            historialinventario.Estado = 1;
+                            db.historial_inventario.Add(historialinventario);
                             db.SaveChanges();
                             return RedirectToAction("ajuste_inventario");
                         }

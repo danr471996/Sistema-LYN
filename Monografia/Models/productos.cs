@@ -19,6 +19,7 @@ namespace Monografia.Models
         {
             this.detalle_factura = new HashSet<detalle_factura>();
             this.promocion = new HashSet<promocion>();
+            this.historial_inventario = new HashSet<historial_inventario>();
         }
     
         public int Idproducto { get; set; }
@@ -44,5 +45,7 @@ namespace Monografia.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<promocion> promocion { get; set; }
         public virtual tipo_ventas tipo_ventas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<historial_inventario> historial_inventario { get; set; }
     }
 }

@@ -25,24 +25,28 @@ namespace Monografia.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(usuarios_tienda usuariologin)
+        public  ActionResult Login(usuarios_tienda usuariologin)
         {
+           
             try
             {
-              
-                var login =  db.usuarios_tienda.Where(x =>x.Login.Equals(usuariologin.Login)
+        
+            var login =  db.usuarios_tienda.Where(x =>x.Login.Equals(usuariologin.Login)
                                 && x.Contraseña.Equals(usuariologin.Contraseña) && x.Estado_usuario==1).FirstOrDefault();
 
-                Session["Idusuario"] = login.Idusuario;
-                Session["usuario_logueado"] =login.Login;
-                Session["Nombreuusuario"] = login.usuario_detalle.FirstOrDefault().Primer_nombre +" " + login.usuario_detalle.FirstOrDefault().Primer_apellido;
-                Session["Perfil"] = login.usuarios_perfiles.Descripcion_perfil;
-                if (login != null && login.usuarios_perfiles.Descripcion_perfil == "Admin")
+                
+               if (login != null)
                 {
+                    Session["Idusuario"] = login.Idusuario;
+                    Session["usuario_logueado"] = login.Login;
+                    Session["Nombreuusuario"] = login.usuario_detalle.FirstOrDefault().Primer_nombre + " " + login.usuario_detalle.FirstOrDefault().Primer_apellido;
+                    Session["Perfil"] = login.usuarios_perfiles.Descripcion_perfil;
+
                     var sesion = login.usuario_sesion.Where(x=>x.Estado==1).FirstOrDefault();
                     if (sesion != null)
                     {
-                        return RedirectToAction("Login", "Usuariologin");
+                 
+                        return Json(new { success = false,mensaje="Usuario tiene sesion abierta,comuniquese con el administrador." });
                     }
                     else {
                         datosesion = new usuario_sesion();
@@ -52,14 +56,16 @@ namespace Monografia.Controllers
                         datosesion.Estado = 1;
                         db.usuario_sesion.Add(datosesion);
                         db.SaveChanges();
-                        return RedirectToAction("Paginainicio", "Usuariologin");
+                    
+                        return Json(new { success = true });
                     }
                  
 
                 }
                 else
                 {
-                    return RedirectToAction("Login", "Usuariologin");
+        
+                  return  Json(new { success = false, mensaje = "El usuario digitado no se encuentra registrado, favor comuniquese con el administrador" ,existeusuario=false});
                 }
 
             }
@@ -68,6 +74,7 @@ namespace Monografia.Controllers
                 return View();
             }
         }
+
 
         public ActionResult Paginainicio(string filtroventas,string filtroingresos,string filtroclientes)
         {
@@ -149,6 +156,35 @@ namespace Monografia.Controllers
             }
             return View();
         }
+
+        public ActionResult ventasporperiodo()
+        {
+
+            List<int> listventas = new List<int>();
+            List<decimal> listingresos = new List<decimal>();
+            List<int> listclientes = new List<int>();
+            int cantidadventas = 0, cantidadclientes = 0;
+            decimal cantidadingresos = 0;
+            var datosfactura = db.factura.ToList();
+
+
+            for (int i = 1; i < 13; i++)
+            {
+                cantidadventas= datosfactura.Where(x => x.Fecha_alta.Month == i).Count();
+                listventas.Add(cantidadventas);
+
+                cantidadingresos = datosfactura.Where(x => x.Fecha_alta.Month == i).Select(x => x.Monto_total).Sum();
+                listingresos.Add(cantidadingresos);
+
+                cantidadclientes = datosfactura.Where(x => x.Fecha_alta.Month == i).Count();
+
+                listclientes.Add(cantidadclientes);
+            }
+
+
+
+            return Json(new { ventas = listventas, ingresos = listingresos,clientes= listclientes }, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Logout()
         {
             int idusuario = Convert.ToInt32(Session["Idusuario"]);
@@ -206,7 +242,7 @@ namespace Monografia.Controllers
                 datosusuarios.Usuario_baja = (string)Session["usuario_logueado"];
                 datosusuarios.Estado = 2;
                 db.SaveChanges();
-                return Json(new { success = true });
+                return Json(new { success = true, mensaje = "Se ha eliminado la sesion del usuario satisfactoriamente." });
             }
             catch (Exception ex)
             {

@@ -77,7 +77,7 @@ namespace Monografia.Controllers
                     usuario_detalle.Fecha_alta = DateTime.Now;
                     db.usuario_detalle.Add(usuario_detalle);
                     db.SaveChanges();
-                    return Json(new { success = true });
+                    return Json(new { success = true, mensaje = "Se ha creado usuario satisfactoriamente." });
                 }
 
                 return PartialView(usuarios_tienda);
@@ -146,7 +146,7 @@ namespace Monografia.Controllers
 
                     db.SaveChanges();
 
-                    return Json(new { success = true });
+                    return Json(new { success = true, mensaje = "Se ha actualizado la información usuario satisfactoriamente." });
                 }
                 return PartialView(modelocontenedor.usuarios_tienda);
             }
@@ -195,7 +195,7 @@ namespace Monografia.Controllers
                 usuarios_tienda.Fecha_baja = DateTime.Now;
                 usuarios_tienda.Usuario_baja = (string)Session["usuario_logueado"];
                 db.SaveChanges();
-                return Json(new { success = true });
+                return Json(new { success = true, mensaje = "Se ha inactivado el usuario satisfactoriamente." });
             }
             catch (Exception ex)
             {

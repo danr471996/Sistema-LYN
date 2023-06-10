@@ -18,6 +18,7 @@ namespace Monografia.Models
         public departamento()
         {
             this.productos = new HashSet<productos>();
+            this.historial_inventario = new HashSet<historial_inventario>();
         }
     
         public int Iddepartmento { get; set; }
@@ -30,5 +31,7 @@ namespace Monografia.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos> productos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<historial_inventario> historial_inventario { get; set; }
     }
 }

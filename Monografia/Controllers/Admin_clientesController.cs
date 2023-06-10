@@ -64,7 +64,7 @@ namespace Monografia.Controllers
                     pago.Estado = 1;
 
                     db.SaveChanges();
-                    return Json(new { success = true });
+                    return Json(new { success = true, mensaje = "Se ha abonado a la deuda satisfactoriamente." });
                 }
                 return PartialView();
             }
@@ -217,7 +217,7 @@ namespace Monografia.Controllers
                     clientes.cliente.Usuario_alta = (string)Session["usuario_logueado"];
                     db.clientes.Add(clientes.cliente);
                     db.SaveChanges();
-                    return Json(new { success = true });
+                    return Json(new { success = true,mensaje="Se ha creado cliente satisfactoriamente." });
                 }
 
                 return PartialView(clientes);
@@ -295,7 +295,7 @@ namespace Monografia.Controllers
                     datosclientes.Cantidad_credito = clientes.cliente.Id_tipocredito == 1?0: clientes.cliente.Cantidad_credito;
 
                     db.SaveChanges();
-                    return Json(new { success = true });
+                    return Json(new { success = true, mensaje = "Se ha actualizado la informacion del cliente satisfactoriamente." });
                 }
                 return PartialView(clientes);
             }
@@ -343,7 +343,7 @@ namespace Monografia.Controllers
                 datosclientes.Usuario_baja = (string)Session["usuario_logueado"];
                 datosclientes.Estado = 2;
                 db.SaveChanges();
-                return Json(new { success = true });
+                return Json(new { success = true, mensaje = "Se ha inactivado el cliente satisfactoriamente." });
             }
             catch (Exception)
             {

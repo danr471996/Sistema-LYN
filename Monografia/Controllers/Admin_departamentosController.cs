@@ -42,7 +42,7 @@ namespace Monografia.Controllers
                     departamento.Estado = 1;
                     db.departamento.Add(departamento);
                     db.SaveChanges();
-                    return Json(new { success = true });
+                    return Json(new { success = true, mensaje = "Se ha creado departamento satisfactoriamente." });
                 }
 
                 return PartialView(departamento);
@@ -94,7 +94,7 @@ namespace Monografia.Controllers
 
                     datosdepartamento.Descripcion = departamento.Descripcion;
                     db.SaveChanges();
-                    return Json(new { success = true });
+                    return Json(new { success = true, mensaje = "Se ha actualizado la informacion del departamento satisfactoriamente." });
                 }
                 return PartialView(departamento);
             }
@@ -144,7 +144,7 @@ namespace Monografia.Controllers
                 departamento.Usuario_baja = (string)Session["usuario_logueado"];
                 departamento.Estado = 2;
                 db.SaveChanges();
-                return Json(new { success = true });
+                return Json(new { success = true, mensaje = "Se ha inactivado el departamento satisfactoriamente." });
             }
             catch (Exception)
             {

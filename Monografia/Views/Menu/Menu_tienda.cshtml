@@ -25,7 +25,9 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/csscustomproyecto")
     @Styles.Render("~/Content/fontawesome/css")
-
+    <link href="~/Content/toast/toastr.css" rel="stylesheet"/>
+    
+     
     <style>
         .form-control:focus {
             border-color: #D286FE;
@@ -215,13 +217,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="">
                             <i class="bi bi-circle"></i><span>Ventas por periodo</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="#">
+                        <a href="@Url.Action("reporte_de_movimientos", "Facturacion")">
                             <i class="bi bi-circle"></i><span>Reporte de Movimientos</span>
                         </a>
                     </li>
@@ -230,7 +232,7 @@
             </li><!-- End reporte Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="@Url.Action("Index", "Config_menu")">
+                <a class="nav-link collapsed" href="@Url.Action("Menu", "Config")">
                     <i class="bi bi-gear"></i>
                     <span>Configuración</span>
                 </a>
@@ -267,10 +269,11 @@
     </footer><!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
     <!-- Vendor JS Files -->
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jquerycustomproyecto")   
+    @Scripts.Render("~/bundles/jquerycustomproyecto") 
+    <script src="~/Content/toast/toastr.js"></script>  
+    <script src="~/Scripts/showtoast.js"></script>
     @Scripts.Render("~/bundles/modalform")
     @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
@@ -281,7 +284,7 @@
 
 <!-- Modal -->
 
-<div class="modal fade" id="modalGenerica" tabindex="-1" data-bs-backdrop="false">
+<!-- <div class="modal fade" id="modalGenerica" tabindex="-1" data-bs-backdrop="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -294,6 +297,21 @@
         </div>
     </div>
 </div><!-- End Disabled Backdrop Modal-->
+
+
+<div class="modal fade" id="modalGenerica" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id='contentModal' class="modal-body">
+                ...
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 

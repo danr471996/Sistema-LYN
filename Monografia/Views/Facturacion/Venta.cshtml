@@ -28,14 +28,15 @@
                 foreach (var tik in Model.listatickets)
                 {
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="@tik.Numero_ticket" name="ticket" data-bs-toggle="tab" data-bs-target="@($"#ticket"+ tik.Numero_ticket)" type="button" role="tab" aria-controls="@("producto"+tik.Numero_ticket)" aria-selected="true">Ticket #@tik.Numero_ticket <i class="btn btn-close"></i> </button>
+                        <button class="nav-link" id="@tik.Numero_ticket" name="ticket" data-bs-toggle="tab" data-bs-target="@($"#ticket"+ tik.Numero_ticket)" type="button" role="tab" aria-controls="@("producto"+tik.Numero_ticket)" aria-selected="true">Ticket #@tik.Numero_ticket <i data-modal=""  class="btn btn-close"></i></button>
                     </li>
                 }
             }
             <li class="nav-item" role="presentation">
                 <button class="nav-link" name="action" value="agregarticket" type="submit" role="tab"><i class="fa fa-plus-circle">Agregar ticket</i></button>
             </li>
-        </ul>
+
+</ul>
         <div class="tab-content pt-2" id="borderedTabContent">
             @if (Model.listatickets != null)
             {
@@ -194,11 +195,22 @@
             $(this).attr('href', ('@Url.Action("Facturar", "Facturacion", new { numticket = "idticket" })').replace("idticket", idticket));
         }
     })
-    $('.btn-close').on("click", function () {
+   @*$('.btn-close').on("click", function () {
         var idaccion = $(this).attr("id");
         var idticket = $("button.active").attr("id");
-        console.log(idticket)
-    })
+    
+
+       $.ajax({
+            url: '@Url.Action("Deleteticket", "Facturacion")',
+            type: "GET",
+            data: { numeroticket: idticket },
+            success: function (result) {
+              
+            }
+        });
+    })*@
+
+    
 </script>
            
           

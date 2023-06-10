@@ -12,6 +12,7 @@
 </div>
 @using (Html.BeginForm())
 {
+        @Html.AntiForgeryToken()
     <div class="card border-start border-0 border-3 border-info">
         <div class="card-header">
             <h4>Nueva Promoción</h4>

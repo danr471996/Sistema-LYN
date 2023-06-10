@@ -14,6 +14,7 @@ namespace Monografia.Controllers
     {
         private proyectotiendaEntities db = new proyectotiendaEntities();
 
+    
         // GET: usuarios_tienda
         public ActionResult Lista_productos()
         {
@@ -70,7 +71,7 @@ namespace Monografia.Controllers
                     productos.Estado = 1;
                     db.productos.Add(productos);
                     db.SaveChanges();
-                    return Json(new { success = true });
+                    return Json(new { success = true, mensaje = "Se ha creado el producto satisfactoriamente." });
                 }
 
                 return PartialView(productos);
@@ -153,7 +154,7 @@ namespace Monografia.Controllers
 
                     db.SaveChanges();
 
-                    return Json(new { success = true });
+                    return Json(new { success = true, mensaje = "Se ha actualizado la informacion del producto satisfactoriamente." });
                 }
                 return PartialView(modelocontenedor.productos);
             }
@@ -203,7 +204,7 @@ namespace Monografia.Controllers
                 productos.Usuario_baja = (string)Session["usuario_logueado"];
                 productos.Estado = 2;
                 db.SaveChanges();
-                return Json(new { success = true });
+                return Json(new { success = true, mensaje = "Se ha inactivado el producto satisfactoriamente." });
             }
             catch (Exception)
             {
@@ -328,7 +329,7 @@ namespace Monografia.Controllers
                 promocion.Usuario_baja = (string)Session["usuario_logueado"];
                 promocion.Estado = 2;
                 db.SaveChanges();
-                return Json(new { success = true });
+                return Json(new { success = true, mensaje = "Se ha inactivado la promoción satisfactoriamente." });
             }
             catch (Exception)
             {

@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="proyectotiendaModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cambiodolar">
+          <Key>
+            <PropertyRef Name="IdCambiodolar" />
+          </Key>
+          <Property Name="IdCambiodolar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+          <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+          <Property Name="Monto_cambio" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="clientes">
           <Key>
             <PropertyRef Name="Idcliente" />
@@ -120,6 +132,22 @@
           <Property Name="Cuerpo_factura" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="historial_inventario">
+          <Key>
+            <PropertyRef Name="idHistorial_inventario" />
+          </Key>
+          <Property Name="idHistorial_inventario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+          <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+          <Property Name="Idproducto" Type="int" Nullable="false" />
+          <Property Name="Tipo_movimiento" Type="int" Nullable="false" />
+          <Property Name="Iddepartamento" Type="int" Nullable="false" />
+          <Property Name="Cantidad_actual" Type="int" Nullable="false" />
+          <Property Name="Cantidad_anterior" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="lista_permisos">
           <Key>
             <PropertyRef Name="Id_permiso" />
@@ -133,6 +161,19 @@
           <Property Name="SELECCIONADO" Type="tinyint" Nullable="false" />
           <Property Name="GRUPO" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="INICIO_GRUPO" Type="tinyint" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="movimientos">
+          <Key>
+            <PropertyRef Name="idMovimientos" />
+          </Key>
+          <Property Name="idMovimientos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+          <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+          <Property Name="Monto" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Tipo_movimiento" Type="int" Nullable="false" />
           <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="opciones">
@@ -216,6 +257,18 @@
             <PropertyRef Name="Id_tipocredito" />
           </Key>
           <Property Name="Id_tipocredito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+          <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tipo_movimento">
+          <Key>
+            <PropertyRef Name="IdTipo_movimiento" />
+          </Key>
+          <Property Name="IdTipo_movimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="Fecha_baja" Type="datetime" Precision="0" />
@@ -340,6 +393,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_iddepartamento">
+          <End Role="departamento" Type="Self.departamento" Multiplicity="1" />
+          <End Role="historial_inventario" Type="Self.historial_inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departamento">
+              <PropertyRef Name="Iddepartmento" />
+            </Principal>
+            <Dependent Role="historial_inventario">
+              <PropertyRef Name="Iddepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_idproducto">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="historial_inventario" Type="Self.historial_inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="Idproducto" />
+            </Principal>
+            <Dependent Role="historial_inventario">
+              <PropertyRef Name="Idproducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_producto">
           <End Role="productos" Type="Self.productos" Multiplicity="1" />
           <End Role="detalle_factura" Type="Self.detalle_factura" Multiplicity="*" />
@@ -376,6 +453,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_tip_movi">
+          <End Role="tipo_movimento" Type="Self.tipo_movimento" Multiplicity="1" />
+          <End Role="historial_inventario" Type="Self.historial_inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_movimento">
+              <PropertyRef Name="IdTipo_movimiento" />
+            </Principal>
+            <Dependent Role="historial_inventario">
+              <PropertyRef Name="Tipo_movimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_tipo_credito">
           <End Role="tipo_credito" Type="Self.tipo_credito" Multiplicity="1" />
           <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
@@ -385,6 +474,18 @@
             </Principal>
             <Dependent Role="clientes">
               <PropertyRef Name="Id_tipocredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipo_movimiento">
+          <End Role="tipo_movimento" Type="Self.tipo_movimento" Multiplicity="1" />
+          <End Role="movimientos" Type="Self.movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_movimento">
+              <PropertyRef Name="IdTipo_movimiento" />
+            </Principal>
+            <Dependent Role="movimientos">
+              <PropertyRef Name="Tipo_movimiento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -437,6 +538,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="proyectotiendaModelStoreContainer">
+          <EntitySet Name="cambiodolar" EntityType="Self.cambiodolar" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="clientes" EntityType="Self.clientes" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="correlativos" EntityType="Self.correlativos" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="creditos" EntityType="Self.creditos" Schema="proyectotienda" store:Type="Tables" />
@@ -445,13 +547,16 @@
           <EntitySet Name="factura" EntityType="Self.factura" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="facturas_proveedor" EntityType="Self.facturas_proveedor" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="formato_factura" EntityType="Self.formato_factura" Schema="proyectotienda" store:Type="Tables" />
+          <EntitySet Name="historial_inventario" EntityType="Self.historial_inventario" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="lista_permisos" EntityType="Self.lista_permisos" Schema="proyectotienda" store:Type="Tables" />
+          <EntitySet Name="movimientos" EntityType="Self.movimientos" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="opciones" EntityType="Self.opciones" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="pagos" EntityType="Self.pagos" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="productos" EntityType="Self.productos" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="promocion" EntityType="Self.promocion" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="proveedor" EntityType="Self.proveedor" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="tipo_credito" EntityType="Self.tipo_credito" Schema="proyectotienda" store:Type="Tables" />
+          <EntitySet Name="tipo_movimento" EntityType="Self.tipo_movimento" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="tipo_ventas" EntityType="Self.tipo_ventas" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="unidad_medida" EntityType="Self.unidad_medida" Schema="proyectotienda" store:Type="Tables" />
           <EntitySet Name="usuario_detalle" EntityType="Self.usuario_detalle" Schema="proyectotienda" store:Type="Tables" />
@@ -470,6 +575,14 @@
             <End Role="factura" EntitySet="factura" />
             <End Role="pagos" EntitySet="pagos" />
           </AssociationSet>
+          <AssociationSet Name="fk_iddepartamento" Association="Self.fk_iddepartamento">
+            <End Role="departamento" EntitySet="departamento" />
+            <End Role="historial_inventario" EntitySet="historial_inventario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_idproducto" Association="Self.fk_idproducto">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="historial_inventario" EntitySet="historial_inventario" />
+          </AssociationSet>
           <AssociationSet Name="fk_producto" Association="Self.fk_producto">
             <End Role="productos" EntitySet="productos" />
             <End Role="detalle_factura" EntitySet="detalle_factura" />
@@ -482,9 +595,17 @@
             <End Role="proveedor" EntitySet="proveedor" />
             <End Role="facturas_proveedor" EntitySet="facturas_proveedor" />
           </AssociationSet>
+          <AssociationSet Name="fk_tip_movi" Association="Self.fk_tip_movi">
+            <End Role="tipo_movimento" EntitySet="tipo_movimento" />
+            <End Role="historial_inventario" EntitySet="historial_inventario" />
+          </AssociationSet>
           <AssociationSet Name="fk_tipo_credito" Association="Self.fk_tipo_credito">
             <End Role="tipo_credito" EntitySet="tipo_credito" />
             <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipo_movimiento" Association="Self.fk_tipo_movimiento">
+            <End Role="tipo_movimento" EntitySet="tipo_movimento" />
+            <End Role="movimientos" EntitySet="movimientos" />
           </AssociationSet>
           <AssociationSet Name="fk_tipo_ventas" Association="Self.fk_tipo_ventas">
             <End Role="tipo_ventas" EntitySet="tipo_ventas" />
@@ -573,6 +694,26 @@
           </AssociationSet>
           <EntitySet Name="correlativos" EntityType="proyectotiendaModel.correlativos" />
           <EntitySet Name="formato_factura" EntityType="proyectotiendaModel.formato_factura" />
+          <EntitySet Name="historial_inventario" EntityType="proyectotiendaModel.historial_inventario" />
+          <EntitySet Name="movimientos" EntityType="proyectotiendaModel.movimientos" />
+          <EntitySet Name="tipo_movimento" EntityType="proyectotiendaModel.tipo_movimento" />
+          <AssociationSet Name="fk_iddepartamento" Association="proyectotiendaModel.fk_iddepartamento">
+            <End Role="departamento" EntitySet="departamento" />
+            <End Role="historial_inventario" EntitySet="historial_inventario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_idproducto" Association="proyectotiendaModel.fk_idproducto">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="historial_inventario" EntitySet="historial_inventario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tip_movi" Association="proyectotiendaModel.fk_tip_movi">
+            <End Role="tipo_movimento" EntitySet="tipo_movimento" />
+            <End Role="historial_inventario" EntitySet="historial_inventario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipo_movimiento" Association="proyectotiendaModel.fk_tipo_movimiento">
+            <End Role="tipo_movimento" EntitySet="tipo_movimento" />
+            <End Role="movimientos" EntitySet="movimientos" />
+          </AssociationSet>
+          <EntitySet Name="cambiodolar" EntityType="proyectotiendaModel.cambiodolar" />
         </EntityContainer>
         <EntityType Name="clientes">
           <Key>
@@ -621,6 +762,7 @@
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="productos" Relationship="proyectotiendaModel.fk_departamento" FromRole="departamento" ToRole="productos" />
+          <NavigationProperty Name="historial_inventario" Relationship="proyectotiendaModel.fk_iddepartamento" FromRole="departamento" ToRole="historial_inventario" />
         </EntityType>
         <EntityType Name="detalle_factura">
           <Key>
@@ -736,6 +878,7 @@
           <NavigationProperty Name="detalle_factura" Relationship="proyectotiendaModel.fk_producto" FromRole="productos" ToRole="detalle_factura" />
           <NavigationProperty Name="promocion" Relationship="proyectotiendaModel.fk_productos" FromRole="productos" ToRole="promocion" />
           <NavigationProperty Name="tipo_ventas" Relationship="proyectotiendaModel.fk_tipo_ventas" FromRole="productos" ToRole="tipo_ventas" />
+          <NavigationProperty Name="historial_inventario" Relationship="proyectotiendaModel.fk_idproducto" FromRole="productos" ToRole="historial_inventario" />
         </EntityType>
         <EntityType Name="promocion">
           <Key>
@@ -1025,6 +1168,113 @@
           <Property Name="Fecha_baja" Type="DateTime" />
           <Property Name="Cabeza_factura" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Cuerpo_factura" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="historial_inventario">
+          <Key>
+            <PropertyRef Name="idHistorial_inventario" />
+          </Key>
+          <Property Name="idHistorial_inventario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_baja" Type="DateTime" />
+          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Idproducto" Type="Int32" Nullable="false" />
+          <Property Name="Tipo_movimiento" Type="Int32" Nullable="false" />
+          <Property Name="Iddepartamento" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad_actual" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad_anterior" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="departamento" Relationship="proyectotiendaModel.fk_iddepartamento" FromRole="historial_inventario" ToRole="departamento" />
+          <NavigationProperty Name="productos" Relationship="proyectotiendaModel.fk_idproducto" FromRole="historial_inventario" ToRole="productos" />
+          <NavigationProperty Name="tipo_movimento" Relationship="proyectotiendaModel.fk_tip_movi" FromRole="historial_inventario" ToRole="tipo_movimento" />
+        </EntityType>
+        <EntityType Name="movimientos">
+          <Key>
+            <PropertyRef Name="idMovimientos" />
+          </Key>
+          <Property Name="idMovimientos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_baja" Type="DateTime" />
+          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" />
+          <Property Name="Tipo_movimiento" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tipo_movimento" Relationship="proyectotiendaModel.fk_tipo_movimiento" FromRole="movimientos" ToRole="tipo_movimento" />
+        </EntityType>
+        <EntityType Name="tipo_movimento">
+          <Key>
+            <PropertyRef Name="IdTipo_movimiento" />
+          </Key>
+          <Property Name="IdTipo_movimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_baja" Type="DateTime" />
+          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="historial_inventario" Relationship="proyectotiendaModel.fk_tip_movi" FromRole="tipo_movimento" ToRole="historial_inventario" />
+          <NavigationProperty Name="movimientos" Relationship="proyectotiendaModel.fk_tipo_movimiento" FromRole="tipo_movimento" ToRole="movimientos" />
+        </EntityType>
+        <Association Name="fk_iddepartamento">
+          <End Type="proyectotiendaModel.departamento" Role="departamento" Multiplicity="1" />
+          <End Type="proyectotiendaModel.historial_inventario" Role="historial_inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departamento">
+              <PropertyRef Name="Iddepartmento" />
+            </Principal>
+            <Dependent Role="historial_inventario">
+              <PropertyRef Name="Iddepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_idproducto">
+          <End Type="proyectotiendaModel.productos" Role="productos" Multiplicity="1" />
+          <End Type="proyectotiendaModel.historial_inventario" Role="historial_inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="Idproducto" />
+            </Principal>
+            <Dependent Role="historial_inventario">
+              <PropertyRef Name="Idproducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tip_movi">
+          <End Type="proyectotiendaModel.tipo_movimento" Role="tipo_movimento" Multiplicity="1" />
+          <End Type="proyectotiendaModel.historial_inventario" Role="historial_inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_movimento">
+              <PropertyRef Name="IdTipo_movimiento" />
+            </Principal>
+            <Dependent Role="historial_inventario">
+              <PropertyRef Name="Tipo_movimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipo_movimiento">
+          <End Type="proyectotiendaModel.tipo_movimento" Role="tipo_movimento" Multiplicity="1" />
+          <End Type="proyectotiendaModel.movimientos" Role="movimientos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipo_movimento">
+              <PropertyRef Name="IdTipo_movimiento" />
+            </Principal>
+            <Dependent Role="movimientos">
+              <PropertyRef Name="Tipo_movimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="cambiodolar">
+          <Key>
+            <PropertyRef Name="IdCambiodolar" />
+          </Key>
+          <Property Name="IdCambiodolar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_baja" Type="DateTime" />
+          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Monto_cambio" Type="Decimal" Nullable="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
         </EntityType>
         </Schema>
@@ -1350,6 +1600,63 @@
                 <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
                 <ScalarProperty Name="Usuaro_alta" ColumnName="Usuaro_alta" />
                 <ScalarProperty Name="idformato_factura" ColumnName="idformato_factura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="historial_inventario">
+            <EntityTypeMapping TypeName="proyectotiendaModel.historial_inventario">
+              <MappingFragment StoreEntitySet="historial_inventario">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Cantidad_anterior" ColumnName="Cantidad_anterior" />
+                <ScalarProperty Name="Cantidad_actual" ColumnName="Cantidad_actual" />
+                <ScalarProperty Name="Iddepartamento" ColumnName="Iddepartamento" />
+                <ScalarProperty Name="Tipo_movimiento" ColumnName="Tipo_movimiento" />
+                <ScalarProperty Name="Idproducto" ColumnName="Idproducto" />
+                <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
+                <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
+                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+                <ScalarProperty Name="idHistorial_inventario" ColumnName="idHistorial_inventario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="movimientos">
+            <EntityTypeMapping TypeName="proyectotiendaModel.movimientos">
+              <MappingFragment StoreEntitySet="movimientos">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Tipo_movimiento" ColumnName="Tipo_movimiento" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
+                <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
+                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+                <ScalarProperty Name="idMovimientos" ColumnName="idMovimientos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipo_movimento">
+            <EntityTypeMapping TypeName="proyectotiendaModel.tipo_movimento">
+              <MappingFragment StoreEntitySet="tipo_movimento">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
+                <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
+                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+                <ScalarProperty Name="IdTipo_movimiento" ColumnName="IdTipo_movimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cambiodolar">
+            <EntityTypeMapping TypeName="proyectotiendaModel.cambiodolar">
+              <MappingFragment StoreEntitySet="cambiodolar">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Monto_cambio" ColumnName="Monto_cambio" />
+                <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
+                <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
+                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+                <ScalarProperty Name="IdCambiodolar" ColumnName="IdCambiodolar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -46,5 +46,9 @@ namespace Monografia.Models
         public virtual DbSet<usuarios_tienda> usuarios_tienda { get; set; }
         public virtual DbSet<correlativos> correlativos { get; set; }
         public virtual DbSet<formato_factura> formato_factura { get; set; }
+        public virtual DbSet<historial_inventario> historial_inventario { get; set; }
+        public virtual DbSet<movimientos> movimientos { get; set; }
+        public virtual DbSet<tipo_movimento> tipo_movimento { get; set; }
+        public virtual DbSet<cambiodolar> cambiodolar { get; set; }
     }
 }
