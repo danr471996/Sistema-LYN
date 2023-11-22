@@ -10,25 +10,31 @@
     </div>
     <div class="card-body">
         <br>
+        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
+
+            @Html.Raw(@ViewBag.Mensaje)
+
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <form class="row g-3">
             <div class="row">
                 <div class="col-md-6">
                     @Html.Label("Primer Nombre", htmlAttributes: new { @class = "form-label" })
-                    @Html.EditorFor(model => model.usuario_detalle.Primer_nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.usuario_detalle.Primer_nombre, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return lettersOnly(event,'U');" } })
                 </div>
                 <div class="col-md-6">
                     @Html.Label("Segundo Nombre", htmlAttributes: new { @class = "form-label" })
-                    @Html.EditorFor(model => model.usuario_detalle.Segundo_nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.usuario_detalle.Segundo_nombre, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return lettersOnly(event,'U');" } })
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     @Html.Label("Primer Apellido", htmlAttributes: new { @class = "form-label" })
-                    @Html.EditorFor(model => model.usuario_detalle.Primer_apellido, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.usuario_detalle.Primer_apellido, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return lettersOnly(event,'U');" } })
                 </div>
                 <div class="col-md-6">
                     @Html.Label("Segundo Apellido", htmlAttributes: new { @class = "form-label" })
-                    @Html.EditorFor(model => model.usuario_detalle.Segundo_apellido, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.usuario_detalle.Segundo_apellido, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return lettersOnly(event,'U');" } })
                 </div>
             </div>
             <div class="row">
@@ -40,7 +46,7 @@
             <div class="row">
                 <div class="col-md-6">
                     @Html.Label("Teléfono", htmlAttributes: new { @class = "form-label" })
-                    @Html.EditorFor(model => model.usuario_detalle.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.usuario_detalle.Telefono, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
                 </div>
                 <div class="col-md-6">
                     @Html.Label("Perfil", htmlAttributes: new { @class = "form-label" })

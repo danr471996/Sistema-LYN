@@ -7,49 +7,62 @@
         <h4>¿Está seguro de eliminar este proveedor?</h4>
     </div>
     <div class="card-body">
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayName("Descripcion:")
-            </dt>
+        <br />
+        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
 
-            <dd>
-                @Html.DisplayFor(model => model.Descripcion)
-            </dd>
+            @Html.Raw(@ViewBag.Mensaje)
 
-            <dt>
-                @Html.DisplayName("Teléfono:")
-            </dt>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @if (Model != null)
+        {
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayName("Descripcion:")
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Telefono)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Descripcion)
+                </dd>
 
-            <dt>
-                @Html.DisplayName("Email:")
-            </dt>
+                <dt>
+                    @Html.DisplayName("Teléfono:")
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Email)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Telefono)
+                </dd>
 
-            <dt>
-                @Html.DisplayName("Dirección:")
-            </dt>
+                <dt>
+                    @Html.DisplayName("Email:")
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Direccion)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
 
-        </dl>
-    </div>
+                <dt>
+                    @Html.DisplayName("Dirección:")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Direccion)
+                </dd>
+
+            </dl>
+        }
+        </div>
     <div class="card-footer text-center">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
+            if (Model != null)
+            {
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-save">Guardar</i>
                 </button>
-        }
-    </div>
+                }
+            }
+        </div>
 </div>
 

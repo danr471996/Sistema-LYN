@@ -21,9 +21,10 @@
         </div>
         <br>
         <br>
-        <table id="tbprodbajos" class="table table-bordered" style="width:100%">
+        <table id="tbprodbajos" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
+                    <th scope="col">#</th>
                     <th>
                         @Html.DisplayName("Código de producto")
                     </th>
@@ -45,9 +46,14 @@
                 </tr>
             </thead>
             <tbody>
+                @{
+                    int i = 0; // Inicializa el contador de fila
+                }
                 @foreach (var item in Model)
-            {
+                {
+                    i++;
                     <tr>
+                        <td scope="row">@(i)</td>
                         <td>
                             @Html.DisplayFor(modelItem => item.codigo_producto1)
                         </td>
@@ -81,12 +87,14 @@
 {
     @Scripts.Render("~/bundles/datatables")
     <script type="text/javascript">
-            $(document).ready(function () {
+        $(function () {
                 $('#tbprodbajos').DataTable({
                     "language": {
                         "url": "/Scripts/es_es.json"
-                    }
+                    },scrollX:true
                 })
+            var tableIds = ['tbprodbajos']; // Lista de IDs de las tablas
+            redimensionatable(tableIds);
             });
 
     </script>

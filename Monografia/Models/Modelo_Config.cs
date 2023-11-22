@@ -26,7 +26,9 @@ namespace Monografia.Models
 
     public class perfiles
     {
+        public int Idperfil { get; set; }
         public string nom_perfil { get; set; }
+        public int estado { get; set; }
     }
 
     public class Opcion

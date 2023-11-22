@@ -10,12 +10,16 @@ using Monografia.Models;
 using ClosedXML.Excel;
 using System.IO;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.Owin.Security.Provider;
+using System.Text.RegularExpressions;
 
 namespace Monografia.Controllers
 {
     public class Admin_inventarioController : Controller
     {
         private proyectotiendaEntities db = new proyectotiendaEntities();
+        string patronsindecimales = @"^\d+$";
 
         // GET: productos
         public ActionResult productos_bajos_inventario()
@@ -57,7 +61,7 @@ namespace Monografia.Controllers
             string nombrearchivo = "";
             string vistaaccion = this.Request.UrlReferrer.AbsolutePath;
             DataTable dt = new DataTable();
-            Session["listaproductos"] = 0;
+       
             try
             {
                 if (vistaaccion.Contains("productos_bajos_inventario"))
@@ -79,12 +83,13 @@ namespace Monografia.Controllers
                     {
                         dt.Rows.Add(item.Codigo_producto, item.Descripcion, item.Precio_venta, item.Cantidad_actual, item.Cantidad_minima, item.departamento.Descripcion);
                     }
-
+              
                 }
                 else
                 {
-                    int codigodepart = Convert.ToInt32(Session["cod_depart"]);
-                    var listaproductos = int.Parse(Session["cod_depart"].ToString()) == 0 ? db.productos.Include(a => a.departamento).ToList() : db.productos.Include(a => a.departamento).Where(x => x.Iddepartamento == codigodepart).ToList();
+                    int codigodepart = Convert.ToInt32(TempData["cod_depart"]);
+                    TempData["cod_depart"] = codigodepart;
+                    var listaproductos = int.Parse(TempData["cod_depart"].ToString()) == 0 ? db.productos.Include(a => a.departamento).ToList() : db.productos.Include(a => a.departamento).Where(x => x.Iddepartamento == codigodepart).ToList();
 
 
 
@@ -97,18 +102,19 @@ namespace Monografia.Controllers
                                             new DataColumn("Cantidad actual",typeof(int)),
                                             new DataColumn("Cantidad mínima",typeof(int))});
 
-                    foreach (var item in listaproductos)
-                    {
-                        dt.Rows.Add(item.Codigo_producto, item.Descripcion, item.Precio_costo, item.Precio_venta, item.Cantidad_actual, item.Cantidad_minima);
-                    }
-                }
+                        foreach (var item in listaproductos)
+                        {
+                            dt.Rows.Add(item.Codigo_producto, item.Descripcion, item.Precio_costo, item.Precio_venta, item.Cantidad_actual, item.Cantidad_minima);
+                        }
 
+                }
+            
                 using (XLWorkbook wb = new XLWorkbook())
                 {
                     var agregarestilo = wb.Worksheets.Add("Listado de productos");
                     if (vistaaccion.Contains("productos_bajos_inventario"))
                     {
-                        for (int i = 0; i < dt.Rows.Count; i++)
+                        for (int i = 0; dt.Rows.Count == 0 ? i == 0 : i < dt.Rows.Count; i++)
                         {
 
                             agregarestilo.Cell("A" + numcol).Value = "Código de producto";
@@ -118,24 +124,26 @@ namespace Monografia.Controllers
                             agregarestilo.Cell("E" + numcol).Value = "Cantidad mínima";
                             agregarestilo.Cell("F" + numcol).Value = "Descripción departamento";
                         }
-                        foreach (DataRow row in dt.Rows)
-                        {
+                        if (dt.Rows.Count != 0)
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                numcol2 += 1;
+                                agregarestilo.Cell("A" + numcol2).Value = row["Código de producto"].ToString();
+                                agregarestilo.Cell("B" + numcol2).Value = row["Descripción"].ToString();
+                                agregarestilo.Cell("C" + numcol2).Value = row["Precio de venta"].ToString();
+                                agregarestilo.Cell("D" + numcol2).Value = row["Cantidad actual"].ToString();
+                                agregarestilo.Cell("E" + numcol2).Value = row["Cantidad mínima"].ToString();
+                                agregarestilo.Cell("F" + numcol2).Value = row["Descripción de departamento"].ToString();
+
+                            }
+                        else
                             numcol2 += 1;
-                            agregarestilo.Cell("A" + numcol2).Value = row["Código de producto"];
-                            agregarestilo.Cell("B" + numcol2).Value = row["Descripción"].ToString();
-                            agregarestilo.Cell("C" + numcol2).Value = row["Precio de venta"];
-                            agregarestilo.Cell("D" + numcol2).Value = row["Cantidad actual"];
-                            agregarestilo.Cell("E" + numcol2).Value = row["Cantidad mínima"];
-                            agregarestilo.Cell("F" + numcol2).Value = row["Descripción de departamento"];
-
-                        }
-
-
+                      
 
                     }
                     else
                     {
-                        for (int i = 0; i < dt.Rows.Count; i++)
+                        for (int i = 0; dt.Rows.Count == 0 ? i == 0 : i < dt.Rows.Count; i++)
                         {
 
                             agregarestilo.Cell("A" + numcol).Value = "Código de producto";
@@ -145,18 +153,23 @@ namespace Monografia.Controllers
                             agregarestilo.Cell("E" + numcol).Value = "Cantidad actual";
                             agregarestilo.Cell("F" + numcol).Value = "Cantidad mínima";
                         }
-                        foreach (DataRow row in dt.Rows)
+                        if (dt.Rows.Count != 0)
+                            foreach (DataRow row in dt.Rows)
                         {
                             numcol2 += 1;
-                            agregarestilo.Cell("A" + numcol2).Value = row["Código de producto"];
+                            agregarestilo.Cell("A" + numcol2).Value = row["Código de producto"].ToString();
                             agregarestilo.Cell("B" + numcol2).Value = row["Descripción"].ToString();
-                            agregarestilo.Cell("C" + numcol2).Value = row["Costo"];
-                            agregarestilo.Cell("D" + numcol2).Value = row["Precio de venta"];
-                            agregarestilo.Cell("E" + numcol2).Value = row["Cantidad actual"];
-                            agregarestilo.Cell("F" + numcol2).Value = row["Cantidad mínima"];
+                            agregarestilo.Cell("C" + numcol2).Value = row["Costo"].ToString();
+                            agregarestilo.Cell("D" + numcol2).Value = row["Precio de venta"].ToString();
+                            agregarestilo.Cell("E" + numcol2).Value = row["Cantidad actual"].ToString();
+                            agregarestilo.Cell("F" + numcol2).Value = row["Cantidad mínima"].ToString();
                             ;
 
                         }
+                         else
+                            numcol2 += 1;
+                      
+
                     }
 
 
@@ -185,6 +198,12 @@ namespace Monografia.Controllers
                                   .Merge()
                                   .SetValue("")
                                   .Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+
+                    if (dt.Rows.Count == 0)
+                        agregarestilo.Range("A6:F" + numcol2)
+                               .Merge()
+                               .SetValue("No existe información")
+                               .Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
 
                     var ranguito = agregarestilo.Range("A5:F5");
                     ranguito.Style.Border.SetOutsideBorder(XLBorderStyleValues.Thin);
@@ -220,48 +239,43 @@ namespace Monografia.Controllers
         public ActionResult reporte_inventario(productos productos)
         {
 
-            Modelo_contenedor modelo_contenedor = new Modelo_contenedor();
-            modelo_contenedor.listaproductos = new List<productos>();
-            modelo_contenedor.listadepartamento = new List<departamento>();
+            Modelo_contenedor modelo_contenedor = new Modelo_contenedor
+            {
+                listaproductos = new List<productos>(),
+                listadepartamento = new List<departamento>()
+            };
 
             List<productos> listaproducto = new List<productos>();
 
             try
             {
-                Session["cod_depart"] = productos.Iddepartamento;
+
+                TempData["cod_depart"] = productos.Iddepartamento;
 
                 if (productos.Iddepartamento != 0)
                 {
                     listaproducto = (from x in db.productos where x.Estado == 1 && x.Iddepartamento == productos.Iddepartamento select x).ToList();
                     int? cantidadtotal=listaproducto.Select(x => x.Cantidad_actual).Sum();
                     decimal? costo = listaproducto.Select(x => x.Precio_costo).Sum();
-                    Session["cantidad_inventario"] = cantidadtotal.ToString();
-                    Session["costo_inventario"] = (cantidadtotal * costo).ToString();
+                    ViewBag.cantidad_inventario = cantidadtotal.ToString();
+                    ViewBag.costo_inventario = (cantidadtotal * costo).ToString();
                 }
                 else
                 {
                     listaproducto = (from x in db.productos where x.Estado == 1 select x).ToList();
                     int? cantidadtotal = listaproducto.Select(x => x.Cantidad_actual).Sum();
                     decimal? costo = listaproducto.Select(x => x.Precio_costo).Sum();
-                    Session["cantidad_inventario"] = cantidadtotal.ToString();
-                    Session["costo_inventario"] = (cantidadtotal * costo).ToString();
+                    ViewBag.cantidad_inventario = cantidadtotal.ToString();
+                    ViewBag.costo_inventario = (cantidadtotal * costo).ToString();
                 }
         
 
-               
-                foreach (var item in listaproducto)
-                {
-
-                    modelo_contenedor.listaproductos.Add(item);
-                }
-                var listadepartamentos = from u in db.departamento where u.Estado == 1 select u;
+               modelo_contenedor.listaproductos= listaproducto;
+                
+                var listadepartamentos = (from u in db.departamento where u.Estado == 1 select u).ToList();
           
-
-                foreach (var item in listadepartamentos)
-                {
-
-                    modelo_contenedor.listadepartamento.Add(item);
-                }
+                modelo_contenedor.listadepartamento = listadepartamentos;
+                
 
 
                 return View(modelo_contenedor);
@@ -275,27 +289,39 @@ namespace Monografia.Controllers
         }
      
 
-        public ActionResult editar_inventario(int? id, int id2)
+        public ActionResult editar_inventario(int? id)
         {
-            Modelo_contenedor Modelo_contenedor = new Modelo_contenedor();
+
             try
             {
-                if (id == null && id2 == null)
+                Modelo_contenedor modelo_Contenedor = null;
+                if (id != 0 && id != null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                    productos datosproductos = db.productos.Include(a => a.departamento).Where(x => x.Idproducto == id).FirstOrDefault();
+                
+                    if (datosproductos == null)
+                    {
+
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+                        return PartialView(modelo_Contenedor);
+
+                    }
+                    else
+                    {
+                        modelo_Contenedor = new Modelo_contenedor
+                        {
+                            productos = datosproductos
+                        };
+                        return PartialView(modelo_Contenedor);
+                    }
                 }
-                var productos = db.productos.Include(a => a.departamento).Where(x => x.Codigo_producto == id2).FirstOrDefault();
-
-                Modelo_contenedor = new Modelo_contenedor();
-
-                Modelo_contenedor.productos = productos;
-                //producto = db.productos.Find(id);
-
-                if (Modelo_contenedor == null)
+                else
                 {
-                    return HttpNotFound();
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de producto erroneo";
+                    return PartialView(modelo_Contenedor);
+
                 }
-                return PartialView(Modelo_contenedor);
             }
             catch (Exception ex)
             {
@@ -308,46 +334,76 @@ namespace Monografia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult editar_inventario(productos productos, int? agregar_cantidad)
+        public ActionResult editar_inventario(Modelo_contenedor modelocontenedor, int? agregar_cantidad)
         {
             int prodcantanterior = 0;
             try
             {
-                if (ModelState.IsValid)
+                productos producto = null;
+                if (modelocontenedor.productos.Idproducto != 0 && modelocontenedor != null)
                 {
 
-                    var producto = db.productos.Where(x => x.Codigo_producto == productos.Codigo_producto).FirstOrDefault();
-                    if (producto!=null)
+
+                   producto = db.productos.Where(x => x.Idproducto == modelocontenedor.productos.Idproducto).FirstOrDefault();
+
+                    if (producto == null)
                     {
-                        if (producto.Usa_inventario!=2)
-                        {
-                            prodcantanterior = producto.Cantidad_actual == null ? 0 : Convert.ToInt32(producto.Cantidad_actual);
-                            producto.Cantidad_actual = producto.Cantidad_actual==null?0 + agregar_cantidad: producto.Cantidad_actual+ agregar_cantidad;
-                            historial_inventario historialinventario = new historial_inventario();
-                            historialinventario.Fecha_alta = DateTime.Now;
-                            historialinventario.Usuario_alta = (string)Session["usuario_logueado"];
-                            historialinventario.Idproducto = producto.Idproducto;
-                            historialinventario.Tipo_movimiento = 1;
-                            historialinventario.Iddepartamento = producto.Iddepartamento;
-                            historialinventario.Cantidad_actual = Convert.ToInt32(producto.Cantidad_actual);
-                            historialinventario.Cantidad_anterior = prodcantanterior;
-                            historialinventario.Estado = 1;
-                            db.historial_inventario.Add(historialinventario);
-                            db.SaveChanges();
-                            return Json(new { success = true });
-                        }
-                        else
-                        {
-                            return Json(new { success = false });
-                        }
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+
+                      return  PartialView(modelocontenedor);
                     }
                     else
                     {
-                        return Json(new { success = false });
+                        if (producto.Usa_inventario != 2)
+                        {
+                            if (agregar_cantidad != null)
+                            {
+                                if (Regex.IsMatch(agregar_cantidad.ToString(), patronsindecimales))
+                                {
+                                    prodcantanterior = producto.Cantidad_actual == null ? 0 : Convert.ToInt32(producto.Cantidad_actual);
+                                    producto.Cantidad_actual = producto.Cantidad_actual == null ? 0 + agregar_cantidad : producto.Cantidad_actual + agregar_cantidad;
+                                    historial_inventario historialinventario = new historial_inventario
+                                    {
+                                        Fecha_alta = DateTime.Now,
+                                        Usuario_alta = (string)Session["usuario_logueado"],
+                                        Idproducto = producto.Idproducto,
+                                        Tipo_movimiento = 1,
+                                        Iddepartamento = producto.Iddepartamento,
+                                        Cantidad_actual = Convert.ToInt32(producto.Cantidad_actual),
+                                        Cantidad_anterior = prodcantanterior,
+                                        Estado = 1
+                                    };
+                                    db.historial_inventario.Add(historialinventario);
+                                    db.SaveChanges();
+
+                                    return Json(new { success = true, mensaje = "Se ha editado el inventario del producto satisfactoriamente." });
+                                }
+                                else {
+
+                                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese solo números en cantidad para realizar la edición de inventario.";
+                                    return PartialView(modelocontenedor);
+                                }
+
+                            }
+                            else
+                            {
+                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese una cantidad para realizar la edición de inventario.";
+                                return PartialView(modelocontenedor);
+                            }
+                        }
+                        else {
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Producto no usa inventario.";
+                            return PartialView(modelocontenedor);
+                        }
+
                     }
-                     
+
                 }
-                return PartialView(productos);
+                else
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se ha ingresado producto para editar su inventario,favor ingrese uno.";
+                    return PartialView(modelocontenedor);
+                }
             }
             catch (Exception ex)
             {
@@ -356,95 +412,63 @@ namespace Monografia.Controllers
             }
         
         }
-
-
-        public ActionResult agregar_inventario(int? id_producto)
+        public ActionResult agregar_inventario()
         {
-            try
+            if (TempData["ajusteexitoso"] != null)
             {
-                Session["id_prod"] = 0;
-                Session["id_prod"] = id_producto;
-                productos obtener_producto = db.productos.Where(x => x.Codigo_producto == id_producto).FirstOrDefault();
-                return View(obtener_producto);
+                ViewBag.mensajeexito = "Se agrego producto al inventario satisfactoriamente";
             }
-            catch (Exception)
-            {
 
-                throw;
-            }
-           
+            return View();
+
         }
 
-        // POST: productos/Create
-        // 
-        // GET: productos/Create
-        [HttpPost]
+      [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult agregar_inventario2(productos productos, int? agregar_cantidad)
+        public ActionResult agregar_inventario(int? cod_producto)
         {
-            int? id_prod = 0;
-            int prodcantanterior = 0;
             try
             {
-                if (ModelState.IsValid)
+                productos obtener_producto = null;
+                if (cod_producto != 0 && cod_producto != null)
                 {
-                    if (Session["id_prod"] != null)
+                    if (Regex.IsMatch(cod_producto.ToString(), patronsindecimales))
                     {
-                        id_prod = (int)Session["id_prod"];
-                    }
-                    productos datosproducto = db.productos.Where(x => x.Codigo_producto == id_prod).FirstOrDefault();
-                    if (datosproducto == null || agregar_cantidad == null)
-                    {
-                        return RedirectToAction("agregar_inventario");
-                    }
-                    else
-                    {
-                        if (agregar_cantidad != null)
+                        TempData["cod_producto"] = cod_producto;
+                        obtener_producto = db.productos.Where(x => x.Codigo_producto == cod_producto).FirstOrDefault();
+
+                        if (obtener_producto != null)
                         {
-                            prodcantanterior =  datosproducto.Cantidad_actual==null?0:Convert.ToInt32(datosproducto.Cantidad_actual);
-                            datosproducto.Cantidad_actual = datosproducto.Cantidad_actual == null ? 0+ agregar_cantidad:datosproducto.Cantidad_actual + agregar_cantidad;
-                            historial_inventario historialinventario = new historial_inventario();
-                            historialinventario.Fecha_alta = DateTime.Now;
-                            historialinventario.Usuario_alta = (string)Session["usuario_logueado"];
-                            historialinventario.Idproducto = datosproducto.Idproducto;
-                            historialinventario.Tipo_movimiento = 1;
-                            historialinventario.Iddepartamento = datosproducto.Iddepartamento;
-                            historialinventario.Cantidad_actual = Convert.ToInt32(datosproducto.Cantidad_actual);
-                            historialinventario.Cantidad_anterior = prodcantanterior;
-                            historialinventario.Estado = 1;
-                            db.historial_inventario.Add(historialinventario);
-                            db.SaveChanges();
-                            return RedirectToAction("agregar_inventario");
+                            return View(obtener_producto);
+
                         }
+                        else
+                        {
 
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro Producto";
+                            return View(obtener_producto);
+                        }
                     }
+                    else {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingresar solo números en codigo de producto";
+                        return View(obtener_producto);
+                    }
+
                 }
+                else
+                {
 
-                return RedirectToAction("agregar_inventario");
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingresar codigo de producto";
+                    return View(obtener_producto);
+
+                }
             }
             catch (Exception)
             {
 
                 throw;
             }
-        
-        }
 
-        public ActionResult ajuste_inventario(int? id_producto)
-        {
-            try
-            {
-                Session["id_prod"] = 0;
-                Session["id_prod"] = id_producto;
-                productos obtener_producto = db.productos.Where(x => x.Codigo_producto == id_producto).FirstOrDefault();
-                return View(obtener_producto);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-      
         }
 
         // POST: productos/Edit/5
@@ -452,47 +476,217 @@ namespace Monografia.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ajuste_inventario2(productos productos, int? agregar_cantidad)
+        public ActionResult procesar_incremento_inventario(productos productos, int? agregar_cantidad)
         {
-            int? id_prod = 0;
+            int? cod_producto = 0;
             int prodcantanterior = 0;
+
             try
             {
-                if (ModelState.IsValid)
+
+                if (TempData["cod_producto"] != null)
                 {
-                    if (Session["id_prod"] != null)
+                    cod_producto = (int)TempData["cod_producto"];
+                    TempData["cod_producto"] = cod_producto;
+                    ViewBag.cod_producto = (int)cod_producto;
+                    productos datosproducto = db.productos.Where(x => x.Codigo_producto == cod_producto).FirstOrDefault();
+
+                    if (datosproducto == null)
                     {
-                        id_prod = (int)Session["id_prod"];
-                    }
-                    productos datosproducto = db.productos.Where(x => x.Codigo_producto == id_prod).FirstOrDefault();
-                    if (datosproducto == null || agregar_cantidad == null)
-                    {
-                        return RedirectToAction("ajuste_inventario");
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+
+                        return View("agregar_inventario", productos);
                     }
                     else
                     {
                         if (agregar_cantidad != null)
                         {
-                            prodcantanterior = datosproducto.Cantidad_actual == null ? 0 : Convert.ToInt32(datosproducto.Cantidad_actual);
-                            datosproducto.Cantidad_actual = agregar_cantidad;
-                            historial_inventario historialinventario = new historial_inventario();
-                            historialinventario.Fecha_alta = DateTime.Now;
-                            historialinventario.Usuario_alta = (string)Session["usuario_logueado"];
-                            historialinventario.Idproducto = datosproducto.Idproducto;
-                            historialinventario.Tipo_movimiento = 3;
-                            historialinventario.Iddepartamento = datosproducto.Iddepartamento;
-                            historialinventario.Cantidad_actual = Convert.ToInt32(datosproducto.Cantidad_actual);
-                            historialinventario.Cantidad_anterior = prodcantanterior;
-                            historialinventario.Estado = 1;
-                            db.historial_inventario.Add(historialinventario);
-                            db.SaveChanges();
-                            return RedirectToAction("ajuste_inventario");
+                            if (Regex.IsMatch(agregar_cantidad.ToString(), patronsindecimales))
+                            {
+                                prodcantanterior = datosproducto.Cantidad_actual == null ? 0 : Convert.ToInt32(datosproducto.Cantidad_actual);
+                                datosproducto.Cantidad_actual = datosproducto.Cantidad_actual == null ? 0 + agregar_cantidad : datosproducto.Cantidad_actual + agregar_cantidad;
+                                historial_inventario historialinventario = new historial_inventario
+                                {
+                                    Fecha_alta = DateTime.Now,
+                                    Usuario_alta = (string)Session["usuario_logueado"],
+                                    Idproducto = datosproducto.Idproducto,
+                                    Tipo_movimiento = 1,
+                                    Iddepartamento = datosproducto.Iddepartamento,
+                                    Cantidad_actual = Convert.ToInt32(datosproducto.Cantidad_actual),
+                                    Cantidad_anterior = prodcantanterior,
+                                    Estado = 1
+                                };
+                                db.historial_inventario.Add(historialinventario);
+                                db.SaveChanges();
+
+                                TempData["ajusteexitoso"] = true;
+
+                                return RedirectToAction("agregar_inventario");
+                            }
+                            else {
+                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese solo números en cantidad para realizar el incremento de inventario.";
+                                return View("agregar_inventario", productos);
+                            }
+
+                        }
+                        else
+                        {
+
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese una cantidad para realizar el incremento de inventario.";
+                            return View("agregar_inventario", productos);
                         }
 
                     }
+
+                }
+                else
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se ha ingresado producto para realizar el incremento de inventario,favor ingrese uno.";
+                    return View("agregar_inventario", productos);
                 }
 
-                return RedirectToAction("ajuste_inventario");
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+
+        public ActionResult ajuste_inventario()
+        {
+            if (TempData["ajusteexitoso"]!=null) {
+                ViewBag.mensajeexito = "Se realizo ajuste de inventario satisfactoriamente";
+            }
+
+            return View();
+      
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ajuste_inventario(int? cod_producto)
+        {
+            try
+            {
+                productos obtener_producto = null;
+                if (cod_producto != 0 && cod_producto != null)
+                {
+                    if (Regex.IsMatch(cod_producto.ToString(), patronsindecimales))
+                    {
+                        TempData["cod_producto"] = cod_producto;
+                        obtener_producto = db.productos.Where(x => x.Codigo_producto == cod_producto).FirstOrDefault();
+
+                        if (obtener_producto != null)
+                        {
+                            return View(obtener_producto);
+
+                        }
+                        else
+                        {
+
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro Producto";
+                            return View(obtener_producto);
+                        }
+                    }
+                    else {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingresar solo números en codigo de producto";
+                        return View(obtener_producto);
+                    }
+
+                }
+                else
+                {
+
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingresar codigo de producto";
+                    return View(obtener_producto);
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        // POST: productos/Edit/5
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult procesar_ajuste_inventario(productos productos, int? agregar_cantidad)
+        {
+            int? cod_producto = 0;
+            int prodcantanterior = 0;
+         
+            try
+            {
+           
+                    if (TempData["cod_producto"] != null)
+                    {
+                    cod_producto = (int)TempData["cod_producto"];
+                    TempData["cod_producto"] = cod_producto;
+                    ViewBag.cod_producto = (int)cod_producto;
+                    productos datosproducto = db.productos.Where(x => x.Codigo_producto == cod_producto).FirstOrDefault();
+
+                    if (datosproducto == null )
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+                       
+                        return View("ajuste_inventario", productos);
+                    }
+                    else
+                    {
+                        if (agregar_cantidad != null)
+                        {
+                            if (Regex.IsMatch(agregar_cantidad.ToString(), patronsindecimales))
+                            {
+                                prodcantanterior = Convert.ToInt32(datosproducto.Cantidad_actual);
+                                datosproducto.Cantidad_actual = agregar_cantidad;
+                                historial_inventario historialinventario = new historial_inventario
+                                {
+                                    Fecha_alta = DateTime.Now,
+                                    Usuario_alta = (string)Session["usuario_logueado"],
+                                    Idproducto = datosproducto.Idproducto,
+                                    Tipo_movimiento = 3,
+                                    Iddepartamento = datosproducto.Iddepartamento,
+                                    Cantidad_actual = Convert.ToInt32(datosproducto.Cantidad_actual),
+                                    Cantidad_anterior = prodcantanterior,
+                                    Estado = 1
+                                };
+                                db.historial_inventario.Add(historialinventario);
+                                db.SaveChanges();
+
+                                TempData["ajusteexitoso"] = true;
+
+                                return RedirectToAction("ajuste_inventario");
+                            }
+                            else {
+                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese solo números en cantidad para realizar el ajuste de inventario.";
+                                return View("ajuste_inventario", productos);
+                            }
+
+                        }
+                        else {
+
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese una cantidad para realizar el ajuste de inventario.";
+                            return View("ajuste_inventario", productos);
+                        }
+
+                    }
+
+                }
+                    else {
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se ha ingresado producto para realizar el ajuste de inventario,favor ingrese uno.";
+                            return View("ajuste_inventario", productos);
+                }
+
+               
             }
             catch (Exception)
             {

@@ -1,8 +1,5 @@
 ﻿@model Monografia.Models.clientes
 
-@{
-    ViewBag.Title = "Inactivar cliente";
-}
 @Scripts.Render("~/bundles/jqueryval")
 
 <div class="card">
@@ -10,53 +7,66 @@
         <h4>¿Está seguro de eliminar este cliente?</h4>
     </div>
     <div class="card-body">
-        <dl class="dl-horizontal">
+        <br>
+        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
 
-            <dt>
-                @Html.DisplayName("Nombres y Apellidos:")
-            </dt>
+            @Html.Raw(@ViewBag.Mensaje)
 
-            <dd>
-                @Html.DisplayFor(model => model.Primer_nombre)
-                @Html.DisplayFor(model => model.Segundo_nombre)
-                @Html.DisplayFor(model => model.Primer_apellido)
-                @Html.DisplayFor(model => model.Segundo_apellido)
-            </dd>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @if (Model != null)
+        {
+            <dl class="dl-horizontal">
 
-            <dt>
-                @Html.DisplayName("Dirección:")
-            </dt>
+                <dt>
+                    @Html.DisplayName("Nombres y Apellidos:")
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Direccion)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Primer_nombre)
+                    @Html.DisplayFor(model => model.Segundo_nombre)
+                    @Html.DisplayFor(model => model.Primer_apellido)
+                    @Html.DisplayFor(model => model.Segundo_apellido)
+                </dd>
 
-            <dt>
-                @Html.DisplayName("Teléfono:")
-            </dt>
+                <dt>
+                    @Html.DisplayName("Dirección:")
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Telefono)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Direccion)
+                </dd>
 
-            <dt>
-                @Html.DisplayName("Tipo de crédito:")
-            </dt>
+                <dt>
+                    @Html.DisplayName("Teléfono:")
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.tipo_credito.Descripcion)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Telefono)
+                </dd>
 
-        </dl>
-    </div>
+                <dt>
+                    @Html.DisplayName("Tipo de crédito:")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tipo_credito.Descripcion)
+                </dd>
+
+            </dl>
+            }
+        </div>
     <div class="card-footer text-center">
 
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
+            if (Model != null)
+            {
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-save"> Guardar</i>
                 </button>
-        }
-    </div>
+                }
+            }
+        </div>
 </div>

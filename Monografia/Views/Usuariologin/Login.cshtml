@@ -89,38 +89,37 @@
                                         <p class="text-center small">Ingrese usuario y contraseña</p>
                                     </div>
 
-                                    <form class="row g-3">
+                                    <form class="row g-3" method="post">
 
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Usuario</label>
                                             <div class="form-group has-icons ">
-                                                <span class="bi bi-person form-control-feedback"></span>
-                                                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @type = "text", @name = "username", @id = "yourUsername", @placeholder = "Dnavas" } })
-                                          
+                                                <i class="far fa-user fa-lg form-control-feedback" style="color: #0040ff;"></i>
+                                                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @type = "text", @name = "username", @id = "yourUsername" } })
+
                                             </div>
                                         </div>
 
                                         <div class="col-12">
                                             <label for="yourPassword" class="form-label">Contraseña</label>
                                             <div class="form-group has-icons">
-                                                <span class="bi bi-key form-control-feedback"></span>
+                                                <i class="fas fa-key fa-lg form-control-feedback" style="color: #0040ff;"></i>
                                                 <div class="password-container">
-                                                    @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @class = "form-control", @type = "password", @name = "password", @placeholder = "*********", @id = "yourPassword" } })
-                                                    <i class="bi bi-eye" id="eye"></i>
-                                                 
+                                                    @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @class = "form-control", @type = "password", @name = "password", @id = "yourPassword" } })
+                                                    <i class="far fa-eye fa-lg" id="eye" style="color: #4ef46f;"></i>
                                                 </div>
-                                               
-                                            </div>
 
+                                            </div>
+                                 
                                         </div>
 
 
 
                                         <div class="col-12">
-                                            <button id="btningreso" class="btn btn-primary w-100" >Ingresar al Sistema</button>
+                                            <button id="btningreso" type="submit" class="btn btn-primary w-100" >Ingresar al Sistema</button>
                                         </div>
                                     </form>
-
+                                    <input type="hidden" id="Mensaje" value="@ViewBag.mensaje" />
                                 </div>
                             </div>
 
@@ -144,11 +143,11 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jquerycustomproyecto")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryformularios")
     <script src="~/Scripts/showtoast.js"></script>
     <script src="~/Content/toast/toastr.js"></script>
-    @Scripts.Render("~/bundles/jqueryformularios")
-  
 
+  
 
 </body>
 

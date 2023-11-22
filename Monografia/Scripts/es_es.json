@@ -3,8 +3,8 @@
     "lengthMenu": "Mostrar _MENU_ registros",
     "zeroRecords": "No se encontraron resultados",
     "emptyTable": "Ningún dato disponible en esta tabla",
-    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+    "infoEmpty": " 0 de 0 registros",
+    "infoFiltered": "",
     "search": "Buscar:",
     "infoThousands": ",",
     "loadingRecords": "Cargando...",
@@ -120,8 +120,8 @@
     },
     "select": {
         "rows": {
-            "1": "1 fila seleccionada",
-            "_": "%d fila seleccionada"
+            "1": "",
+            "_": ""
         }
     },
     "thousands": ".",
@@ -191,5 +191,5 @@
             "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
         }
     },
-    "info": "Mostrando registros del _START_ al _END_, de un total de _TOTAL_ registros"
+    "info": "_END_ de _TOTAL_ registros"
 }

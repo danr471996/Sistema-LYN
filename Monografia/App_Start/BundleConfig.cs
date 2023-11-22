@@ -23,7 +23,7 @@ namespace Monografia
 
             bundles.Add(new Bundle("~/bundles/jquerycustomproyecto").Include(
                       "~/Scripts/vendor/apexcharts/apexcharts.min.js",
-                      "~/Scripts/vendor/bootstrap/js/bootstrap.bundle.min.js",
+                      "~/Scripts/bootstrap.bundle.min.js",
                       "~/Scripts/vendor/chartjs/chart.min.js",
                       "~/Scripts/vendor/echarts/echarts.min.js",
                       "~/Scripts/vendor/quill/quill.min.js",
@@ -38,14 +38,13 @@ namespace Monografia
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Content/bootstrap.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+              "~/Content/Estilos.css",
                       "~/Content/bootstrap.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/csscustomproyecto").Include(
-                    "~/Content/tooltip.css",
                      "~/Scripts/vendor/bootstrap-icons/bootstrap-icons.css",
                       "~/Scripts/vendor/boxicons/css/boxicons.min.css",
                        "~/Scripts/vendor/quill/quill.snow.css",

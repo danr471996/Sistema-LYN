@@ -6,76 +6,80 @@
 @Styles.Render("~/Scripts/Datatable")
 <div class="card border-start border-0 border-3 border-info">
     <div class="card-header">
-        <h4>Departamentos</h4>
+        <h4 class="text-center">Departamentos</h4>
     </div>
-   
-      
-        <div class="card-body">
-            <br>
-            <div class="row col-md-2">
+
+
+    <div class="card-body">
+        <br>
+        <div class="row">
+            <div class="col-md-2">
                 <a data-modal="" href=@Url.Action("Create", "Admin_departamentos") class="btn btn-primary"> <i class="fa fa-plus">Agregar</i></a>
             </div>
-            <br>
-            <br>
-            <table id="tbdepartamentos" class="table table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayName("Descripción")
-                        </th>
-                        <th>
-                            @Html.DisplayName("Estado")
-                        </th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-            {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Descripcion)
-                            </td>
-                            <td>
-                                @if (item.Estado == 1)
-                                {
-
-                                    <div class="form-control " style="width:40%; border-radius:100px;color:#37c406;text-align:center">
-                                        Activo
-
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="form-control " style="width:40%; border-radius:100px;color:#d00b0b;text-align:center">
-                                        Inactivo
-
-                                    </div>
-                                }
-                            </td>
-                            <td class="text-center">
-                                <a data-modal="" href=@Url.Action("Edit", "Admin_departamentos", new { id = item.Iddepartmento }) class="btn btn-success rounded-circle"> <i class="fa fa-edit"></i></a>
-                                <a data-modal="" href=@Url.Action("Delete", "Admin_departamentos", new { id = item.Iddepartmento }) class="btn btn-danger rounded-circle"> <i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-</table>
         </div>
+        <br>
+        <br>
+        <table id="tbdepartamentos" class="table table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th>
+                        @Html.DisplayName("Descripción")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Estado")
+                    </th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 0; // Inicializa el contador de fila
+                }
+                @foreach (var item in Model)
+                {
+                    i++;
+                    <tr>
+                        <td scope="row">@(i)</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @if (item.Estado == 1)
+                            {
 
+                                <span class="badge rounded-pill bg-light text-dark open-sans"><i class="fas fa-check fa-lg" style="color: #4ef46f;"></i> Activo</span>
+                            }
+                            else
+                            {
+                                <span class="badge rounded-pill bg-gradient text-dark open-sans"><i class="fas fa-times fa-lg" style="color: #ff0a0a;"></i>Inactivo</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <a data-modal="" href=@Url.Action("Edit", "Admin_departamentos", new { id = item.Iddepartmento })> <i class="far fa-edit fa-lg" style="color: #0040ff;"></i></a>&nbsp
+                            <a data-modal="" href=@Url.Action("Delete", "Admin_departamentos", new { id = item.Iddepartmento })><i class="far fa-trash-alt fa-lg" style="color: #ff0a0a;"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
+
+</div>
 
 
 @section Scripts
 {
     @Scripts.Render("~/bundles/datatables")
     <script type="text/javascript">
-            $(document).ready(function () {
+        $(function () {
                 $('#tbdepartamentos').DataTable({
                     "language": {
                         "url": "/Scripts/es_es.json"
-                    }
+                    },scrollX:true
                 })
+            var tableIds = ['tbdepartamentos']; // Lista de IDs de las tablas
+            redimensionatable(tableIds);
             });
 
     </script>

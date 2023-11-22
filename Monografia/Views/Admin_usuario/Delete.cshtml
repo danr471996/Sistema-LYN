@@ -7,35 +7,47 @@
         <h4>¿Está seguro de eliminar este usuario?</h4>
     </div>
     <div class="card-body">
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayName("Nombre")
-            </dt>
+        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
 
-            <dd>
-                @*@Html.DisplayFor(model => model.usuario_detalle)
-                @Html.DisplayFor(model => model.usuario_detalle.Segundo_nombre)
-                @Html.DisplayFor(model => model.usuario_detalle.Primer_apellido)
-                @Html.DisplayFor(model => model.usuario_detalle.Segundo_apellido)*@
-            </dd>
+            @Html.Raw(@ViewBag.Mensaje)
 
-            <dt>
-                @Html.DisplayName("Perfil")
-            </dt>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @if (Model != null)
+        {
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayName("Nombre")
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.usuarios_perfiles.Descripcion_perfil)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.usuario_detalle.FirstOrDefault().Primer_nombre)
+                    @Html.DisplayFor(model => model.usuario_detalle.FirstOrDefault().Segundo_nombre)
+                    @Html.DisplayFor(model => model.usuario_detalle.FirstOrDefault().Primer_apellido)
+                    @Html.DisplayFor(model => model.usuario_detalle.FirstOrDefault().Segundo_apellido)
+                </dd>
 
-        </dl>
-    </div>
+                <dt>
+                    @Html.DisplayName("Perfil")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.usuarios_perfiles.Descripcion_perfil)
+                </dd>
+
+            </dl>
+        }
+        </div>
     <div class="card-footer text-center">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
+            if (Model != null)
+            {
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-save"> Guardar</i>
                 </button>
-        }
-    </div>
+                }
+            }
+        </div>
 </div>

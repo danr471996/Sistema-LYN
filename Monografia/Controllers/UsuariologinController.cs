@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Monografia.Models;
 using System.Web.Security;
+
+
 
 namespace Monografia.Controllers
 {
@@ -25,57 +24,73 @@ namespace Monografia.Controllers
         }
 
         [HttpPost]
-        public  ActionResult Login(usuarios_tienda usuariologin)
+        public ActionResult Login(usuarios_tienda usuariologin)
         {
            
             try
             {
-        
-            var login =  db.usuarios_tienda.Where(x =>x.Login.Equals(usuariologin.Login)
+                if (usuariologin.Login==null && usuariologin.Contraseña == null) { 
+                    ViewBag.mensaje = "Debe ingresar usuario y contraseña para ingresar al sistema,Favor verifique";
+                    return View();
+                }
+
+                if (usuariologin.Login == null )
+                {
+                    ViewBag.mensaje = "Debe ingresar usuario para ingresar al sistema,Favor verifique";
+                    return View();
+                }
+
+                if (usuariologin.Contraseña == null)
+                {
+                    ViewBag.mensaje = "Debe ingresar contraseña para ingresar al sistema,Favor verifique";
+                    return View();
+                }
+
+                var datoslogin =  db.usuarios_tienda.Where(x =>x.Login.Equals(usuariologin.Login)
                                 && x.Contraseña.Equals(usuariologin.Contraseña) && x.Estado_usuario==1).FirstOrDefault();
 
                 
-               if (login != null)
+               if (datoslogin != null)
                 {
-                    Session["Idusuario"] = login.Idusuario;
-                    Session["usuario_logueado"] = login.Login;
-                    Session["Nombreuusuario"] = login.usuario_detalle.FirstOrDefault().Primer_nombre + " " + login.usuario_detalle.FirstOrDefault().Primer_apellido;
-                    Session["Perfil"] = login.usuarios_perfiles.Descripcion_perfil;
-
-                    var sesion = login.usuario_sesion.Where(x=>x.Estado==1).FirstOrDefault();
+                    Session["Idusuario"] = datoslogin.Idusuario;
+                    Session["usuario_logueado"] = datoslogin.Login;
+                    Session["Nombreuusuario"] = datoslogin.usuario_detalle.FirstOrDefault().Primer_nombre + " " + datoslogin.usuario_detalle.FirstOrDefault().Primer_apellido;
+                    Session["Perfil"] = datoslogin.usuarios_perfiles.Descripcion_perfil;
+           
+                    var sesion = datoslogin.usuario_sesion.Where(x=>x.Estado==1).FirstOrDefault();
                     if (sesion != null)
                     {
-                 
-                        return Json(new { success = false,mensaje="Usuario tiene sesion abierta,comuniquese con el administrador." });
+                        ViewBag.mensaje = "Usuario tiene sesion abierta,comuniquese con el administrador.";
+                        return View();
                     }
                     else {
                         datosesion = new usuario_sesion();
-                        datosesion.Usuario_alta = login.Login;
+                        datosesion.Usuario_alta = datoslogin.Login;
                         datosesion.Fecha_alta = DateTime.Now;
-                        datosesion.Idusuario = login.Idusuario;
+                        datosesion.Idusuario = datoslogin.Idusuario;
                         datosesion.Estado = 1;
                         db.usuario_sesion.Add(datosesion);
                         db.SaveChanges();
                     
-                        return Json(new { success = true });
+                        return RedirectToAction("Paginainicio");
                     }
                  
 
                 }
                 else
                 {
-        
-                  return  Json(new { success = false, mensaje = "El usuario digitado no se encuentra registrado, favor comuniquese con el administrador" ,existeusuario=false});
+                    ViewBag.mensaje = "El usuario digitado no se encuentra registrado, favor comuniquese con el administrador";
+                    return View();
+                 
                 }
 
             }
             catch (Exception ex)
             {
-                return View();
+                throw;
             }
         }
-
-
+  
         public ActionResult Paginainicio(string filtroventas,string filtroingresos,string filtroclientes)
         {
             int cantidadventas = 0,cantidadclientes=0;
@@ -170,13 +185,13 @@ namespace Monografia.Controllers
 
             for (int i = 1; i < 13; i++)
             {
-                cantidadventas= datosfactura.Where(x => x.Fecha_alta.Month == i).Count();
+                cantidadventas= datosfactura.Where(x => x.Fecha_alta.Month == i && x.Fecha_alta.Year==DateTime.Now.Year).Count();
                 listventas.Add(cantidadventas);
 
-                cantidadingresos = datosfactura.Where(x => x.Fecha_alta.Month == i).Select(x => x.Monto_total).Sum();
+                cantidadingresos = datosfactura.Where(x => x.Fecha_alta.Month == i && x.Fecha_alta.Year == DateTime.Now.Year).Select(x => x.Monto_total).Sum();
                 listingresos.Add(cantidadingresos);
 
-                cantidadclientes = datosfactura.Where(x => x.Fecha_alta.Month == i).Count();
+                cantidadclientes = datosfactura.Where(x => x.Fecha_alta.Month == i && x.Fecha_alta.Year == DateTime.Now.Year).Count();
 
                 listclientes.Add(cantidadclientes);
             }
@@ -224,33 +239,86 @@ namespace Monografia.Controllers
             return View(db.usuario_sesion.Where(x =>x.Estado==1).ToList());
         }
 
-        public ActionResult Delete(int idsesion)
+        public ActionResult Delete(int? idsesion)
         {
-            usuario_sesion ussesiones = db.usuario_sesion.Find(idsesion);
-            return PartialView(ussesiones);
-        }
-
-        // POST: clientes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
+        
+            usuario_sesion ussesiones = null;
             try
             {
-                var datosusuarios = (from d in db.usuario_sesion where d.Idusuario_sesion == id select d).FirstOrDefault();
-                datosusuarios.Fecha_baja = DateTime.Now;
-                datosusuarios.Usuario_baja = (string)Session["usuario_logueado"];
-                datosusuarios.Estado = 2;
-                db.SaveChanges();
-                return Json(new { success = true, mensaje = "Se ha eliminado la sesion del usuario satisfactoriamente." });
+                if (idsesion != 0 && idsesion != null)
+                {
+                    ussesiones = db.usuario_sesion.Find(idsesion);
+
+                    if (ussesiones != null)
+                    {
+                        return PartialView(ussesiones);
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro sesion de usuario";
+                        return PartialView(ussesiones);
+                    }
+                }
+                else
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de sesion usuario erroneo";
+                    return PartialView(ussesiones);
+                }
+
+
             }
             catch (Exception ex)
             {
 
                 throw;
             }
+        }
+
+        // POST: clientes/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int? id)
+        {
+
+            try
+            {
+                usuario_sesion datosusuariossesion = null;
+                if (id != 0 && id != null)
+                {
+                    datosusuariossesion=(from d in db.usuario_sesion where d.Idusuario_sesion == id select d).FirstOrDefault();
+
+                    if (datosusuariossesion != null)
+                    {
+
+                        datosusuariossesion.Fecha_baja = DateTime.Now;
+                        datosusuariossesion.Usuario_baja = (string)Session["usuario_logueado"];
+                        datosusuariossesion.Estado = 2;
+                        db.SaveChanges();
+                        return Json(new { success = true, mensaje = "Se ha eliminado la sesion del usuario satisfactoriamente." });
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro sesion de usuario";
+                        return PartialView(datosusuariossesion);
+                    }
+                }
+                else
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de sesion usuario erroneo";
+                    return PartialView(datosusuariossesion);
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
 
         }
+
 
         protected override void Dispose(bool disposing)
         {

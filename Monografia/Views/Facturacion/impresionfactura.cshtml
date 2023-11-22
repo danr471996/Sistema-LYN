@@ -1,23 +1,33 @@
 ﻿
 @Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/jqueryformularios")
+
 
     <div class="card">
         <div class="card-header">
             <h4>Impresion</h4>
         </div>
         <div class="card-body">
-            <input id="idfactura" type="hidden" name="idfactura" value="@ViewBag.idfactura" />
-            <br>
-                <iframe id="docfactura" src="@(Url.Action("getpdf", "Facturacion", new {idfactura=@ViewBag.idfactura}) + "#toolbar=0")" title="testPdf" width="100%" height="400px"></iframe>
-           
-            <br>
-        </div>
-        <div class="card-footer text-center">
+            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
 
-            <button class="btn btn-outline-info" id="btndescargar">
-                <i class="fa fa-file-download">Descargar factura </i>
-            </button>
-        </div>
+                @Html.Raw(@ViewBag.Mensaje)
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @if (ViewBag.Mensaje == null)
+            {
+                <input id="idfactura" type="hidden" name="idfactura" value="@((ViewBag.idfactura ?? 0).ToString())" />
+                <br>
+                <iframe id="docfactura" src="@(Url.Action("getpdf", "Facturacion", new { idfactura = @ViewBag.idfactura == null ? 0 : ViewBag.idfactura }) + "#toolbar=0")" title="testPdf" width="100%" height="400px"></iframe>
+            }
+                <br>
+            </div>
+        <div class="card-footer text-center">
+            @if (ViewBag.Mensaje == null)
+            {
+                <button class="btn btn-outline-info" id="btndescargar">
+                    <i class="fa fa-file-download">Descargar factura </i>
+                </button>
+            }
+            </div>
     </div>
 

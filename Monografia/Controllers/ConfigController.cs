@@ -5,16 +5,19 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace Monografia.Controllers
 {
     public class ConfigController : Controller
     {
         private proyectotiendaEntities db = new proyectotiendaEntities();
-        static Modelo_Config Modelo_actual = new Modelo_Config();
+        private Modelo_Config Modelo_actual = new Modelo_Config();
         static string coneccion = ConfigurationManager.ConnectionStrings["proyectotiendaEntities"].ConnectionString;
         static string[] coneccion_info = coneccion.Split(';');
         static string directorio_respaldo = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Respaldos\\";
@@ -363,48 +366,319 @@ namespace Monografia.Controllers
             return (op);
         }
         //************************************* PERFILES
-
-        public ActionResult Perfiles()
+        public ActionResult Lista_perfiles()
         {
-            Modelo_actual.checksboxes = obtener_checkboxs();
             Modelo_actual.perfiles_usuarios = consultar_perfiles();
             return View(Modelo_actual);
+        }
+
+
+        public ActionResult Create()
+        {
+            Modelo_actual.checksboxes = obtener_checkboxs();
+            return PartialView(Modelo_actual);
         }
 
 
         [HttpPost]
-        public ActionResult Perfiles(Modelo_Config lista_check)
+        public ActionResult Create(Modelo_Config lista_check)
         {
-            string perfil;
-            StringBuilder cadena = new StringBuilder();
-            cadena.Append("|");
-            foreach (var item in lista_check.checksboxes)
-            {
-                if (item.seleccionado)
-                {
-                    cadena.Append(item.id + "|");
-                }
-            }
-            //ViewBag.selectcheck = cadena.ToString();
+            string perfil= Request["txtperfil"].ToString();
+            ViewBag.nomperfil = perfil;
+            if (validadinputs(perfil)) {
 
-            perfil = Request["txtperfil"].ToString();
-            introducir_perfil(perfil, cadena.ToString());
-            Modelo_actual.perfiles_usuarios = consultar_perfiles();
-            Modelo_actual.checksboxes = obtener_checkboxs();
-            return View(Modelo_actual);
+                if (db.usuarios_perfiles.Where(x => x.Descripcion_perfil.ToUpper() == perfil.ToUpper()).FirstOrDefault() == null)
+                {
+                    StringBuilder cadena = new StringBuilder();
+                cadena.Append("|");
+                foreach (var item in lista_check.checksboxes)
+                {
+                    if (item.seleccionado)
+                    {
+                        cadena.Append(item.id + "|");
+                    }
+                }
+
+                var resultado = introducir_perfil(perfil, cadena.ToString(), DateTime.Now, (string)Session["usuario_logueado"]);
+                if (resultado == "insertado")
+                {
+                    return Json(new { success = true, mensaje = "Se ha creado perfil satisfactoriamente." });
+                }
+                else
+                {
+
+                    return PartialView(lista_check);
+                    }
+                }
+                else
+                {
+                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un perfil con la misma descripcion<br>";
+                    return PartialView(lista_check);
+                }
+            } else {
+                return PartialView(lista_check);
+            }
+
+         
+           
         }
 
-        private string introducir_perfil(string perfil, string codigo)
+        public ActionResult Edit(int? id,string nomperfil)
+        {
+            ViewBag.nomperfil = nomperfil;
+            Modelo_actual = null;
+        
+
+            if (id != 0 && id != null)
+                {
+                var datosperfiles = db.usuarios_perfiles.Find(id);
+                if (datosperfiles != null)
+                {
+
+                    Modelo_actual = new Modelo_Config
+                    {
+                        perfiles_usuarios = new List<perfiles>(),
+                        checksboxes = new List<checkboxs>()
+                    };
+
+                    Modelo_actual.perfiles_usuarios.Add(new perfiles
+                    {
+                        Idperfil = Convert.ToInt32(id)
+                    });
+
+                    Modelo_actual.checksboxes = obtener_checkboxs_mod(Convert.ToInt32(id));
+
+                    return PartialView(Modelo_actual);
+                }
+                else
+                {
+
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro perfil";
+                    return PartialView(Modelo_actual);
+                }
+            }
+                else
+                {
+
+                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de perfil erroneo";
+                    return PartialView(Modelo_actual);
+                }
+        
+          
+
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Modelo_Config lista_check,perfiles datoperfil)
+        {
+            string perfil = Request["txtperfil"].ToString();
+            ViewBag.nomperfil = perfil;
+
+            lista_check.perfiles_usuarios = new List<perfiles> {
+                                                                 new perfiles
+                                                                  {
+                                                                   Idperfil = Convert.ToInt32(datoperfil.Idperfil)
+                                                                   }
+                                                                   };
+            if (validadinputs(perfil))
+                {
+                var datosperfiles = db.usuarios_perfiles.Find(datoperfil.Idperfil);
+                        if (datosperfiles != null)
+                        {
+
+                    if (db.usuarios_perfiles.Where(x => x.Descripcion_perfil.ToUpper() == perfil.ToUpper() && x.Id_perfil!=datoperfil.Idperfil).FirstOrDefault() == null)
+                    {
+                        StringBuilder cadena = new StringBuilder();
+                            cadena.Append("|");
+                            foreach (var item in lista_check.checksboxes)
+                            {
+                                if (item.seleccionado)
+                                {
+                                    cadena.Append(item.id + "|");
+                                }
+                            }
+
+                            var resultado = Actualizar_perfil(Convert.ToInt32(datoperfil), perfil, cadena.ToString());
+                            if (resultado == "actualizado")
+                            {
+                                return Json(new { success = true, mensaje = "Se ha actualizado perfil satisfactoriamente." });
+                            }
+                            else
+                            {
+
+                                return PartialView(lista_check);
+                            }
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un perfil con la misma descripcion<br>";
+                        return PartialView(lista_check);
+                    }
+                }
+                        else {
+                             ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro perfil";
+                            return PartialView(lista_check);
+                        }
+                }
+                else
+                {
+                return PartialView(lista_check);
+                }
+   
+
+
+
+        }
+
+
+        public ActionResult Delete(int? id)
+        {
+            Modelo_actual = null;
+
+
+            if (id != 0 && id != null)
+            {
+                var datosperfiles = db.usuarios_perfiles.Find(id);
+                if (datosperfiles != null)
+                {
+
+                    Modelo_actual = new Modelo_Config
+                    {
+                        perfiles_usuarios = new List<perfiles>(),
+                    };
+
+                    Modelo_actual.perfiles_usuarios.Add(new perfiles
+                    {
+                        Idperfil = Convert.ToInt32(datosperfiles.Id_perfil),
+                        nom_perfil = datosperfiles.Descripcion_perfil
+                    }) ;
+
+                    return PartialView(Modelo_actual);
+                }
+                else
+                {
+
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro perfil";
+                    return PartialView(Modelo_actual);
+                }
+            }
+            else
+            {
+
+                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de perfil erroneo";
+                return PartialView(Modelo_actual);
+            }
+
+
+        }
+
+        // POST: clientes/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int? id)
+        {
+
+            try
+            {
+                Modelo_actual = null;
+                if (id != 0 && id != null)
+                {
+                    var datosperfiles = db.usuarios_perfiles.Find(id);
+
+                    if (datosperfiles != null)
+                    {
+
+                        datosperfiles.Fecha_baja = DateTime.Now;
+                        datosperfiles.Usuario_baja = (string)Session["usuario_logueado"];
+                        datosperfiles.Estado = 2;
+                        db.SaveChanges();
+                        return Json(new { success = true, mensaje = "Se ha inactivado el perfil satisfactoriamente." });
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro perfil";
+                        return PartialView(Modelo_actual);
+                    }
+                }
+                else
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de perfil erroneo";
+                    return PartialView(Modelo_actual);
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
+        public Boolean validadinputs(string datosperfil)
+        {
+            Boolean valid = true;
+            if (String.IsNullOrEmpty(datosperfil))
+            {
+                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la descripción del perfil<br>";
+                valid = false;
+            }
+
+
+            return valid;
+        }
+        private string introducir_perfil(string perfil, string codigo,DateTime fechaalta,string usuarioalta)
         {
             MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
             mysqlcon.Open();
 
             try
             {
-                MySqlCommand comando = new MySqlCommand("INSERT INTO usuarios_perfiles (perfil,codigo_perfil) values ('" + perfil + "','" + codigo + "')  ON DUPLICATE KEY UPDATE codigo_perfil ='" + codigo + "'", mysqlcon);
-                comando.ExecuteNonQuery();
+             
+                string query = "INSERT INTO usuarios_perfiles (Fecha_alta,Usuario_alta,Descripcion_perfil,Codigo_accesos_perfil,Estado) values (@FechaAlta,@UsuarioAlta,@DescripcionPerfil,@CodigoAccesosPerfil,1)";
+                using (MySqlCommand comando = new MySqlCommand(query, mysqlcon))
+                {
+                    comando.Parameters.AddWithValue("@FechaAlta", fechaalta.ToString("yyyy-MM-dd HH:mm:ss"));
+                    comando.Parameters.AddWithValue("@UsuarioAlta", usuarioalta);
+                    comando.Parameters.AddWithValue("@DescripcionPerfil", perfil);
+                    comando.Parameters.AddWithValue("@CodigoAccesosPerfil", codigo);
+
+                    comando.ExecuteNonQuery();
+                    
+                }
                 mysqlcon.Close();
+
                 return ("insertado");
+            }
+            catch
+            {
+                mysqlcon.Close();
+                return ("fallido");
+            }
+        }
+
+        private string Actualizar_perfil(int idperfil,string perfil, string codigo)
+        {
+            MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
+            mysqlcon.Open();
+
+            try
+            {
+           
+                string query = "UPDATE usuarios_perfiles SET Descripcion_perfil = @DescripcionPerfil, Codigo_accesos_perfil = @CodigoAccesosPerfil WHERE Id_perfil=@idperfil";
+                using (MySqlCommand comando = new MySqlCommand(query, mysqlcon))
+                {
+                    comando.Parameters.AddWithValue("@DescripcionPerfil", perfil);
+                    comando.Parameters.AddWithValue("@CodigoAccesosPerfil", codigo);
+                    comando.Parameters.AddWithValue("@idperfil", idperfil);
+                    comando.ExecuteNonQuery();
+
+                }
+                mysqlcon.Close();
+
+                return ("actualizado");
             }
             catch
             {
@@ -417,14 +691,13 @@ namespace Monografia.Controllers
         {
             MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
             mysqlcon.Open();
-            MySqlCommand comando = new MySqlCommand("SELECT Descripcion_perfil FROM proyectotienda.usuarios_perfiles", mysqlcon);
+            MySqlCommand comando = new MySqlCommand("SELECT Id_perfil,Descripcion_perfil,Estado FROM proyectotienda.usuarios_perfiles", mysqlcon);
             MySqlDataReader lector = comando.ExecuteReader();
-            List<perfiles> lista_perfiles = new List<perfiles>();
 
             List<perfiles> perfiles = new List<perfiles>();
             while (lector.Read())
             {
-                perfiles.Add(new perfiles() { nom_perfil = lector["Descripcion_perfil"].ToString() });
+                perfiles.Add(new perfiles() { Idperfil= Convert.ToInt32(lector["Id_perfil"]), nom_perfil = lector["Descripcion_perfil"].ToString(), estado = Convert.ToInt32( lector["Estado"]) });
             }
 
             mysqlcon.Close();
@@ -449,34 +722,27 @@ namespace Monografia.Controllers
             return (check);
         }
 
-        private List<checkboxs> obtener_checkboxs_mod(string perfil)
+        private List<checkboxs> obtener_checkboxs_mod(int idperfil)
         {
-            MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
-            mysqlcon.Open();
-            MySqlCommand comando = new MySqlCommand("SELECT Id_permiso,Descripcion,((select codigo_accesos_perfil from usuarios_perfiles where Descripcion_perfil = '" + perfil + "') like (CONCAT('%|',Id_permiso,'|%')) ) AS SELECCIONADO,GRUPO,INICIO_GRUPO FROM lista_permisos order by Id_permiso,inicio_grupo", mysqlcon);
-            MySqlDataReader lector = comando.ExecuteReader();
+          
+                MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
+                mysqlcon.Open();
+                MySqlCommand comando = new MySqlCommand("SELECT Id_permiso,Descripcion,((select codigo_accesos_perfil from usuarios_perfiles where Id_perfil = '" + idperfil + "') like (CONCAT('%|',Id_permiso,'|%')) ) AS SELECCIONADO,GRUPO,INICIO_GRUPO FROM lista_permisos order by Id_permiso,inicio_grupo", mysqlcon);
+                MySqlDataReader lector = comando.ExecuteReader();
 
-            List<checkboxs> check = new List<checkboxs>();
-            while (lector.Read())
-            {
-                check.Add(new checkboxs() { id = lector["Id_permiso"].ToString(), texto = lector["Descripcion"].ToString(), seleccionado = Convert.ToBoolean(lector["SELECCIONADO"]), nombre_grupo = lector["GRUPO"].ToString(), inicio_grupo = Convert.ToBoolean(lector["INICIO_GRUPO"]) });
-            }
+                List<checkboxs> check = new List<checkboxs>();
 
-            mysqlcon.Close();
-            return (check);
-        }
-        public ActionResult Modificar_pf(string nombre_perfil)
-        {
-            Modelo_actual.checksboxes = obtener_checkboxs_mod(nombre_perfil);
-            ViewData["txtperfil"] = nombre_perfil;
-            return View("Perfiles", Modelo_actual);
-        }
+                while (lector.Read())
+                {
+                    check.Add(new checkboxs() { id = lector["Id_permiso"].ToString(), texto = lector["Descripcion"].ToString(), seleccionado = Convert.ToBoolean(lector["SELECCIONADO"]), nombre_grupo = lector["GRUPO"].ToString(), inicio_grupo = Convert.ToBoolean(lector["INICIO_GRUPO"]) });
 
-        public ActionResult Eliminar_pf(string nombre_perfil)
-        {
-            Modelo_actual.perfiles_usuarios = consultar_perfiles();
-            return View("Perfiles", Modelo_actual);
+                }
+
+                mysqlcon.Close();
+                return (check);
+          
         }
+    
 
         //************************************* SIMBOLODEMONEDA
 

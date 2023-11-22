@@ -1,0 +1,85 @@
+﻿@model Monografia.Models.Modelo_contenedor.Factura
+
+@{
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+     }
+@using (Html.BeginForm("Venta", "Facturacion", FormMethod.Post))
+{
+
+    <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-12">
+            <div class="row">
+
+                <!-- base de datos Card -->
+                <div class="col-xxl-3 col-md-3">
+                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-info">
+                        <h5 class="card-title text-center">Entradas de efectivo</h5>
+                        <div class="card-body">
+
+                   
+                        </div>
+
+                    </div>
+
+                </div><!-- End base de datos Card -->
+                <!-- Customers Card -->
+                <div class="col-xxl-3 col-md-3">
+                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-success">
+                        <h5 class="card-title text-center">Dinero en caja</h5>
+                        <div class="card-body">
+             
+                        </div>
+
+                    </div>
+
+                </div><!-- End Customers Card -->
+                <!-- folios Card -->
+                <div class="col-xxl-3 col-md-3">
+                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-warning">
+                        <h5 class="card-title text-center">Pagos de contado</h5>
+                        <div class="card-body">
+                 
+                        </div>
+
+                    </div>
+                </div><!-- End folios Card -->
+                <!-- Articulos precargados Card -->
+                <div class="col-xxl-3 col-md-3">
+                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-danger">
+                        <h5 class="card-title text-center">Ventas por Departamento</h5>
+                        <div class="card-body">
+     
+                        </div>
+
+                    </div>
+                </div><!-- End Articulos precargados Card -->
+
+            
+
+
+            </div>
+        </div>
+
+        <div class="card border-top border-0 border-3 border-success">
+            <div class="card-header">
+            
+                <a data-modal="" href=@Url.Action("Edit", "Admin_clientes") class="btn btn-outline-success"> <i class="fa fa-cash-register">Pago de clientes</i></a>
+
+                <a data-modal="" href=@Url.Action("Edit", "Admin_clientes") class="btn btn-outline-success"> <i class="fa fa-industry">Pago a proveedores</i></a>
+              </div>
+
+
+        </div>
+    </div>
+
+}
+
+
+
+
+           
+          
+
+

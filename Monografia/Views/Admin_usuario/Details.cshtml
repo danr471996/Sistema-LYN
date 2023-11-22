@@ -5,36 +5,45 @@
         <h2>Detalle usuarios</h2>
     </div>
     <div class="card-body">
-        <dl class="dl-horizontal">
+        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
 
-            <dt>
-                @Html.DisplayName("Nombre")
-            </dt>
+            @Html.Raw(@ViewBag.Mensaje)
 
-            <dd>
-                @Html.DisplayFor(model => model.usuario_detalle.Primer_nombre)
-                @Html.DisplayFor(model => model.usuario_detalle.Segundo_nombre)
-                @Html.DisplayFor(model => model.usuario_detalle.Primer_apellido)
-                @Html.DisplayFor(model => model.usuario_detalle.Segundo_apellido)
-            </dd>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @if (Model != null)
+        {
+            <dl class="dl-horizontal">
+
+                <dt>
+                    @Html.DisplayName("Nombre")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.usuario_detalle.Primer_nombre)
+                    @Html.DisplayFor(model => model.usuario_detalle.Segundo_nombre)
+                    @Html.DisplayFor(model => model.usuario_detalle.Primer_apellido)
+                    @Html.DisplayFor(model => model.usuario_detalle.Segundo_apellido)
+                </dd>
 
 
-            <dt>
-                @Html.DisplayName("Dirección")
-            </dt>
+                <dt>
+                    @Html.DisplayName("Dirección")
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.usuario_detalle.Direccion)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.usuario_detalle.Direccion)
+                </dd>
 
-            <dt>
-                @Html.DisplayName("Teléfono")
-            </dt>
+                <dt>
+                    @Html.DisplayName("Teléfono")
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.usuario_detalle.Telefono)
-            </dd>
-        </dl>
-    </div>
+                <dd>
+                    @Html.DisplayFor(model => model.usuario_detalle.Telefono)
+                </dd>
+            </dl>
+        }
+            </div>
 
 </div>

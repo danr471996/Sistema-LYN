@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Monografia.Models.clientes>
 @Scripts.Render("~/bundles/jqueryval")
-@Styles.Render("~/Scripts/Datatable")
+
 
 @using (Html.BeginForm("Facturar", "Facturacion", FormMethod.Post))
 {
@@ -12,265 +12,210 @@
         <div class="card-body">
             @Html.Hidden("numeroticket", (int)ViewBag.numticket)
             @Html.Hidden("idcliente")
-            
-         <br>
 
-            <!-- Bordered Tabs -->
-            <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
-                <li class="nav-item active" role="presentation">
-                  
-                    <img src="~/images/debit-card.png" style="width:110px; margin-left:100px" class="nav-link active" id="imgcredito" data-bs-toggle="tab" data-bs-target="#bordered-credito" role="tab" aria-controls="home" aria-selected="true"/>
-              <span style="margin-left:120px">Crédito</span>
-                </li>
-             
-                <li class="nav-item" role="presentation">
-                    <img src="~/images/cash-machine.png" style="width:110px; margin-left:100px" class="nav-link" id="imgefectivo" data-bs-toggle="tab" data-bs-target="#bordered-efectivo" role="tab" aria-controls="home" aria-selected="true" />
-                    <span style="margin-left:70px">Efectivo o transferencia</span>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <img src="~/images/cash-flow.png" style="width:110px; margin-left:100px" class="nav-link" id="imgdolares" data-bs-toggle="tab" data-bs-target="#bordered-dolares" role="tab" aria-controls="home" aria-selected="true" />
-                    <span style="margin-left:120px">Dolares</span>
-                </li>
-            </ul>
-            <div class="tab-content pt-2" id="borderedTabContent">
-                <div class="tab-pane fade show active"  id="bordered-credito" role="tabpanel" aria-labelledby="home-tab">
-                    <br />
-                    <br />
-                    <table id="tbclientes" class="table table-bordered" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>
-                                    @Html.DisplayName("Nombres y Apellidos")
-                                </th>
-                                <th>
-                                    Seleccione cliente
-                                </th>
-                            </tr>
+            <br>
 
-                        </thead>
+            @if (ViewBag.Mensaje == null)
+            {
+                <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@((ViewBag.cobroesmenor!=null && ViewBag.cobroesmenor!=null) || ViewBag.metodospago!=null ? "display: block;" : "display: none;")" role="alert">
 
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Primer_nombre)
-                                        @Html.DisplayFor(modelItem => item.Segundo_nombre)
-                                        @Html.DisplayFor(modelItem => item.Primer_apellido)
-                                        @Html.DisplayFor(modelItem => item.Segundo_apellido)
-                                    </td>
-                                    <td class="text-center">
+                    @Html.Raw(@ViewBag.cobroesmenor == null ? @ViewBag.metodospago : ViewBag.cobromenorventa)
 
-                                        <button id="btn-select" value="@item.Idcliente" style="display: inline-block;" class="btn btn-outline-primary btn-select" onclick="selectButton(this)">Seleccionar</button>
-                                        <button id="btn-checked" style="display: none;" onclick="desselectButton(this)" class="btn btn-outline-success btn-checked"><i class="fas fa-check"></i></button>
-                                    </td>
-                                </tr>
-                            }
-
-                        </tbody>
-
-                    </table>
-
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="tab-pane fade" id="bordered-efectivo" role="tabpanel" aria-labelledby="profile-tab">
-                    <br />
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-5">
-                            @Html.Label("Total a pagar:C$", htmlAttributes: new { @class = "form-label" })
-                        </div>
-                        <div class="col-sm-4">
-                            @Html.Raw(@ViewBag.totalpago)
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-5">
-                            @Html.Label("Monto en efectivo", htmlAttributes: new { @class = "form-label" })
-                        </div>
-                        <div class="col-sm-4">
-                            @Html.Editor("montopago", new { htmlAttributes = new { @class = "form-control", @oninput = "handleChange(this)" } })
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-5">
-                            @Html.Label("Vuelto", htmlAttributes: new { @class = "form-label" })
-                        </div>
-                        <div class="col-sm-4">
-                            @Html.Editor("montovuelto", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                        </div>
-                    </div>
+                <!-- Bordered Tabs -->
+                <ul class="nav nav-tabs nav-tabs-bordered justify-content-center" id="borderedTab" role="tablist">
+                    <li class="nav-item active d-flex flex-column align-items-center" role="presentation">
+                        <img src="~/images/debit-card.png" style="width:110px; margin-bottom:5px;" class="nav-link active" id="imgcredito" data-bs-toggle="tab" data-bs-target="#bordered-credito" role="tab" aria-controls="home" aria-selected="true" />
+                        <span>Crédito</span>
+                    </li>
 
+                    <li class="nav-item d-flex flex-column align-items-center" role="presentation">
+                        <img src="~/images/cash-machine.png" style="width:110px; margin-bottom:5px;" class="nav-link" id="imgefectivo" data-bs-toggle="tab" data-bs-target="#bordered-efectivo" role="tab" aria-controls="home" aria-selected="true" />
+                        <span>Efectivo o transf.</span>
+                    </li>
+
+                    <li class="nav-item d-flex flex-column align-items-center" role="presentation">
+                        <img src="~/images/cash-flow.png" style="width:110px; margin-bottom:5px;" class="nav-link" id="imgdolares" data-bs-toggle="tab" data-bs-target="#bordered-dolares" role="tab" aria-controls="home" aria-selected="true" />
+                        <span>Dólares</span>
+                    </li>
+                </ul>
+                <div class="tab-content pt-2" id="borderedTabContent">
+                    <div class="tab-pane fade show active" id="bordered-credito" role="tabpanel" aria-labelledby="home-tab">
+                        <br />
+                        <br />
+                        @if (ViewBag.Listclientact == null)
+                        {
+                            <table id="tbclientes" class="table table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("Nombres y Apellidos")
+                                        </th>
+                                        <th>
+                                            Seleccione cliente
+                                        </th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Primer_nombre)
+                                                @Html.DisplayFor(modelItem => item.Segundo_nombre)
+                                                @Html.DisplayFor(modelItem => item.Primer_apellido)
+                                                @Html.DisplayFor(modelItem => item.Segundo_apellido)
+                                            </td>
+                                            <td class="text-center">
+
+                                                <button type="button" id="btn-select" value="@item.Idcliente" style="display: inline-block;" class="btn btn-outline-primary btn-select" onclick="selectButton(this)">Seleccionar</button>
+                                                <button type="button" id="btn-checked" style="display: none;" onclick="desselectButton(this)" class="btn btn-outline-success btn-checked"><i class="fas fa-check"></i></button>
+                                            </td>
+                                        </tr>
+                                    }
+
+
+
+
+                                </tbody>
+
+                            </table>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Listclientact!=null ? "display: block;" : "display: none;")" role="alert">
+
+                                @Html.Raw(@ViewBag.Listclientact)
+
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="tab-pane fade" id="bordered-efectivo" role="tabpanel" aria-labelledby="profile-tab">
+                        <br />
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-5">
+                                @Html.Label("Total a pagar:C$", htmlAttributes: new { @class = "form-label" })
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.Raw(@ViewBag.totalpago)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                @Html.Label("Monto en efectivo", htmlAttributes: new { @class = "form-label" })
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.Editor("montopago", new { htmlAttributes = new { @class = "form-control", @oninput = "handleChange(this)", @value = "0", @min = "0", @onkeypress = "return (event.charCode != 8 && event.charCode != 0 && (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)" } })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                @Html.Label("Vuelto", htmlAttributes: new { @class = "form-label" })
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.Editor("montovuelto", "0", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="bordered-dolares" role="tabpanel" aria-labelledby="contact-tab">
+                        <br />
+                        <br />
+                        @if (ViewBag.cobrodolar == null)
+                        {
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    @Html.Label("Total a pagar:C$", htmlAttributes: new { @class = "form-label" })
+                                </div>
+                                <div class="col-sm-4">
+                                    @Html.Raw(@ViewBag.totalpagodolar)
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    @Html.Label("Tipo cambio de dolar:C$", htmlAttributes: new { @class = "form-label" })
+                                </div>
+                                <div class="col-sm-4">
+                                    @Html.Raw(@ViewBag.cambiodolar)
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    @Html.Label("Monto en dolares", htmlAttributes: new { @class = "form-label" })
+                                </div>
+                                <div class="col-sm-4">
+                                    @Html.Editor("montopagodolar", "0", new { htmlAttributes = new { @class = "form-control", @oninput = "handleChange(this)", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    @Html.Label("Vuelto", htmlAttributes: new { @class = "form-label" })
+                                </div>
+                                <div class="col-sm-4">
+                                    @Html.Editor("montovueltocordobas", "0", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+
+                            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.cobrodolar!=null ? "display: block;" : "display: none;")" role="alert">
+
+                                @Html.Raw(@ViewBag.cobrodolar)
+
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        }
+                    </div>
+                </div><!-- End Bordered Tabs -->
+            }
+            else
+            {
+                <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
+
+                    @Html.Raw(@ViewBag.Mensaje)
+
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="tab-pane fade" id="bordered-dolares" role="tabpanel" aria-labelledby="contact-tab">
-                    <br />
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-5">
-                            @Html.Label("Total a pagar:C$", htmlAttributes: new { @class = "form-label" })
-                        </div>
-                        <div class="col-sm-4">
-                            @Html.Raw(@ViewBag.totalpagodolar)
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-5">
-                            @Html.Label("Tipo cambio de dolar:C$", htmlAttributes: new { @class = "form-label" })
-                        </div>
-                        <div class="col-sm-4">
-                            @Html.Raw(@ViewBag.cambiodolar)
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-5">
-                            @Html.Label("Monto en dolares", htmlAttributes: new { @class = "form-label" })
-                        </div>
-                        <div class="col-sm-4">
-                            @Html.Editor("montopagodolar", new { htmlAttributes = new { @class = "form-control", @oninput = "handleChange(this)" } })
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-5">
-                            @Html.Label("Vuelto", htmlAttributes: new { @class = "form-label" })
-                        </div>
-                        <div class="col-sm-4">
-                            @Html.Editor("montovueltocordobas", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Bordered Tabs -->
-
-       
-
-
-          
-
-
+            }
 
 
         </div>
         <div class="card-footer text-center">
-            <button type="submit" class="btn btn-primary">
-                <i class="fa fa-money">Realizar Cobro </i>
-            </button>
+            @if (ViewBag.Mensaje == null)
+            {
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-money">Realizar Cobro </i>
+                </button>
+            }
         </div>
     </div>
 
-        @Scripts.Render("~/bundles/datatables")
+
+}
+
 
     <script>
-        $(document).ready(function () {
+        $(function () {
             $('#tbclientes').DataTable({
                 "language": {
                     "url": "/Scripts/es_es.json"
-                }
+                }, scrollX: true
             })
+            var tableIds = ['tbclientes']; // Lista de IDs de las tablas
+            redimensionatable(tableIds);
         });
 
 
-    function selectButton(button) {
-        console.log(button)
-                    var row = button.parentNode.parentNode; // Obtener la fila actual
-        var cliente = document.getElementById("idcliente");
-        var table = document.getElementById("tbclientes");
-        var rows = table.getElementsByTagName("tr");
 
-
-        for (var i = 0; i < rows.length; i++)
-        {
-            var currentRow = rows[i];
-            if (currentRow !== row)
-            {
-                var btnChecked = currentRow.getElementsByClassName("btn-checked")[0];
-                var btnSelect = currentRow.getElementsByClassName("btn-select")[0];
-                if (btnChecked != null)
-                {
-                    btnChecked.style.display = "none";
-                    btnSelect.style.display = "inline-block";
-                }
-
-            }
-        }
-        var btnSelect = row.getElementsByClassName("btn-select")[0];
-        var btnChecked = row.getElementsByClassName("btn-checked")[0];
-
-        btnSelect.style.display = "none";
-        btnChecked.style.display = "inline-block";
-
-        cliente.value = btnSelect.value;
-    }
-
-    function desselectButton(button) {
-        var row = button.parentNode.parentNode; // Obtener la fila actual
-        var btnSelect = row.getElementsByClassName("btn-select")[0];
-        var btnChecked = row.getElementsByClassName("btn-checked")[0];
-        var cliente = document.getElementById("idcliente");
-
-        btnChecked.style.display = "none";
-        btnSelect.style.display = "inline-block";
-
-        cliente.value ="";
-    }
-    function handleChange(input) {
-        var inputtotalpago
-        var inputmontopago
-        var inputmontovuelto
-        var inputtipocambiodolar
-        var tipocambio
-
-        if (input.id=="montopagodolar") {
-            inputtotalpago = document.getElementById('montototaldolar');
-            inputmontopago = document.getElementById('montopagodolar');
-            inputmontovuelto = document.getElementById('montovueltocordobas');
-            inputtipocambiodolar = document.getElementById('tipocambiodolar');
-        } else {
-            inputtotalpago = document.getElementById('montototalpago');
-            inputmontopago = document.getElementById('montopago');
-            inputmontovuelto = document.getElementById('montovuelto');
-        }
-      
-        var totalpago = parseFloat(inputtotalpago.value)
-        var montopago = parseFloat(inputmontopago.value)
-        if (inputtipocambiodolar!=null) {
-         tipocambio = parseFloat(inputtipocambiodolar.value)
-        }
-        if (input.id == "montopagodolar") {
-            calculopago("D", totalpago, montopago, tipocambio, inputmontovuelto)//D es dolares
-        } else {
-            calculopago("C", totalpago, montopago, tipocambio, inputmontovuelto)//C es cordobas
-        }
-   
-    
-
-    }
-
-    function calculopago(tipopago, totalpago, montopago, tipocambio, inputmontovuelto) {
-
-        if (tipopago=="D") {
-            // Check if the input values are valid numbers
-            if (!isNaN(totalpago) && !isNaN(montopago)) {
-                // Perform the subtraction
-                var converdolarcordobas = montopago * tipocambio;
-                inputmontovuelto.value = totalpago - converdolarcordobas;
-
-            }
-            else {
-                console.log('Invalid input');
-            }
-        } else {
-            // Check if the input values are valid numbers
-            if (!isNaN(totalpago) && !isNaN(montopago)) {
-                // Perform the subtraction
-                inputmontovuelto.value = totalpago - montopago;
-            }
-            else {
-                console.log('Invalid input');
-            }
-        }
-
-
-    }
 
     </script>
 
 
-}

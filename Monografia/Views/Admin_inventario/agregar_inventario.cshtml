@@ -7,7 +7,12 @@
 <div class="card border-top border-0 border-3 border-success">
     <div class="card-header"><h4 class="text-center">Inventario</h4> </div>
 </div>
+<div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
 
+    @Html.Raw(@ViewBag.Mensaje)
+
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 @using (Html.BeginForm("agregar_inventario", "Admin_inventario", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -21,7 +26,14 @@
                 @Html.Label("Código de producto", htmlAttributes: new { @class = "form-label" })
 
                 <div class="input-group mb-3">
-                    @Html.Editor("id_producto", new { htmlAttributes = new { @class = "form-control", @aria_describedby = "btnbuscar" } })
+                    @{
+                        string cod_producto = "";
+                        if (ViewBag.cod_producto != null)
+                        {
+                            cod_producto = Convert.ToString(ViewBag.cod_producto);
+                        }
+                    }
+                    @Html.Editor("cod_producto", new { htmlAttributes = new { @class = "form-control", @aria_describedby = "btnbuscar", @value = cod_producto, @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
 
                     <button class="btn btn-outline-secondary" type="submit" id="btnbuscar">
                         <i class="fa fa-search"></i>
@@ -34,12 +46,12 @@
     </div>
 }
 
-@using (Html.BeginForm("agregar_inventario2", "Admin_inventario", FormMethod.Post))
+@using (Html.BeginForm("procesar_incremento_inventario", "Admin_inventario", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <div class="card border-start border-0 border-3 border-info">
         <div class="card-header">
-            <h2>Agregar inventario</h2>
+            <h4>Agregar inventario</h4>
         </div>
         <div class="card-body">
             <br>
@@ -57,7 +69,7 @@
             <div class="row">
                 <div class="col-md-6">
                     @Html.Label("Cantidad a agregar", htmlAttributes: new { @class = "form-label" })
-                    @Html.Editor("agregar_cantidad", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.Editor("agregar_cantidad", new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
                 </div>
 
 
@@ -76,6 +88,7 @@
         </div>
 
     </div>
+    <input type="hidden" id="Mensaje" value="@ViewBag.mensajeexito" />
 }
 
 

@@ -1,96 +1,119 @@
 ﻿@using Monografia.Models
 @model IEnumerable<Monografia.Models.Modelo_Config>
 
-
-
 @{
-    ViewBag.Title = "Administradorbd";
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
 
 
+@Styles.Render("~/Scripts/Datatable")
+<div class="card border-start border-0 border-3 border-info">
 
-<body>
+    <div class="card-header">
+        <h4 class="text-center">Opciones de Base de datos</h4>
+    </div>
 
-    <h2>Opciones de Base de datos</h2>
+    <div class="card-body">
+        @************************************@
+        <br>
+        @************************************@
 
-    @************************************@
-    <br>
-    @************************************@
-
-    <label>Crear Respaldo: </label>
-    <br>
-    <ul class="list-group">
-        <li class="list-group-item clearfix">
-
-            <a href="@Url.Action("Respaldar_bd", "Config")" class="btn btn-primary btn-sm">
-                Respaldar
-                <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>
-            </a>
-
-            @*@Html.ActionLink("Respaldar", "Respaldar", "Config_AdministradorBD", new { @class = "btn btn-primary" })*@
-        </li>
-    </ul>
-
-    @************************************@
-    <br>
-    @************************************@
-
-    @using (Html.BeginForm("Subir_bd", "Config", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-
-        <label for="file">Subir Respaldo: </label>
+        <label>Crear Respaldo: </label>
         <br>
         <ul class="list-group">
             <li class="list-group-item clearfix">
-                <input type="file" name="file" id="file" />
-                <div class="pull-right">
-                    <input type="submit" value="Subir Archivo" class="btn-primary" />
-                </div>
-                @ViewBag.Message
+
+                <a href="@Url.Action("Respaldar_bd", "Config")" class="btn btn-primary btn-sm">
+                    Respaldar
+                    <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>
+                </a>
+
             </li>
         </ul>
 
-    }
+        @************************************@
+        <br>
+        @************************************@
 
-    @************************************@
-    <br>
-    @************************************@
+        @using (Html.BeginForm("Subir_bd", "Config", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
 
-
-    <label>Copias de seguridad: </label>
-    <br>
-    <ul class="list-group">
-        @foreach (var item in Model)
-            {
-            <li class="list-group-item clearfix">
-                @Html.DisplayFor(modelItem => item.filename)
-                <div class="pull-right">
-                    <div class="btn-group" role="group" aria-label="">
-
-                        <a href="@Url.Action("Restaurar_bd", "Config", new { nombre_archivo = item.filename })" class="btn btn-success btn-sm">
-                            Restaurar
-                            <span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span>
-                        </a>
-                        <a href="@Url.Action("Eliminar_bd", "Config", new { nombre_archivo = item.filename })" class="btn btn-danger btn-sm">
-                            Eliminar
-                            <span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span>
-                        </a>
-                        <a href="@Url.Action("Descargar_bd", "Config", new { nombre_archivo = item.filename })" class="btn btn-primary btn-sm">
-                            Descargar
-                            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
-                        </a>
-
-                        @*@Html.ActionLink("Restaurar", "Restaurar", new { nombre_archivo = item.filename }, new { @class = "btn btn-success btn-sm" })
-                            @Html.ActionLink("Eliminar", "Eliminar", new { nombre_archivo = item.filename }, new { @class = "btn btn-danger btn-sm" })
-                            @Html.ActionLink("Descargar", "Descargar", new { nombre_archivo = item.filename }, new { @class = "btn btn-primary btn-sm" })*@
+            <label for="file">Subir Respaldo: </label>
+            <br>
+            <ul class="list-group">
+                <li class="list-group-item clearfix">
+                    <input type="file" name="file" id="file" />
+                    <div class="pull-right">
+                        <input type="submit" value="Subir Archivo" class="btn-primary" />
                     </div>
-                </div>
-            </li>
+                    @ViewBag.Message
+                </li>
+            </ul>
+
         }
-    </ul>
+
+        @************************************@
+        <br>
+        @************************************@
+
+
+        <table id="tbrespaldobd" class="table table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Nombres de archivo")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Accciones")
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.filename)
+                        </td>
+                        <td class="text-center">
+                            <a href="@Url.Action("Restaurar_bd", "Config", new { nombre_archivo = item.filename })" class="btn btn-success btn-sm">
+                                Restaurar
+                                <span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span>
+                            </a>
+                            <a href="@Url.Action("Eliminar_bd", "Config", new { nombre_archivo = item.filename })" class="btn btn-danger btn-sm">
+                                Eliminar
+                                <span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span>
+                            </a>
+                            <a href="@Url.Action("Descargar_bd", "Config", new { nombre_archivo = item.filename })" class="btn btn-primary btn-sm">
+                                Descargar
+                                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+        </div>
+
+</div>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/datatables")
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('#tbrespaldobd').DataTable({
+                    "language": {
+                        "url": "/Scripts/es_es.json"
+                    }
+                })
+            });
+
+    </script>
+}
 
 
 
 
-</body>

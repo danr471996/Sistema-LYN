@@ -10,8 +10,18 @@
             <h4>Editar inventario</h4>
         </div>
         <div class="card-body">
+     
             <br>
+            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
+
+                @Html.Raw(@ViewBag.Mensaje)
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @if (Model != null)
+            {
             <form class="row g-3">
+                @Html.HiddenFor(model => model.productos.Idproducto)
                 <div class="row">
                     <div class="col-md-6">
                         @Html.Label("Código de producto", htmlAttributes: new { @class = "form-label" })
@@ -21,17 +31,21 @@
                 <br>
                 <div class="row">
                     <div class="col-md-6">
-                        @Html.Label("","Cantidad", htmlAttributes: new { @class = "form-label" })
-                        @Html.Editor("agregar_cantidad", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.Label("", "Cantidad", htmlAttributes: new { @class = "form-label" })
+                        @Html.Editor("agregar_cantidad", new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
                     </div>
                 </div>
             </form>
+            }
         </div>
         <div class="card-footer text-center">
+            @if (Model != null)
+            {
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-save">Guardar</i>
                 </button>
-        </div>
+            }
+            </div>
     </div>
 }
 

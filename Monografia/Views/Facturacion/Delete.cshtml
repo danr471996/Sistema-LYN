@@ -7,10 +7,19 @@
         <h4>¿Está seguro de eliminar este producto de la lista de compras?</h4>
     </div>
     <div class="card-body">
+        <br />
         @Html.Hidden("numeroticket", (int)ViewBag.numticket)
         @Html.Hidden("codigoproducto", (int)ViewBag.codproducto)
-        @foreach (var item in Model.listatickets)
+        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
+
+            @Html.Raw(@ViewBag.Mensaje)
+
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @if (Model.listatickets!=null)
         {
+            foreach (var item in Model.listatickets)
+            {
 
 
             <dl class="dl-horizontal">
@@ -21,59 +30,66 @@
                 <dd>
                     @Html.DisplayFor(model => item.Numero_ticket)
                 </dd>
-                @foreach (var item2 in item.listaproductos)
+                @if (item.listaproductos!=null)
                 {
-                    <dt>
-                        @Html.DisplayName("Código de Producto")
-                    </dt>
+                    foreach (var item2 in item.listaproductos)
+                    {
+                        <dt>
+                            @Html.DisplayName("Código de Producto")
+                        </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model =>item2.CodProd )
-                    </dd>
+                        <dd>
+                            @Html.DisplayFor(model => item2.CodProd)
+                        </dd>
 
-                    <dt>
-                        @Html.DisplayName("Descripción")
-                    </dt>
+                        <dt>
+                            @Html.DisplayName("Descripción")
+                        </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => item2.Desc)
-                    </dd>
+                        <dd>
+                            @Html.DisplayFor(model => item2.Desc)
+                        </dd>
 
-                    <dt>
-                        @Html.DisplayName("Precio de Venta")
-                    </dt>
+                        <dt>
+                            @Html.DisplayName("Precio de Venta")
+                        </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => item2.prec_vent)
-                    </dd>
+                        <dd>
+                            @Html.DisplayFor(model => item2.prec_vent)
+                        </dd>
 
-                    <dt>
-                        @Html.DisplayName("Cantidad")
-                    </dt>
+                        <dt>
+                            @Html.DisplayName("Cantidad")
+                        </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => item2.Cant)
-                    </dd>
-                    <dt>
-                        @Html.DisplayName("Importe")
-                    </dt>
+                        <dd>
+                            @Html.DisplayFor(model => item2.Cant)
+                        </dd>
+                        <dt>
+                            @Html.DisplayName("Importe")
+                        </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => item2.Impor)
-                    </dd>
+                        <dd>
+                            @Html.DisplayFor(model => item2.Impor)
+                        </dd>
+                    }
                 }
-            </dl>
+                </dl>
+            }
         }
     </div>
     <div class="card-footer text-center">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            <button type="submit" class="btn btn-primary">
-                <i class="fa fa-save"> Guardar</i>
-            </button>
-        }
-    </div>
+            if (Model.listatickets != null)
+            {
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"> Guardar</i>
+                </button>
+                }
+            }
+        </div>
 </div>
 
  

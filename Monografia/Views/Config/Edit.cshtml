@@ -1,0 +1,110 @@
+﻿@model Monografia.Models.Modelo_Config
+
+@Scripts.Render("~/bundles/jqueryval")
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <h4>Editar perfil</h4>
+        </div>
+        <div class="card-body" id="frmdatosperfil">
+
+            <br>
+            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje != null ? "display: block;" : "display: none;")" role="alert">
+
+                @Html.Raw(@ViewBag.Mensaje)
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @{
+                if (Model != null)
+                {
+                    <form class="row g-3">
+
+                        @Html.HiddenFor(model => model.perfiles_usuarios.FirstOrDefault().Idperfil)
+                        <div class="row">
+                            <div class="col-md-12">
+                                @Html.Label("Descripción perfil", htmlAttributes: new { @class = "form-label" })
+                                @{
+                                    string nomperfil = "";
+                                    if (ViewBag.nomperfil != null)
+                                    {
+                                        nomperfil = Convert.ToString(ViewBag.nomperfil);
+                                    }
+                                }
+                                @Html.TextBox("txtperfil", nomperfil, new { @class = "form-control", @onkeypress = "return lettersOnly(event,'P');" })
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            @{
+
+                                Boolean grupo = false;
+                                int PNG = 0;
+                                for (int i = 0; i < Model.checksboxes.Count; i++)
+                                {
+
+                                    if (Model.checksboxes[i].inicio_grupo)
+                                    {
+                                        PNG = i;
+                                        grupo = true;
+                                    }
+                                    else if (grupo)
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h4 class="text-center">
+                                                        @Model.checksboxes[PNG].nombre_grupo
+                                                    </h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    @do
+                                                    {
+
+                                                        @Html.CheckBoxFor(m => Model.checksboxes[PNG].seleccionado)
+                                                        @Model.checksboxes[PNG].texto
+                                                        @Html.HiddenFor(m => Model.checksboxes[PNG].id)
+                                                        @Html.HiddenFor(m => Model.checksboxes[PNG].texto)
+                                                        @Html.HiddenFor(m => Model.checksboxes[PNG].nombre_grupo)
+                                                        @Html.HiddenFor(m => Model.checksboxes[PNG].inicio_grupo)
+                                                        <br>
+                                                        PNG = PNG + 1;
+                                                    } while (PNG < Model.checksboxes.Count && Model.checksboxes[PNG].nombre_grupo.Contains(Model.checksboxes[PNG - 1].nombre_grupo));
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        grupo = false;
+                                    }
+
+                                }
+
+                            }
+
+
+
+                        </div>
+                        <br>
+
+                    </form>
+                }
+            }
+        </div>
+        <div class="card-footer text-center">
+            @{
+                if (Model != null)
+                {
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-save"> Guardar</i>
+                    </button>
+                    }
+                }
+            </div>
+    </div>
+}

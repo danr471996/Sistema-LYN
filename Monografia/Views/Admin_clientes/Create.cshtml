@@ -1,75 +1,82 @@
 ﻿@model Monografia.Models.Modelo_contenedor
 
 @Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/jqueryformularios")
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <div class="card">
-            <div class="card-header">
-                <h4>Nuevo cliente</h4>
-            </div>
-            <div class="card-body"  id="frmdatosclientes">
-                <br>
-                <form class="row g-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            @Html.Label("Primer Nombre", htmlAttributes: new { @class = "form-label" })
-                            @Html.EditorFor(model => model.cliente.Primer_nombre, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                        <div class="col-md-6">
-                            @Html.Label("Segundo Nombre", htmlAttributes: new { @class = "form-label" })
-                            @Html.EditorFor(model => model.cliente.Segundo_nombre, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
 
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6">
-                            @Html.Label("Primer Apellido", htmlAttributes: new { @class = "form-label" })
-                            @Html.EditorFor(model => model.cliente.Primer_apellido, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                        <div class="col-md-6">
-                            @Html.Label("Segundo Apellido", htmlAttributes: new { @class = "form-label" })
-                            @Html.EditorFor(model => model.cliente.Segundo_apellido, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.Label("Dirección", htmlAttributes: new { @class = "form-label" })
-                            @Html.EditorFor(model => model.cliente.Direccion, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6">
-                            @Html.Label("Teléfono", htmlAttributes: new { @class = "form-label" })
-                            @Html.EditorFor(model => model.cliente.Telefono, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                        <div class="col-md-6">
-                            @Html.Label("Tipo de crédito", htmlAttributes: new { @class = "form-label" })
-                            @Html.DropDownListFor(model => model.cliente.Id_tipocredito, new SelectList(Model.listatipocredito, "Id_tipocredito", "Descripcion"), "Seleccione tipo", new { @class = "form-select", @id = "dltipocredito" })
-                        </div>
-                    </div>
-                    <br>
-                </form>
-            </div>
-            <div class="card-footer text-center">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-save"> Guardar</i>
-                </button>
-
-            </div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <h4>Nuevo cliente</h4>
         </div>
-    }
+        <div class="card-body" id="frmdatosclientes">
+            <br>
+            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
+
+                @Html.Raw(@ViewBag.Mensaje)
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <form class="row g-3">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.Label("Primer Nombre", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.cliente.Primer_nombre, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return lettersOnly(event,'C');" } })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.Label("Segundo Nombre", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.cliente.Segundo_nombre, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return lettersOnly(event,'C');" } })
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.Label("Primer Apellido", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.cliente.Primer_apellido, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return lettersOnly(event,'C');" } })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.Label("Segundo Apellido", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.cliente.Segundo_apellido, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return lettersOnly(event,'C');" } })
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.Label("Dirección", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.cliente.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.Label("Teléfono", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.cliente.Telefono, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.Label("Tipo de crédito", htmlAttributes: new { @class = "form-label" })
+                        @Html.DropDownListFor(model => model.cliente.Id_tipocredito, new SelectList(Model.listatipocredito, "Id_tipocredito", "Descripcion"), "Seleccione tipo", new { @class = "form-select", @id = "dltipocredito" })
+                    </div>
+                </div>
+                <br>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"> Guardar</i>
+            </button>
+
+        </div>
+    </div>
+}
 
 <script id="prueba" type="text/template">
     <div class="row" id="dvcantcredito">
         <div class="col-md-6">
             @Html.Label("Cantidad de crédito", htmlAttributes: new { @class = "form-label" })
-            @Html.EditorFor(model => model.cliente.Cantidad_credito, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.cliente.Cantidad_credito, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
 
         </div>
 

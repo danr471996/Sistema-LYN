@@ -66,6 +66,26 @@
     </AssociationSet>
     <EntitySet Name="correlativos" EntityType="proyectotiendaModel.correlativos" />
     <EntitySet Name="formato_factura" EntityType="proyectotiendaModel.formato_factura" />
+    <EntitySet Name="historial_inventario" EntityType="proyectotiendaModel.historial_inventario" />
+    <EntitySet Name="movimientos" EntityType="proyectotiendaModel.movimientos" />
+    <EntitySet Name="tipo_movimento" EntityType="proyectotiendaModel.tipo_movimento" />
+    <AssociationSet Name="fk_iddepartamento" Association="proyectotiendaModel.fk_iddepartamento">
+      <End Role="departamento" EntitySet="departamento" />
+      <End Role="historial_inventario" EntitySet="historial_inventario" />
+    </AssociationSet>
+    <AssociationSet Name="fk_idproducto" Association="proyectotiendaModel.fk_idproducto">
+      <End Role="productos" EntitySet="productos" />
+      <End Role="historial_inventario" EntitySet="historial_inventario" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tip_movi" Association="proyectotiendaModel.fk_tip_movi">
+      <End Role="tipo_movimento" EntitySet="tipo_movimento" />
+      <End Role="historial_inventario" EntitySet="historial_inventario" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tipo_movimiento" Association="proyectotiendaModel.fk_tipo_movimiento">
+      <End Role="tipo_movimento" EntitySet="tipo_movimento" />
+      <End Role="movimientos" EntitySet="movimientos" />
+    </AssociationSet>
+    <EntitySet Name="cambiodolar" EntityType="proyectotiendaModel.cambiodolar" />
   </EntityContainer>
   <EntityType Name="clientes">
     <Key>
@@ -114,6 +134,7 @@
     <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="Estado" Type="Int32" Nullable="false" />
     <NavigationProperty Name="productos" Relationship="proyectotiendaModel.fk_departamento" FromRole="departamento" ToRole="productos" />
+    <NavigationProperty Name="historial_inventario" Relationship="proyectotiendaModel.fk_iddepartamento" FromRole="departamento" ToRole="historial_inventario" />
   </EntityType>
   <EntityType Name="detalle_factura">
     <Key>
@@ -229,6 +250,7 @@
     <NavigationProperty Name="detalle_factura" Relationship="proyectotiendaModel.fk_producto" FromRole="productos" ToRole="detalle_factura" />
     <NavigationProperty Name="promocion" Relationship="proyectotiendaModel.fk_productos" FromRole="productos" ToRole="promocion" />
     <NavigationProperty Name="tipo_ventas" Relationship="proyectotiendaModel.fk_tipo_ventas" FromRole="productos" ToRole="tipo_ventas" />
+    <NavigationProperty Name="historial_inventario" Relationship="proyectotiendaModel.fk_idproducto" FromRole="productos" ToRole="historial_inventario" />
   </EntityType>
   <EntityType Name="promocion">
     <Key>
@@ -518,6 +540,113 @@
     <Property Name="Fecha_baja" Type="DateTime" />
     <Property Name="Cabeza_factura" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="Cuerpo_factura" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="historial_inventario">
+    <Key>
+      <PropertyRef Name="idHistorial_inventario" />
+    </Key>
+    <Property Name="idHistorial_inventario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_baja" Type="DateTime" />
+    <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Idproducto" Type="Int32" Nullable="false" />
+    <Property Name="Tipo_movimiento" Type="Int32" Nullable="false" />
+    <Property Name="Iddepartamento" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad_actual" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad_anterior" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="departamento" Relationship="proyectotiendaModel.fk_iddepartamento" FromRole="historial_inventario" ToRole="departamento" />
+    <NavigationProperty Name="productos" Relationship="proyectotiendaModel.fk_idproducto" FromRole="historial_inventario" ToRole="productos" />
+    <NavigationProperty Name="tipo_movimento" Relationship="proyectotiendaModel.fk_tip_movi" FromRole="historial_inventario" ToRole="tipo_movimento" />
+  </EntityType>
+  <EntityType Name="movimientos">
+    <Key>
+      <PropertyRef Name="idMovimientos" />
+    </Key>
+    <Property Name="idMovimientos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_baja" Type="DateTime" />
+    <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Monto" Type="Decimal" Nullable="false" />
+    <Property Name="Tipo_movimiento" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tipo_movimento" Relationship="proyectotiendaModel.fk_tipo_movimiento" FromRole="movimientos" ToRole="tipo_movimento" />
+  </EntityType>
+  <EntityType Name="tipo_movimento">
+    <Key>
+      <PropertyRef Name="IdTipo_movimiento" />
+    </Key>
+    <Property Name="IdTipo_movimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_baja" Type="DateTime" />
+    <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="historial_inventario" Relationship="proyectotiendaModel.fk_tip_movi" FromRole="tipo_movimento" ToRole="historial_inventario" />
+    <NavigationProperty Name="movimientos" Relationship="proyectotiendaModel.fk_tipo_movimiento" FromRole="tipo_movimento" ToRole="movimientos" />
+  </EntityType>
+  <Association Name="fk_iddepartamento">
+    <End Type="proyectotiendaModel.departamento" Role="departamento" Multiplicity="1" />
+    <End Type="proyectotiendaModel.historial_inventario" Role="historial_inventario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="departamento">
+        <PropertyRef Name="Iddepartmento" />
+      </Principal>
+      <Dependent Role="historial_inventario">
+        <PropertyRef Name="Iddepartamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_idproducto">
+    <End Type="proyectotiendaModel.productos" Role="productos" Multiplicity="1" />
+    <End Type="proyectotiendaModel.historial_inventario" Role="historial_inventario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productos">
+        <PropertyRef Name="Idproducto" />
+      </Principal>
+      <Dependent Role="historial_inventario">
+        <PropertyRef Name="Idproducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tip_movi">
+    <End Type="proyectotiendaModel.tipo_movimento" Role="tipo_movimento" Multiplicity="1" />
+    <End Type="proyectotiendaModel.historial_inventario" Role="historial_inventario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo_movimento">
+        <PropertyRef Name="IdTipo_movimiento" />
+      </Principal>
+      <Dependent Role="historial_inventario">
+        <PropertyRef Name="Tipo_movimiento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tipo_movimiento">
+    <End Type="proyectotiendaModel.tipo_movimento" Role="tipo_movimento" Multiplicity="1" />
+    <End Type="proyectotiendaModel.movimientos" Role="movimientos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo_movimento">
+        <PropertyRef Name="IdTipo_movimiento" />
+      </Principal>
+      <Dependent Role="movimientos">
+        <PropertyRef Name="Tipo_movimiento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="cambiodolar">
+    <Key>
+      <PropertyRef Name="IdCambiodolar" />
+    </Key>
+    <Property Name="IdCambiodolar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_baja" Type="DateTime" />
+    <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Monto_cambio" Type="Decimal" Nullable="false" />
     <Property Name="Estado" Type="Int32" Nullable="false" />
   </EntityType>
 </Schema>

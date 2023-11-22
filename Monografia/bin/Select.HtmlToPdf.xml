@@ -1165,6 +1165,11 @@
             Internal use only.
             </summary>
         </member>
+        <member name="P:SelectPdf.HtmlToPdfOptions.LFNB">
+            <summary>
+            Internal use only.
+            </summary>
+        </member>
         <member name="P:SelectPdf.HtmlToPdfOptions.AllowContentHeightResize">
             <summary>
             A flag used only by WebKitRestricted or Blink engine indicating if the content height can be recalculated to better fit the page. This can introduce certain errors in some cases.

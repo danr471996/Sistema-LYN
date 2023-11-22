@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration.Provider;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using Monografia.Models;
 
 namespace Monografia.Controllers
@@ -25,16 +27,30 @@ namespace Monografia.Controllers
         {
             try
             {
-                if (id == null)
+            
+                proveedor proveedor = null;
+                if (id != 0 && id != null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                    proveedor = db.proveedor.Find(id);
+                    if (proveedor == null)
+                    {
+
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro proveedor";
+                        return PartialView(proveedor);
+
+                    }
+                    else
+                    {
+                        return PartialView(proveedor);
+                    }
                 }
-                proveedor proveedor = db.proveedor.Find(id);
-                if (proveedor == null)
+                else
                 {
-                    return HttpNotFound();
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de proveedor erroneo";
+                    return PartialView(proveedor);
+
                 }
-                return PartialView(proveedor);
             }
             catch (Exception)
             {
@@ -59,17 +75,27 @@ namespace Monografia.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    proveedor.Fecha_alta = DateTime.Now;
-                    proveedor.Estado = 1;
-                    proveedor.Usuario_alta = (string)Session["usuario_logueado"];
-                    db.proveedor.Add(proveedor);
-                    db.SaveChanges();
-                    return Json(new { success = true, mensaje = "Se ha creado el proveedor satisfactoriamente." });
-                }
 
-                return PartialView(proveedor);
+                if (validadinputs(proveedor))
+                {
+                    if (db.proveedor.Where(x => x.Descripcion.ToUpper() == proveedor.Descripcion.ToUpper() && x.Estado == 1).FirstOrDefault() == null)
+                    {
+                        proveedor.Fecha_alta = DateTime.Now;
+                        proveedor.Estado = 1;
+                        proveedor.Usuario_alta = (string)Session["usuario_logueado"];
+                        db.proveedor.Add(proveedor);
+                        db.SaveChanges();
+                        return Json(new { success = true, mensaje = "Se ha creado el proveedor satisfactoriamente." });
+                    }
+                    else {
+                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un proveedor con el mismo nombre<br>";
+                        return PartialView(proveedor);
+                    }
+                }
+                else
+                {
+                    return PartialView(proveedor);
+                }
             }
             catch (Exception)
             {
@@ -79,21 +105,73 @@ namespace Monografia.Controllers
           
         }
 
+        public Boolean validadinputs(proveedor datosproveedor)
+        {
+            Boolean valid = true;
+            if (datosproveedor.Descripcion == null)
+            {
+                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el descripción del proveedor<br>";
+                valid = false;
+            }
+            if (datosproveedor.Telefono == null)
+            {
+                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el número telefonico del proveedor<br>";
+                valid = false;
+            }
+            else
+            {
+                if (datosproveedor.Telefono.ToString().Length < 8)
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un número telefonico Válido<br>";
+                    valid = false;
+                }
+            }
+            if (datosproveedor.Email == null)
+            {
+                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la dirección del proveedor";
+                valid = false;
+
+            }
+            if (datosproveedor.Direccion == null)
+            {
+                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la dirección del proveedor";
+                valid = false;
+
+            }
+            return valid;
+        }
+
+
         // GET: proveedors/Edit/5
         public ActionResult Edit(int? id)
         {
             try
             {
-                if (id == null)
+
+                proveedor proveedor = null;
+                if (id != 0 && id != null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                   proveedor = db.proveedor.Find(id);
+                    if (proveedor == null)
+                    {
+
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro proveedor";
+                        return PartialView(proveedor);
+
+                    }
+                    else
+                    {
+                        return PartialView(proveedor);
+                    }
                 }
-                proveedor proveedor = db.proveedor.Find(id);
-                if (proveedor == null)
+                else
                 {
-                    return HttpNotFound();
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de proveedor erroneo";
+                    return PartialView(proveedor);
+
                 }
-                return PartialView(proveedor);
+         
             }
             catch (Exception)
             {
@@ -112,17 +190,38 @@ namespace Monografia.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                proveedor datosproveedor = null;
+                if (validadinputs(proveedor))
                 {
-                    var datosproveedores = (db.proveedor.Where(x => x.IdProveedor == proveedor.IdProveedor).FirstOrDefault());
-                    datosproveedores.Descripcion = proveedor.Descripcion;
-                    datosproveedores.Direccion = proveedor.Direccion;
-                    datosproveedores.Email = proveedor.Email;
-                    datosproveedores.Telefono = proveedor.Telefono;
-                    db.SaveChanges();
-                    return Json(new { success = true, mensaje = "Se ha actualizado la informacion del proveedor satisfactoriamente." });
+                    datosproveedor = (db.proveedor.Where(x => x.IdProveedor == proveedor.IdProveedor).FirstOrDefault());
+                    if (datosproveedor == null)
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro proveedor";
+       
+                        return PartialView(proveedor);
+                    }
+                    else
+                    {
+                        if (db.proveedor.Where(x => x.Descripcion.ToUpper() == proveedor.Descripcion.ToUpper() && x.Estado == 1 && x.IdProveedor!=proveedor.IdProveedor).FirstOrDefault() == null)
+                        {
+                            datosproveedor.Descripcion = proveedor.Descripcion;
+                            datosproveedor.Direccion = proveedor.Direccion;
+                            datosproveedor.Email = proveedor.Email;
+                            datosproveedor.Telefono = proveedor.Telefono;
+                            db.SaveChanges();
+                            return Json(new { success = true, mensaje = "Se ha actualizado la informacion del proveedor satisfactoriamente." });
+                        }
+                        else {
+                            ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un proveedor con el mismo nombre<br>";
+                            return PartialView(proveedor);
+                        }
+                    }
                 }
-                return PartialView(proveedor);
+                else
+                {
+
+                    return PartialView(proveedor);
+                }
             }
             catch (Exception)
             {
@@ -138,16 +237,28 @@ namespace Monografia.Controllers
         {
             try
             {
-                if (id == null)
+                proveedor proveedor = null;
+         
+                if (id != 0 && id != null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    proveedor = db.proveedor.Find(id);
+
+                    if (proveedor != null)
+                    {
+                        return PartialView(proveedor);
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro proveedor";
+                        return PartialView(proveedor);
+                    }
                 }
-                proveedor proveedor = db.proveedor.Find(id);
-                if (proveedor == null)
+                else
                 {
-                    return HttpNotFound();
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de proveedor erroneo";
+                    return PartialView(proveedor);
                 }
-                return PartialView(proveedor);
+
             }
             catch (Exception)
             {
@@ -160,16 +271,38 @@ namespace Monografia.Controllers
         // POST: proveedors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
             try
             {
-                var datosproveedor = (from d in db.proveedor where d.IdProveedor == id select d).FirstOrDefault();
-                datosproveedor.Fecha_baja = DateTime.Now;
-                datosproveedor.Usuario_baja = (string)Session["usuario_logueado"];
-                datosproveedor.Estado = 2;
-                db.SaveChanges();
-                return Json(new { success = true, mensaje = "Se ha inactivado el proveedor satisfactoriamente." });
+
+                proveedor datosproveedor = null;
+                if (id != 0 && id != null)
+                {
+                   datosproveedor = (from d in db.proveedor where d.IdProveedor == id select d).FirstOrDefault();
+
+                    if (datosproveedor != null)
+                    {
+
+                       
+                        datosproveedor.Fecha_baja = DateTime.Now;
+                        datosproveedor.Usuario_baja = (string)Session["usuario_logueado"];
+                        datosproveedor.Estado = 2;
+                        db.SaveChanges();
+                        return Json(new { success = true, mensaje = "Se ha inactivado el proveedor satisfactoriamente." });
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro proveedor";
+                        return PartialView(datosproveedor);
+                    }
+                }
+                else
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de proveedor erroneo";
+                    return PartialView(datosproveedor);
+                }
+
             }
             catch (Exception)
             {

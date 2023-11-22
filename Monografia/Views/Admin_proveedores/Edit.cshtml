@@ -12,38 +12,50 @@
         </div>
         <div class="card-body">
             <br>
-            <form class="row g-3">
+            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
 
-                @Html.HiddenFor(model => model.IdProveedor)
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "form-label" })
-                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "form-label" })
-                        @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
+                @Html.Raw(@ViewBag.Mensaje)
 
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @if (Model != null)
+            {
+                <form class="row g-3">
+
+                    @Html.HiddenFor(model => model.IdProveedor)
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return lettersOnly(event,'P');" } })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
+                        </div>
+
                     </div>
-                    <div class="col-md-6">
-                        @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "form-label" })
-                        @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "form-label" })
+                            @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
                     </div>
-                </div>
-            </form>
-</div>
+                </form>
+            }
+            </div>
         <div class="card-footer text-center">
-            <button type="submit" class="btn btn-primary">
-                <i class="fa fa-save"> Guardar</i>
-            </button>
-        </div>
+            @if (Model != null)
+            {
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"> Guardar</i>
+                </button>
+            }
+            </div>
     </div>
 }
 

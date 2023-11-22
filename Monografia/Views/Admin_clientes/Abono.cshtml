@@ -14,19 +14,35 @@
         </div>
         <div class="card-body">
             <br>
-            <form class="row g-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        @Html.Label("Ingrese monto abonar", htmlAttributes: new { @class = "form-label" })
-                        @Html.Editor("agregar_cantidad", new { htmlAttributes = new { @class = "form-control" } })
+            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
+
+                @Html.Raw(@ViewBag.Mensaje)
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @if (ViewBag.Mensaje == null && ViewBag.Abonovacio == null || ViewBag.Abonovacio == true)
+            {
+                <form class="row g-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.Label("Ingrese monto abonar", htmlAttributes: new { @class = "form-label" })
+
+                            @Html.Editor("agregar_cantidad", new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
+                          
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            }
+            </div>
         <div class="card-footer text-center">
-            <button type="submit" class="btn btn-primary">
-                <i class="fa fa-save"> Guardar</i>
-            </button>
+            @if (ViewBag.Mensaje == null && ViewBag.Abonovacio == null || ViewBag.Abonovacio == true)
+            {
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"> Guardar</i>
+                </button>
+            }
+
+
 
         </div>
     </div>

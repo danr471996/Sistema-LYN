@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿$(function () {
 toastr.options = {
         "closeButton": true,
         "debug": true,
@@ -27,7 +27,10 @@ toastr.options = {
         limpiarestadoproceso();
     }
 
-
+    if (sessionStorage.getItem("estadoproceso") == "maxticket") {
+        toastr.info(sessionStorage.getItem("mensaje"))
+        limpiarestadoproceso();
+    }
 
 function limpiarestadoproceso() {
     sessionStorage.removeItem("estadoproceso");

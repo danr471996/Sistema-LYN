@@ -43,7 +43,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-           
+
             <a href="@Url.Action("Paginainicio", "Usuariologin")" class="logo d-flex align-items-center">
                 <img src="~/Scripts/vendor/img/logo.png" alt="">
                 <span class="d-none d-lg-block">LyNAdmin</span>
@@ -51,7 +51,7 @@
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
-      
+
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
@@ -117,15 +117,15 @@
                             <i class="bi bi-circle"></i><span>Impresión</span>
                         </a>
                     </li>
-                    
+
                 </ul>
             </li><!-- End Components Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed"  href="@Url.Action("Lista_clientes", "Admin_clientes")">
+                <a class="nav-link collapsed" href="@Url.Action("Lista_clientes", "Admin_clientes")">
                     <i class="bi bi-people"></i><span>Clientes</span>
                 </a>
-            
+
             </li><!-- End Clientes Nav -->
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#prod-nav" data-bs-toggle="collapse" href="#">
@@ -161,7 +161,7 @@
                     </li>
                 </ul>
             </li><!-- End Inventario Nav -->
-            
+
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-layout-text-window-reverse"></i><span>Administración</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -173,7 +173,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "config_perfiles")">
+                        <a href="@Url.Action("Lista_perfiles", "Config")">
                             <i class="bi bi-circle"></i><span>Perfiles</span>
                         </a>
                     </li>
@@ -227,7 +227,7 @@
                             <i class="bi bi-circle"></i><span>Reporte de Movimientos</span>
                         </a>
                     </li>
-             
+
                 </ul>
             </li><!-- End reporte Nav -->
 
@@ -248,35 +248,40 @@
             <h1>Dashboard</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Paginainicio","Usuariologin")">Inicio</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
-                    @RenderBody()
-            </section>
+            @RenderBody()
+        </section>
+        <br />
+        <br />
+        <br />
     </main><!-- End #main -->
     <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer mt-auto py-3 bg-light">
+    <footer id="footer" class="footer mt-auto py-3 bg-light fixed-bottom">
         <div class="copyright">
             &copy; Copyright <strong><span>LyNAdmin</span></strong>. Todos los derechos reservados
         </div>
         <div class="credits">
             Diseñado por DAAM S.A
-               </div>
+        </div>
     </footer><!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <!-- Vendor JS Files -->
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jquerycustomproyecto") 
-    <script src="~/Content/toast/toastr.js"></script>  
+    @Scripts.Render("~/bundles/jquerycustomproyecto")
+    @Scripts.Render("~/bundles/jqueryformularios")
+    <script src="~/Content/toast/toastr.js"></script>
     <script src="~/Scripts/showtoast.js"></script>
     @Scripts.Render("~/bundles/modalform")
+
     @*@Scripts.Render("~/bundles/bootstrap")*@
-    @RenderSection("scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 ﻿@model Monografia.Models.Modelo_contenedor
 
 @Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/jqueryformularios")
+
 
 @using (Html.BeginForm())
 {
@@ -12,109 +12,121 @@
         </div>
         <div class="card-body">
             <br>
-            <!-- Bordered Tabs -->
-            <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="producto-tab" data-bs-toggle="tab" data-bs-target="#bordered-producto" type="button" role="tab" aria-controls="producto" aria-selected="true">Producto</button>
-                </li>
-          
+            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
 
-            </ul>
-            <div class="tab-content pt-2" id="borderedTabContent">
-                <div class="tab-pane fade show active" id="bordered-producto" role="tabpanel" aria-labelledby="producto-tab">
-                    <form class="row g-3">
-                        <br>
-                        @Html.HiddenFor(model => model.productos.Idproducto)
-                        <div class="row">
-                            <div class="col-md-6">
-                                @Html.Label("Código de producto", htmlAttributes: new { @class = "form-label" })
-                                @Html.EditorFor(model => model.productos.Codigo_producto, new { htmlAttributes = new { @class = "form-control" } })
-                            </div>
-                            <div class="col-md-6">
-                                @Html.Label("Descripción", htmlAttributes: new { @class = "form-label" })
-                                @Html.EditorFor(model => model.productos.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                            </div>
+                @Html.Raw(@ViewBag.Mensaje)
 
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                @Html.Label("Se vende:", htmlAttributes: new { @class = "form-label" })
-                                <div class="col-md-4">
-                                    @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 1, new { @class = "form-check-input" } )@Html.Label("Por unidad/pieza")
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @if (Model != null)
+            {
+                <!-- Bordered Tabs -->
+                <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="producto-tab" data-bs-toggle="tab" data-bs-target="#bordered-producto" type="button" role="tab" aria-controls="producto" aria-selected="true">Producto</button>
+                    </li>
 
+
+                </ul>
+                <div class="tab-content pt-2" id="borderedTabContent">
+                    <div class="tab-pane fade show active" id="bordered-producto" role="tabpanel" aria-labelledby="producto-tab">
+                        <form class="row g-3">
+                            <br>
+                            @Html.HiddenFor(model => model.productos.Idproducto)
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.Label("Código de producto", htmlAttributes: new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.productos.Codigo_producto, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
                                 </div>
-                                <div class="col-md-4">
-                                    @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 2,  new { @class = "form-check-input" })@Html.Label("A granel")
-
-                                </div>
-                                <div class="col-md-4">
-                                    @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 3,new { @class = "form-check-input", @id = "rdpaquete" } )@Html.Label("Como paquete")
+                                <div class="col-md-6">
+                                    @Html.Label("Descripción", htmlAttributes: new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.productos.Descripcion, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return lettersOnly(event,'P');" } })
                                 </div>
 
                             </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-4">
-                                @Html.Label("Precio costo", htmlAttributes: new { @class = "form-label" })
-                                @Html.EditorFor(model => model.productos.Precio_costo, new { htmlAttributes = new { @class = "form-control" } })
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @Html.Label("Se vende:", htmlAttributes: new { @class = "form-label" })
+                                    <div class="col-md-4">
+                                        @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 1, new { @class = "form-check-input" })@Html.Label("Por unidad/pieza")
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 2, new { @class = "form-check-input" })@Html.Label("A granel")
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 3, new { @class = "form-check-input", @id = "rdpaquete" })@Html.Label("Como paquete")
+                                    </div>
+
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                @Html.Label("Precio de venta", htmlAttributes: new { @class = "form-label" })
-                                @Html.EditorFor(model => model.productos.Precio_venta, new { htmlAttributes = new { @class = "form-control" } })
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @Html.Label("Precio costo", htmlAttributes: new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.productos.Precio_costo, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode != 8 && event.charCode != 0 && (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)" } })
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.Label("Precio de venta", htmlAttributes: new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.productos.Precio_venta, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode != 8 && event.charCode != 0 && (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)" } })
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.Label("Precio de mayoreo", htmlAttributes: new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.productos.Precio_mayoreo, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode != 8 && event.charCode != 0 && (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)" } })
+
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                @Html.Label("Precio de mayoreo", htmlAttributes: new { @class = "form-label" })
-                                @Html.EditorFor(model => model.productos.Precio_mayoreo, new { htmlAttributes = new { @class = "form-control" } })
+                            <br>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    @Html.Label("Departamento", htmlAttributes: new { @class = "form-label" })
+                                    @Html.DropDownListFor(model => model.productos.Iddepartamento, new SelectList(Model.listadepartamento, "Iddepartmento", "Descripcion"), "Seleccione departamento", new { @class = "form-select" })
+                                </div>
 
                             </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-8">
-                                @Html.Label("Departamento", htmlAttributes: new { @class = "form-label" })
-                                @Html.DropDownListFor(model => model.productos.Iddepartamento, new SelectList(Model.listadepartamento, "Iddepartmento", "Descripcion"), "Seleccione departamento", new { @class = "form-select" })
-                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    @Html.CheckBox("usainventario", (Boolean)ViewBag.usainventario, new { @id = "ckinventario", @class = "form-check-input" })
+                                    @Html.Label("Producto Utiliza inventario ", htmlAttributes: new { @class = "form-label" })
 
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-8">
-                                @Html.CheckBox("usainventario", false, new { @id = "ckinventario", @class = "form-check-input" })
-                                @Html.Label("Producto Utiliza inventario ", htmlAttributes: new { @class = "form-label" })
-                          
-                            </div>
+                                </div>
 
-                        </div>
-                        <br>
-              
-                    </form>
-                </div>
-          
-            </div><!-- End Bordered Tabs -->
-            <br>
-            <div class="card-footer text-center">
+                            </div>
+                            <br>
+
+                        </form>
+                    </div>
+
+                </div><!-- End Bordered Tabs -->
+
+            }
+        </div>
+                <br>
+                <div class="card-footer text-center">
+                    @if (Model != null)
+                    {
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-save">Guardar</i>
                         </button>
+                        }
+                    </div>
             </div>
-        </div>
-
-    </div>
 }
 <script id="prueba" type="text/template">
     <div id="dvcantidades" class="row">
         <div class="col-md-6">
             @Html.Label("Cantidad actual", htmlAttributes: new { @class = "form-label" })
-            @Html.EditorFor(model => model.productos.Cantidad_actual, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.productos.Cantidad_actual, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
 
         </div>
         <br>
         <div class="col-md-6">
 
             @Html.Label("Cantidad minima", htmlAttributes: new { @class = "form-label" })
-            @Html.EditorFor(model => model.productos.Cantidad_minima, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.productos.Cantidad_minima, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
 
         </div>
     </div>

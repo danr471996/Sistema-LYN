@@ -128,8 +128,8 @@
           <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
           <Property Name="Fecha_baja" Type="datetime" Precision="0" />
-          <Property Name="Cabeza_factura" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="Cuerpo_factura" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Cabeza_factura" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="Cuerpo_factura" Type="varchar" MaxLength="2000" Nullable="false" />
           <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="historial_inventario">

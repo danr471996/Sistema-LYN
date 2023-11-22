@@ -1,114 +1,120 @@
 ﻿@model Monografia.Models.Modelo_Config
 
 @{
-    ViewBag.Title = "Tickets";
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
+<div class="card border-start border-0 border-3 border-info">
 
-<h2>Personalizacion del ticket de venta</h2>
-
-@using (Html.BeginForm("Tickets", "Config"))
-{
-    for (int i = 0; i < Model.Lista_opciones.Count; i++)
-    {
-        @Html.HiddenFor(m => Model.Lista_opciones[i].ID_OP)
-        @Html.HiddenFor(m => Model.Lista_opciones[i].NOMBRE_OP)
-        @Html.HiddenFor(m => Model.Lista_opciones[i].DESCRIPCION_OP)
-        @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT1)
-    }
-
-    @*<input type="submit" value="Guardar Cambios" class="btn btn-success" />*@
-    <button class="btn btn-success" type="submit">
-        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
-        </span> Guardar Cambios
-    </button>
-    <br>
-    <br />
-
-    //********************************************************************
-
-    <div class="col-sm-4">
-        <div class="panel panel-default">
-            <div class="panel-body">
-
-                <div style="display: flex; justify-content: inherit;">
-                    <textarea class="form-control" id="textarea1" name="textarea1" rows="4">@Model.Lista_opciones[0].DETALLE_EXT1</textarea>
-                </div>
-
-                <br />
-                <div style="display: flex; justify-content: space-between;">
-                    <small>18 de octubre del 2021</small>
-                    <small>04:23PM</small>
-                </div>
-                <br><br />
-                <div style="display: flex; justify-content: space-between;">
-                    <small>Cantidad</small>
-                    <small>Descripcion</small>
-                    <small>Importe</small>
-                </div>
-                <div style="display: flex; justify-content: center;">
-                    <small>===============================================</small>
-                </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <small>1</small>
-                    <small>Agual Ciel 600ml</small>
-                    <small>$7.00</small>
-                </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <small>1</small>
-                    <small>Coca Cola Light</small>
-                    <small>$8.00</small>
-                </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <small>1</small>
-                    <small>Coca Sprite</small>
-                    <small>$8.00</small>
-                </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <small>1kg</small>
-                    <small>Tomate</small>
-                    <small>$10.00</small>
-                </div>
-                <br />
-                <div style="display: flex; justify-content: center;">
-                    <small>No. Articulos: 4</small>
-                </div>
-                <br />
-                <div style="display: flex; justify-content: center;">
-                    <small>Total: $33.00</small>
-                </div>
-                <br />
-
-                <div style="display: flex; justify-content: inherit;">
-                    <textarea class="form-control" id="textarea2" name="textarea2" rows="4">@Model.Lista_opciones[1].DETALLE_EXT1</textarea>
-                </div>
-
-            </div>
-        </div>
+    <div class="card-header">
+        <h4 class="text-center">Personalizacion del ticket de venta</h4>
     </div>
 
+    <div class="card-body">
 
-    //************************************
-    <div class="col-sm-4">
-        <ul class="list-group">
-            @for (int i = 2; i < Model.Lista_opciones.Count; i++)
+        @using (Html.BeginForm("Tickets", "Config"))
+        {
+            for (int i = 0; i < Model.Lista_opciones.Count; i++)
             {
-                <li class="list-group-item">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            @Html.CheckBoxFor(m => Model.Lista_opciones[i].SELECCIONADO_OP)
-                            @Model.Lista_opciones[i].NOMBRE_OP
-                        </div>
-                        <div class="panel-body">
-                            @Model.Lista_opciones[i].DESCRIPCION_OP
-                        </div>
-                    </div>
-                </li>
+                @Html.HiddenFor(m => Model.Lista_opciones[i].ID_OP)
+                @Html.HiddenFor(m => Model.Lista_opciones[i].NOMBRE_OP)
+                @Html.HiddenFor(m => Model.Lista_opciones[i].DESCRIPCION_OP)
+                @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT1)
             }
-        </ul>
+
+            @*<input type="submit" value="Guardar Cambios" class="btn btn-success" />*@
+            <button class="btn btn-success" type="submit">
+                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
+                </span> Guardar Cambios
+            </button>
+            <br>
+            <br />
+
+            //********************************************************************
+
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <div style="display: flex; justify-content: inherit;">
+                            <textarea class="form-control" id="textarea1" name="textarea1" rows="4">@Model.Lista_opciones[0].DETALLE_EXT1</textarea>
+                        </div>
+
+                        <br />
+                        <div style="display: flex; justify-content: space-between;">
+                            <small>18 de octubre del 2021</small>
+                            <small>04:23PM</small>
+                        </div>
+                        <br><br />
+                        <div style="display: flex; justify-content: space-between;">
+                            <small>Cantidad</small>
+                            <small>Descripcion</small>
+                            <small>Importe</small>
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                            <small>===============================================</small>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <small>1</small>
+                            <small>Agual Ciel 600ml</small>
+                            <small>$7.00</small>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <small>1</small>
+                            <small>Coca Cola Light</small>
+                            <small>$8.00</small>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <small>1</small>
+                            <small>Coca Sprite</small>
+                            <small>$8.00</small>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <small>1kg</small>
+                            <small>Tomate</small>
+                            <small>$10.00</small>
+                        </div>
+                        <br />
+                        <div style="display: flex; justify-content: center;">
+                            <small>No. Articulos: 4</small>
+                        </div>
+                        <br />
+                        <div style="display: flex; justify-content: center;">
+                            <small>Total: $33.00</small>
+                        </div>
+                        <br />
+
+                        <div style="display: flex; justify-content: inherit;">
+                            <textarea class="form-control" id="textarea2" name="textarea2" rows="4">@Model.Lista_opciones[1].DETALLE_EXT1</textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            //************************************
+            <div class="col-sm-4">
+                <ul class="list-group">
+                    @for (int i = 2; i < Model.Lista_opciones.Count; i++)
+                    {
+                        <li class="list-group-item">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    @Html.CheckBoxFor(m => Model.Lista_opciones[i].SELECCIONADO_OP)
+                                    @Model.Lista_opciones[i].NOMBRE_OP
+                                </div>
+                                <div class="panel-body">
+                                    @Model.Lista_opciones[i].DESCRIPCION_OP
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+
+        }
+
     </div>
+</div>
 
-
-
-
-}

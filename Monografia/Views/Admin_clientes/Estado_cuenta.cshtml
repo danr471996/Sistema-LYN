@@ -5,7 +5,7 @@
 }
 @Styles.Render("~/Scripts/Datatable")
 
-<div class="card border-start border-0 border-3 border-success">
+<div id="divinfogeneral" class="card border-start border-0 border-3 border-success">
     <div class="card-header">
         <h4>Estado cuenta del cliente</h4>
     </div>
@@ -13,15 +13,15 @@
         <div class="row">
             <div class="col-md-4">
                 @Html.Label(" ", "Nombre Cliente:", htmlAttributes: new { @class = "form-label" })
-                @Html.Label(" ", (string)Session["nomcliente"], htmlAttributes: new { @class = "form-label" })
+                @Html.Label(" ", (string)ViewBag.nomcliente, htmlAttributes: new { @class = "form-label" })
             </div>
             <div class="col-md-4">
-                @Html.Label(" ", "Tipo de crédito:", htmlAttributes: new { @class = "form-label"})
-                @Html.Label(" ", Session["limitecredito"].ToString(), htmlAttributes: new { @class = "form-label"})
+                @Html.Label(" ", "Tipo de crédito:", htmlAttributes: new { @class = "form-label" })
+                @Html.Label(" ", (string)ViewBag.limitecredito, htmlAttributes: new { @class = "form-label" })
             </div>
             <div class="col-md-4">
-                @Html.Label(" ", "Saldo Actual:", htmlAttributes: new { @class = "form-label"})
-                @Html.Label(" ", Session["Saldoactual"].ToString(), htmlAttributes: new { @class = "form-label"})
+                @Html.Label(" ", "Saldo Actual:", htmlAttributes: new { @class = "form-label" })
+                @Html.Label(" ", (string)ViewBag.Saldoactual, htmlAttributes: new { @class = "form-label" })
             </div>
         </div>
     </div>
@@ -32,8 +32,15 @@
     </div>
 
 </div>
+<div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
+
+    @Html.Raw(@ViewBag.Mensaje)
+
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col col-lg-6">
         <div class="card border-start border-0 border-3 border-info">
             <div class="card-header">
                 <h4>Facturas del cliente</h4>
@@ -41,7 +48,7 @@
             <div class="card-body">
                 <br>
                 <br>
-                <table id="tbfacturas" class="table table-bordered" style="width:100%">
+                <table id="tbfacturas" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>@Html.DisplayName("Id de cliente")</th>
@@ -72,13 +79,9 @@
             </div>
 
         </div>
-
-
-
-
-
     </div>
-    <div class="col-lg-6">
+
+    <div class="col col-lg-6">
 
         <div class="card border-start border-0 border-3 border-info">
             <div class="card-header">
@@ -87,20 +90,20 @@
             <div class="card-body">
                 <br>
                 <br>
-                    <table id="tbdetallefactura" class="table table-bordered" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>@Html.DisplayName("Producto")</th>
+                <table id="tbdetallefactura" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayName("Producto")</th>
 
-                                <th>@Html.DisplayName("Precio venta")</th>
+                            <th>@Html.DisplayName("Precio venta")</th>
 
-                                <th>@Html.DisplayName("Cantidad")</th>
+                            <th>@Html.DisplayName("Cantidad")</th>
 
-                                <th>@Html.DisplayName("Importe")</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                            <th>@Html.DisplayName("Importe")</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
 
         </div>
@@ -108,71 +111,63 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
 @section Scripts {
-   @Scripts.Render("~/bundles/datatables")
+    @Scripts.Render("~/bundles/datatables")
     <script type="text/javascript">
-    $(document).ready(function () {
-        $('#tbfacturas').DataTable({
-            "language": {
-                "url": "/Scripts/es_es.json"
-            },
-            "columnDefs": [
-           {
-               "targets": [0],
-               "visible": false,
-               "searchable": false
-           },
-           {
-               "targets": [1],
-               "visible": false,
-               "searchable": false
-           }], dom: 'Pfrtip',
-            "pageLength":10,
-            select: true
+        $(function () {
+          
+            var tablefacturas = $('#tbfacturas').DataTable({
+                "language": {
+                    "url": "/Scripts/es_es.json"
+                },
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [1],
+                        "visible": false,
+                        "searchable": false
+                    }], dom: 'Pfrtip',
+                "pageLength": 10,
+                select: true
 
-        })
-
-        $('#tbdetallefactura').DataTable({
-            "language": {
-                "url": "/Scripts/es_es.json"
-            }, dom: 'Pfrtip',
-            "pageLength": 10
-
-        })
-
+            })
         
-        var table= $('#tbfacturas').dataTable();
+            var tableDetalleFactura = $('#tbdetallefactura').DataTable({
+                "language": {
+                    "url": "/Scripts/es_es.json"
+                }, dom: 'Pfrtip',
+                "pageLength": 10, scrollX: true
 
-        $('#tbfacturas tbody').on('click', 'tr', function () {
+            })
+            var tableIds = ['tbdetallefactura']; // Lista de IDs de las tablas
+            redimensionatable(tableIds);
 
-    //        //if ( $(this).hasClass('selected') ) {
-    //        //    $(this).removeClass('selected');
+           /* var table = $('#tbfacturas').dataTable();*/
 
-    //        //}
-    //        //else {
-    //            //table.$('tr.selected').removeClass('selected');
-    //            //$(this).addClass('selected');
-                var position = table.fnGetPosition(this);
-                var hiddenColumnValue = table.fnGetData(position)[0];
-                var position2 = table.fnGetPosition(this);
-                var hiddenColumnValue2 = table.fnGetData(position)[1];
+            $('#tbfacturas tbody').on('click', 'tr', function (e) {
+                let classList = e.currentTarget.classList;
+                var rowselected = true;
+
+                if (classList.contains('selected')) {
+                    rowselected = false;
+                }
+
+
+                var position = tablefacturas.row(this).index();
+                var hiddenColumnValue = tablefacturas.row(position).data()[0];
+                var hiddenColumnValue2 = tablefacturas.row(position).data()[1];
                 //form encoded data
                 var dataType = 'application/json; charset=utf-8';
                 //JSON data
                 var data = {
                     idcliente: hiddenColumnValue,
-                    idfactura: hiddenColumnValue2
-                           }
+                    idfactura: hiddenColumnValue2,
+                    filaseleccionada:rowselected
+                }
 
 
                 $.ajax({
@@ -182,34 +177,49 @@
                     contentType: dataType,
                     data: JSON.stringify(data),
                     success: function (data) {
-                        $('#tbdetallefactura').dataTable().fnDestroy();
-                        $('#tbdetallefactura').DataTable({
-                                destroy: true,
-                                data: data,
-                                language: {
-                                    url: "/Scripts/es_es.json"
-                                }, dom: 'Pfrtip',
-                                "pageLength": 10,
-                                columns: [
-                                    { data: 'Descripcionproducto' },
-                                    { data: 'Precioventa' },
-                                    { data: 'cantidad' },
-                                    { data: 'importe' }
-                                ]
-                            });
+                   
 
+                        $('#tbdetallefactura').DataTable({
+                            destroy: true,
+                            data: data.modelo_contenedor==null?data:data.modelo_contenedor,
+                            language: {
+                                url: "/Scripts/es_es.json"
+                            }, dom: 'Pfrtip',
+                            "pageLength": 10, scrollX: true,
+                            columns: [
+                                { data: 'Descripcionproducto' },
+                                { data: 'Precioventa' },
+                                { data: 'cantidad' },
+                                { data: 'importe' }
+                            ]
+                        });
+            
+                        var miDiv = document.querySelector('.alert');
+                
+                        if (miDiv != null) {
+                            miDiv.remove();
+                        }
+
+                        if (data.Mensaje != null) {
+                            // Selecciona el div por su ID
+                            var miDiv = document.getElementById('divinfogeneral');;
+
+                            // Inserta el nuevo div después de divInfoGeneral
+                            miDiv.insertAdjacentHTML("afterend", data.Mensaje);
+                        }
+                       
                     },
                     failure: function (errMsg) {
                         alert(errMsg)
                     }
                 });
 
-            
+
+            });
+
+
+
         });
-
-
-
-    });
     </script>
 
 }
