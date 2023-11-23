@@ -17,7 +17,7 @@ $(function () {
         return false;
     });
 
-    $('#modalGenerica').on('hidden.bs.modal', function () {
+    $('#modalGenerica').on('hide.bs.modal', function () {
         $('#contentModal').html('');
 
     })

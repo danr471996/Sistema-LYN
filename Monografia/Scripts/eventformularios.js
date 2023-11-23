@@ -40,7 +40,6 @@
     $('#modalGenerica').on('shown.bs.modal', function (e) {
         $(function () {
     
-
             ejecutascripts();
             desvinculaevent();
             $('a[data-modal]').on('click', function (e) {

@@ -16,7 +16,7 @@ namespace Monografia.Controllers
     {
         private proyectotiendaEntities db = new proyectotiendaEntities();
         string patronsindecimales = @"^\d+$";
-
+        string patronConDecimales = @"^\d+(\.\d+)?$";
         // GET: clientes
         public ActionResult Lista_clientes()
         {
@@ -174,6 +174,43 @@ namespace Monografia.Controllers
 
             }
             catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editabono(pagos datosabonoedit)
+        {
+            try
+            {
+
+                if (validadinputs(null, datosabonoedit))
+                {
+
+                    var datospagos = db.pagos.Find(datosabonoedit.Idpagos);
+                    if (datospagos == null)
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro pago";
+                        return PartialView(datosabonoedit);
+                    }
+                    else
+                    {
+                        datospagos.Monto_pagado = datosabonoedit.Monto_pagado;
+                            db.SaveChanges();
+
+                            return Json(new { success = true, mensaje = "Se ha actualizado la informacion del pago satisfactoriamente." });
+                    }
+                }
+                else
+                {
+                    return PartialView(datosabonoedit);
+                }
+
+            }
+            catch (Exception)
             {
 
                 throw;
@@ -368,7 +405,7 @@ namespace Monografia.Controllers
             {
 
               
-                if (validadinputs(datoscliente))
+                if (validadinputs(datoscliente,null))
                 {
                     if (db.clientes.Where(x => (x.Primer_nombre + x.Segundo_nombre + x.Primer_apellido + x.Segundo_apellido).ToUpper() == (datoscliente.cliente.Primer_nombre + datoscliente.cliente.Segundo_nombre + datoscliente.cliente.Primer_apellido + datoscliente.cliente.Segundo_apellido).ToUpper() && x.Estado==1).FirstOrDefault() == null)
                     {
@@ -404,94 +441,117 @@ namespace Monografia.Controllers
          
         }
 
-        public Boolean validadinputs( Modelo_contenedor datoscliente) {
+        public Boolean validadinputs( Modelo_contenedor datoscliente,pagos datospagos) {
             Boolean valid = true;
-            if (datoscliente.cliente.Primer_nombre == null)
+            if (datoscliente != null)
             {
-                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el primer nombre del cliente<br>";
-                valid = false;
-            }
-            if (datoscliente.cliente.Primer_nombre != null)
-                if (!sololetras(datoscliente.cliente.Primer_nombre))
-            {
-                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo letras en primer nombre del cliente<br>";
-                valid = false;
-            }
-            if (datoscliente.cliente.Segundo_nombre == null)
-            {
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el Segundo nombre del cliente<br>";
-                valid = false;
-            }
-            if (datoscliente.cliente.Segundo_nombre != null)
-                if (!sololetras(datoscliente.cliente.Segundo_nombre))
-            {
-                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo letras en Segundo nombre del cliente<br>";
-                valid = false;
-            }
-            if (datoscliente.cliente.Primer_apellido == null)
-            {
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el primer apellido del cliente<br>";
-                valid = false;
-            }
-            if (datoscliente.cliente.Primer_apellido != null)
-                if (!sololetras(datoscliente.cliente.Primer_apellido))
-            {
-                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo letras en primer apellido del cliente<br>";
-                valid = false;
-            }
-            if (datoscliente.cliente.Segundo_apellido == null)
-            {
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el segundo apellido del cliente<br>";
-                valid = false;
-            }
-            if (datoscliente.cliente.Segundo_apellido != null)
-                if (!sololetras(datoscliente.cliente.Segundo_apellido))
-            {
-                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo letras en segundo apellido del cliente<br>";
-                valid = false;
-            }
-            if (datoscliente.cliente.Telefono == null)
-            {
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el número telefonico del cliente<br>";
-                valid = false;
-            }
-            else
-            {
-                if (datoscliente.cliente.Telefono.ToString().Length < 8)
+                if (datoscliente.cliente.Primer_nombre == null)
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un número telefonico Válido<br>";
+                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el primer nombre del cliente<br>";
+                    valid = false;
+                }
+                if (datoscliente.cliente.Primer_nombre != null)
+                    if (!sololetras(datoscliente.cliente.Primer_nombre))
+                    {
+                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo letras en primer nombre del cliente<br>";
+                        valid = false;
+                    }
+                if (datoscliente.cliente.Segundo_nombre == null)
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el Segundo nombre del cliente<br>";
+                    valid = false;
+                }
+                if (datoscliente.cliente.Segundo_nombre != null)
+                    if (!sololetras(datoscliente.cliente.Segundo_nombre))
+                    {
+                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo letras en Segundo nombre del cliente<br>";
+                        valid = false;
+                    }
+                if (datoscliente.cliente.Primer_apellido == null)
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el primer apellido del cliente<br>";
+                    valid = false;
+                }
+                if (datoscliente.cliente.Primer_apellido != null)
+                    if (!sololetras(datoscliente.cliente.Primer_apellido))
+                    {
+                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo letras en primer apellido del cliente<br>";
+                        valid = false;
+                    }
+                if (datoscliente.cliente.Segundo_apellido == null)
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el segundo apellido del cliente<br>";
+                    valid = false;
+                }
+                if (datoscliente.cliente.Segundo_apellido != null)
+                    if (!sololetras(datoscliente.cliente.Segundo_apellido))
+                    {
+                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo letras en segundo apellido del cliente<br>";
+                        valid = false;
+                    }
+                if (datoscliente.cliente.Telefono == null)
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el número telefonico del cliente<br>";
+                    valid = false;
+                }
+                else
+                {
+                    if (datoscliente.cliente.Telefono.ToString().Length < 8)
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un número telefonico Válido<br>";
+                        valid = false;
+                    }
+
+                    if (!Regex.IsMatch(datoscliente.cliente.Telefono.ToString(), patronsindecimales))
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en número telefonico<br>";
+                        valid = false;
+                    }
+                }
+
+
+                if (datoscliente.cliente.Id_tipocredito == 0)
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el tipo de credito del cliente<br>";
+                    valid = false;
+                }
+                else
+                {
+                    if ((datoscliente.cliente.Cantidad_credito == null || datoscliente.cliente.Cantidad_credito == 0) && datoscliente.cliente.Id_tipocredito == 2)
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar Cantidad de crédito para el cliente<br>";
+                        valid = false;
+                    }
+
+                    if (!Regex.IsMatch(datoscliente.cliente.Cantidad_credito.ToString(), patronsindecimales))
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en número cantidad de credito<br>";
+                        valid = false;
+                    }
+
+                }
+                if (datoscliente.cliente.Direccion == null)
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la dirección del cliente";
+                    valid = false;
+
+                }
+            }
+            if (datospagos != null)
+            {
+
+                if ((datospagos.Monto_pagado == null || datospagos.Monto_pagado == 0))
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar Cantidad del nuevo monto de pago<br>";
+                    valid = false;
+                }
+                if (!Regex.IsMatch(datospagos.Monto_pagado.ToString(), patronConDecimales))
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en nuevo monto de pago<br>";
                     valid = false;
                 }
 
-                if (!Regex.IsMatch(datoscliente.cliente.Telefono.ToString(), patronsindecimales))
-                {
-                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en número telefonico<br>";
-                    valid = false;
-                }
             }
-
-
-            if (datoscliente.cliente.Id_tipocredito == 0)
-            {
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el tipo de credito del cliente<br>";
-                valid = false;
-            }
-            else
-            {
-                if ((datoscliente.cliente.Cantidad_credito == null || datoscliente.cliente.Cantidad_credito == 0) && datoscliente.cliente.Id_tipocredito == 2)
-                {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar Cantidad de crédito para el cliente<br>";
-                    valid = false;
-                }
-
-            }
-            if (datoscliente.cliente.Direccion == null)
-            {
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la dirección del cliente";
-                valid = false;
-
-            }
-
             return valid;
         }
 
@@ -568,7 +628,7 @@ namespace Monografia.Controllers
         {
             try
             {
-                if (validadinputs(datosclienteedit))
+                if (validadinputs(datosclienteedit, null))
                 {
                     var datoscliente = (from d in db.clientes where d.Idcliente == datosclienteedit.cliente.Idcliente select d).FirstOrDefault();
                     if (datoscliente == null)

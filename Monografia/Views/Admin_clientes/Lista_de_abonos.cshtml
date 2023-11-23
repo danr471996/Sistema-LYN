@@ -60,7 +60,7 @@
                                 @Html.DisplayFor(modelItem => item.Monto_pagado)
                             </td>
                             <td class="text-center">
-                                <a data-modal="" href=@Url.Action("Editabono", "Admin_clientes", new { id = item.Id_factura })> <i class="far fa-edit fa-lg" style="color: #0040ff;"></i></a>
+                                <a data-modal="" href=@Url.Action("Editabono", "Admin_clientes", new { id = item.Idpagos })> <i class="far fa-edit fa-lg" style="color: #0040ff;"></i></a>
                             </td>
                         </tr>
                     }

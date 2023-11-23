@@ -20,7 +20,9 @@
 
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-
+            @if (Model != null)
+            {
+                @Html.HiddenFor(model=>model.Idpagos)
                 <form class="row g-3">
                     <div class="row">
                         <div class="col-md-12">
@@ -29,18 +31,19 @@
                         </div>
                     </div>
                 </form>
-            
+            }
             </div>
         <div class="card-footer text-center">
-        
+            @if (Model != null)
+            {
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-save"> Guardar</i>
                 </button>
-            
+
+            }
 
 
-
-        </div>
+            </div>
     </div>
 }
 
