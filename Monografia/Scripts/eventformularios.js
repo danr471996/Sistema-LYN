@@ -7,7 +7,7 @@
     const eyeIcon = document.querySelector("#eye");
     var urlDelFormulario = window.location.href;
 
-    if (eyeIcon != null || yourUsername != null || passwordField != null || urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario") || urlDelFormulario.includes("Venta") || urlDelFormulario.includes("Createpromocion")) {
+    if (eyeIcon != null || yourUsername != null || passwordField != null || urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario") || urlDelFormulario.includes("Venta")) {
 
 
         if (eyeIcon != null) { 
@@ -22,11 +22,11 @@
         });
     }
         var mensaje = document.getElementById("Mensaje").value;
-        if (mensaje != "" && !(urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario") || urlDelFormulario.includes("Venta") || urlDelFormulario.includes("Createpromocion"))) {
+        if (mensaje != "" && !(urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario") || urlDelFormulario.includes("Venta"))) {
 
             sesionestadoproceso(false, mensaje)
         }
-        if (mensaje != "" && (urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario") || urlDelFormulario.includes("Createpromocion"))) {
+        if (mensaje != "" && (urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario"))) {
             sesionestadoproceso(true, mensaje)
         }
 
