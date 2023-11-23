@@ -2395,7 +2395,7 @@
     <Content Include="Views\Admin_departamentos\Delete.cshtml" />
     <Content Include="Views\Admin_departamentos\Edit.cshtml" />
     <Content Include="Views\Admin_departamentos\Lista_departamentos.cshtml" />
-    <Content Include="Views\Admin_productos\Createpromocion.cshtml" />
+    <Content Include="Views\Admin_productos\Lista_promocion.cshtml" />
     <Content Include="Views\Admin_productos\Deletepromocion.cshtml" />
     <Content Include="Views\Admin_clientes\Create.cshtml" />
     <Content Include="Views\Admin_clientes\Delete.cshtml" />
@@ -2443,6 +2443,8 @@
     <Content Include="Views\Config\Edit.cshtml" />
     <Content Include="Views\Config\Delete.cshtml" />
     <Content Include="Views\Admin_clientes\Editabono.cshtml" />
+    <Content Include="Views\Admin_productos\Createpromocion.cshtml" />
+    <Content Include="Views\Admin_productos\Editpromocion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

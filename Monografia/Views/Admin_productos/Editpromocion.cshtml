@@ -1,0 +1,66 @@
+﻿@model Monografia.Models.promocion
+
+@Scripts.Render("~/bundles/jqueryval")
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <h4>Editar promoción</h4>
+        </div>
+        <div class="card-body">
+            <br>
+            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
+
+                @Html.Raw(@ViewBag.Mensaje)
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @if (Model != null)
+            {
+                @Html.HiddenFor(model => model.Idpromocion)
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.Label("Nombre de promoción", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Nombre_promocion, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return lettersOnly(event,'P');" } })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.Label("Código de producto", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.productos.Codigo_producto, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.Label("Cantidad desde", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Cant_desde, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.Label("Cantidad hasta", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Cant_hasta, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.Label("Precio unitario", htmlAttributes: new { @class = "form-label" })
+                        @Html.EditorFor(model => model.Precio_unitario, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode != 8 && event.charCode != 0 && (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)" } })
+                    </div>
+                </div>
+
+            }
+        </div>
+                <br>
+                <div class="card-footer text-center">
+                    @if (Model != null)
+                    {
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-save">Guardar</i>
+                        </button>
+                        }
+                    </div>
+            </div>
+}
+

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Monografia.Models;
 
 namespace Monografia.Controllers
@@ -61,7 +63,7 @@ namespace Monografia.Controllers
             {
 
 
-                if (validadinputs(modelo_contenedor, usainventario,null, 0))
+                if (validadinputs(modelo_contenedor, usainventario,null))
                 {
                     if (db.productos.Where(x => x.Codigo_producto == modelo_contenedor.productos.Codigo_producto && x.Estado == 1).FirstOrDefault() == null)
                     {
@@ -107,7 +109,7 @@ namespace Monografia.Controllers
 
 
 
-        public Boolean validadinputs(Modelo_contenedor datosproducto,string usainventario,promocion datospromocion,int codigoproducto)
+        public Boolean validadinputs(Modelo_contenedor datosproducto,string usainventario,promocion datospromocion)
         {
             Boolean valid = true;
             if (datosproducto != null)
@@ -198,12 +200,12 @@ namespace Monografia.Controllers
                     ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la descripcion de la promoción<br>";
                     valid = false;
                 }
-                if (codigoproducto == 0)
+                if (datospromocion.productos.Codigo_producto == 0)
                 {
                     ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el codigo del producto<br>";
                     valid = false;
                 }
-                if (!Regex.IsMatch(codigoproducto.ToString(), patronsindecimales))
+                if (!Regex.IsMatch(datospromocion.productos.Codigo_producto.ToString(), patronsindecimales))
                 {
                     ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en codigo del producto<br>";
                     valid = false;
@@ -316,7 +318,7 @@ namespace Monografia.Controllers
 
               ViewBag.usainventario = usainventario == "true" ? true:false ;
               
-                if (validadinputs(datosproductoedit, usainventario,null,0))
+                if (validadinputs(datosproductoedit, usainventario,null))
                 {
 
                     var producto = db.productos.Where(x => x.Idproducto == datosproductoedit.productos.Idproducto).FirstOrDefault();
@@ -459,43 +461,42 @@ namespace Monografia.Controllers
         {
             return RedirectToAction("Lista_departamentos", "Admin_departamentos");
         }
+
+
+        public ActionResult Lista_promocion()
+        {
+            return View(db.promocion.ToList());
+        }
+
+
         public ActionResult Createpromocion()
         {
             try
             {
-                ViewBag.listapromocion = db.promocion.ToList();
-                if (TempData["ajusteexitoso"] != null)
-                {
-                    ViewBag.mensajeexito = "Se agrego promoción satisfactoriamente";
-                }
-                return View();
+                return PartialView();
             }
             catch (Exception)
             {
 
                 throw;
             }
-           
+
         }
-        // POST: usuarios_tienda/Create
+        // POST: Admin_producto/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Createpromocion(promocion promocion,int? Codigo_producto)
+        public ActionResult Createpromocion(promocion promocion)
         {
             try
             {
-                ViewBag.cod_producto = Codigo_producto;
-                if (validadinputs(null, "", promocion, Convert.ToInt32(Codigo_producto)))
+            
+                if (validadinputs(null, "", promocion))
                 {
-                    if (Codigo_producto != 0 && Codigo_producto != null)
-                    {
-
-
-
+              
                         var codigoproducto = (from u in db.productos
-                                              where u.Codigo_producto == Codigo_producto
+                                              where u.Codigo_producto == promocion.productos.Codigo_producto
                                               select new
                                               {
                                                   u
@@ -515,22 +516,20 @@ namespace Monografia.Controllers
                                 promocion.Id_producto = codigoproducto.u.Idproducto;
                                 db.promocion.Add(promocion);
                                 db.SaveChanges();
-                                TempData["ajusteexitoso"] = true;
-
-                                return RedirectToAction("Createpromocion");
-                                }
+                                        return Json(new { success = true, mensaje = "Se ha creado el promocion satisfactoriamente." });
+                                    }
                                 else
                                 {
-                                    ViewBag.listapromocion = db.promocion.ToList();
+                             
                                     ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promocion para el producto digitado<br>";
-                                    return View(promocion);
+                                    return PartialView(promocion);
 
                                 }
                             }
                             else {
-                                ViewBag.listapromocion = db.promocion.ToList();
+                               
                                 ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promocion con el mismo nombre<br>";
-                                return View(promocion);
+                                return PartialView(promocion);
 
                             }
 
@@ -538,28 +537,19 @@ namespace Monografia.Controllers
                             else
                             {
                                 ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto activo";
-                                ViewBag.listapromocion = db.promocion.ToList();
-                                return View(promocion);
+                                return PartialView(promocion);
                             }
                         }
                         else {
                             ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
-                            ViewBag.listapromocion = db.promocion.ToList();
-                            return View(promocion);
+                            return PartialView(promocion);
                         }
 
 
 
-                    }
-                    else {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de producto erroneo";
-                        ViewBag.listapromocion = db.promocion.ToList();
-                        return View(promocion);
-                    }
                 }
                 else {
-                    ViewBag.listapromocion = db.promocion.ToList();
-                    return View(promocion);
+                    return PartialView(promocion);
                 }
              
                
@@ -570,6 +560,138 @@ namespace Monografia.Controllers
                 throw;
             }
           
+
+        }
+
+        // GET: usuarios_tienda/Edit/5
+        public ActionResult Editpromocion(int? id)
+        {
+            try
+            {
+                promocion promocion = null;
+                if (id != 0 && id != null)
+                {
+
+                    promocion datospromocion = db.promocion.Find(id);
+
+                    if (datospromocion == null)
+                    {
+
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro promoción";
+                        return PartialView(datospromocion);
+
+                    }
+                    else
+                    {
+
+                        return PartialView(datospromocion);
+                    }
+                }
+                else
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de promoción erroneo";
+                    return PartialView(promocion);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editpromocion(promocion datospromocionedit)
+        {
+            try
+            {
+
+
+                if (validadinputs(null, "", datospromocionedit))
+                {
+                    promocion datospromocion = db.promocion.Find(datospromocionedit.Idpromocion);
+
+                    if (datospromocion != null)
+                    {
+                        var codigoproducto = (from u in db.productos
+                                          where u.Codigo_producto == datospromocionedit.productos.Codigo_producto
+                                          select new
+                                          {
+                                              u
+                                          }).FirstOrDefault();
+
+                            if (codigoproducto != null)
+                            {
+                                if (codigoproducto.u.Estado == 1)
+                                {
+                            
+
+                                    var promocionlist = db.promocion.ToList();
+                                    if (promocionlist.Where(x => x.Nombre_promocion.ToUpper() == datospromocionedit.Nombre_promocion.ToUpper() && x.Estado == 1 && x.Idpromocion!=datospromocionedit.Idpromocion).FirstOrDefault() == null)
+                                    {
+                                        if (promocionlist.Where(x => x.Id_producto == codigoproducto.u.Idproducto && x.Estado == 1 && x.Idpromocion != datospromocionedit.Idpromocion).FirstOrDefault() == null)
+                                        {
+
+                                        datospromocion.Nombre_promocion = datospromocionedit.Nombre_promocion;
+                                        datospromocion.Id_producto = codigoproducto.u.Idproducto;
+                                        datospromocion.Cant_desde = datospromocionedit.Cant_desde;
+                                        datospromocion.Cant_hasta = datospromocionedit.Cant_hasta;
+                                        datospromocion.Precio_unitario = datospromocionedit.Precio_unitario;
+
+                                            db.SaveChanges();
+                                            return Json(new { success = true, mensaje = "Se ha actualizado la promocion satisfactoriamente." });
+                                        }
+                                        else
+                                        {
+
+                                            ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promocion para el producto digitado<br>";
+                                            return PartialView(datospromocionedit);
+
+                                        }
+                                    }
+                                    else
+                                    {
+
+                                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promocion con el mismo nombre<br>";
+                                        return PartialView(datospromocionedit);
+
+                                    }
+
+                                }
+                                else
+                                {
+                                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto activo";
+                                    return PartialView(datospromocionedit);
+                                }
+                            }
+                            else
+                            {
+                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+                                return PartialView(datospromocionedit);
+                            }
+                    }
+                    else
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro promoción";
+                        return PartialView(datospromocionedit);
+                    }
+                }
+                else
+                {
+                    return PartialView(datospromocionedit);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
         }
 
