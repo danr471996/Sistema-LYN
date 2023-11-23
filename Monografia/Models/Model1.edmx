@@ -234,7 +234,7 @@
           <Property Name="Id_producto" Type="int" Nullable="false" />
           <Property Name="Cant_desde" Type="int" Nullable="false" />
           <Property Name="Cant_hasta" Type="int" Nullable="false" />
-          <Property Name="Precio_unitario" Type="int" Nullable="false" />
+          <Property Name="Precio_unitario" Type="decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="proveedor">

@@ -234,6 +234,16 @@ namespace Monografia.Controllers
                     ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Cantidad desde no puede ser mayor a cantidad hasta de la promoción<br>";
                     valid = false;
                 }
+                if (datospromocion.Precio_unitario == 0)
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar precio unitario del producto en la promoción<br>";
+                    valid = false;
+                }
+                if (!Regex.IsMatch(datospromocion.Precio_unitario.ToString(), patronConDecimales))
+                {
+                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en precio unitario del producto en la promoción<br>";
+                    valid = false;
+                }
             }
 
             return valid;
@@ -503,7 +513,6 @@ namespace Monografia.Controllers
                                     promocion.Fecha_alta = DateTime.Now;
                                 promocion.Estado = 1;
                                 promocion.Id_producto = codigoproducto.u.Idproducto;
-                                promocion.Precio_unitario = Convert.ToInt32(codigoproducto.u.Precio_venta);
                                 db.promocion.Add(promocion);
                                 db.SaveChanges();
                                 TempData["ajusteexitoso"] = true;

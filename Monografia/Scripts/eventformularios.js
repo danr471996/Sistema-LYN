@@ -42,6 +42,13 @@
     
 
             ejecutascripts();
+            desvinculaevent();
+            $('a[data-modal]').on('click', function (e) {
+                $('.modal').modal('hide');
+                // Abre la ventana modal con el formulario solicitado 
+                openmodal(this.href);
+                return false;
+            });
 
 
         $('#btndescargar').on("click", function () {
@@ -67,36 +74,29 @@
 
   
 });
-
+function desvinculaevent() {
+    // Desvincular eventos existentes
+    $('a[data-modal]').off('click');
+}
 function redimensionatable(tableIds) {
     var observer = window.ResizeObserver ? new ResizeObserver(function (entries) {
         entries.forEach(function (entry) {
-            console.log("este es el entry" + entry)
-            console.log( entry)
             $(entry.target).DataTable().columns.adjust();
         });
     }) : null;
 
     // Function to add a datatable to the ResizeObserver entries array
     resizeHandler = function ($table) {
-        console.log("esta es la tabla")
-        console.log($table)
-        console.log( $table[0])
         if (observer)
             observer.observe($table[0]);
     };
 
     // Iniciar el manejo de redimensionamiento adicional en todas las tablas
     tableIds.forEach(function (id) {
-        console.log("este es el proporcionado id");
-        console.log(id);
         var $table = $('#' + id);
-        console.log("este es el table id");
-        console.log($table);
         resizeHandler($table);
     });
 
-    console.log(tableIds);
 
 }
 

@@ -21,12 +21,16 @@ $(function () {
         $('#contentModal').html('');
 
     })
+
+
 });
+
 function openmodal(url) {
     // Hace una petición get y carga el formulario en la ventana modal
     $('#contentModal').load(url, function () {
 
-        var myModal = new bootstrap.Modal(document.getElementById('modalGenerica'), {
+        // Si no existe, crea una nueva instancia
+       var myModal = new bootstrap.Modal(document.getElementById('modalGenerica'), {
             keyboard: true
         });
         myModal.show();

@@ -64,11 +64,14 @@ namespace Monografia.Controllers
         public ActionResult Create()
         {
             Modelo_contenedor modelocontenedor = new Modelo_contenedor();
-            modelocontenedor.listaperfiles= getperfiles();
+            modelocontenedor.listaperfiles= getperfiles("create");
             return PartialView(modelocontenedor);
         }
 
-        public List<usuarios_perfiles> getperfiles() {
+        public List<usuarios_perfiles> getperfiles(string metodo) {
+            if(metodo=="create")
+           return db.usuarios_perfiles.Where(x=>x.Estado==1).ToList();
+            else
            return db.usuarios_perfiles.ToList();
 
         }
@@ -106,7 +109,7 @@ namespace Monografia.Controllers
                         }
                         else {
                             modelocontenedor = new Modelo_contenedor();
-                            modelocontenedor.listaperfiles = getperfiles();
+                            modelocontenedor.listaperfiles = getperfiles("create");
                             ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un usuario con el mismo nombre<br>";
                             return PartialView(modelocontenedor);
 
@@ -114,7 +117,7 @@ namespace Monografia.Controllers
                     }
                     else {
                         modelocontenedor = new Modelo_contenedor();
-                        modelocontenedor.listaperfiles = getperfiles();
+                        modelocontenedor.listaperfiles = getperfiles("create");
                         ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un usuario con el mismo login<br>";
                         return PartialView(modelocontenedor);
                     }
@@ -123,7 +126,7 @@ namespace Monografia.Controllers
                 {
 
                     modelocontenedor = new Modelo_contenedor();
-                    modelocontenedor.listaperfiles = getperfiles();
+                    modelocontenedor.listaperfiles = getperfiles("create");
 
                     return PartialView(modelocontenedor);
                 }
@@ -226,7 +229,7 @@ namespace Monografia.Controllers
                         modelo_contenedor = new Modelo_contenedor();
                         modelo_contenedor.usuarios_tienda = usuarios;
                         modelo_contenedor.usuario_detalle = usuarios.usuario_detalle.FirstOrDefault();
-                        modelo_contenedor.listaperfiles = getperfiles();
+                        modelo_contenedor.listaperfiles = getperfiles("Edit");
                         return PartialView(modelo_contenedor);
                     }
                 }
@@ -263,7 +266,7 @@ namespace Monografia.Controllers
                     {
                         ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro usuario";
                         modelocontenedor.listaperfiles = new List<usuarios_perfiles>();
-                        modelocontenedor.listaperfiles = getperfiles();
+                        modelocontenedor.listaperfiles = getperfiles("Edit");
 
                         return PartialView(modelocontenedor);
                     }
@@ -288,7 +291,7 @@ namespace Monografia.Controllers
                             else
                             {
                                 modelocontenedor = new Modelo_contenedor();
-                                modelocontenedor.listaperfiles = getperfiles();
+                                modelocontenedor.listaperfiles = getperfiles("Edit");
                                 ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un usuario con el mismo nombre<br>";
                                 return PartialView(modelocontenedor);
 
@@ -298,7 +301,7 @@ namespace Monografia.Controllers
                 else
                 {
                     modelocontenedor.listaperfiles = new List<usuarios_perfiles>();
-                    modelocontenedor.listaperfiles = getperfiles();
+                    modelocontenedor.listaperfiles = getperfiles("Edit");
 
                     return PartialView(modelocontenedor);
                 }

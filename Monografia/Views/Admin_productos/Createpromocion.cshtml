@@ -55,6 +55,13 @@
                 </div>
             </div>
             <br>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.Label("Precio unitario", htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Precio_unitario, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode != 8 && event.charCode != 0 && (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)" } })
+                </div>
+            </div>
+            <br>
             <div class="row text-center">
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-primary">
@@ -131,7 +138,7 @@
                                 }
                                 else
                                 {
-                                    <span class="badge rounded-pill bg-gradient text-dark open-sans"><i class="fas fa-times fa-lg" style="color: #ff0a0a;"></i>Inactivo</span>
+                                    <span class="badge rounded-pill bg-light text-dark open-sans"><i class="fas fa-times fa-lg" style="color: #ff0a0a;"></i>Inactivo</span>
                                 }
                             </td>
                             <td class="text-center">
