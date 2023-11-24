@@ -3,61 +3,56 @@
 @{
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
+@using (Html.BeginForm("Simbolodemoneda", "Config"))
+{
+    <div class="card border-start border-0 border-3 border-info">
 
-<div class="card border-start border-0 border-3 border-info">
+        <div class="card-header">
+            <h4 class="text-center">Simbolo de moneda</h4>
+        </div>
 
-    <div class="card-header">
-        <h4 class="text-center">Simbolo de moneda</h4>
-    </div>
+        <div class="card-body">
 
-    <div class="card-body">
-      @using (Html.BeginForm("Simbolodemoneda", "Config"))
-      {
 
-        <button class="btn btn-success" type="submit">
-            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
-            </span> Guardar Cambios
-        </button>
 
-        <br><br />
 
-        <ul class="list-group">
-            @for (int i = 0; i < Model.Lista_opciones.Count; i++)
-            {
-                <li class="list-group-item">
-                    <br><br />
-                    <div class="card">
-                        <div class="card-header">
-                            @Model.Lista_opciones[i].NOMBRE_OP
-                        </div>
-                        <div class="card-body">
-                            <div class="form-inline">
-                                <div class="col-xs-1">
-                                    @if (Model.Lista_opciones[i].DETALLE_EXT2 != null)
-                                    {
-                                        @Html.TextBox("txtsimbolo" + i.ToString(), Model.Lista_opciones[i].DETALLE_EXT1, new { @class = "form-control input-sm", type = Model.Lista_opciones[i].DETALLE_EXT2 })
-                                    }
-                                    else
-                                    {
-                                        @Html.TextBox("txtsimbolo" + i.ToString(), Model.Lista_opciones[i].DETALLE_EXT1, new { @class = "form-control input-sm" })
-                                    }
+            <br>
+            <div class="row">
+                @for (int i = 0; i < Model.Lista_opciones.Count; i++)
+                {
 
-                                </div>
-                            </div>
-                            @Html.HiddenFor(m => Model.Lista_opciones[i].ID_OP)
-                            @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT1)
-                            @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT2)
-                            @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT3)
-                        </div>
+
+                    <div class="col-md-3">
+                        @Model.Lista_opciones[i].NOMBRE_OP
+
+
+
+                        @if (Model.Lista_opciones[i].DETALLE_EXT2 != null)
+                        {
+                            @Html.TextBox("txtsimbolo" + i.ToString(), Model.Lista_opciones[i].DETALLE_EXT1, new { @class = "form-control", type = Model.Lista_opciones[i].DETALLE_EXT2 })
+                        }
+                        else
+                        {
+                            @Html.TextBox("txtsimbolo" + i.ToString(), Model.Lista_opciones[i].DETALLE_EXT1, new { @class = "form-control" })
+                        }
+
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].ID_OP)
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT1)
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT2)
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT3)
                     </div>
-                </li>
-            }
-        </ul>
+                    <br>
+                }
+            </div>
 
-      }
 
+        </div>
+        <div class="card-footer text-center">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"> Guardar</i>
+            </button>
+        </div>
     </div>
-</div>
-
+}
 
 

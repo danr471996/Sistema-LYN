@@ -3,86 +3,80 @@
 @{
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
+@using (Html.BeginForm("Opcioneshabilitadas", "Config"))
+{
+    <div class="card border-start border-0 border-3 border-info">
 
-<div class="card border-start border-0 border-3 border-info">
+        <div class="card-header">
+            <h4 class="text-center">Opciones Habilitadas</h4>
+        </div>
 
-    <div class="card-header">
-        <h4 class="text-center">Opciones Habilitadas</h4>
-    </div>
+        <div class="card-body">
+            <br>
+            <div class="row">
+                @for (int i = 0; i < Model.Lista_opciones.Count; i++)
+                {
 
-    <div class="card-body">
-       @using (Html.BeginForm("Opcioneshabilitadas", "Config"))
-       {
-        @*<input type="submit" value="Guardar Cambios" class="btn btn-success" />*@
-        <button class="btn btn-success" type="submit">
-            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">
-            </span> Guardar Cambios
-        </button>
+                    <div class="col-md-4">
 
-        <br><br />
-        <ul class="list-group">
-            @for (int i = 0; i < Model.Lista_opciones.Count; i++)
-            {
-                <li class="list-group-item">
+                        @Html.CheckBoxFor(m => Model.Lista_opciones[i].SELECCIONADO_OP)
+                        @Model.Lista_opciones[i].NOMBRE_OP
+                        <br />
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            @Html.CheckBoxFor(m => Model.Lista_opciones[i].SELECCIONADO_OP)
-                            @Model.Lista_opciones[i].NOMBRE_OP
-                        </div>
-                        <div class="panel-body">
-
-                            @if (Model.Lista_opciones[i].ID_OP.Contains("OP4_OPH"))
-                            {
-
-                                <div class="form-inline">
-                                    <div class="col-xs-1">
-                                        @Html.TextBox("txtporcentaje", Model.Lista_opciones[i].DETALLE_EXT1, new { @class = "form-control input-sm", type = "number" })
-                                    </div>
-                                    @Model.Lista_opciones[i].DESCRIPCION_OP
-                                </div>
+                        @if (Model.Lista_opciones[i].ID_OP.Contains("OP4_OPH"))
+                        {
 
 
-                            }
-                            else if (Model.Lista_opciones[i].ID_OP.Contains("OP5_OPH"))
-                            {
-                                <div class="form-inline">
-                                    <div class="col-xs-3">
-                                        <select data-val="true" data-val-range="A user type must be selected." data-val-range-max="2" data-val-range-min="1" data-val-required="The UserType field is required." id="slcopcion" name="slcopcion" class="form-control input-sm">
-                                            <option>@Model.Lista_opciones[i].DETALLE_EXT1</option>
-                                            @if (!Model.Lista_opciones[i].DETALLE_EXT1.Contains(Model.Lista_opciones[i].DETALLE_EXT2))
-                                            {
-                                                <option>@Model.Lista_opciones[i].DETALLE_EXT2</option>
-                                            }
-                                            else if (!Model.Lista_opciones[i].DETALLE_EXT1.Contains(Model.Lista_opciones[i].DETALLE_EXT3))
-                                            {
-                                                <option>@Model.Lista_opciones[i].DETALLE_EXT3</option>
-                                            }
-                                        </select>
-                                    </div>
+                            @Html.TextBox("txtporcentaje", Model.Lista_opciones[i].DETALLE_EXT1, new { @class = "form-control input-sm", type = "number" })
 
-                                    @Model.Lista_opciones[i].DESCRIPCION_OP
-                                </div>
-                            }
-                            else
-                            {
-                                @Model.Lista_opciones[i].DESCRIPCION_OP
-                            }
-                            @Html.HiddenFor(m => Model.Lista_opciones[i].ID_OP)
-                            @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT1)
-                            @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT2)
-                            @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT3)
-                        </div>
+                            <strong>  @Model.Lista_opciones[i].DESCRIPCION_OP</strong>
+
+
+
+                        }
+                        else if (Model.Lista_opciones[i].ID_OP.Contains("OP5_OPH"))
+                        {
+                            <strong>  @Model.Lista_opciones[i].DESCRIPCION_OP</strong>
+                            <select data-val="true" data-val-range="A user type must be selected." data-val-range-max="2" data-val-range-min="1" data-val-required="The UserType field is required." id="slcopcion" name="slcopcion" class="form-select input-sm">
+                                <option>@Model.Lista_opciones[i].DETALLE_EXT1</option>
+                                @if (!Model.Lista_opciones[i].DETALLE_EXT1.Contains(Model.Lista_opciones[i].DETALLE_EXT2))
+                                {
+                                    <option>@Model.Lista_opciones[i].DETALLE_EXT2</option>
+                                }
+                                else if (!Model.Lista_opciones[i].DETALLE_EXT1.Contains(Model.Lista_opciones[i].DETALLE_EXT3))
+                                {
+                                    <option>@Model.Lista_opciones[i].DETALLE_EXT3</option>
+                                }
+                            </select>
+
+
+
+
+                        }
+                        else
+                        {
+                    <strong>  @Model.Lista_opciones[i].DESCRIPCION_OP</strong>
+                        }
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].ID_OP)
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT1)
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT2)
+                        @Html.HiddenFor(m => Model.Lista_opciones[i].DETALLE_EXT3)
+                        <hr />
                     </div>
-                </li>
-            }
-        </ul>
-       }
+                   
+                }
+
+            </div>
 
 
+        </div>
+        <div class="card-footer text-center">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"> Guardar</i>
+            </button>
+        </div>
     </div>
-</div>
 
-
+}
 
 
