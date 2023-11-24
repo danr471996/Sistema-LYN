@@ -1006,6 +1006,23 @@ namespace Monografia.Controllers
         {
             return (from u in db.tipo_movimento where u.Estado == 1 select u).ToList();
         }
+
+
+        public ActionResult Corte()
+        {
+
+            try
+            {
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
