@@ -42,7 +42,7 @@
     
             ejecutascripts();
             desvinculaevent();
-            $('a[data-modal]').on('click', function (e) {
+            $('#tblistabonos').on('click','#othermodal', function (e) {
                 $('.modal').modal('hide');
                 // Abre la ventana modal con el formulario solicitado 
                 openmodal(this.href);
@@ -75,7 +75,7 @@
 });
 function desvinculaevent() {
     // Desvincular eventos existentes
-    $('a[data-modal]').off('click');
+    $('#tblistabonos').off('click', '#othermodal');
 }
 function redimensionatable(tableIds) {
     var observer = window.ResizeObserver ? new ResizeObserver(function (entries) {
@@ -100,7 +100,6 @@ function redimensionatable(tableIds) {
 }
 
 function lettersOnly(evt, entity) {
-    evt = evt || window.event;
     var charCode = evt.charCode || evt.keyCode || evt.which || 0;
 
     if (entity == 'P'||entity=='D') {
