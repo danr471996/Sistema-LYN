@@ -30,6 +30,13 @@ namespace Monografia.Models
         public List<productos> listaproductos { get; set; }
         public List<tipo_movimento> listatipomovimiento { get; set; }
         public List<historial_inventario> listahistorialmov { get; set; }
+        public List<detalle_factura> listadetallefactura { get; set; }
+
+        public DateTime Fechadesde { get; set; }
+        public DateTime Fechahasta { get; set; }
+        public int SelectedValue { get; set; }
+
+        public List<SelectListItem> Options { get; set; }
 
         #region lista_productos_bajo_inventario
         public int codigo_producto1 { get; set; }

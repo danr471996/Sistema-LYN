@@ -33,7 +33,7 @@
                 @using (Html.BeginForm("reporte_inventario", "Admin_inventario", FormMethod.Post))
                 {
                     <div class="row">
-                        @Html.Label("", "Departamento:", htmlAttributes: new { @class = "form-label col-md-4" })
+                        @Html.Label("", "Departamento:", htmlAttributes: new { @class = "form-label col-md-3" })
                         <div class="col-md-8">
                             @Html.DropDownListFor(model => model.productos.Iddepartamento, new SelectList(Model.listadepartamento, "Iddepartmento", "Descripcion"), "Todos los departamentos", new { @class = "form-select", @onchange = "this.form.submit ();" })
                         </div>

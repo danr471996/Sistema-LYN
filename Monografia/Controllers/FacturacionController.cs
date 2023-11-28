@@ -7,6 +7,7 @@ using SelectPdf;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -1023,6 +1024,121 @@ namespace Monografia.Controllers
             }
 
         }
+
+        public ActionResult Ventas_por_periodo()
+        {
+
+            try
+            {
+                Modelo_contenedor modelcontenedor = new Modelo_contenedor
+                {
+                    Options = crearopciones(),
+                    listadetallefactura = new List<detalle_factura>()
+                };
+                return View(modelcontenedor);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+        [HttpPost]
+        public ActionResult Ventas_por_periodo(Modelo_contenedor modelocontenedor)
+        {
+
+            try
+            {
+                if (modelocontenedor.SelectedValue == 1) { 
+                 modelocontenedor.listadetallefactura=  db.detalle_factura.Where(x => x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month && x.Fecha_alta.Day == DateTime.Now.Day).ToList();
+                }
+
+                if (modelocontenedor.SelectedValue == 2)
+                {
+                    DateTime ayer = DateTime.Now.Date.AddDays(-1); // dia de ayer
+                    modelocontenedor.listadetallefactura = db.detalle_factura.Where(x =>  x.Fecha_alta.Year==ayer.Year && x.Fecha_alta.Month == ayer.Month && x.Fecha_alta.Day == ayer.Day).ToList();
+                }
+                if (modelocontenedor.SelectedValue == 3)
+                {
+                    DateTime inicioSemana = DateTime.Now.Date.AddDays(-((int)DateTime.Now.DayOfWeek-1)); // Primer día de la semana actual
+                    DateTime finSemana = inicioSemana.AddDays(6); // Último día de la semana actual
+
+                    modelocontenedor.listadetallefactura= db.detalle_factura.Where(x => (x.Fecha_alta.Year == inicioSemana.Year && x.Fecha_alta.Month == inicioSemana.Month && x.Fecha_alta.Day >= inicioSemana.Day) && (x.Fecha_alta.Year == finSemana.Year && x.Fecha_alta.Month == finSemana.Month && x.Fecha_alta.Day <= finSemana.Day)).ToList();
+                }
+                if (modelocontenedor.SelectedValue == 4)
+                {
+                    DateTime inicioMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1); // Primer día del mes actual
+                    DateTime finMes = inicioMes.AddMonths(1).AddDays(-1); // Último día del mes actual
+                    modelocontenedor.listadetallefactura = db.detalle_factura.Where(x => (x.Fecha_alta.Year == inicioMes.Year && x.Fecha_alta.Month == inicioMes.Month && x.Fecha_alta.Day >= inicioMes.Day) && (x.Fecha_alta.Year == finMes.Year && x.Fecha_alta.Month == finMes.Month && x.Fecha_alta.Day <= finMes.Day)).ToList();
+                }
+                if (modelocontenedor.SelectedValue == 5 && Request.Form["consultar"]==null)
+                {
+                    ViewBag.fechaparticular = true;
+                    
+                    modelocontenedor.listadetallefactura = new List<detalle_factura>();
+                }
+
+                if (Request.Form["consultar"] != null)
+                {
+                    Boolean valid = true;
+                    ViewBag.fechaparticular = true;
+
+                    if (modelocontenedor.Fechadesde > modelocontenedor.Fechahasta)
+                    {
+                        valid = false;
+                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>La fecha desde no puede ser menor a fecha hasta<br>";
+                        modelocontenedor.listadetallefactura = new List<detalle_factura>();
+                    }
+                    if (modelocontenedor.Fechadesde== default(DateTime)) {
+                        valid = false;
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>La fecha desde es invalida<br>";
+                        modelocontenedor.listadetallefactura = new List<detalle_factura>();
+
+                    }
+
+                    if (modelocontenedor.Fechahasta == default(DateTime))
+                    {
+                        valid = false;
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>La fecha hasta es invalida";
+                        modelocontenedor.listadetallefactura = new List<detalle_factura>();
+
+                    }
+                    if(valid==true)
+                   {
+                        modelocontenedor.listadetallefactura = db.detalle_factura.Where(x => (x.Fecha_alta.Year == modelocontenedor.Fechadesde.Year && x.Fecha_alta.Month == modelocontenedor.Fechadesde.Month && x.Fecha_alta.Day >= modelocontenedor.Fechadesde.Day) && (x.Fecha_alta.Year == modelocontenedor.Fechahasta.Year && x.Fecha_alta.Month == modelocontenedor.Fechahasta.Month && x.Fecha_alta.Day <= modelocontenedor.Fechahasta.Day)).ToList();
+                    }
+                    
+                   
+                }
+                modelocontenedor.Options= crearopciones();
+            
+                return View(modelocontenedor);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+        // Crear una lista de opciones para el DropDownList
+        public List<SelectListItem> crearopciones() {
+
+            List<SelectListItem> options = new List<SelectListItem>
+        {
+            new SelectListItem { Value = "1", Text = "Hoy" },
+            new SelectListItem { Value = "2", Text = "Ayer" },
+            new SelectListItem { Value = "3", Text = "Esta semana" },
+            new SelectListItem { Value = "4", Text = "Del mes" },
+            new SelectListItem { Value = "5", Text = "Periodo en particular" }
+        };
+
+
+            return options;
+
+        } 
+    
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -108,12 +108,12 @@ namespace Monografia.Controllers
                 ViewBag.tipofiltroventas = filtroventas=="hoy"? filtroventas:"este "+ filtroventas;
                 if (filtroventas == "hoy")
                 {
-                    cantidadventas = datosfactura.Where(x =>x.Fecha_alta.Day==DateTime.Now.Day).Count();
+                    cantidadventas = datosfactura.Where(x =>(x.Fecha_alta.Year==DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month && x.Fecha_alta.Day == DateTime.Now.Day)).Count();
                     
                 }
                 else if (filtroventas == "mes")
                 {
-                    cantidadventas = datosfactura.Where(x => x.Fecha_alta.Month == DateTime.Now.Month).Count();
+                    cantidadventas = datosfactura.Where(x => (x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month)).Count();
                 }
                 else {
                     cantidadventas = datosfactura.Where(x => x.Fecha_alta.Year == DateTime.Now.Year).Count();
@@ -132,11 +132,11 @@ namespace Monografia.Controllers
                 ViewBag.tipofiltroingresos = filtroingresos == "hoy" ? filtroingresos : "este " + filtroingresos; 
                 if (filtroingresos == "hoy")
                 {
-                    cantidadingresos = datosfactura.Where(x => x.Fecha_alta.Day == DateTime.Now.Day).Select(x => x.Monto_total).Sum();
+                    cantidadingresos = datosfactura.Where(x => (x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month && x.Fecha_alta.Day == DateTime.Now.Day)).Select(x => x.Monto_total).Sum();
                 }
                 else if (filtroingresos == "mes")
                 {
-                    cantidadingresos = datosfactura.Where(x => x.Fecha_alta.Month == DateTime.Now.Month).Select(x => x.Monto_total).Sum();
+                    cantidadingresos = datosfactura.Where(x => (x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month)).Select(x => x.Monto_total).Sum();
                 }
                 else
                 {
@@ -157,11 +157,11 @@ namespace Monografia.Controllers
                 ViewBag.tipofiltroclientes = filtroclientes == "hoy" ? filtroclientes : "este " + filtroclientes; 
                 if (filtroclientes == "hoy")
                 {
-                    cantidadclientes = datosfactura.Where(x => x.Fecha_alta.Day == DateTime.Now.Day).Count();
+                    cantidadclientes = datosfactura.Where(x => (x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month && x.Fecha_alta.Day == DateTime.Now.Day)).Count();
                 }
                 else if (filtroclientes == "mes")
                 {
-                    cantidadclientes = datosfactura.Where(x => x.Fecha_alta.Month == DateTime.Now.Month).Count();
+                    cantidadclientes = datosfactura.Where(x => (x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month)).Count();
                 }
                 else
                 {

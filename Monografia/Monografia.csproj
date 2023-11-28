@@ -2445,6 +2445,7 @@
     <Content Include="Views\Admin_clientes\Editabono.cshtml" />
     <Content Include="Views\Admin_productos\Createpromocion.cshtml" />
     <Content Include="Views\Admin_productos\Editpromocion.cshtml" />
+    <Content Include="Views\Facturacion\Ventas_por_periodo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
