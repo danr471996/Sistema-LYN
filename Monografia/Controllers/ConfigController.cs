@@ -252,60 +252,7 @@ namespace Monografia.Controllers
             }
         }
 
-        //************************************* ARTICULOS PRECARGADOS
-
-        public ActionResult Articulosprecargados()
-        {
-            Modelo_actual.Lista_opciones = Obtener_opciones_ap();
-            return View("Articulosprecargados", Modelo_actual);
-        }
-
-        [HttpPost]
-        public ActionResult Articulosprecargados(Modelo_Config Modelo)
-        {
-            foreach (var item in Modelo.Lista_opciones)
-            {
-                Actualizar_datos_ap(item.ID_OP, item.SELECCIONADO_OP);
-            }
-            Modelo_actual.Lista_opciones = Obtener_opciones_ap();
-            return View("Articulosprecargados", Modelo_actual);
-        }
-
-        private List<Opcion> Obtener_opciones_ap()
-        {
-            MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
-            mysqlcon.Open();
-            MySqlCommand comando = new MySqlCommand(@"SELECT * FROM OPCIONES WHERE ID_OP LIKE ('%_ATP')", mysqlcon);
-            MySqlDataReader lector = comando.ExecuteReader();
-
-            List<Opcion> op = new List<Opcion>();
-            while (lector.Read())
-            {
-                op.Add(new Opcion() { ID_OP = lector["ID_OP"].ToString(), NOMBRE_OP = lector["NOMBRE_OP"].ToString(), DESCRIPCION_OP = lector["DESCRIPCION_OP"].ToString(), SELECCIONADO_OP = Convert.ToBoolean(lector["SELECCIONADO_OP"]), DETALLE_EXT1 = lector["DETALLE_EXT1"].ToString(), DETALLE_EXT2 = lector["DETALLE_EXT2"].ToString(), DETALLE_EXT3 = lector["DETALLE_EXT3"].ToString() });
-            }
-
-            mysqlcon.Close();
-            return (op);
-        }
-
-        private string Actualizar_datos_ap(string ID, bool SELECCIONADO)
-        {
-            MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
-            mysqlcon.Open();
-
-            try
-            {
-                MySqlCommand comando = new MySqlCommand("UPDATE OPCIONES SET SELECCIONADO_OP = " + Convert.ToInt32(SELECCIONADO) + " WHERE ID_OP = '" + ID + "'", mysqlcon);
-                comando.ExecuteNonQuery();
-                mysqlcon.Close();
-                return ("guardado");
-            }
-            catch
-            {
-                mysqlcon.Close();
-                return ("fallido");
-            }
-        }
+      
 
         //************************************* OPCIONES HABILIDATAS
 
