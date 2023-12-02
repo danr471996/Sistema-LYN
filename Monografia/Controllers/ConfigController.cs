@@ -1008,6 +1008,7 @@ namespace Monografia.Controllers
 
         public ActionResult archivos_bd()
         {
+            System.IO.Directory.CreateDirectory(directorio_respaldo);
             string[] directorios = Directory.GetFiles(directorio_respaldo);
             List<Modelo_Config> archivos = new List<Modelo_Config>();
             foreach (string diretorio in directorios)
