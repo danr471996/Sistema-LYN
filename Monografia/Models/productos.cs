@@ -38,6 +38,7 @@ namespace Monografia.Models
         public int Usa_inventario { get; set; }
         public Nullable<int> Cantidad_actual { get; set; }
         public Nullable<int> Cantidad_minima { get; set; }
+        public int Idproveedor { get; set; }
     
         public virtual departamento departamento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -47,5 +48,6 @@ namespace Monografia.Models
         public virtual tipo_ventas tipo_ventas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<historial_inventario> historial_inventario { get; set; }
+        public virtual proveedor proveedor { get; set; }
     }
 }

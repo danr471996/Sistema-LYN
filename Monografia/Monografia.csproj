@@ -382,6 +382,9 @@
     <Compile Include="Models\tipo_movimento.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tipo_pago.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tipo_ventas.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

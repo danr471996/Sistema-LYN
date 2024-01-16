@@ -22,7 +22,11 @@ namespace Monografia.Models
         public decimal Monto { get; set; }
         public int Tipo_movimiento { get; set; }
         public int Estado { get; set; }
+        public int Tipo_pago { get; set; }
+        public int Idpago { get; set; }
     
         public virtual tipo_movimento tipo_movimento { get; set; }
+        public virtual tipo_pago tipo_pago1 { get; set; }
+        public virtual pagos pagos { get; set; }
     }
 }

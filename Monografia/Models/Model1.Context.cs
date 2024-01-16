@@ -50,5 +50,6 @@ namespace Monografia.Models
         public virtual DbSet<movimientos> movimientos { get; set; }
         public virtual DbSet<tipo_movimento> tipo_movimento { get; set; }
         public virtual DbSet<cambiodolar> cambiodolar { get; set; }
+        public virtual DbSet<tipo_pago> tipo_pago { get; set; }
     }
 }

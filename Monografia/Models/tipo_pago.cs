@@ -12,24 +12,22 @@ namespace Monografia.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class pagos
+    public partial class tipo_pago
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public pagos()
+        public tipo_pago()
         {
             this.movimientos = new HashSet<movimientos>();
         }
     
-        public int Idpagos { get; set; }
+        public int idtipo_pago { get; set; }
         public System.DateTime Fecha_alta { get; set; }
         public string Usuario_alta { get; set; }
         public Nullable<System.DateTime> Fecha_baja { get; set; }
         public string Usuario_baja { get; set; }
-        public Nullable<int> Id_factura { get; set; }
-        public Nullable<decimal> Monto_pagado { get; set; }
+        public string Descripcion { get; set; }
         public int Estado { get; set; }
     
-        public virtual factura factura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<movimientos> movimientos { get; set; }
     }

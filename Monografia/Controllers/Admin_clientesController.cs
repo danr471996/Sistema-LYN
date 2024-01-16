@@ -109,6 +109,7 @@ namespace Monografia.Controllers
                                 Usuario_alta = (string)Session["usuario_logueado"],
                                 Monto = Convert.ToDecimal(agregar_cantidad),
                                 Tipo_movimiento = 1,
+                                Tipo_pago = 2,
                                 Estado = 1
                             };
                             db.movimientos.Add(movimientos);
@@ -199,6 +200,8 @@ namespace Monografia.Controllers
                     else
                     {
                         datospagos.Monto_pagado = datosabonoedit.Monto_pagado;
+                        var movimientos=db.movimientos.Where(x => x.Idpago == datospagos.Idpagos).FirstOrDefault();
+                        movimientos.Monto =Convert.ToDecimal(datosabonoedit.Monto_pagado);
                             db.SaveChanges();
 
                             return Json(new { success = true, mensaje = "Se ha actualizado la informacion del pago satisfactoriamente." });

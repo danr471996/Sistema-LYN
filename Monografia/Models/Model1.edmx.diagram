@@ -45,6 +45,10 @@
         <AssociationConnector Association="proyectotiendaModel.fk_tip_movi" />
         <AssociationConnector Association="proyectotiendaModel.fk_tipo_movimiento" />
         <EntityTypeShape EntityType="proyectotiendaModel.cambiodolar" Width="1.5" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="proyectotiendaModel.tipo_pago" Width="1.5" PointX="14.375" PointY="5" />
+        <AssociationConnector Association="proyectotiendaModel.fk_tipo_pago" />
+        <AssociationConnector Association="proyectotiendaModel.fk_idproveedor" />
+        <AssociationConnector Association="proyectotiendaModel.fk_id_pago" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -86,6 +86,19 @@
       <End Role="movimientos" EntitySet="movimientos" />
     </AssociationSet>
     <EntitySet Name="cambiodolar" EntityType="proyectotiendaModel.cambiodolar" />
+    <EntitySet Name="tipo_pago" EntityType="proyectotiendaModel.tipo_pago" />
+    <AssociationSet Name="fk_tipo_pago" Association="proyectotiendaModel.fk_tipo_pago">
+      <End Role="tipo_pago" EntitySet="tipo_pago" />
+      <End Role="movimientos" EntitySet="movimientos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_idproveedor" Association="proyectotiendaModel.fk_idproveedor">
+      <End Role="proveedor" EntitySet="proveedor" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_id_pago" Association="proyectotiendaModel.fk_id_pago">
+      <End Role="pagos" EntitySet="pagos" />
+      <End Role="movimientos" EntitySet="movimientos" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="clientes">
     <Key>
@@ -225,6 +238,7 @@
     <Property Name="Monto_pagado" Type="Decimal" />
     <Property Name="Estado" Type="Int32" Nullable="false" />
     <NavigationProperty Name="factura" Relationship="proyectotiendaModel.fk_facturas" FromRole="pagos" ToRole="factura" />
+    <NavigationProperty Name="movimientos" Relationship="proyectotiendaModel.fk_id_pago" FromRole="pagos" ToRole="movimientos" />
   </EntityType>
   <EntityType Name="productos">
     <Key>
@@ -251,6 +265,8 @@
     <NavigationProperty Name="promocion" Relationship="proyectotiendaModel.fk_productos" FromRole="productos" ToRole="promocion" />
     <NavigationProperty Name="tipo_ventas" Relationship="proyectotiendaModel.fk_tipo_ventas" FromRole="productos" ToRole="tipo_ventas" />
     <NavigationProperty Name="historial_inventario" Relationship="proyectotiendaModel.fk_idproducto" FromRole="productos" ToRole="historial_inventario" />
+    <Property Name="Idproveedor" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="proveedor" Relationship="proyectotiendaModel.fk_idproveedor" FromRole="productos" ToRole="proveedor" />
   </EntityType>
   <EntityType Name="promocion">
     <Key>
@@ -283,6 +299,7 @@
     <Property Name="Direccion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="Estado" Type="Int32" Nullable="false" />
     <NavigationProperty Name="facturas_proveedor" Relationship="proyectotiendaModel.fk_proveedor" FromRole="proveedor" ToRole="facturas_proveedor" />
+    <NavigationProperty Name="productos" Relationship="proyectotiendaModel.fk_idproveedor" FromRole="proveedor" ToRole="productos" />
   </EntityType>
   <EntityType Name="tipo_credito">
     <Key>
@@ -574,6 +591,10 @@
     <Property Name="Tipo_movimiento" Type="Int32" Nullable="false" />
     <Property Name="Estado" Type="Int32" Nullable="false" />
     <NavigationProperty Name="tipo_movimento" Relationship="proyectotiendaModel.fk_tipo_movimiento" FromRole="movimientos" ToRole="tipo_movimento" />
+    <Property Name="Tipo_pago" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tipo_pago1" Relationship="proyectotiendaModel.fk_tipo_pago" FromRole="movimientos" ToRole="tipo_pago" />
+    <Property Name="Idpago" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="pagos" Relationship="proyectotiendaModel.fk_id_pago" FromRole="movimientos" ToRole="pagos" />
   </EntityType>
   <EntityType Name="tipo_movimento">
     <Key>
@@ -649,4 +670,53 @@
     <Property Name="Monto_cambio" Type="Decimal" Nullable="false" />
     <Property Name="Estado" Type="Int32" Nullable="false" />
   </EntityType>
+  <EntityType Name="tipo_pago">
+    <Key>
+      <PropertyRef Name="idtipo_pago" />
+    </Key>
+    <Property Name="idtipo_pago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+    <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_baja" Type="DateTime" />
+    <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="movimientos" Relationship="proyectotiendaModel.fk_tipo_pago" FromRole="tipo_pago" ToRole="movimientos" />
+  </EntityType>
+  <Association Name="fk_tipo_pago">
+    <End Type="proyectotiendaModel.tipo_pago" Role="tipo_pago" Multiplicity="1" />
+    <End Type="proyectotiendaModel.movimientos" Role="movimientos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo_pago">
+        <PropertyRef Name="idtipo_pago" />
+      </Principal>
+      <Dependent Role="movimientos">
+        <PropertyRef Name="Tipo_pago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_idproveedor">
+    <End Type="proyectotiendaModel.proveedor" Role="proveedor" Multiplicity="1" />
+    <End Type="proyectotiendaModel.productos" Role="productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedor">
+        <PropertyRef Name="IdProveedor" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="Idproveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_id_pago">
+    <End Type="proyectotiendaModel.pagos" Role="pagos" Multiplicity="1" />
+    <End Type="proyectotiendaModel.movimientos" Role="movimientos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pagos">
+        <PropertyRef Name="Idpagos" />
+      </Principal>
+      <Dependent Role="movimientos">
+        <PropertyRef Name="Idpago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

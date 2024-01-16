@@ -356,6 +356,8 @@ namespace Monografia.Controllers
                             Usuario_alta = (string)Session["usuario_logueado"],
                             Monto = montototalfact,
                             Tipo_movimiento = 1,
+                            Tipo_pago = idcliente == 0 ? 2:1,
+                            Idpago=pagos.Idpagos,
                             Estado = 1
                         };
                         db.movimientos.Add(movimientos);

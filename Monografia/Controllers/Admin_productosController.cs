@@ -32,9 +32,10 @@ namespace Monografia.Controllers
             {
                 Modelo_contenedor modelo_contenedor = new Modelo_contenedor();
                 modelo_contenedor.listadepartamento = new List<departamento>();
+                modelo_contenedor.listaproveedor = new List<proveedor>();
                 modelo_contenedor.listadepartamento = getdepartamentos();
-   
-               
+                modelo_contenedor.listaproveedor = getproveedor();
+
                 return PartialView(modelo_contenedor);
             }
             catch (Exception)
@@ -49,7 +50,11 @@ namespace Monografia.Controllers
         
         return (from u in db.departamento where u.Estado == 1 select u).ToList();
         }
+        public List<proveedor> getproveedor()
+        {
 
+            return (from u in db.proveedor where u.Estado == 1 select u).ToList();
+        }
         // POST: usuarios_tienda/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -84,7 +89,9 @@ namespace Monografia.Controllers
                     }
                     else {
                         modelo_contenedor.listadepartamento = new List<departamento>();
+                        modelo_contenedor.listaproveedor = new List<proveedor>();
                         modelo_contenedor.listadepartamento = getdepartamentos();
+                        modelo_contenedor.listaproveedor = getproveedor();
                         ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un producto con el mismo codigo<br>";
                         return PartialView(modelo_contenedor);
                     }
@@ -93,7 +100,9 @@ namespace Monografia.Controllers
                 {
 
                     modelo_contenedor.listadepartamento = new List<departamento>();
+                    modelo_contenedor.listaproveedor = new List<proveedor>();
                     modelo_contenedor.listadepartamento = getdepartamentos();
+                    modelo_contenedor.listaproveedor = getproveedor();
 
                     return PartialView(modelo_contenedor);
                 }
@@ -276,10 +285,12 @@ namespace Monografia.Controllers
                         modelocontenedor = new Modelo_contenedor
                         {
                             productos = new productos(),
-                           listadepartamento = new List<departamento>()
+                           listadepartamento = new List<departamento>(),
+                           listaproveedor=new List<proveedor>()
                         };
                         modelocontenedor.productos = datosproductos;
                         modelocontenedor.listadepartamento = getdepartamentos();
+                        modelocontenedor.listaproveedor = getproveedor();
 
                         if (modelocontenedor.productos.Usa_inventario == 1)
                             ViewBag.usainventario = true;
@@ -327,7 +338,9 @@ namespace Monografia.Controllers
                         ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
 
                         datosproductoedit.listadepartamento = new List<departamento>();
+                        datosproductoedit.listaproveedor = new List<proveedor>();
                         datosproductoedit.listadepartamento = getdepartamentos();
+                        datosproductoedit.listaproveedor = getproveedor();
                         return PartialView(datosproductoedit);
                     }
                     else
@@ -360,7 +373,9 @@ namespace Monografia.Controllers
                         }
                         else {
                             datosproductoedit.listadepartamento = new List<departamento>();
+                            datosproductoedit.listaproveedor = new List<proveedor>();
                             datosproductoedit.listadepartamento = getdepartamentos();
+                            datosproductoedit.listaproveedor = getproveedor();
                             ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un producto con el mismo codigo<br>";
                             return PartialView(datosproductoedit);
                         }
@@ -370,7 +385,9 @@ namespace Monografia.Controllers
                 {
 
                     datosproductoedit.listadepartamento = new List<departamento>();
+                    datosproductoedit.listaproveedor = new List<proveedor>();
                     datosproductoedit.listadepartamento = getdepartamentos();
+                    datosproductoedit.listaproveedor = getproveedor();
                     return PartialView(datosproductoedit);
                 }
 

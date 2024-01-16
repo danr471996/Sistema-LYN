@@ -143,6 +143,7 @@
     <EntitySetMapping Name="productos">
       <EntityTypeMapping TypeName="proyectotiendaModel.productos">
         <MappingFragment StoreEntitySet="productos">
+          <ScalarProperty Name="Idproveedor" ColumnName="Idproveedor" />
           <ScalarProperty Name="Cantidad_minima" ColumnName="Cantidad_minima" />
           <ScalarProperty Name="Cantidad_actual" ColumnName="Cantidad_actual" />
           <ScalarProperty Name="Usa_inventario" ColumnName="Usa_inventario" />
@@ -341,6 +342,8 @@
     <EntitySetMapping Name="movimientos">
       <EntityTypeMapping TypeName="proyectotiendaModel.movimientos">
         <MappingFragment StoreEntitySet="movimientos">
+          <ScalarProperty Name="Idpago" ColumnName="Idpago" />
+          <ScalarProperty Name="Tipo_pago" ColumnName="Tipo_pago" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="Tipo_movimiento" ColumnName="Tipo_movimiento" />
           <ScalarProperty Name="Monto" ColumnName="Monto" />
@@ -375,6 +378,19 @@
           <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
           <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
           <ScalarProperty Name="IdCambiodolar" ColumnName="IdCambiodolar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tipo_pago">
+      <EntityTypeMapping TypeName="proyectotiendaModel.tipo_pago">
+        <MappingFragment StoreEntitySet="tipo_pago">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+          <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
+          <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
+          <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+          <ScalarProperty Name="idtipo_pago" ColumnName="idtipo_pago" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

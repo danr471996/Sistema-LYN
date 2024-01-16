@@ -169,6 +169,8 @@
     <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
     <Property Name="Monto" Type="decimal" Precision="15" Scale="2" Nullable="false" />
     <Property Name="Tipo_movimiento" Type="int" Nullable="false" />
+    <Property Name="Tipo_pago" Type="int" Nullable="false" />
+    <Property Name="Idpago" Type="int" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="opciones">
@@ -216,6 +218,7 @@
     <Property Name="Usa_inventario" Type="int" Nullable="false" />
     <Property Name="Cantidad_actual" Type="int" />
     <Property Name="Cantidad_minima" Type="int" />
+    <Property Name="Idproveedor" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="promocion">
     <Key>
@@ -264,6 +267,18 @@
       <PropertyRef Name="IdTipo_movimiento" />
     </Key>
     <Property Name="IdTipo_movimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+    <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tipo_pago">
+    <Key>
+      <PropertyRef Name="idtipo_pago" />
+    </Key>
+    <Property Name="idtipo_pago" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
     <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
@@ -388,6 +403,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="fk_id_pago">
+    <End Role="pagos" Type="Self.pagos" Multiplicity="1" />
+    <End Role="movimientos" Type="Self.movimientos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pagos">
+        <PropertyRef Name="Idpagos" />
+      </Principal>
+      <Dependent Role="movimientos">
+        <PropertyRef Name="Idpago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_iddepartamento">
     <End Role="departamento" Type="Self.departamento" Multiplicity="1" />
     <End Role="historial_inventario" Type="Self.historial_inventario" Multiplicity="*" />
@@ -409,6 +436,18 @@
       </Principal>
       <Dependent Role="historial_inventario">
         <PropertyRef Name="Idproducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_idproveedor">
+    <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="proveedor">
+        <PropertyRef Name="IdProveedor" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="Idproveedor" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -484,6 +523,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="fk_tipo_pago">
+    <End Role="tipo_pago" Type="Self.tipo_pago" Multiplicity="1" />
+    <End Role="movimientos" Type="Self.movimientos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo_pago">
+        <PropertyRef Name="idtipo_pago" />
+      </Principal>
+      <Dependent Role="movimientos">
+        <PropertyRef Name="Tipo_pago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_tipo_ventas">
     <End Role="tipo_ventas" Type="Self.tipo_ventas" Multiplicity="1" />
     <End Role="productos" Type="Self.productos" Multiplicity="*" />
@@ -552,6 +603,7 @@
     <EntitySet Name="proveedor" EntityType="Self.proveedor" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="tipo_credito" EntityType="Self.tipo_credito" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="tipo_movimento" EntityType="Self.tipo_movimento" Schema="proyectotienda" store:Type="Tables" />
+    <EntitySet Name="tipo_pago" EntityType="Self.tipo_pago" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="tipo_ventas" EntityType="Self.tipo_ventas" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="unidad_medida" EntityType="Self.unidad_medida" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="usuario_detalle" EntityType="Self.usuario_detalle" Schema="proyectotienda" store:Type="Tables" />
@@ -570,6 +622,10 @@
       <End Role="factura" EntitySet="factura" />
       <End Role="pagos" EntitySet="pagos" />
     </AssociationSet>
+    <AssociationSet Name="fk_id_pago" Association="Self.fk_id_pago">
+      <End Role="pagos" EntitySet="pagos" />
+      <End Role="movimientos" EntitySet="movimientos" />
+    </AssociationSet>
     <AssociationSet Name="fk_iddepartamento" Association="Self.fk_iddepartamento">
       <End Role="departamento" EntitySet="departamento" />
       <End Role="historial_inventario" EntitySet="historial_inventario" />
@@ -577,6 +633,10 @@
     <AssociationSet Name="fk_idproducto" Association="Self.fk_idproducto">
       <End Role="productos" EntitySet="productos" />
       <End Role="historial_inventario" EntitySet="historial_inventario" />
+    </AssociationSet>
+    <AssociationSet Name="fk_idproveedor" Association="Self.fk_idproveedor">
+      <End Role="proveedor" EntitySet="proveedor" />
+      <End Role="productos" EntitySet="productos" />
     </AssociationSet>
     <AssociationSet Name="fk_producto" Association="Self.fk_producto">
       <End Role="productos" EntitySet="productos" />
@@ -600,6 +660,10 @@
     </AssociationSet>
     <AssociationSet Name="fk_tipo_movimiento" Association="Self.fk_tipo_movimiento">
       <End Role="tipo_movimento" EntitySet="tipo_movimento" />
+      <End Role="movimientos" EntitySet="movimientos" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tipo_pago" Association="Self.fk_tipo_pago">
+      <End Role="tipo_pago" EntitySet="tipo_pago" />
       <End Role="movimientos" EntitySet="movimientos" />
     </AssociationSet>
     <AssociationSet Name="fk_tipo_ventas" Association="Self.fk_tipo_ventas">

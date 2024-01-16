@@ -26,6 +26,7 @@ namespace Monografia.Models
         public List<tipo_credito> listatipocredito { get; set; }
         
         public List<departamento> listadepartamento { get; set; }
+        public List<proveedor> listaproveedor { get; set; }
         public List<usuarios_perfiles> listaperfiles { get; set; }
         public List<productos> listaproductos { get; set; }
         public List<tipo_movimento> listatipomovimiento { get; set; }

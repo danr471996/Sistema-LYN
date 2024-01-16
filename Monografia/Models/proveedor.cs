@@ -18,6 +18,7 @@ namespace Monografia.Models
         public proveedor()
         {
             this.facturas_proveedor = new HashSet<facturas_proveedor>();
+            this.productos = new HashSet<productos>();
         }
     
         public int IdProveedor { get; set; }
@@ -33,5 +34,7 @@ namespace Monografia.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<facturas_proveedor> facturas_proveedor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<productos> productos { get; set; }
     }
 }
