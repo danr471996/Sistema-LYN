@@ -43,7 +43,7 @@ CREATE TABLE `proveedor` (
 
 LOCK TABLES `proveedor` WRITE;
 /*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
-INSERT INTO `proveedor` VALUES (1,'2022-10-09 13:21:57','danr','2022-10-09 13:23:19','danr','Electrodomestiquito',22481684,'22481684','Residencial valle verde',2),(2,'2022-10-09 13:23:56','danr',NULL,NULL,'Sombrillitas sa',22481684,'daniantonio99@hotmail.com','valle verde',1);
+INSERT INTO `proveedor` VALUES (1,'2022-10-09 13:21:57','danr','2022-10-09 13:23:19','danr','Electrodomestiquito',22481684,'22481684','Residencial valle verde',1),(2,'2022-10-09 13:23:56','danr',NULL,NULL,'Sombrillitas sa',22481684,'daniantonio99@hotmail.com','valle verde',1);
 /*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-22 14:17:21
+-- Dump completed on 2024-01-15 22:24:04

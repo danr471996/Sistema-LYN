@@ -30,11 +30,17 @@ CREATE TABLE `movimientos` (
   `Usuario_baja` varchar(45) DEFAULT NULL,
   `Monto` decimal(15,2) NOT NULL,
   `Tipo_movimiento` int NOT NULL,
+  `Tipo_pago` int NOT NULL,
+  `Idpago` int NOT NULL,
   `Estado` int NOT NULL COMMENT '1-Activo\n2-Inactivo',
   PRIMARY KEY (`idMovimientos`),
   KEY `fk_tipo_movimiento_idx` (`Tipo_movimiento`),
-  CONSTRAINT `fk_tipo_movimiento` FOREIGN KEY (`Tipo_movimiento`) REFERENCES `tipo_movimento` (`IdTipo_movimiento`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_tipo_pago_idx` (`Tipo_pago`),
+  KEY `fk_id_pago_idx` (`Idpago`),
+  CONSTRAINT `fk_id_pago` FOREIGN KEY (`Idpago`) REFERENCES `pagos` (`Idpagos`),
+  CONSTRAINT `fk_tipo_movimiento` FOREIGN KEY (`Tipo_movimiento`) REFERENCES `tipo_movimento` (`IdTipo_movimiento`),
+  CONSTRAINT `fk_tipo_pago` FOREIGN KEY (`Tipo_pago`) REFERENCES `tipo_pago` (`idtipo_pago`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +49,7 @@ CREATE TABLE `movimientos` (
 
 LOCK TABLES `movimientos` WRITE;
 /*!40000 ALTER TABLE `movimientos` DISABLE KEYS */;
-INSERT INTO `movimientos` VALUES (1,'2023-10-04 14:25:12','danr',NULL,NULL,760.00,1,1),(2,'2023-10-05 14:45:55','danr',NULL,NULL,760.00,1,1),(3,'2023-10-05 15:02:22','danr',NULL,NULL,200.00,1,1),(4,'2023-10-05 15:44:48','danr',NULL,NULL,100.00,1,1),(5,'2023-10-06 12:10:14','danr',NULL,NULL,300.00,1,1),(6,'2023-10-06 12:11:32','danr',NULL,NULL,160.00,1,1),(7,'2023-10-06 12:14:35','danr',NULL,NULL,160.00,1,1),(8,'2023-11-20 10:45:05','danr',NULL,NULL,50.00,1,1);
+INSERT INTO `movimientos` VALUES (1,'2023-10-04 14:25:12','danr',NULL,NULL,760.00,1,1,1,1),(2,'2023-10-05 14:45:55','danr',NULL,NULL,760.00,1,1,1,1),(3,'2023-10-05 15:02:22','danr',NULL,NULL,200.00,1,1,1,1),(4,'2023-10-05 15:44:48','danr',NULL,NULL,100.00,1,1,1,1),(5,'2023-10-06 12:10:14','danr',NULL,NULL,300.00,1,1,1,1),(6,'2023-10-06 12:11:32','danr',NULL,NULL,160.00,1,1,1,1),(7,'2023-10-06 12:14:35','danr',NULL,NULL,160.00,1,1,1,1),(8,'2023-11-20 10:45:05','danr',NULL,NULL,50.00,1,1,1,1),(9,'2023-11-25 19:39:48','danr',NULL,NULL,20.00,1,1,1,1);
 /*!40000 ALTER TABLE `movimientos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-22 14:17:25
+-- Dump completed on 2024-01-15 22:24:04

@@ -16,48 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `productos`
+-- Table structure for table `tipo_pago`
 --
 
-DROP TABLE IF EXISTS `productos`;
+DROP TABLE IF EXISTS `tipo_pago`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `productos` (
-  `Idproducto` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tipo_pago` (
+  `idtipo_pago` int NOT NULL AUTO_INCREMENT,
   `Fecha_alta` datetime NOT NULL,
   `Usuario_alta` varchar(45) NOT NULL,
   `Fecha_baja` datetime DEFAULT NULL,
   `Usuario_baja` varchar(45) DEFAULT NULL,
-  `Codigo_producto` int NOT NULL,
   `Descripcion` varchar(45) NOT NULL,
   `Estado` int NOT NULL,
-  `Id_tipoventas` int NOT NULL COMMENT '1-por unidad\\\\\\\\\\\\\\\\n2-por granel\\\\\\\\\\\\\\\\n3-por paquete',
-  `Precio_costo` decimal(15,2) NOT NULL,
-  `Precio_venta` decimal(15,2) NOT NULL,
-  `Precio_mayoreo` decimal(15,2) NOT NULL,
-  `Iddepartamento` int NOT NULL,
-  `Usa_inventario` int NOT NULL COMMENT '1-si\\\\n2-no',
-  `Cantidad_actual` int DEFAULT NULL,
-  `Cantidad_minima` int DEFAULT NULL,
-  `Idproveedor` int NOT NULL,
-  PRIMARY KEY (`Idproducto`),
-  KEY `fk_departamento_idx` (`Iddepartamento`),
-  KEY `fk_tipo_ventas_idx` (`Id_tipoventas`),
-  KEY `fk_idproveedor_idx` (`Idproveedor`),
-  CONSTRAINT `fk_departamento` FOREIGN KEY (`Iddepartamento`) REFERENCES `departamento` (`Iddepartmento`),
-  CONSTRAINT `fk_idproveedor` FOREIGN KEY (`Idproveedor`) REFERENCES `proveedor` (`IdProveedor`),
-  CONSTRAINT `fk_tipo_ventas` FOREIGN KEY (`Id_tipoventas`) REFERENCES `tipo_ventas` (`Id_tipoventas`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`idtipo_pago`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `productos`
+-- Dumping data for table `tipo_pago`
 --
 
-LOCK TABLES `productos` WRITE;
-/*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES (1,'2022-09-13 14:15:02','danr','2023-11-22 12:17:24','danr',2248,'camisa polo',1,3,350.00,380.00,355.00,3,1,26,20,1);
-/*!40000 ALTER TABLE `productos` ENABLE KEYS */;
+LOCK TABLES `tipo_pago` WRITE;
+/*!40000 ALTER TABLE `tipo_pago` DISABLE KEYS */;
+INSERT INTO `tipo_pago` VALUES (1,'2024-01-14 10:36:51','danr',NULL,NULL,'Crédito',1),(2,'2024-01-14 10:37:14','danr',NULL,NULL,'Efectivo',1);
+/*!40000 ALTER TABLE `tipo_pago` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -69,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-15 22:24:03
+-- Dump completed on 2024-01-15 22:24:05

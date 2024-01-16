@@ -31,7 +31,7 @@ CREATE TABLE `promocion` (
   `Id_producto` int NOT NULL,
   `Cant_desde` int NOT NULL,
   `Cant_hasta` int NOT NULL,
-  `Precio_unitario` int NOT NULL,
+  `Precio_unitario` decimal(15,2) NOT NULL,
   `Estado` int NOT NULL,
   PRIMARY KEY (`Idpromocion`),
   KEY `fk_productos_idx` (`Id_producto`),
@@ -45,7 +45,7 @@ CREATE TABLE `promocion` (
 
 LOCK TABLES `promocion` WRITE;
 /*!40000 ALTER TABLE `promocion` DISABLE KEYS */;
-INSERT INTO `promocion` VALUES (1,'2022-09-13 14:54:21',NULL,NULL,'carajo',1,23,30,30,1),(2,'2022-09-13 14:55:24','2023-11-20 11:20:30','danr','carajo',1,23,30,30,2),(3,'2023-04-30 17:05:59',NULL,NULL,'carajo',1,4242,45455,465464,1),(4,'2023-11-15 16:40:43',NULL,NULL,'pruebita',1,20,50,0,1),(5,'2023-11-15 16:42:48',NULL,NULL,'pruebita',1,50,60,20,1),(6,'2023-11-15 16:46:51',NULL,NULL,'pruebita',1,36,68,380,1),(7,'2023-11-15 16:49:00',NULL,NULL,'jerusalen',1,30,50,380,1),(8,'2023-11-15 16:52:07',NULL,NULL,'jerusalen',1,2,10,380,1),(9,'2023-11-15 16:52:48',NULL,NULL,'jerusalenrer',1,4,365,380,1),(10,'2023-11-15 16:56:11',NULL,NULL,'jerusalenkjhkhj',1,1,20,380,1);
+INSERT INTO `promocion` VALUES (1,'2022-09-13 14:54:21',NULL,NULL,'carajo',1,23,30,30.00,1),(2,'2022-09-13 14:55:24','2023-11-20 11:20:30','danr','carajo',1,23,30,30.00,2),(3,'2023-04-30 17:05:59',NULL,NULL,'carajo',1,4242,45455,465464.00,1),(4,'2023-11-15 16:40:43',NULL,NULL,'pruebita',1,20,50,0.00,1),(5,'2023-11-15 16:42:48',NULL,NULL,'pruebita',1,50,60,20.00,1),(6,'2023-11-15 16:46:51',NULL,NULL,'pruebita',1,36,68,380.00,1),(7,'2023-11-15 16:49:00',NULL,NULL,'jerusalen',1,30,50,380.00,1),(8,'2023-11-15 16:52:07',NULL,NULL,'jerusalen',1,2,10,380.00,1),(9,'2023-11-15 16:52:48',NULL,NULL,'jerusalenrer',1,4,365,380.00,1),(10,'2023-11-15 16:56:11',NULL,NULL,'jerusalenkjhkhj',1,1,20,380.00,1);
 /*!40000 ALTER TABLE `promocion` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-22 14:17:22
+-- Dump completed on 2024-01-15 22:24:02
