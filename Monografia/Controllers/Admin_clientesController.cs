@@ -526,7 +526,7 @@ namespace Monografia.Controllers
                         valid = false;
                     }
 
-                    if (!Regex.IsMatch(datoscliente.cliente.Cantidad_credito.ToString(), patronsindecimales))
+                    if (!Regex.IsMatch(datoscliente.cliente.Cantidad_credito.ToString(), patronsindecimales) && datoscliente.cliente.Id_tipocredito == 2)
                     {
                         ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en número cantidad de credito<br>";
                         valid = false;
