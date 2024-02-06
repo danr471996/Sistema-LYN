@@ -92,8 +92,8 @@ namespace Monografia.Controllers
                     var datosusuarios = db.usuarios_tienda.Include(a => a.usuario_detalle).Where(x =>x.Estado_usuario == 1).ToList();
                     if (datosusuarios.Where(x => x.Login.ToUpper() == modelocontenedor.usuarios_tienda.Login.ToUpper()).FirstOrDefault()==null)
                     {
-                      
-                        if (datosusuarios.SelectMany(usuario => usuario.usuario_detalle).Where(detalle => (detalle.Primer_nombre + detalle.Segundo_nombre + detalle.Primer_apellido + detalle.Segundo_apellido).ToUpper() != (modelocontenedor.usuario_detalle.Primer_nombre + modelocontenedor.usuario_detalle.Segundo_nombre + modelocontenedor.usuario_detalle.Primer_apellido + modelocontenedor.usuario_detalle.Segundo_apellido).ToUpper()).FirstOrDefault()==null)
+
+                        if (datosusuarios.SelectMany(usuario => usuario.usuario_detalle).Where(detalle => (detalle.Primer_nombre + detalle.Segundo_nombre + detalle.Primer_apellido + detalle.Segundo_apellido).ToUpper() == (modelocontenedor.usuario_detalle.Primer_nombre + modelocontenedor.usuario_detalle.Segundo_nombre + modelocontenedor.usuario_detalle.Primer_apellido + modelocontenedor.usuario_detalle.Segundo_apellido).ToUpper()).Count() == 0)
                         {
                             modelocontenedor.usuarios_tienda.Fecha_alta = DateTime.Now;
                             modelocontenedor.usuarios_tienda.Usuario_alta = (string)Session["usuario_logueado"];
