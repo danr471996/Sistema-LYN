@@ -3,9 +3,11 @@ using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.Ajax.Utilities;
 using Monografia.Models;
+using MySql.Data.MySqlClient;
 using SelectPdf;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -30,6 +32,14 @@ namespace Monografia.Controllers
         private historial_inventario historialinvt = null;
         private movimientos movimientos = null;
         private creditos creditos = null;
+        //CORTE
+        static string coneccion = ConfigurationManager.ConnectionStrings["proyectotiendaEntities"].ConnectionString;
+        static string[] coneccion_info = coneccion.Split(';');
+        static string usuario = coneccion_info[3].Substring(8);
+        static string contraseña = coneccion_info[4].Substring(9);
+        static string BD = coneccion_info[6].Substring(9).TrimEnd('"');
+        static string servidor = coneccion_info[2].Substring(35);
+        static string mysqlconeccion = "Server=" + servidor + ";Database=" + BD + ";User ID=" + usuario + ";Password=" + contraseña + ";Pooling=false;";
 
         // GET: facturas
         public ActionResult Venta()
@@ -1016,15 +1026,78 @@ namespace Monografia.Controllers
 
             try
             {
-
-                return View();
+                Modelo_contenedor modelcontenedor = new Modelo_contenedor
+                {
+                    corteResumen = obtenerDatosCorte("SP_RESUMEN_CORTE"),
+                    corteProductos = obtenerDatosCorteLista("SP_PRODUCTOSXDEPARTAMENTO"),
+                    cortePagoCreditos = obtenerDatosCorte("SP_PAGOSEFECTIVOCREDITO")
+                };
+                return View(modelcontenedor);
             }
             catch (Exception ex)
             {
-
                 throw;
             }
 
+        }
+
+        private Dictionary<string,object> obtenerDatosCorte(String ejecutar)
+        {
+            MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
+            mysqlcon.Open();
+            MySqlCommand comando = new MySqlCommand("call " + ejecutar, mysqlcon);
+            MySqlDataReader lector = comando.ExecuteReader();
+            Dictionary<string, object> datos = new Dictionary<string, object>();
+
+            switch (ejecutar)
+            {
+                case "SP_RESUMEN_CORTE":
+                    while (lector.Read())
+                    {
+                        datos.Add("CANTIDAD_FACTURAS", lector["CANTIDAD_FACTURAS"]);
+                        datos.Add("ID_FACTURAS", lector["ID_FACTURAS"]);
+                        datos.Add("TOTAL_PAGOS", lector["TOTAL_PAGOS"]);
+                        datos.Add("MONTO_FACTURAS", lector["MONTO_FACTURAS"]);
+                        datos.Add("CANTIDAD_DE_PRODUCTOS_FACTURADOS", lector["CANTIDAD_DE_PRODUCTOS_FACTURADOS"]);
+                        datos.Add("ID_PRODUCTOS_FACTURADOS", lector["ID_PRODUCTOS_FACTURADOS"]);
+                        datos.Add("CAJEROS_DEL_DIA", lector["CAJEROS_DEL_DIA"]);
+                    }
+                    break;
+                case "SP_PAGOSEFECTIVOCREDITO":
+                    while (lector.Read())
+                    {
+                        datos.Add("CREDITO", lector["CREDITO"]);
+                        datos.Add("EFECTIVO", lector["EFECTIVO"]);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            mysqlcon.Close();
+            return (datos);
+        }
+
+        private List<Dictionary<string, object>> obtenerDatosCorteLista(String ejecutar)
+        {
+            MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
+            mysqlcon.Open();
+            MySqlCommand comando = new MySqlCommand("call " + ejecutar, mysqlcon);
+            MySqlDataReader lector = comando.ExecuteReader();
+            Dictionary<string, object> datos = new Dictionary<string, object>();
+            List<Dictionary<string, object>> datosList = new List<Dictionary<string, object>>();
+
+            while (lector.Read())
+            {
+                datos = new Dictionary<string, object>
+                        {
+                            { "ID_PRODUCTO", lector["ID_PRODUCTO"] },
+                            { "CANTIDAD_PRODUCTO", lector["CANTIDAD_PRODUCTO"] },
+                            { "DEPARTAMENTO", lector["DEPARTAMENTO"] }
+                        };
+                datosList.Add(datos);
+            }
+            mysqlcon.Close();
+            return (datosList);
         }
 
         public ActionResult Ventas_por_periodo()

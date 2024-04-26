@@ -24,7 +24,9 @@ namespace Monografia.Models
 
         #endregion
         public List<tipo_credito> listatipocredito { get; set; }
-        
+        public Dictionary<string, object> corteResumen { get; set; }
+        public List<Dictionary<string, object>> corteProductos { get; set; }
+        public Dictionary<string, object> cortePagoCreditos { get; set; }
         public List<departamento> listadepartamento { get; set; }
         public List<proveedor> listaproveedor { get; set; }
         public List<usuarios_perfiles> listaperfiles { get; set; }
@@ -33,7 +35,7 @@ namespace Monografia.Models
         public List<historial_inventario> listahistorialmov { get; set; }
         public List<detalle_factura> listadetallefactura { get; set; }
 
-        public DateTime Fechadesde { get; set; }
+    public DateTime Fechadesde { get; set; }
         public DateTime Fechahasta { get; set; }
         public int SelectedValue { get; set; }
 
