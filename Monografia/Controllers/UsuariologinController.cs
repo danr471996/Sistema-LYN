@@ -49,14 +49,15 @@ namespace Monografia.Controllers
                 var datoslogin =  db.usuarios_tienda.Where(x =>x.Login.Equals(usuariologin.Login)
                                 && x.Contraseña.Equals(usuariologin.Contraseña) && x.Estado_usuario==1).FirstOrDefault();
 
-                
+     
                if (datoslogin != null)
-                {
+                {                
                     Session["Idusuario"] = datoslogin.Idusuario;
                     Session["usuario_logueado"] = datoslogin.Login;
                     Session["Nombreuusuario"] = datoslogin.usuario_detalle.FirstOrDefault().Primer_nombre + " " + datoslogin.usuario_detalle.FirstOrDefault().Primer_apellido;
                     Session["Perfil"] = datoslogin.usuarios_perfiles.Descripcion_perfil;
-           
+                    Session["PerfilPermisos"] = datoslogin.usuarios_perfiles.Codigo_accesos_perfil;
+
                     var sesion = datoslogin.usuario_sesion.Where(x=>x.Estado==1).FirstOrDefault();
                     if (sesion != null)
                     {
