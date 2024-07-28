@@ -14,7 +14,7 @@
         <br>
         <div class="row">
             <div class="col-md-2">
-                <a data-modal="" href=@Url.Action("Createpromocion", "Admin_productos") class="btn btn-primary"> <i class="fa fa-plus">Agregar</i></a>
+                <a data-modal="" hidden="@Session["PerfilPermisos"].ToString().Contains("|P5|").Equals(false)" href=@Url.Action("Createpromocion", "Admin_productos") class="btn btn-primary"> <i class="fa fa-plus">Agregar</i></a>
             </div>
         </div>
         <br>

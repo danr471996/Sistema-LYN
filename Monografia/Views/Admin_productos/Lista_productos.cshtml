@@ -13,7 +13,7 @@
         <br>
         <div class="row">
             <div class="col-md-2">
-                <a data-modal="" href=@Url.Action("Create", "Admin_productos") class="btn btn-primary"> <i class="fa fa-plus">Agregar</i></a>
+                <a data-modal="" hidden="@Session["PerfilPermisos"].ToString().Contains("|P1|").Equals(false)" ref=@Url.Action("Create", "Admin_productos") class="btn btn-primary"> <i class="fa fa-plus">Agregar</i></a>
             </div>
         </div>
         <br>
@@ -88,8 +88,8 @@
                             }
                         </td>
                         <td class="text-center">
-                            <a data-modal="" href=@Url.Action("Edit", "Admin_productos", new { id = item.Idproducto })> <i class="far fa-edit fa-lg" style="color: #0040ff;"></i></a>&nbsp
-                            <a data-modal="" href=@Url.Action("Delete", "Admin_productos", new { id = item.Idproducto })><i class="far fa-trash-alt fa-lg" style="color: #ff0a0a;"></i></a>
+                            <a data-modal="" hidden="@Session["PerfilPermisos"].ToString().Contains("|P2|").Equals(false)" href=@Url.Action("Edit", "Admin_productos", new { id = item.Idproducto })> <i class="far fa-edit fa-lg" style="color: #0040ff;"></i></a>&nbsp
+                            <a data-modal="" hidden="@Session["PerfilPermisos"].ToString().Contains("|P3|").Equals(false)" href=@Url.Action("Delete", "Admin_productos", new { id = item.Idproducto })><i class="far fa-trash-alt fa-lg" style="color: #ff0a0a;"></i></a>
                         </td>
                     </tr>
                 }

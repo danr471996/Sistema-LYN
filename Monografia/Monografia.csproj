@@ -2430,7 +2430,6 @@
     <Content Include="Views\Facturacion\reporte_de_movimientos.cshtml" />
     <Content Include="Views\Facturacion\Deleteticket.cshtml" />
     <Content Include="Views\Config\Administradorbd.cshtml" />
-    <Content Include="Views\Config\Articulosprecargados.cshtml" />
     <Content Include="Views\Config\Folio.cshtml" />
     <Content Include="Views\Config\Formasdepago.cshtml" />
     <Content Include="Views\Config\Impuestos.cshtml" />
