@@ -271,7 +271,7 @@ namespace Monografia.Controllers
                     }
 
 
-                    if (idcliente != 0)
+                    if (idcliente != 0 && idcliente != null)
                     {
                         var datoscliente = db.clientes.Where(x => x.Idcliente == idcliente).FirstOrDefault();
 
@@ -297,7 +297,10 @@ namespace Monografia.Controllers
                     datoscorrelativo = db.correlativos.Where(x => x.idCorrelativo_factura == 1 && x.Estado == 1).FirstOrDefault();
                     if (datoscorrelativo == null)
                     {
+                        datoscorrelativo = new correlativos();
                         datoscorrelativo.Correlativo_factura = 1;
+                        datoscorrelativo.Fecha_alta = DateTime.Now;
+                        datoscorrelativo.Usuario_alta = (string)Session["usuario_logueado"];
                         datoscorrelativo.Estado = 1;
                         db.correlativos.Add(datoscorrelativo);
                         db.SaveChanges();
@@ -317,7 +320,7 @@ namespace Monografia.Controllers
                     factura.Usuario_alta = (string)Session["usuario_logueado"];
                     factura.Num_factura = datoscorrelativo.Correlativo_factura;
                     factura.Monto_total = montototalfact;
-                    if (idcliente != 0)
+                    if (idcliente != 0 && idcliente != null)
                     {
                         factura.Idcliente = idcliente;
                         factura.Estado = 2;
@@ -375,7 +378,7 @@ namespace Monografia.Controllers
                     }
 
                     //pago realizado si idcliente es diferente de 0 es porque es una venta al credito
-                    if (idcliente == 0)
+                    if (idcliente == 0 || idcliente==null)
                     {
                         pagos.Fecha_alta = DateTime.Now;
                         pagos.Usuario_alta = (string)Session["usuario_logueado"];
@@ -767,7 +770,7 @@ namespace Monografia.Controllers
                                         prec_vent = existeproducto.Precio_venta,
                                         Cant = 1,
                                         Impor = 1 * existeproducto.Precio_venta,
-                                        existencia = 20
+                                        existencia = Convert.ToInt32(existeproducto.Cantidad_actual)
                                     };
                                     ticket.listaproductos.Add(producto);
                                 }
