@@ -444,7 +444,7 @@ namespace Monografia.Controllers
                                 }
                             }
 
-                            var resultado = Actualizar_perfil(Convert.ToInt32(datoperfil), perfil, cadena.ToString());
+                            var resultado = Actualizar_perfil(Convert.ToInt32(datoperfil.Idperfil), perfil, cadena.ToString());
                             if (resultado == "actualizado")
                             {
                                 return Json(new { success = true, mensaje = "Se ha actualizado perfil satisfactoriamente." });

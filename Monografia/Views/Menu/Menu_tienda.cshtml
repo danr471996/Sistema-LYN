@@ -222,13 +222,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Ventas_por_periodo","Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|P4|").Equals(false)">
+                        <a href="@Url.Action("Ventas_por_periodo","Facturacion")"> 
                             <i class="bi bi-circle"></i><span>Ventas por periodo</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="@Url.Action("reporte_de_movimientos", "Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|I4|").Equals(false)">
+                        <a href="@Url.Action("reporte_de_movimientos", "Facturacion")"> 
                             <i class="bi bi-circle"></i><span>Reporte de Movimientos</span>
                         </a>
                     </li>
