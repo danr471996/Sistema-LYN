@@ -35,7 +35,6 @@
                 }
                 @foreach (var item in Model)
                 {
-                    @Html.HiddenFor(modelItem => item.Idusuario_sesion)
                     i++;
                 <tr>
                     <td scope="row">@(i)</td>
@@ -57,7 +56,7 @@
                         }
                     </td>
                     <td class="text-center">
-                        <a data-modal="" href=@Url.Action("Delete", "Usuariologin",new { idsesion = item.Idusuario_sesion })><i class="far fa-trash-alt fa-lg" style="color: #ff0a0a;"></i></a>
+                        <a data-modal="" href=@Url.Action("Delete", "Usuariologin",new { id =  item.Idusuario_sesion })><i class="far fa-trash-alt fa-lg" style="color: #ff0a0a;"></i></a>
                     </td>
                 </tr>
                 }

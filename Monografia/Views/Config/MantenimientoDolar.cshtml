@@ -1,0 +1,48 @@
+﻿@model Monografia.Models.cambiodolar
+
+@{
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+
+@using (Html.BeginForm("MantenimientoDolar", "Config"))
+{
+    <div class="card border-start border-0 border-3 border-info">
+
+        <div class="card-header">
+            <h4 class="text-center">Mantenimiento del dolar</h4>
+        </div>
+
+        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
+
+            @Html.Raw(@ViewBag.Mensaje)
+
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="card-body">
+
+            <br>
+            <div class="row">
+
+                <div class="input-group">
+                    @Html.Label("Ingrese el nuevo monto del dolar", htmlAttributes: new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-2 ">
+                        @Html.EditorFor(m => Model.Monto_cambio, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode != 8 && (event.charCode == 46 && this.value.indexOf('.') === -1 || (event.charCode >= 48 && event.charCode <= 57)))" } })
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="card-footer text-center">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"> Guardar</i>
+            </button>
+        </div>
+        <input type="hidden" id="Mensaje" value="@ViewBag.mensajeexito" />
+    </div>
+}
+
+
+

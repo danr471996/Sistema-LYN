@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Monografia.Middleware;
+using Monografia.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
-using DocumentFormat.OpenXml.Office2010.Excel;
-using Monografia.Models;
 
 namespace Monografia.Controllers
 {
+    [ValidateSession]
     public class Admin_productosController : Controller
     {
         private proyectotiendaEntities db = new proyectotiendaEntities();
@@ -72,20 +70,32 @@ namespace Monografia.Controllers
                 {
                     if (db.productos.Where(x => x.Codigo_producto == modelo_contenedor.productos.Codigo_producto && x.Estado == 1).FirstOrDefault() == null)
                     {
-                        if (usainventario == "true")
+                        if (db.productos.Where(x => (x.Descripcion).Replace(" ","").ToUpper() == modelo_contenedor.productos.Descripcion.Replace(" ", "").ToUpper()).FirstOrDefault() == null)
                         {
-                            modelo_contenedor.productos.Usa_inventario = 1;
+                            if (usainventario == "true")
+                            {
+                                modelo_contenedor.productos.Usa_inventario = 1;
+                            }
+                            else
+                            {
+                                modelo_contenedor.productos.Usa_inventario = 2;
+                            }
+                            modelo_contenedor.productos.Fecha_alta = DateTime.Now;
+                            modelo_contenedor.productos.Usuario_alta = (string)Session["usuario_logueado"];
+                            modelo_contenedor.productos.Estado = 1;
+                            db.productos.Add(modelo_contenedor.productos);
+                            db.SaveChanges();
+                            return Json(new { success = true, mensaje = "Se ha creado el producto satisfactoriamente." });
                         }
-                        else
-                        {
-                            modelo_contenedor.productos.Usa_inventario = 2;
+                        else {
+                            modelo_contenedor.listadepartamento = new List<departamento>();
+                            modelo_contenedor.listaproveedor = new List<proveedor>();
+                            modelo_contenedor.listadepartamento = getdepartamentos();
+                            modelo_contenedor.listaproveedor = getproveedor();
+                            ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un producto con el mismo nombre<br>";
+                            return PartialView(modelo_contenedor);
                         }
-                        modelo_contenedor.productos.Fecha_alta = DateTime.Now;
-                        modelo_contenedor.productos.Usuario_alta = (string)Session["usuario_logueado"];
-                        modelo_contenedor.productos.Estado = 1;
-                        db.productos.Add(modelo_contenedor.productos);
-                        db.SaveChanges();
-                        return Json(new { success = true, mensaje = "Se ha creado el producto satisfactoriamente." });
+                     
                     }
                     else {
                         modelo_contenedor.listadepartamento = new List<departamento>();
@@ -348,28 +358,41 @@ namespace Monografia.Controllers
 
                         if (db.productos.Where(x => x.Codigo_producto == datosproductoedit.productos.Codigo_producto && x.Estado == 1 && x.Idproducto!=datosproductoedit.productos.Idproducto).FirstOrDefault() == null)
                         {
-                            if (usainventario == "true")
+                            if (db.productos.Where(x => x.Descripcion.ToUpper() == datosproductoedit.productos.Descripcion.ToUpper() && x.Idproducto != datosproductoedit.productos.Idproducto).FirstOrDefault() == null)
                             {
-                                datosproductoedit.productos.Usa_inventario = 1;
-                            }
-                            else
-                            {
-                                datosproductoedit.productos.Usa_inventario = 2;
-                            }
-                            producto.Codigo_producto = datosproductoedit.productos.Codigo_producto;
-                            producto.Descripcion = datosproductoedit.productos.Descripcion;
-                            producto.Id_tipoventas = datosproductoedit.productos.Id_tipoventas;
-                            producto.Precio_costo = datosproductoedit.productos.Precio_costo;
-                            producto.Precio_venta = datosproductoedit.productos.Precio_venta;
-                            producto.Precio_mayoreo = datosproductoedit.productos.Precio_mayoreo;
-                            producto.Iddepartamento = datosproductoedit.productos.Iddepartamento;
-                            producto.Usa_inventario = datosproductoedit.productos.Usa_inventario;
-                            producto.Cantidad_actual = datosproductoedit.productos.Cantidad_actual;
-                            producto.Cantidad_minima = datosproductoedit.productos.Cantidad_minima;
+                                if (usainventario == "true")
+                                {
+                                    datosproductoedit.productos.Usa_inventario = 1;
+                                }
+                                else
+                                {
+                                    datosproductoedit.productos.Usa_inventario = 2;
+                                }
+                                producto.Codigo_producto = datosproductoedit.productos.Codigo_producto;
+                                producto.Descripcion = datosproductoedit.productos.Descripcion;
+                                producto.Id_tipoventas = datosproductoedit.productos.Id_tipoventas;
+                                producto.Precio_costo = datosproductoedit.productos.Precio_costo;
+                                producto.Precio_venta = datosproductoedit.productos.Precio_venta;
+                                producto.Precio_mayoreo = datosproductoedit.productos.Precio_mayoreo;
+                                producto.Iddepartamento = datosproductoedit.productos.Iddepartamento;
+                                producto.Usa_inventario = datosproductoedit.productos.Usa_inventario;
+                                producto.Cantidad_actual = datosproductoedit.productos.Cantidad_actual;
+                                producto.Cantidad_minima = datosproductoedit.productos.Cantidad_minima;
 
-                            db.SaveChanges();
+                                db.SaveChanges();
 
-                            return Json(new { success = true, mensaje = "Se ha actualizado la informacion del producto satisfactoriamente." });
+                                return Json(new { success = true, mensaje = "Se ha actualizado la informacion del producto satisfactoriamente." });
+                            }
+                            else {
+                                datosproductoedit.listadepartamento = new List<departamento>();
+                                datosproductoedit.listaproveedor = new List<proveedor>();
+                                datosproductoedit.listadepartamento = getdepartamentos();
+                                datosproductoedit.listaproveedor = getproveedor();
+                                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un producto con el mismo nombre<br>";
+                                return PartialView(datosproductoedit);
+
+                            }
+                     
                         }
                         else {
                             datosproductoedit.listadepartamento = new List<departamento>();
@@ -448,11 +471,25 @@ namespace Monografia.Controllers
                     datosproducto = db.productos.Where(x => x.Idproducto == id).FirstOrDefault();
                     if (datosproducto != null)
                     {
-                        datosproducto.Fecha_baja = DateTime.Now;
-                        datosproducto.Usuario_baja = (string)Session["usuario_logueado"];
-                        datosproducto.Estado = 2;
-                        db.SaveChanges();
-                        return Json(new { success = true, mensaje = "Se ha inactivado el producto satisfactoriamente." });
+                        var facturaactiva = db.factura.Include(x => x.detalle_factura)
+                                                .FirstOrDefault(x => x.detalle_factura
+                                                .Any(k => k.Idproducto == datosproducto.Idproducto) && (x.Estado==1 || x.Estado==2));
+
+                        if (facturaactiva == null)
+                        {
+
+                            datosproducto.Fecha_baja = DateTime.Now;
+                            datosproducto.Usuario_baja = (string)Session["usuario_logueado"];
+                            datosproducto.Estado = 2;
+                            db.SaveChanges();
+                            return Json(new { success = true, mensaje = "Se ha inactivado el producto satisfactoriamente." });
+
+                        }
+                        else{
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se puede inactivar un producto con facturas activas";
+                            return PartialView(datosproducto);
+                        }
+                   
                     }
                     else {
                         ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";

@@ -35,6 +35,8 @@ namespace Monografia.Models
         public List<historial_inventario> listahistorialmov { get; set; }
         public List<detalle_factura> listadetallefactura { get; set; }
 
+        public List<cierrecaja> listadecortes { get; set; }
+
     public DateTime Fechadesde { get; set; }
         public DateTime Fechahasta { get; set; }
         public int SelectedValue { get; set; }

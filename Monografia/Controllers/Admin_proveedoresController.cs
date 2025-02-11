@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration.Provider;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
+﻿using Monografia.Middleware;
 using Monografia.Models;
+using System;
+using System.Data;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Monografia.Controllers
 {
+    [ValidateSession]
     public class Admin_proveedoresController : Controller
     {
         private proyectotiendaEntities db = new proyectotiendaEntities();
@@ -78,7 +74,7 @@ namespace Monografia.Controllers
 
                 if (validadinputs(proveedor))
                 {
-                    if (db.proveedor.Where(x => x.Descripcion.ToUpper() == proveedor.Descripcion.ToUpper() && x.Estado == 1).FirstOrDefault() == null)
+                    if (db.proveedor.Where(x => x.Descripcion.Replace(" ","").ToUpper() == proveedor.Descripcion.Replace(" ", "").ToUpper()).FirstOrDefault() == null)
                     {
                         proveedor.Fecha_alta = DateTime.Now;
                         proveedor.Estado = 1;
@@ -202,7 +198,7 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        if (db.proveedor.Where(x => x.Descripcion.ToUpper() == proveedor.Descripcion.ToUpper() && x.Estado == 1 && x.IdProveedor!=proveedor.IdProveedor).FirstOrDefault() == null)
+                        if (db.proveedor.Where(x => x.Descripcion.Replace(" ", "").ToUpper() == proveedor.Descripcion.Replace(" ", "").ToUpper()&& x.IdProveedor!=proveedor.IdProveedor).FirstOrDefault() == null)
                         {
                             datosproveedor.Descripcion = proveedor.Descripcion;
                             datosproveedor.Direccion = proveedor.Direccion;
@@ -284,12 +280,22 @@ namespace Monografia.Controllers
                     if (datosproveedor != null)
                     {
 
-                       
-                        datosproveedor.Fecha_baja = DateTime.Now;
-                        datosproveedor.Usuario_baja = (string)Session["usuario_logueado"];
-                        datosproveedor.Estado = 2;
-                        db.SaveChanges();
-                        return Json(new { success = true, mensaje = "Se ha inactivado el proveedor satisfactoriamente." });
+                        var productosactivos = db.productos.FirstOrDefault(x => x.Idproveedor==datosproveedor.IdProveedor && x.Estado==1);
+
+                        if (productosactivos == null)
+                        {
+                            datosproveedor.Fecha_baja = DateTime.Now;
+                            datosproveedor.Usuario_baja = (string)Session["usuario_logueado"];
+                            datosproveedor.Estado = 2;
+                            db.SaveChanges();
+                            return Json(new { success = true, mensaje = "Se ha inactivado el proveedor satisfactoriamente." });
+                        }
+                        else {
+
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se puede inactivar proveedor con un producto activo";
+                            return PartialView(datosproveedor);
+                        }
+                           
                     }
                     else
                     {

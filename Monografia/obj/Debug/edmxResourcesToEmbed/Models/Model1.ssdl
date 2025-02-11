@@ -12,6 +12,19 @@
     <Property Name="Monto_cambio" Type="decimal" Precision="15" Scale="2" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="cierrecaja">
+    <Key>
+      <PropertyRef Name="idCierreCaja" />
+    </Key>
+    <Property Name="idCierreCaja" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Fecha_baja" Type="datetime" Precision="0" />
+    <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
+    <Property Name="Total_efectivo" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+    <Property Name="Total_crédito" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="clientes">
     <Key>
       <PropertyRef Name="Idcliente" />
@@ -170,7 +183,7 @@
     <Property Name="Monto" Type="decimal" Precision="15" Scale="2" Nullable="false" />
     <Property Name="Tipo_movimiento" Type="int" Nullable="false" />
     <Property Name="Tipo_pago" Type="int" Nullable="false" />
-    <Property Name="Idpago" Type="int" Nullable="false" />
+    <Property Name="Idpago" Type="int" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="opciones">
@@ -338,6 +351,7 @@
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
     <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
     <Property Name="Idusuario" Type="int" Nullable="false" />
+    <Property Name="Token" Type="varchar" MaxLength="32" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="usuarios_perfiles">
@@ -363,10 +377,22 @@
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
     <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
     <Property Name="Login" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="Contraseña" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Contraseña" Type="varchar" MaxLength="65" Nullable="false" />
     <Property Name="Id_perfil" Type="int" Nullable="false" />
     <Property Name="Estado_usuario" Type="int" Nullable="false" />
   </EntityType>
+  <Association Name="fk_cliente">
+    <End Role="clientes" Type="Self.clientes" Multiplicity="1" />
+    <End Role="creditos" Type="Self.creditos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clientes">
+        <PropertyRef Name="Idcliente" />
+      </Principal>
+      <Dependent Role="creditos">
+        <PropertyRef Name="Idcliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_departamento">
     <End Role="departamento" Type="Self.departamento" Multiplicity="1" />
     <End Role="productos" Type="Self.productos" Multiplicity="*" />
@@ -391,6 +417,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="fk_factura_">
+    <End Role="factura" Type="Self.factura" Multiplicity="1" />
+    <End Role="creditos" Type="Self.creditos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="factura">
+        <PropertyRef Name="Idfactura" />
+      </Principal>
+      <Dependent Role="creditos">
+        <PropertyRef Name="Id_factura" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_facturas">
     <End Role="factura" Type="Self.factura" Multiplicity="0..1" />
     <End Role="pagos" Type="Self.pagos" Multiplicity="*" />
@@ -404,7 +442,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_id_pago">
-    <End Role="pagos" Type="Self.pagos" Multiplicity="1" />
+    <End Role="pagos" Type="Self.pagos" Multiplicity="0..1" />
     <End Role="movimientos" Type="Self.movimientos" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="pagos">
@@ -585,6 +623,7 @@
   </Association>
   <EntityContainer Name="proyectotiendaModelStoreContainer">
     <EntitySet Name="cambiodolar" EntityType="Self.cambiodolar" Schema="proyectotienda" store:Type="Tables" />
+    <EntitySet Name="cierrecaja" EntityType="Self.cierrecaja" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="clientes" EntityType="Self.clientes" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="correlativos" EntityType="Self.correlativos" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="creditos" EntityType="Self.creditos" Schema="proyectotienda" store:Type="Tables" />
@@ -610,6 +649,10 @@
     <EntitySet Name="usuario_sesion" EntityType="Self.usuario_sesion" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="usuarios_perfiles" EntityType="Self.usuarios_perfiles" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="usuarios_tienda" EntityType="Self.usuarios_tienda" Schema="proyectotienda" store:Type="Tables" />
+    <AssociationSet Name="fk_cliente" Association="Self.fk_cliente">
+      <End Role="clientes" EntitySet="clientes" />
+      <End Role="creditos" EntitySet="creditos" />
+    </AssociationSet>
     <AssociationSet Name="fk_departamento" Association="Self.fk_departamento">
       <End Role="departamento" EntitySet="departamento" />
       <End Role="productos" EntitySet="productos" />
@@ -617,6 +660,10 @@
     <AssociationSet Name="fk_factura" Association="Self.fk_factura">
       <End Role="factura" EntitySet="factura" />
       <End Role="detalle_factura" EntitySet="detalle_factura" />
+    </AssociationSet>
+    <AssociationSet Name="fk_factura_" Association="Self.fk_factura_">
+      <End Role="factura" EntitySet="factura" />
+      <End Role="creditos" EntitySet="creditos" />
     </AssociationSet>
     <AssociationSet Name="fk_facturas" Association="Self.fk_facturas">
       <End Role="factura" EntitySet="factura" />

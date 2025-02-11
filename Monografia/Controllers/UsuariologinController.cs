@@ -1,9 +1,12 @@
-﻿using System;
+﻿
+using Monografia.Middleware;
+using Monografia.Models;
+using Monografia.Utils;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
-using Monografia.Models;
 using System.Web.Security;
 
 
@@ -13,7 +16,7 @@ namespace Monografia.Controllers
     public class UsuariologinController : Controller
     {
 
-       private proyectotiendaEntities db = new proyectotiendaEntities();
+       private readonly proyectotiendaEntities db = new proyectotiendaEntities();
        usuario_sesion datosesion = null;
 
         // GET: Usuariologin
@@ -46,18 +49,21 @@ namespace Monografia.Controllers
                     return View();
                 }
 
-                var datoslogin =  db.usuarios_tienda.Where(x =>x.Login.Equals(usuariologin.Login)
-                                && x.Contraseña.Equals(usuariologin.Contraseña) && x.Estado_usuario==1).FirstOrDefault();
+                var datoslogin =  db.usuarios_tienda.Where(x =>x.Login.Equals(usuariologin.Login) && x.Estado_usuario==1).FirstOrDefault();
 
-     
-               if (datoslogin != null)
-                {                
+               
+                bool esValida = EncrypterPassword.VerificarContraseña(usuariologin.Contraseña, datoslogin.Contraseña);
+
+                if (esValida)
+                {
+                    var sessionToken = Guid.NewGuid().ToString("N");
+
                     Session["Idusuario"] = datoslogin.Idusuario;
                     Session["usuario_logueado"] = datoslogin.Login;
                     Session["Nombreuusuario"] = datoslogin.usuario_detalle.FirstOrDefault().Primer_nombre + " " + datoslogin.usuario_detalle.FirstOrDefault().Primer_apellido;
                     Session["Perfil"] = datoslogin.usuarios_perfiles.Descripcion_perfil;
                     Session["PerfilPermisos"] = datoslogin.usuarios_perfiles.Codigo_accesos_perfil;
-
+                    Session["TokenActive"] = sessionToken;
                     var sesion = datoslogin.usuario_sesion.Where(x=>x.Estado==1).FirstOrDefault();
                     if (sesion != null)
                     {
@@ -65,14 +71,17 @@ namespace Monografia.Controllers
                         return View();
                     }
                     else {
-                        datosesion = new usuario_sesion();
-                        datosesion.Usuario_alta = datoslogin.Login;
-                        datosesion.Fecha_alta = DateTime.Now;
-                        datosesion.Idusuario = datoslogin.Idusuario;
-                        datosesion.Estado = 1;
+                        datosesion = new usuario_sesion
+                        {
+                            Usuario_alta = datoslogin.Login,
+                            Fecha_alta = DateTime.Now,
+                            Idusuario = datoslogin.Idusuario,
+                            Token = sessionToken,
+                            Estado = 1
+                        };
                         db.usuario_sesion.Add(datosesion);
                         db.SaveChanges();
-                    
+
                         return RedirectToAction("Paginainicio");
                     }
                  
@@ -91,7 +100,7 @@ namespace Monografia.Controllers
                 throw;
             }
         }
-  
+        [ValidateSession]
         public ActionResult Paginainicio(string filtroventas,string filtroingresos,string filtroclientes)
         {
             int cantidadventas = 0,cantidadclientes=0;
@@ -172,7 +181,6 @@ namespace Monografia.Controllers
             }
             return View();
         }
-
         public ActionResult ventasporperiodo()
         {
 
@@ -229,26 +237,30 @@ namespace Monografia.Controllers
           
         }
         [ChildActionOnly]
+        [ValidateSession]
         public ActionResult mostrarnotificaciones()
         {
             var listaprodbajosinvent= db.productos.Where(x => x.Cantidad_actual < x.Cantidad_minima).ToList();
             ViewBag.cantidadprodbajos = listaprodbajosinvent.Count();
             return PartialView("_notificaciones");
         }
+
+        [ValidateSession]
         public ActionResult Sesiones_usuario() {
          
             return View(db.usuario_sesion.Where(x =>x.Estado==1).ToList());
         }
 
-        public ActionResult Delete(int? idsesion)
+        [ValidateSession]
+        public ActionResult Delete(int? id)
         {
         
             usuario_sesion ussesiones = null;
             try
             {
-                if (idsesion != 0 && idsesion != null)
+                if (id != 0 && id != null)
                 {
-                    ussesiones = db.usuario_sesion.Find(idsesion);
+                    ussesiones = db.usuario_sesion.Find(id);
 
                     if (ussesiones != null)
                     {

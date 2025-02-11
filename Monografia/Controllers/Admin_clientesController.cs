@@ -1,27 +1,28 @@
-﻿using System;
+﻿using Monografia.Middleware;
+using Monografia.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Monografia.Models;
 
 namespace Monografia.Controllers
 {
+    [ValidateSession]
     public class Admin_clientesController : Controller
     {
         private proyectotiendaEntities db = new proyectotiendaEntities();
         string patronsindecimales = @"^\d+$";
         string patronConDecimales = @"^\d+(\.\d+)?$";
         // GET: clientes
+    
         public ActionResult Lista_clientes()
         {
             return View(db.clientes.ToList());
         }
+    
         public ActionResult Lista_de_abonos()
         {
             try
@@ -89,7 +90,11 @@ namespace Monografia.Controllers
                         credito = (from d in db.creditos where d.Idcliente == idcliente && d.Id_factura == idfactura && d.Estado == 1 select d).FirstOrDefault();
                         if (credito != null)
                         {
-                            credito.Importe_pagado += agregar_cantidad;
+                            if(credito.Importe_pagado==null)
+                            credito.Importe_pagado = agregar_cantidad;
+                            else
+                                credito.Importe_pagado += agregar_cantidad;
+
                             if (credito.Importe_pagado >= credito.Importe_total)
                             {
                                 factura = (from d in db.factura where d.Idfactura == idfactura && d.Estado == 2 select d).FirstOrDefault();
@@ -110,6 +115,7 @@ namespace Monografia.Controllers
                                 Monto = Convert.ToDecimal(agregar_cantidad),
                                 Tipo_movimiento = 1,
                                 Tipo_pago = 2,
+                                Idpago=pago.Idpagos,
                                 Estado = 1
                             };
                             db.movimientos.Add(movimientos);
@@ -202,9 +208,13 @@ namespace Monografia.Controllers
                         datospagos.Monto_pagado = datosabonoedit.Monto_pagado;
                         var movimientos=db.movimientos.Where(x => x.Idpago == datospagos.Idpagos).FirstOrDefault();
                         movimientos.Monto =Convert.ToDecimal(datosabonoedit.Monto_pagado);
-                            db.SaveChanges();
+                        db.SaveChanges();
+                        var datoscreditos = db.creditos.Where(x => x.Id_factura == datospagos.Id_factura).FirstOrDefault();
+                        datoscreditos.Importe_pagado = db.pagos.Where(k => k.Id_factura == datospagos.Id_factura).Sum(x => (decimal?)x.Monto_pagado) ?? 0;
 
-                            return Json(new { success = true, mensaje = "Se ha actualizado la informacion del pago satisfactoriamente." });
+                        db.SaveChanges();
+
+                        return Json(new { success = true, mensaje = "Se ha actualizado la informacion del pago satisfactoriamente." });
                     }
                 }
                 else
@@ -644,7 +654,11 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        if (db.clientes.Where(x => (x.Primer_nombre + x.Segundo_nombre + x.Primer_apellido + x.Segundo_apellido).ToUpper() == (datosclienteedit.cliente.Primer_nombre + datosclienteedit.cliente.Segundo_nombre + datosclienteedit.cliente.Primer_apellido + datosclienteedit.cliente.Segundo_apellido).ToUpper() && x.Estado == 1 &&x.Idcliente!=datosclienteedit.cliente.Idcliente).FirstOrDefault() == null)
+                        var existeClienteConMismoNombreYDiferenteId = db.clientes
+                                                                    .Where(x => (x.Primer_nombre + x.Segundo_nombre + x.Primer_apellido + x.Segundo_apellido).ToUpper() ==
+                                                                    (datosclienteedit.cliente.Primer_nombre + datosclienteedit.cliente.Segundo_nombre + datosclienteedit.cliente.Primer_apellido + datosclienteedit.cliente.Segundo_apellido).ToUpper() && x.Idcliente != datosclienteedit.cliente.Idcliente)
+                                                                    .Any();
+                        if (!existeClienteConMismoNombreYDiferenteId)
                         {
                         datoscliente.Primer_nombre = datosclienteedit.cliente.Primer_nombre;
                         datoscliente.Segundo_nombre = datosclienteedit.cliente.Segundo_nombre;
@@ -726,18 +740,26 @@ namespace Monografia.Controllers
             try
             {
                 clientes datosclientes = null;
+
                 if (id != 0 && id!=null)
                 {
                     datosclientes = db.clientes.Find(id);
 
                     if (datosclientes != null)
                     {
-
-                        datosclientes.Fecha_baja = DateTime.Now;
-                        datosclientes.Usuario_baja = (string)Session["usuario_logueado"];
-                        datosclientes.Estado = 2;
-                        db.SaveChanges();
-                        return Json(new { success = true, mensaje = "Se ha inactivado el cliente satisfactoriamente." });
+                        if(!db.factura.Where(x=> x.Idcliente==datosclientes.Idcliente && x.Estado==2).Any())
+                        {
+                            datosclientes.Fecha_baja = DateTime.Now;
+                            datosclientes.Usuario_baja = (string)Session["usuario_logueado"];
+                            datosclientes.Estado = 2;
+                            db.SaveChanges();
+                            return Json(new { success = true, mensaje = "Se ha inactivado el cliente satisfactoriamente." });
+                        }
+                        else{
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se puede inactivar un cliente que tiene facturas pendientes de pago";
+                            return PartialView(datosclientes);
+                        }
+                 
                     }
                     else
                     {

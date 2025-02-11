@@ -7,7 +7,7 @@
     const eyeIcon = document.querySelector("#eye");
     var urlDelFormulario = window.location.href;
 
-    if (eyeIcon != null || yourUsername != null || passwordField != null || urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario") || urlDelFormulario.includes("Venta")) {
+    if (eyeIcon != null || yourUsername != null || passwordField != null || urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario") || urlDelFormulario.includes("Venta") || urlDelFormulario.includes("Corte") || urlDelFormulario.includes("MantenimientoDolar")) {
 
 
         if (eyeIcon != null) { 
@@ -22,11 +22,11 @@
         });
     }
         var mensaje = document.getElementById("Mensaje").value;
-        if (mensaje != "" && !(urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario") || urlDelFormulario.includes("Venta"))) {
+        if (mensaje != "" && !(urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario") || urlDelFormulario.includes("Venta") || urlDelFormulario.includes("Corte") || urlDelFormulario.includes("MantenimientoDolar"))) {
 
             sesionestadoproceso(false, mensaje)
         }
-        if (mensaje != "" && (urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario"))) {
+        if (mensaje != "" && (urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario") || urlDelFormulario.includes("Corte") || urlDelFormulario.includes("MantenimientoDolar"))) {
             sesionestadoproceso(true, mensaje)
         }
 
@@ -264,15 +264,10 @@ function selectButton(button) {
 }
 
 function desselectButton(button) {
-    var row = button.parentNode.parentNode; // Obtener la fila actual
-    var btnSelect = row.getElementsByClassName("btn-select")[0];
-    var btnChecked = row.getElementsByClassName("btn-checked")[0];
-    var cliente = document.getElementById("idcliente");
-
-    btnChecked.style.display = "none";
-    btnSelect.style.display = "inline-block";
-
-    cliente.value = "";
+    const row = button.parentNode.parentNode;
+    row.querySelector(".btn-select").style.display = "inline-block";
+    row.querySelector(".btn-checked").style.display = "none";
+    document.getElementById("idcliente").value = "";
 }
 function handleChange(input) {
     var inputtotalpago
@@ -327,6 +322,7 @@ function calculopago(tipopago, totalpago, montopago, tipocambio, inputmontovuelt
 
 
 }
+
 function sesionestadoproceso(estadoproceso, mensaje) {
     sessionStorage.setItem("estadoproceso", estadoproceso);
     sessionStorage.setItem("mensaje", mensaje);

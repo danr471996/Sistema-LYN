@@ -21,6 +21,7 @@
                 {
                     <form class="row g-3">
                         @Html.HiddenFor(model => model.usuarios_tienda.Idusuario)
+                        @Html.HiddenFor(model => model.usuario_detalle.Idusuariodetalle)
                         <div class="row">
                             <div class="col-md-6">
                                 @Html.Label("Primer Nombre", htmlAttributes: new { @class = "form-label" })
