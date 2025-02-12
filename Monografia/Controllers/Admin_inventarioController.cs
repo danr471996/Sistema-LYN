@@ -1,21 +1,18 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using Monografia.Middleware;
+using Monografia.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Monografia.Models;
-using ClosedXML.Excel;
 using System.IO;
-using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.Office2010.Excel;
-using Microsoft.Owin.Security.Provider;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web.Mvc;
 
 namespace Monografia.Controllers
 {
+    [ValidateSession]
     public class Admin_inventarioController : Controller
     {
         private proyectotiendaEntities db = new proyectotiendaEntities();

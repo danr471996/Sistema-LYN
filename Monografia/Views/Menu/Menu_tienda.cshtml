@@ -118,7 +118,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Corte", "Facturacion")">
+                        <a href="@Url.Action("Corte", "Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|O2|").Equals(false)">
                             <i class="bi bi-circle"></i><span>Corte</span>
                         </a>
                     </li>
@@ -138,7 +138,7 @@
                 </a>
                 <ul id="prod-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="@Url.Action("Lista_productos", "Admin_productos")">
+                        <a href="@Url.Action("Lista_productos", "Admin_productos")" hidden="@Session["PerfilPermisos"].ToString().Contains("|I2|").Equals(false)">
                             <i class="bi bi-circle"></i><span>Gestion de productos</span>
                         </a>
                     </li>
@@ -155,12 +155,12 @@
                 </a>
                 <ul id="inv-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="@Url.Action("agregar_inventario", "Admin_inventario")">
+                        <a href="@Url.Action("agregar_inventario", "Admin_inventario")" hidden="@Session["PerfilPermisos"].ToString().Contains("|I1|").Equals(false)">
                             <i class="bi bi-circle"></i><span>Agregar inventario</span>
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("ajuste_inventario", "Admin_inventario")">
+                        <a href="@Url.Action("ajuste_inventario", "Admin_inventario")" hidden="@Session["PerfilPermisos"].ToString().Contains("|I3|").Equals(false)">
                             <i class="bi bi-circle"></i><span>Ajustar inventario</span>
                         </a>
                     </li>
@@ -232,12 +232,16 @@
                             <i class="bi bi-circle"></i><span>Reporte de Movimientos</span>
                         </a>
                     </li>
-
+                    <li>
+                        <a href="@Url.Action("reporte_de_cortes", "Facturacion")">
+                            <i class="bi bi-circle"></i><span>Reporte de cortes</span>
+                        </a>
+                    </li>
                 </ul>
             </li><!-- End reporte Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="@Url.Action("Menu", "Config")">
+                <a class="nav-link collapsed" href="@Url.Action("Menu", "Config")" hidden="@Session["PerfilPermisos"].ToString().Contains("|O1|").Equals(false)">
                     <i class="bi bi-gear"></i>
                     <span>Configuración</span>
                 </a>

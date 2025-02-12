@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
+using Monografia.Middleware;
 using Monografia.Models;
+using Monografia.Utils;
 
 namespace Monografia.Controllers
 {
+    [ValidateSession]
     public class Admin_usuarioController : Controller
     {
         private proyectotiendaEntities db = new proyectotiendaEntities();
@@ -87,16 +89,17 @@ namespace Monografia.Controllers
             {
     
 
-                if (validadinputs(modelocontenedor))
+                if (validadinputs(modelocontenedor,"create"))
                 {
                     var datosusuarios = db.usuarios_tienda.Include(a => a.usuario_detalle).Where(x =>x.Estado_usuario == 1).ToList();
                     if (datosusuarios.Where(x => x.Login.ToUpper() == modelocontenedor.usuarios_tienda.Login.ToUpper()).FirstOrDefault()==null)
                     {
-                      
-                        if (datosusuarios.SelectMany(usuario => usuario.usuario_detalle).Where(detalle => (detalle.Primer_nombre + detalle.Segundo_nombre + detalle.Primer_apellido + detalle.Segundo_apellido).ToUpper() != (modelocontenedor.usuario_detalle.Primer_nombre + modelocontenedor.usuario_detalle.Segundo_nombre + modelocontenedor.usuario_detalle.Primer_apellido + modelocontenedor.usuario_detalle.Segundo_apellido).ToUpper()).FirstOrDefault()==null)
+
+                        if (datosusuarios.SelectMany(usuario => usuario.usuario_detalle).Where(detalle => (detalle.Primer_nombre + detalle.Segundo_nombre + detalle.Primer_apellido + detalle.Segundo_apellido).ToUpper() == (modelocontenedor.usuario_detalle.Primer_nombre + modelocontenedor.usuario_detalle.Segundo_nombre + modelocontenedor.usuario_detalle.Primer_apellido + modelocontenedor.usuario_detalle.Segundo_apellido).ToUpper()).Count() == 0)
                         {
                             modelocontenedor.usuarios_tienda.Fecha_alta = DateTime.Now;
                             modelocontenedor.usuarios_tienda.Usuario_alta = (string)Session["usuario_logueado"];
+                            modelocontenedor.usuarios_tienda.Contraseña = EncrypterPassword.GenerarHash(modelocontenedor.usuarios_tienda.Contraseña);
                             modelocontenedor.usuarios_tienda.Estado_usuario = 1;
                             db.usuarios_tienda.Add(modelocontenedor.usuarios_tienda);
                             db.SaveChanges();
@@ -140,7 +143,7 @@ namespace Monografia.Controllers
           
         }
 
-        public Boolean validadinputs(Modelo_contenedor datoscliente)
+        public Boolean validadinputs(Modelo_contenedor datoscliente,string action)
         {
             Boolean valid = true;
             
@@ -188,19 +191,31 @@ namespace Monografia.Controllers
                 ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el tipo de perfil del usuario<br>";
                 valid = false;
             }
-        
-            if (datoscliente.usuarios_tienda.Login == null)
-            {
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el login del usuario<br>";
-                valid = false;
+            if (action == "create") { 
+                    if (datoscliente.usuarios_tienda.Login == null)
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el login del usuario<br>";
+                        valid = false;
 
-            }
+                    }
 
-            if (datoscliente.usuarios_tienda.Contraseña == null)
-            {
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la contraseña del usuario";
-                valid = false;
+                    if (datoscliente.usuarios_tienda.Contraseña == null)
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la contraseña del usuario";
+                        valid = false;
 
+                    }
+                    else
+                    {
+                      
+                        var passwordPattern = @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+
+                        if (!Regex.IsMatch(datoscliente.usuarios_tienda.Contraseña, passwordPattern))
+                        {
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>La contraseña debe tener al menos 8 caracteres, incluyendo una letra mayúscula, un número y un carácter especial.";
+                            valid = false;
+                        }
+                    }
             }
             return valid;
         }
@@ -259,7 +274,7 @@ namespace Monografia.Controllers
         {
             try
             {
-                if (validadinputs(modelocontenedor))
+                if (validadinputs(modelocontenedor,"edit"))
                 {
                     var usuarios_tienda = db.usuarios_tienda.Include(x => x.usuario_detalle).Include(r => r.usuarios_perfiles).Where(x => x.Idusuario == modelocontenedor.usuarios_tienda.Idusuario).FirstOrDefault();
                     if (usuarios_tienda == null)
@@ -273,15 +288,22 @@ namespace Monografia.Controllers
                     else
                     {
                         var datosusuarios = db.usuarios_tienda.Include(a => a.usuario_detalle).Where(x => x.Estado_usuario == 1).ToList();
-                        if (datosusuarios.SelectMany(usuario => usuario.usuario_detalle).Where(detalle => (detalle.Primer_nombre + detalle.Segundo_nombre + detalle.Primer_apellido + detalle.Segundo_apellido).ToUpper() != (modelocontenedor.usuario_detalle.Primer_nombre + modelocontenedor.usuario_detalle.Segundo_nombre + modelocontenedor.usuario_detalle.Primer_apellido + modelocontenedor.usuario_detalle.Segundo_apellido ).ToUpper() && detalle.Idusuariodetalle != modelocontenedor.usuarios_tienda.Idusuario).FirstOrDefault() == null)
+                        var existeUsuarioConMismoNombreYDiferenteId = datosusuarios
+                                                                        .SelectMany(usuario => usuario.usuario_detalle)
+                                                                        .Any(detalle =>
+                                                                            (detalle.Primer_nombre + detalle.Segundo_nombre + detalle.Primer_apellido + detalle.Segundo_apellido).ToUpper() ==
+                                                                            (modelocontenedor.usuario_detalle.Primer_nombre + modelocontenedor.usuario_detalle.Segundo_nombre + modelocontenedor.usuario_detalle.Primer_apellido + modelocontenedor.usuario_detalle.Segundo_apellido).ToUpper()
+                                                                            && detalle.Idusuariodetalle != modelocontenedor.usuarios_tienda.Idusuario);
+
+                        if (!existeUsuarioConMismoNombreYDiferenteId)
                         {
                         usuarios_tienda.usuario_detalle.FirstOrDefault().Primer_nombre = modelocontenedor.usuario_detalle.Primer_nombre;
+                        usuarios_tienda.usuario_detalle.FirstOrDefault().Segundo_nombre = modelocontenedor.usuario_detalle.Segundo_nombre;
                         usuarios_tienda.usuario_detalle.FirstOrDefault().Primer_apellido = modelocontenedor.usuario_detalle.Primer_apellido;
+                        usuarios_tienda.usuario_detalle.FirstOrDefault().Segundo_apellido = modelocontenedor.usuario_detalle.Segundo_apellido;
                         usuarios_tienda.usuario_detalle.FirstOrDefault().Direccion = modelocontenedor.usuario_detalle.Direccion;
-                        usuarios_tienda.Login = modelocontenedor.usuarios_tienda.Login;
                         usuarios_tienda.usuario_detalle.FirstOrDefault().Telefono = modelocontenedor.usuario_detalle.Telefono;
                         usuarios_tienda.Idusuario = modelocontenedor.usuarios_tienda.Idusuario;
-                        usuarios_tienda.Contraseña = modelocontenedor.usuarios_tienda.Contraseña;
                         usuarios_tienda.Id_perfil = modelocontenedor.usuarios_tienda.Id_perfil;
 
                         db.SaveChanges();

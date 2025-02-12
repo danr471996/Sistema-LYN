@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
+﻿using Monografia.Middleware;
 using Monografia.Models;
+using System;
+using System.Data;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Monografia.Controllers
 {
+    [ValidateSession]
     public class Admin_departamentosController : Controller
     {
         private proyectotiendaEntities db = new proyectotiendaEntities();

@@ -62,6 +62,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net-Next, Version=4.0.3.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net-Next.4.0.3\lib\net35\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.5\lib\BouncyCastle.Crypto.dll</HintPath>
       <Private>True</Private>
@@ -308,7 +311,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Middleware\ValidateSession.cs" />
     <Compile Include="Models\cambiodolar.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cierrecaja.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\clientes.cs">
@@ -404,6 +411,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\EncrypterPassword.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Monografia.dll" />
@@ -2430,7 +2438,6 @@
     <Content Include="Views\Facturacion\reporte_de_movimientos.cshtml" />
     <Content Include="Views\Facturacion\Deleteticket.cshtml" />
     <Content Include="Views\Config\Administradorbd.cshtml" />
-    <Content Include="Views\Config\Articulosprecargados.cshtml" />
     <Content Include="Views\Config\Folio.cshtml" />
     <Content Include="Views\Config\Formasdepago.cshtml" />
     <Content Include="Views\Config\Impuestos.cshtml" />
@@ -2449,6 +2456,7 @@
     <Content Include="Views\Admin_productos\Createpromocion.cshtml" />
     <Content Include="Views\Admin_productos\Editpromocion.cshtml" />
     <Content Include="Views\Facturacion\Ventas_por_periodo.cshtml" />
+    <Content Include="Views\Facturacion\reporte_de_cortes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

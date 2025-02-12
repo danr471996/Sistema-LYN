@@ -1,13 +1,12 @@
-﻿using Antlr.Runtime;
-using DocumentFormat.OpenXml.Office2010.Excel;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Microsoft.Ajax.Utilities;
+﻿
+using Monografia.Middleware;
 using Monografia.Models;
+using MySql.Data.MySqlClient;
 using SelectPdf;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -16,6 +15,7 @@ using static Monografia.Models.Modelo_contenedor;
 
 namespace Monografia.Controllers
 {
+    [ValidateSession]
     public class FacturacionController : Controller
     {
         private proyectotiendaEntities db = new proyectotiendaEntities();
@@ -30,6 +30,14 @@ namespace Monografia.Controllers
         private historial_inventario historialinvt = null;
         private movimientos movimientos = null;
         private creditos creditos = null;
+        //CORTE
+        static string coneccion = ConfigurationManager.ConnectionStrings["proyectotiendaEntities"].ConnectionString;
+        static string[] coneccion_info = coneccion.Split(';');
+        static string usuario = coneccion_info[3].Substring(8);
+        static string contraseña = coneccion_info[4].Substring(9);
+        static string BD = coneccion_info[6].Substring(9).TrimEnd('"');
+        static string servidor = coneccion_info[2].Substring(35);
+        static string mysqlconeccion = "Server=" + servidor + ";Database=" + BD + ";User ID=" + usuario + ";Password=" + contraseña + ";Pooling=false;";
 
         // GET: facturas
         public ActionResult Venta()
@@ -59,10 +67,6 @@ namespace Monografia.Controllers
 
         }
 
-
-
-
-    
         public ActionResult procesoticket()
         {
             modelocontenedor = (Factura)TempData["modelocontenedor"];
@@ -181,7 +185,7 @@ namespace Monografia.Controllers
                 }
 
             });
-            var datoscambiodolar = db.cambiodolar.Where(x => /*x.Fecha_alta.Day == DateTime.Now.Day &&*/ x.Estado == 1).FirstOrDefault();
+            var datoscambiodolar = db.cambiodolar.Where(x => x.Estado == 1).FirstOrDefault();
             ViewBag.totalpago = "<input type='text' id='montototalpago' class='form-control' value='" + datosfacturar.listaproductos.Sum(x => x.Impor).ToString() + "' readonly>";
             ViewBag.totalpagodolar = "<input type='text' id='montototaldolar' class='form-control' value='" + datosfacturar.listaproductos.Sum(x => x.Impor).ToString() + "' readonly>";
             ViewBag.cambiodolar = "<input type='text' id='tipocambiodolar' class='form-control' value='" + datoscambiodolar.Monto_cambio.ToString() + "' readonly>";
@@ -195,7 +199,7 @@ namespace Monografia.Controllers
             int cantidadmetodos = 0;
             ViewBag.numticket = numeroticket;
             var Listaclientes = db.clientes.Where(x => x.Estado == 1).ToList();
-            var datoscambiodolar = db.cambiodolar.Where(x => /*x.Fecha_alta.Day == DateTime.Now.Day &&*/ x.Estado == 1).FirstOrDefault();
+            var datoscambiodolar = db.cambiodolar.Where(x => x.Estado == 1).FirstOrDefault();
 
             if (numeroticket != 0 && numeroticket != null)
             {
@@ -249,6 +253,13 @@ namespace Monografia.Controllers
                             {
                                 if (montopagodolar != null)
                                 {
+
+                                if (datoscambiodolar == null)
+                                {
+                                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No hay valor de cambio de dolar, favor contactarse con el administrador";
+                                    return PartialView(Listaclientes);
+                                }
+
                                     if ((montopagodolar* datoscambiodolar.Monto_cambio) < montototalfact )
                                     {
                                         TempData["modelocontenedor"] = modelocontenedor;
@@ -261,7 +272,7 @@ namespace Monografia.Controllers
                     }
 
 
-                    if (idcliente != 0)
+                    if (idcliente != 0 && idcliente != null)
                     {
                         var datoscliente = db.clientes.Where(x => x.Idcliente == idcliente).FirstOrDefault();
 
@@ -271,7 +282,6 @@ namespace Monografia.Controllers
                             if (datoscliente.Cantidad_credito < montototalfact)
                             {
                                 TempData["modelocontenedor"] = modelocontenedor;
-                               /* return Json(new { success = false, mensaje = "Cliente no tiene suficiente crédito para realizar esta compra,favor verifique" });*/
                                 ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Cliente no tiene suficiente crédito para realizar esta compra,favor verifique";
                         
                                 return PartialView(Listaclientes);
@@ -287,15 +297,16 @@ namespace Monografia.Controllers
                     datoscorrelativo = db.correlativos.Where(x => x.idCorrelativo_factura == 1 && x.Estado == 1).FirstOrDefault();
                     if (datoscorrelativo == null)
                     {
+                        datoscorrelativo = new correlativos();
                         datoscorrelativo.Correlativo_factura = 1;
+                        datoscorrelativo.Fecha_alta = DateTime.Now;
+                        datoscorrelativo.Usuario_alta = (string)Session["usuario_logueado"];
                         datoscorrelativo.Estado = 1;
                         db.correlativos.Add(datoscorrelativo);
-                        db.SaveChanges();
                     }
                     else
                     {
                         datoscorrelativo.Correlativo_factura++;
-                        db.SaveChanges();
                     }
 
 
@@ -307,7 +318,7 @@ namespace Monografia.Controllers
                     factura.Usuario_alta = (string)Session["usuario_logueado"];
                     factura.Num_factura = datoscorrelativo.Correlativo_factura;
                     factura.Monto_total = montototalfact;
-                    if (idcliente != 0)
+                    if (idcliente != 0 && idcliente != null)
                     {
                         factura.Idcliente = idcliente;
                         factura.Estado = 2;
@@ -349,6 +360,16 @@ namespace Monografia.Controllers
                         };
                         db.historial_inventario.Add(historialinvt);
 
+                       
+                        factura.detalle_factura.Add(detallefact);
+                    }
+
+               
+
+                    //pago realizado si idcliente es diferente de 0 es porque es una venta al credito
+                    if (idcliente == 0 || idcliente==null)
+                    {
+
                         //Movimiento de la transaccion
                         movimientos = new movimientos
                         {
@@ -356,17 +377,12 @@ namespace Monografia.Controllers
                             Usuario_alta = (string)Session["usuario_logueado"],
                             Monto = montototalfact,
                             Tipo_movimiento = 1,
-                            Tipo_pago = idcliente == 0 ? 2:1,
-                            Idpago=pagos.Idpagos,
+                            Tipo_pago = 2 ,
+                            Idpago =pagos.Idpagos,
                             Estado = 1
                         };
                         db.movimientos.Add(movimientos);
-                        factura.detalle_factura.Add(detallefact);
-                    }
 
-                    //pago realizado si idcliente es diferente de 0 es porque es una venta al credito
-                    if (idcliente == 0)
-                    {
                         pagos.Fecha_alta = DateTime.Now;
                         pagos.Usuario_alta = (string)Session["usuario_logueado"];
                         pagos.Id_factura = factura.Idfactura;
@@ -376,6 +392,20 @@ namespace Monografia.Controllers
                     }
                     else
                     {
+
+                        //Movimiento de la transaccion
+                        movimientos = new movimientos
+                        {
+                            Fecha_alta = DateTime.Now,
+                            Usuario_alta = (string)Session["usuario_logueado"],
+                            Monto = montototalfact,
+                            Tipo_movimiento = 1,
+                            Tipo_pago = 1,
+                            /*Idpago = pagos.Idpagos,*/
+                            Estado = 1
+                        };
+                        db.movimientos.Add(movimientos);
+
                         creditos = new creditos
                         {
                             Fecha_alta = DateTime.Now,
@@ -400,9 +430,6 @@ namespace Monografia.Controllers
 
                     return Json(new { success = true, mensaje = "Se ha realizado el cobro de factura satisfactoriamente" });
                 }
-
-
-
 
             }
             else
@@ -440,18 +467,28 @@ namespace Monografia.Controllers
 
                             if (producto != null)
                             {
+                                var ticketCopia = new Ticket
+                                {
+                                    Numero_ticket = ticket.Numero_ticket,
+                                    listaproductos = new List<producto> 
+                                        {
+                                            new producto
+                                            {
+                                                CodProd = producto.CodProd,
+                                                Desc = producto.Desc,
+                                                prec_vent = producto.prec_vent,
+                                                Cant = producto.Cant,
+                                                Impor = producto.Impor,
+                                                existencia = producto.existencia
+                                            }
+                                        }
+                                };
 
                                 datoseliminar.listatickets = new List<Ticket>
-                                    {
-                                        ticket
-                                    };
-                                foreach (var item in datoseliminar.listatickets)
-                                {
-                                    item.listaproductos = new List<producto>
-                                    {
-                                        producto
-                                    };
-                                }
+                                                                {
+                                                                    ticketCopia
+                                                                };
+
                                 TempData["modelocontenedor"] = modelocontenedor;
 
                                 return PartialView(datoseliminar);
@@ -626,8 +663,6 @@ namespace Monografia.Controllers
 
                         }
 
-
-
                     }
                     else
                     {
@@ -735,19 +770,35 @@ namespace Monografia.Controllers
                            
                             if (existeproducto.Estado == 1)
                             {
+
                                 var ticket = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numticket).FirstOrDefault();
 
                             if (ticket != null)
                             {
+                                var existepromocion = (from x in db.promocion where x.Id_producto == existeproducto.Idproducto select x).FirstOrDefault();
 
                                 var listaproductos = ticket.listaproductos.Where(x => x.CodProd == codproducto).FirstOrDefault();
 
                                 if (listaproductos != null)
                                 {
-                                    listaproductos.Cant++;
-                                    listaproductos.Impor = listaproductos.Cant * existeproducto.Precio_venta;
+                                        listaproductos.Cant++;
 
-                                }
+                                        if (existepromocion == null)
+                                        {
+                                            listaproductos.Impor = listaproductos.Cant * existeproducto.Precio_venta;
+                                        }
+                                        else if (listaproductos.Cant >= existepromocion.Cant_desde && listaproductos.Cant <= existepromocion.Cant_hasta)
+                                        {
+                                           
+                                            listaproductos.Impor = listaproductos.Cant * existepromocion.Precio_unitario;
+                                        }
+                                        else
+                                        {
+         
+                                            listaproductos.Impor = listaproductos.Cant * existeproducto.Precio_venta;
+                                        }
+
+                                    }
                                 else
                                 {
                                     producto = new producto
@@ -757,7 +808,7 @@ namespace Monografia.Controllers
                                         prec_vent = existeproducto.Precio_venta,
                                         Cant = 1,
                                         Impor = 1 * existeproducto.Precio_venta,
-                                        existencia = 20
+                                        existencia = Convert.ToInt32(existeproducto.Cantidad_actual)
                                     };
                                     ticket.listaproductos.Add(producto);
                                 }
@@ -915,9 +966,11 @@ namespace Monografia.Controllers
 
             HtmlToPdf convertidor = new HtmlToPdf();
             convertidor.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
-           convertidor.Options.MarginLeft = 40;
+            convertidor.Options.MarginLeft = 40;
             convertidor.Options.MarginRight = 40;
             convertidor.Options.MarginTop = 20;
+            convertidor.Options.MinPageLoadTime = 1;
+            convertidor.Options.MaxPageLoadTime = 10;
             PdfDocument doc = convertidor.ConvertHtmlString(htmldocfactura);
 
             //bytes de doc con select pdf
@@ -1013,18 +1066,126 @@ namespace Monografia.Controllers
 
         public ActionResult Corte()
         {
-
+            var usuario = (string)Session["usuario_logueado"];
             try
             {
-
-                return View();
+                Modelo_contenedor modelcontenedor = new Modelo_contenedor
+                {
+                    corteResumen = obtenerDatosCorte("SP_RESUMEN_CORTE", usuario),
+                    corteProductos = obtenerDatosCorteLista("SP_PRODUCTOSXDEPARTAMENTO", usuario),
+                    cortePagoCreditos = obtenerDatosCorte("SP_PAGOSEFECTIVOCREDITO", usuario)
+                };
+                return View(modelcontenedor);
             }
             catch (Exception ex)
             {
-
                 throw;
             }
 
+        }
+        [HttpPost, ActionName("Corte")]
+        public ActionResult CortePost()
+        {
+            var usuario = (string)Session["usuario_logueado"];
+            try
+            {
+                Modelo_contenedor modelcontenedor = new Modelo_contenedor
+                {
+                    corteResumen = obtenerDatosCorte("SP_RESUMEN_CORTE", usuario),
+                    corteProductos = obtenerDatosCorteLista("SP_PRODUCTOSXDEPARTAMENTO", usuario),
+                    cortePagoCreditos = obtenerDatosCorte("SP_PAGOSEFECTIVOCREDITO", usuario)
+                };
+
+                var totalefectivo = modelcontenedor.cortePagoCreditos.ContainsKey("EFECTIVO") && modelcontenedor.cortePagoCreditos["EFECTIVO"] != DBNull.Value
+                       ? Convert.ToDecimal(modelcontenedor.cortePagoCreditos["EFECTIVO"])
+                       : 0;
+
+                var totalcredito = modelcontenedor.cortePagoCreditos.ContainsKey("CREDITO") && modelcontenedor.cortePagoCreditos["CREDITO"] != DBNull.Value
+                                   ? Convert.ToDecimal(modelcontenedor.cortePagoCreditos["CREDITO"])
+                                   : 0;
+
+                cierrecaja datoscorte = new cierrecaja
+                {
+                    Usuario_alta = (string)Session["usuario_logueado"],
+                    Fecha_alta = DateTime.Now,
+                    Total_efectivo = totalefectivo,
+                    Total_crédito = totalcredito,
+                    Estado = 1
+                };
+
+                db.cierrecaja.Add(datoscorte);
+                db.SaveChanges();
+                ViewBag.mensajeexito = "Se cierre de caja exitosamente";
+                return View(modelcontenedor);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+
+        private Dictionary<string,object> obtenerDatosCorte(String ejecutar,String usuario)
+        {
+            MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
+            mysqlcon.Open();
+            MySqlCommand comando = new MySqlCommand("call " + ejecutar + "(@usuario)", mysqlcon);
+            comando.Parameters.AddWithValue("@usuario", usuario);
+            MySqlDataReader lector = comando.ExecuteReader();
+            Dictionary<string, object> datos = new Dictionary<string, object>();
+
+            switch (ejecutar)
+            {
+                case "SP_RESUMEN_CORTE":
+                    while (lector.Read())
+                    {
+                        datos.Add("CANTIDAD_FACTURAS", lector["CANTIDAD_FACTURAS"]);
+                        /*datos.Add("ID_FACTURAS", lector["ID_FACTURAS"]);*/
+                        datos.Add("TOTAL_PAGOS", lector["TOTAL_PAGOS"]);
+                        datos.Add("MONTO_FACTURAS", lector["MONTO_FACTURAS"]);
+                        datos.Add("CANTIDAD_DE_PRODUCTOS_FACTURADOS", lector["CANTIDAD_DE_PRODUCTOS_FACTURADOS"]);
+                       /* datos.Add("ID_PRODUCTOS_FACTURADOS", lector["ID_PRODUCTOS_FACTURADOS"]);*/
+                       /* datos.Add("CAJEROS_DEL_DIA", lector["CAJEROS_DEL_DIA"]);*/
+                    }
+                    break;
+                case "SP_PAGOSEFECTIVOCREDITO":
+                    while (lector.Read())
+                    {
+                        datos.Add("CREDITO", lector["CREDITO"]);
+                        datos.Add("CANTIDAD_CREDITO", lector["CANTIDAD_CREDITO"]);
+                        datos.Add("EFECTIVO", lector["EFECTIVO"]);
+                        datos.Add("CANTIDAD_EFECTIVO", lector["CANTIDAD_EFECTIVO"]);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            mysqlcon.Close();
+            return (datos);
+        }
+
+        private List<Dictionary<string, object>> obtenerDatosCorteLista(String ejecutar, String usuario)
+        {
+            MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
+            mysqlcon.Open();
+            MySqlCommand comando = new MySqlCommand("call " + ejecutar + "(@usuario)", mysqlcon);
+            comando.Parameters.AddWithValue("@usuario", usuario);
+            MySqlDataReader lector = comando.ExecuteReader();
+            Dictionary<string, object> datos = new Dictionary<string, object>();
+            List<Dictionary<string, object>> datosList = new List<Dictionary<string, object>>();
+
+            while (lector.Read())
+            {
+                datos = new Dictionary<string, object>
+                        {
+                            { "CODIGO_PRODUCTO", lector["CODIGO_PRODUCTO"] },
+                            { "CANTIDAD_PRODUCTO", lector["CANTIDAD_PRODUCTO"] },
+                            { "DEPARTAMENTO", lector["DEPARTAMENTO"] }
+                        };
+                datosList.Add(datos);
+            }
+            mysqlcon.Close();
+            return (datosList);
         }
 
         public ActionResult Ventas_por_periodo()
@@ -1046,6 +1207,7 @@ namespace Monografia.Controllers
             }
 
         }
+
         [HttpPost]
         public ActionResult Ventas_por_periodo(Modelo_contenedor modelocontenedor)
         {
@@ -1116,6 +1278,25 @@ namespace Monografia.Controllers
                 modelocontenedor.Options= crearopciones();
             
                 return View(modelocontenedor);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+
+        public ActionResult reporte_de_cortes()
+        {
+
+            try
+            {
+                Modelo_contenedor modelcontenedor = new Modelo_contenedor
+                {
+                    listadecortes = db.cierrecaja?.ToList() ?? new List<cierrecaja>()
+                };
+                return View(modelcontenedor);
             }
             catch (Exception ex)
             {

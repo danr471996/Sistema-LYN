@@ -1,19 +1,22 @@
-﻿using Monografia.Models;
+﻿using DocumentFormat.OpenXml.EMMA;
+using Microsoft.Ajax.Utilities;
+using Monografia.Middleware;
+using Monografia.Models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace Monografia.Controllers
 {
+    [ValidateSession]
     public class ConfigController : Controller
     {
         private proyectotiendaEntities db = new proyectotiendaEntities();
@@ -27,6 +30,7 @@ namespace Monografia.Controllers
         static string servidor = coneccion_info[2].Substring(35);
         static string mysqlconeccion = "Server=" + servidor + ";Database=" + BD + ";User ID=" + usuario + ";Password=" + contraseña + ";Pooling=false;";
         static string mysqldump = directoriodump(usuario, contraseña, BD, servidor);
+        string patronConDecimales = @"^\d+(\.\d+)?$";
         // GET: Config_foliotickets
         public ActionResult Folio()
         {
@@ -56,7 +60,7 @@ namespace Monografia.Controllers
             List<Opcion> op = new List<Opcion>();
             while (lector.Read())
             {
-                op.Add(new Opcion() { ID_OP = lector["ID_OP"].ToString(), NOMBRE_OP = lector["NOMBRE_OP"].ToString(), DESCRIPCION_OP = lector["DESCRIPCION_OP"].ToString(),DETALLE_EXT1 = lector["DETALLE_EXT1"].ToString()});
+                op.Add(new Opcion() { ID_OP = lector["ID_OP"].ToString(), NOMBRE_OP = lector["NOMBRE_OP"].ToString(), DESCRIPCION_OP = lector["DESCRIPCION_OP"].ToString(), DETALLE_EXT1 = lector["DETALLE_EXT1"].ToString() });
             }
 
             mysqlcon.Close();
@@ -252,60 +256,6 @@ namespace Monografia.Controllers
             }
         }
 
-        //************************************* ARTICULOS PRECARGADOS
-
-        public ActionResult Articulosprecargados()
-        {
-            Modelo_actual.Lista_opciones = Obtener_opciones_ap();
-            return View("Articulosprecargados", Modelo_actual);
-        }
-
-        [HttpPost]
-        public ActionResult Articulosprecargados(Modelo_Config Modelo)
-        {
-            foreach (var item in Modelo.Lista_opciones)
-            {
-                Actualizar_datos_ap(item.ID_OP, item.SELECCIONADO_OP);
-            }
-            Modelo_actual.Lista_opciones = Obtener_opciones_ap();
-            return View("Articulosprecargados", Modelo_actual);
-        }
-
-        private List<Opcion> Obtener_opciones_ap()
-        {
-            MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
-            mysqlcon.Open();
-            MySqlCommand comando = new MySqlCommand(@"SELECT * FROM OPCIONES WHERE ID_OP LIKE ('%_ATP')", mysqlcon);
-            MySqlDataReader lector = comando.ExecuteReader();
-
-            List<Opcion> op = new List<Opcion>();
-            while (lector.Read())
-            {
-                op.Add(new Opcion() { ID_OP = lector["ID_OP"].ToString(), NOMBRE_OP = lector["NOMBRE_OP"].ToString(), DESCRIPCION_OP = lector["DESCRIPCION_OP"].ToString(), SELECCIONADO_OP = Convert.ToBoolean(lector["SELECCIONADO_OP"]), DETALLE_EXT1 = lector["DETALLE_EXT1"].ToString(), DETALLE_EXT2 = lector["DETALLE_EXT2"].ToString(), DETALLE_EXT3 = lector["DETALLE_EXT3"].ToString() });
-            }
-
-            mysqlcon.Close();
-            return (op);
-        }
-
-        private string Actualizar_datos_ap(string ID, bool SELECCIONADO)
-        {
-            MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
-            mysqlcon.Open();
-
-            try
-            {
-                MySqlCommand comando = new MySqlCommand("UPDATE OPCIONES SET SELECCIONADO_OP = " + Convert.ToInt32(SELECCIONADO) + " WHERE ID_OP = '" + ID + "'", mysqlcon);
-                comando.ExecuteNonQuery();
-                mysqlcon.Close();
-                return ("guardado");
-            }
-            catch
-            {
-                mysqlcon.Close();
-                return ("fallido");
-            }
-        }
 
         //************************************* OPCIONES HABILIDATAS
 
@@ -383,31 +333,32 @@ namespace Monografia.Controllers
         [HttpPost]
         public ActionResult Create(Modelo_Config lista_check)
         {
-            string perfil= Request["txtperfil"].ToString();
+            string perfil = Request["txtperfil"].ToString();
             ViewBag.nomperfil = perfil;
-            if (validadinputs(perfil)) {
+            if (validadinputs(perfil))
+            {
 
                 if (db.usuarios_perfiles.Where(x => x.Descripcion_perfil.ToUpper() == perfil.ToUpper()).FirstOrDefault() == null)
                 {
                     StringBuilder cadena = new StringBuilder();
-                cadena.Append("|");
-                foreach (var item in lista_check.checksboxes)
-                {
-                    if (item.seleccionado)
+                    cadena.Append("|");
+                    foreach (var item in lista_check.checksboxes)
                     {
-                        cadena.Append(item.id + "|");
+                        if (item.seleccionado)
+                        {
+                            cadena.Append(item.id + "|");
+                        }
                     }
-                }
 
-                var resultado = introducir_perfil(perfil, cadena.ToString(), DateTime.Now, (string)Session["usuario_logueado"]);
-                if (resultado == "insertado")
-                {
-                    return Json(new { success = true, mensaje = "Se ha creado perfil satisfactoriamente." });
-                }
-                else
-                {
+                    var resultado = introducir_perfil(perfil, cadena.ToString(), DateTime.Now, (string)Session["usuario_logueado"]);
+                    if (resultado == "insertado")
+                    {
+                        return Json(new { success = true, mensaje = "Se ha creado perfil satisfactoriamente." });
+                    }
+                    else
+                    {
 
-                    return PartialView(lista_check);
+                        return PartialView(lista_check);
                     }
                 }
                 else
@@ -415,22 +366,24 @@ namespace Monografia.Controllers
                     ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un perfil con la misma descripcion<br>";
                     return PartialView(lista_check);
                 }
-            } else {
+            }
+            else
+            {
                 return PartialView(lista_check);
             }
 
-         
-           
+
+
         }
 
-        public ActionResult Edit(int? id,string nomperfil)
+        public ActionResult Edit(int? id, string nomperfil)
         {
             ViewBag.nomperfil = nomperfil;
             Modelo_actual = null;
-        
+
 
             if (id != 0 && id != null)
-                {
+            {
                 var datosperfiles = db.usuarios_perfiles.Find(id);
                 if (datosperfiles != null)
                 {
@@ -457,19 +410,19 @@ namespace Monografia.Controllers
                     return PartialView(Modelo_actual);
                 }
             }
-                else
-                {
+            else
+            {
 
                 ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de perfil erroneo";
-                    return PartialView(Modelo_actual);
-                }
-        
-          
+                return PartialView(Modelo_actual);
+            }
+
+
 
         }
 
         [HttpPost]
-        public ActionResult Edit(Modelo_Config lista_check,perfiles datoperfil)
+        public ActionResult Edit(Modelo_Config lista_check, perfiles datoperfil)
         {
             string perfil = Request["txtperfil"].ToString();
             ViewBag.nomperfil = perfil;
@@ -481,33 +434,33 @@ namespace Monografia.Controllers
                                                                    }
                                                                    };
             if (validadinputs(perfil))
-                {
+            {
                 var datosperfiles = db.usuarios_perfiles.Find(datoperfil.Idperfil);
-                        if (datosperfiles != null)
-                        {
+                if (datosperfiles != null)
+                {
 
-                    if (db.usuarios_perfiles.Where(x => x.Descripcion_perfil.ToUpper() == perfil.ToUpper() && x.Id_perfil!=datoperfil.Idperfil).FirstOrDefault() == null)
+                    if (db.usuarios_perfiles.Where(x => x.Descripcion_perfil.ToUpper() == perfil.ToUpper() && x.Id_perfil != datoperfil.Idperfil).FirstOrDefault() == null)
                     {
                         StringBuilder cadena = new StringBuilder();
-                            cadena.Append("|");
-                            foreach (var item in lista_check.checksboxes)
+                        cadena.Append("|");
+                        foreach (var item in lista_check.checksboxes)
+                        {
+                            if (item.seleccionado)
                             {
-                                if (item.seleccionado)
-                                {
-                                    cadena.Append(item.id + "|");
-                                }
+                                cadena.Append(item.id + "|");
                             }
+                        }
 
-                            var resultado = Actualizar_perfil(Convert.ToInt32(datoperfil), perfil, cadena.ToString());
-                            if (resultado == "actualizado")
-                            {
-                                return Json(new { success = true, mensaje = "Se ha actualizado perfil satisfactoriamente." });
-                            }
-                            else
-                            {
+                        var resultado = Actualizar_perfil(Convert.ToInt32(datoperfil.Idperfil), perfil, cadena.ToString());
+                        if (resultado == "actualizado")
+                        {
+                            return Json(new { success = true, mensaje = "Se ha actualizado perfil satisfactoriamente." });
+                        }
+                        else
+                        {
 
-                                return PartialView(lista_check);
-                            }
+                            return PartialView(lista_check);
+                        }
                     }
                     else
                     {
@@ -515,16 +468,17 @@ namespace Monografia.Controllers
                         return PartialView(lista_check);
                     }
                 }
-                        else {
-                             ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro perfil";
-                            return PartialView(lista_check);
-                        }
-                }
                 else
                 {
-                return PartialView(lista_check);
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro perfil";
+                    return PartialView(lista_check);
                 }
-   
+            }
+            else
+            {
+                return PartialView(lista_check);
+            }
+
 
 
 
@@ -551,7 +505,7 @@ namespace Monografia.Controllers
                     {
                         Idperfil = Convert.ToInt32(datosperfiles.Id_perfil),
                         nom_perfil = datosperfiles.Descripcion_perfil
-                    }) ;
+                    });
 
                     return PartialView(Modelo_actual);
                 }
@@ -629,14 +583,14 @@ namespace Monografia.Controllers
 
             return valid;
         }
-        private string introducir_perfil(string perfil, string codigo,DateTime fechaalta,string usuarioalta)
+        private string introducir_perfil(string perfil, string codigo, DateTime fechaalta, string usuarioalta)
         {
             MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
             mysqlcon.Open();
 
             try
             {
-             
+
                 string query = "INSERT INTO usuarios_perfiles (Fecha_alta,Usuario_alta,Descripcion_perfil,Codigo_accesos_perfil,Estado) values (@FechaAlta,@UsuarioAlta,@DescripcionPerfil,@CodigoAccesosPerfil,1)";
                 using (MySqlCommand comando = new MySqlCommand(query, mysqlcon))
                 {
@@ -646,7 +600,7 @@ namespace Monografia.Controllers
                     comando.Parameters.AddWithValue("@CodigoAccesosPerfil", codigo);
 
                     comando.ExecuteNonQuery();
-                    
+
                 }
                 mysqlcon.Close();
 
@@ -659,14 +613,14 @@ namespace Monografia.Controllers
             }
         }
 
-        private string Actualizar_perfil(int idperfil,string perfil, string codigo)
+        private string Actualizar_perfil(int idperfil, string perfil, string codigo)
         {
             MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
             mysqlcon.Open();
 
             try
             {
-           
+
                 string query = "UPDATE usuarios_perfiles SET Descripcion_perfil = @DescripcionPerfil, Codigo_accesos_perfil = @CodigoAccesosPerfil WHERE Id_perfil=@idperfil";
                 using (MySqlCommand comando = new MySqlCommand(query, mysqlcon))
                 {
@@ -697,7 +651,7 @@ namespace Monografia.Controllers
             List<perfiles> perfiles = new List<perfiles>();
             while (lector.Read())
             {
-                perfiles.Add(new perfiles() { Idperfil= Convert.ToInt32(lector["Id_perfil"]), nom_perfil = lector["Descripcion_perfil"].ToString(), estado = Convert.ToInt32( lector["Estado"]) });
+                perfiles.Add(new perfiles() { Idperfil = Convert.ToInt32(lector["Id_perfil"]), nom_perfil = lector["Descripcion_perfil"].ToString(), estado = Convert.ToInt32(lector["Estado"]) });
             }
 
             mysqlcon.Close();
@@ -724,25 +678,25 @@ namespace Monografia.Controllers
 
         private List<checkboxs> obtener_checkboxs_mod(int idperfil)
         {
-          
-                MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
-                mysqlcon.Open();
-                MySqlCommand comando = new MySqlCommand("SELECT Id_permiso,Descripcion,((select codigo_accesos_perfil from usuarios_perfiles where Id_perfil = '" + idperfil + "') like (CONCAT('%|',Id_permiso,'|%')) ) AS SELECCIONADO,GRUPO,INICIO_GRUPO FROM lista_permisos order by Id_permiso,inicio_grupo", mysqlcon);
-                MySqlDataReader lector = comando.ExecuteReader();
 
-                List<checkboxs> check = new List<checkboxs>();
+            MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
+            mysqlcon.Open();
+            MySqlCommand comando = new MySqlCommand("SELECT Id_permiso,Descripcion,((select codigo_accesos_perfil from usuarios_perfiles where Id_perfil = '" + idperfil + "') like (CONCAT('%|',Id_permiso,'|%')) ) AS SELECCIONADO,GRUPO,INICIO_GRUPO FROM lista_permisos order by Id_permiso,inicio_grupo", mysqlcon);
+            MySqlDataReader lector = comando.ExecuteReader();
 
-                while (lector.Read())
-                {
-                    check.Add(new checkboxs() { id = lector["Id_permiso"].ToString(), texto = lector["Descripcion"].ToString(), seleccionado = Convert.ToBoolean(lector["SELECCIONADO"]), nombre_grupo = lector["GRUPO"].ToString(), inicio_grupo = Convert.ToBoolean(lector["INICIO_GRUPO"]) });
+            List<checkboxs> check = new List<checkboxs>();
 
-                }
+            while (lector.Read())
+            {
+                check.Add(new checkboxs() { id = lector["Id_permiso"].ToString(), texto = lector["Descripcion"].ToString(), seleccionado = Convert.ToBoolean(lector["SELECCIONADO"]), nombre_grupo = lector["GRUPO"].ToString(), inicio_grupo = Convert.ToBoolean(lector["INICIO_GRUPO"]) });
 
-                mysqlcon.Close();
-                return (check);
-          
+            }
+
+            mysqlcon.Close();
+            return (check);
+
         }
-    
+
 
         //************************************* SIMBOLODEMONEDA
 
@@ -1023,6 +977,62 @@ namespace Monografia.Controllers
         {
             return View("Menu");
         }
+        public ActionResult MantenimientoDolar()
+        {
+            var datosDolar = db.cambiodolar.Where(x => x.Estado == 1).FirstOrDefault();
 
+            return View(datosDolar);
+
+        }
+
+        [HttpPost]
+        public ActionResult MantenimientoDolar(cambiodolar datosDolar)
+        {
+
+            if (validadinputsDolar(datosDolar.Monto_cambio) && ModelState.IsValid) {
+
+                var datosDolarActual = db.cambiodolar.Where(x => x.Estado == 1).FirstOrDefault();
+
+                if (datosDolarActual != null)
+                {
+                    datosDolarActual.Fecha_baja = DateTime.Now;
+                    datosDolarActual.Usuario_baja = (string)Session["usuario_logueado"];
+                    datosDolarActual.Estado = 2;
+                }
+                db.SaveChanges();
+                db.cambiodolar.Add(
+                                    new cambiodolar {
+                                    Fecha_alta=DateTime.Now,
+                                    Usuario_alta= (string)Session["usuario_logueado"],
+                                    Monto_cambio=datosDolar.Monto_cambio,
+                                    Estado=1
+                                }
+                    );
+                db.SaveChanges();
+                ViewBag.mensajeexito = "Se ha creado nuevo valor del dolar";
+
+               return View();
+    
+            } else {
+                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un valor correcto para el dolar<br>";
+                return View(datosDolar); 
+            
+            }
+        
+        
+            
+        }
+
+        public Boolean validadinputsDolar(decimal monto_cambio)
+        {
+            var patito = Regex.IsMatch(monto_cambio.ToString(), patronConDecimales);
+            Boolean valid = true;
+            if (!Regex.IsMatch(monto_cambio.ToString(), patronConDecimales))
+            {
+                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un valor correcto para el dolar<br>";
+                valid = false;
+            }
+            return valid;
+        }
     }
 }
