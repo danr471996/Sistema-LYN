@@ -18,6 +18,17 @@ using System;
 public partial class lista_permisos
 {
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public lista_permisos()
+    {
+
+        this.permisos_perfil = new HashSet<permisos_perfil>();
+
+        this.usuarios_perfiles = new HashSet<usuarios_perfiles>();
+
+    }
+
+
     public string Id_permiso { get; set; }
 
     public System.DateTime Fecha_alta { get; set; }
@@ -37,6 +48,16 @@ public partial class lista_permisos
     public sbyte INICIO_GRUPO { get; set; }
 
     public int Estado { get; set; }
+
+
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<permisos_perfil> permisos_perfil { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<usuarios_perfiles> usuarios_perfiles { get; set; }
 
 }
 

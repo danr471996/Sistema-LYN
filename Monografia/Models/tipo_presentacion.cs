@@ -15,11 +15,11 @@ namespace Monografia.Models
 using System;
     using System.Collections.Generic;
     
-public partial class tipo_ventas
+public partial class tipo_presentacion
 {
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public tipo_ventas()
+    public tipo_presentacion()
     {
 
         this.productos = new HashSet<productos>();
@@ -27,7 +27,7 @@ public partial class tipo_ventas
     }
 
 
-    public int Id_tipoventas { get; set; }
+    public int Id_presentacion { get; set; }
 
     public System.DateTime Fecha_alta { get; set; }
 

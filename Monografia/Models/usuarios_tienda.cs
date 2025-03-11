@@ -53,11 +53,11 @@ public partial class usuarios_tienda
 
     public virtual ICollection<usuario_detalle> usuario_detalle { get; set; }
 
-    public virtual usuarios_perfiles usuarios_perfiles { get; set; }
-
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<usuario_sesion> usuario_sesion { get; set; }
+
+    public virtual usuarios_perfiles usuarios_perfiles { get; set; }
 
 }
 
