@@ -24,9 +24,9 @@ public partial class productos
 
         this.detalle_factura = new HashSet<detalle_factura>();
 
-        this.promocion = new HashSet<promocion>();
-
         this.historial_inventario = new HashSet<historial_inventario>();
+
+        this.promocion = new HashSet<promocion>();
 
     }
 
@@ -47,8 +47,6 @@ public partial class productos
 
     public int Estado { get; set; }
 
-    public int Id_tipoventas { get; set; }
-
     public decimal Precio_costo { get; set; }
 
     public decimal Precio_venta { get; set; }
@@ -65,6 +63,8 @@ public partial class productos
 
     public int Idproveedor { get; set; }
 
+    public Nullable<int> Id_presentacion { get; set; }
+
 
 
     public virtual departamento departamento { get; set; }
@@ -75,15 +75,15 @@ public partial class productos
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<promocion> promocion { get; set; }
-
-    public virtual tipo_ventas tipo_ventas { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
     public virtual ICollection<historial_inventario> historial_inventario { get; set; }
 
     public virtual proveedor proveedor { get; set; }
+
+    public virtual tipo_presentacion tipo_presentacion { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<promocion> promocion { get; set; }
 
 }
 

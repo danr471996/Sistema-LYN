@@ -22,6 +22,8 @@ public partial class usuarios_perfiles
     public usuarios_perfiles()
     {
 
+        this.lista_permisos = new HashSet<lista_permisos>();
+
         this.usuarios_tienda = new HashSet<usuarios_tienda>();
 
     }
@@ -39,11 +41,13 @@ public partial class usuarios_perfiles
 
     public string Descripcion_perfil { get; set; }
 
-    public string Codigo_accesos_perfil { get; set; }
-
     public int Estado { get; set; }
 
 
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<lista_permisos> lista_permisos { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 

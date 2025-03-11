@@ -44,9 +44,9 @@ public partial class historial_inventario
 
     public virtual departamento departamento { get; set; }
 
-    public virtual productos productos { get; set; }
-
     public virtual tipo_movimento tipo_movimento { get; set; }
+
+    public virtual productos productos { get; set; }
 
 }
 

@@ -42,13 +42,9 @@ public partial class proyectotiendaEntities : DbContext
 
     public virtual DbSet<facturas_proveedor> facturas_proveedor { get; set; }
 
-    public virtual DbSet<lista_permisos> lista_permisos { get; set; }
-
     public virtual DbSet<opciones> opciones { get; set; }
 
     public virtual DbSet<pagos> pagos { get; set; }
-
-    public virtual DbSet<productos> productos { get; set; }
 
     public virtual DbSet<promocion> promocion { get; set; }
 
@@ -56,15 +52,7 @@ public partial class proyectotiendaEntities : DbContext
 
     public virtual DbSet<tipo_credito> tipo_credito { get; set; }
 
-    public virtual DbSet<tipo_ventas> tipo_ventas { get; set; }
-
     public virtual DbSet<unidad_medida> unidad_medida { get; set; }
-
-    public virtual DbSet<usuario_detalle> usuario_detalle { get; set; }
-
-    public virtual DbSet<usuarios_perfiles> usuarios_perfiles { get; set; }
-
-    public virtual DbSet<usuarios_tienda> usuarios_tienda { get; set; }
 
     public virtual DbSet<correlativos> correlativos { get; set; }
 
@@ -84,7 +72,21 @@ public partial class proyectotiendaEntities : DbContext
 
     public virtual DbSet<creditos> creditos { get; set; }
 
+    public virtual DbSet<productos> productos { get; set; }
+
+    public virtual DbSet<tipo_presentacion> tipo_presentacion { get; set; }
+
+    public virtual DbSet<permisos_perfil> permisos_perfil { get; set; }
+
+    public virtual DbSet<lista_permisos> lista_permisos { get; set; }
+
+    public virtual DbSet<usuarios_perfiles> usuarios_perfiles { get; set; }
+
+    public virtual DbSet<usuario_detalle> usuario_detalle { get; set; }
+
     public virtual DbSet<usuario_sesion> usuario_sesion { get; set; }
+
+    public virtual DbSet<usuarios_tienda> usuarios_tienda { get; set; }
 
 }
 

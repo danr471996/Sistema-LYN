@@ -22,9 +22,9 @@ public partial class departamento
     public departamento()
     {
 
-        this.productos = new HashSet<productos>();
-
         this.historial_inventario = new HashSet<historial_inventario>();
+
+        this.productos = new HashSet<productos>();
 
     }
 
@@ -47,11 +47,11 @@ public partial class departamento
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<productos> productos { get; set; }
+    public virtual ICollection<historial_inventario> historial_inventario { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<historial_inventario> historial_inventario { get; set; }
+    public virtual ICollection<productos> productos { get; set; }
 
 }
 
