@@ -16,7 +16,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <a data-modal="" id="agregarproducto" hidden="@Session["PerfilPermisos"].ToString().Contains("|V2|").Equals(false)" class="btn btn-primary"> <i class="fa fa-plus">Agregar producto</i></a>
+                    <a data-modal="" id="agregarproducto" class="btn btn-primary"> <i class="fa fa-plus">Agregar producto</i></a>
                 </div>
             </div>
             <br>
@@ -138,7 +138,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="d-grid gap-2">
-                                <a data-modal="" id="facturar" hidden="@Session["PerfilPermisos"].ToString().Contains("|V3|").Equals(false)"  class="btn btn-danger" style="width:auto"> <i class="fa fa-money-bill">&nbsp;Facturar</i></a>
+                                <a data-modal="" id="facturar" class="btn btn-danger" style="width:auto"> <i class="fa fa-money-bill">&nbsp;Facturar</i></a>
                             </div>
 
                         </div>

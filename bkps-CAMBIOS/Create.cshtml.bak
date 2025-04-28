@@ -44,7 +44,7 @@
                         </div>
                         <br>
                         <div class="row">
-                            @*<div class="col-md-12">
+                            <div class="col-md-12">
                                 @Html.Label("Se vende:", htmlAttributes: new { @class = "form-label" })
                                 <div class="col-md-4">
                                     @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 1, new { @class = "form-check-input" })@Html.Label("unidad/pieza")
@@ -58,7 +58,7 @@
                                     @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 3, new { @class = "form-check-input", @id = "rdpaquete" })@Html.Label("Como paquete")
                                 </div>
 
-                            </div>*@
+                            </div>
                         </div>
                         <br>
                         <div class="row">
@@ -85,10 +85,6 @@
                             <div class="col-md-6">
                                 @Html.Label("Proveedor", htmlAttributes: new { @class = "form-label" })
                                 @Html.DropDownListFor(model => model.productos.Idproveedor, new SelectList(Model.listaproveedor, "IdProveedor", "Descripcion"), "Seleccione proveedor", new { @class = "form-select" })
-                            </div>
-                            <div class="col-md-6">
-                                @Html.Label("Presentacion", htmlAttributes: new { @class = "form-label" })
-                                @Html.DropDownListFor(model => model.productos.Id_presentacion, new SelectList(Model.listatipopresentacion, "Id_presentacion", "Descripcion"), "Seleccione tipo presentacion", new { @class = "form-select" })
                             </div>
                         </div>
                         <br>

@@ -4,14 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
-using DocumentFormat.OpenXml.Office2010.Excel;
-using Monografia.Models;
 
 namespace Monografia.Controllers
 {
@@ -33,14 +28,11 @@ namespace Monografia.Controllers
         {
             try
             {
-                    
                 Modelo_contenedor modelo_contenedor = new Modelo_contenedor();
                 modelo_contenedor.listadepartamento = new List<departamento>();
                 modelo_contenedor.listaproveedor = new List<proveedor>();
-                modelo_contenedor.listatipopresentacion = new List<tipo_presentacion>();
                 modelo_contenedor.listadepartamento = getdepartamentos();
                 modelo_contenedor.listaproveedor = getproveedor();
-                modelo_contenedor.listatipopresentacion = gettipopresentacion();
 
                 return PartialView(modelo_contenedor);
             }
@@ -60,10 +52,6 @@ namespace Monografia.Controllers
         {
 
             return (from u in db.proveedor where u.Estado == 1 select u).ToList();
-        }
-        public List<tipo_presentacion> gettipopresentacion()
-        {
-            return (from u in db.tipo_presentacion where u.Estado == 1 select u).ToList();
         }
         // POST: usuarios_tienda/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
@@ -112,10 +100,8 @@ namespace Monografia.Controllers
                     else {
                         modelo_contenedor.listadepartamento = new List<departamento>();
                         modelo_contenedor.listaproveedor = new List<proveedor>();
-                        modelo_contenedor.listatipopresentacion = new List<tipo_presentacion>();
                         modelo_contenedor.listadepartamento = getdepartamentos();
                         modelo_contenedor.listaproveedor = getproveedor();
-                        modelo_contenedor.listatipopresentacion = gettipopresentacion();
                         ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un producto con el mismo codigo<br>";
                         return PartialView(modelo_contenedor);
                     }
@@ -125,10 +111,8 @@ namespace Monografia.Controllers
 
                     modelo_contenedor.listadepartamento = new List<departamento>();
                     modelo_contenedor.listaproveedor = new List<proveedor>();
-                    modelo_contenedor.listatipopresentacion = new List<tipo_presentacion>();
                     modelo_contenedor.listadepartamento = getdepartamentos();
                     modelo_contenedor.listaproveedor = getproveedor();
-                    modelo_contenedor.listatipopresentacion = gettipopresentacion();
 
                     return PartialView(modelo_contenedor);
                 }
@@ -312,13 +296,11 @@ namespace Monografia.Controllers
                         {
                             productos = new productos(),
                            listadepartamento = new List<departamento>(),
-                           listaproveedor=new List<proveedor>(),
-                           listatipopresentacion = new List<tipo_presentacion>()
+                           listaproveedor=new List<proveedor>()
                         };
                         modelocontenedor.productos = datosproductos;
                         modelocontenedor.listadepartamento = getdepartamentos();
                         modelocontenedor.listaproveedor = getproveedor();
-                        modelocontenedor.listatipopresentacion = gettipopresentacion();
 
                         if (modelocontenedor.productos.Usa_inventario == 1)
                             ViewBag.usainventario = true;
@@ -367,10 +349,8 @@ namespace Monografia.Controllers
 
                         datosproductoedit.listadepartamento = new List<departamento>();
                         datosproductoedit.listaproveedor = new List<proveedor>();
-                        datosproductoedit.listatipopresentacion = new List<tipo_presentacion>();
                         datosproductoedit.listadepartamento = getdepartamentos();
                         datosproductoedit.listaproveedor = getproveedor();
-                        datosproductoedit.listatipopresentacion = gettipopresentacion();
                         return PartialView(datosproductoedit);
                     }
                     else
@@ -398,7 +378,7 @@ namespace Monografia.Controllers
                                 producto.Usa_inventario = datosproductoedit.productos.Usa_inventario;
                                 producto.Cantidad_actual = datosproductoedit.productos.Cantidad_actual;
                                 producto.Cantidad_minima = datosproductoedit.productos.Cantidad_minima;
-								producto.Id_presentacion = datosproductoedit.productos.Id_presentacion;
+
                                 db.SaveChanges();
 
                                 return Json(new { success = true, mensaje = "Se ha actualizado la informacion del producto satisfactoriamente." });
@@ -408,7 +388,6 @@ namespace Monografia.Controllers
                                 datosproductoedit.listaproveedor = new List<proveedor>();
                                 datosproductoedit.listadepartamento = getdepartamentos();
                                 datosproductoedit.listaproveedor = getproveedor();
-                                datosproductoedit.listatipopresentacion = gettipopresentacion();
                                 ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un producto con el mismo nombre<br>";
                                 return PartialView(datosproductoedit);
 
@@ -418,10 +397,8 @@ namespace Monografia.Controllers
                         else {
                             datosproductoedit.listadepartamento = new List<departamento>();
                             datosproductoedit.listaproveedor = new List<proveedor>();
-                            datosproductoedit.listatipopresentacion = new List<tipo_presentacion>();
                             datosproductoedit.listadepartamento = getdepartamentos();
                             datosproductoedit.listaproveedor = getproveedor();
-                            datosproductoedit.listatipopresentacion = gettipopresentacion();
                             ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un producto con el mismo codigo<br>";
                             return PartialView(datosproductoedit);
                         }
@@ -432,10 +409,8 @@ namespace Monografia.Controllers
 
                     datosproductoedit.listadepartamento = new List<departamento>();
                     datosproductoedit.listaproveedor = new List<proveedor>();
-                    datosproductoedit.listatipopresentacion = new List<tipo_presentacion>();
                     datosproductoedit.listadepartamento = getdepartamentos();
                     datosproductoedit.listaproveedor = getproveedor();
-                    datosproductoedit.listatipopresentacion = gettipopresentacion();
                     return PartialView(datosproductoedit);
                 }
 

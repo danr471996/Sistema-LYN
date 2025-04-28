@@ -30,7 +30,7 @@
 
                 <!-- base de datos Card -->
                 <div class="col-xxl-3 col-md-3">
-                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-info" onclick="location.href='@Url.Action("Administradorbd", "config")'" hidden="@Session["PerfilPermisos"].ToString().Contains("|O2|").Equals(false)">
+                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-info" onclick="location.href='@Url.Action("Administradorbd", "config")'">
                         <h5 class="card-title text-center">Base de datos</h5>
                         <div class="card-body">
 
@@ -46,7 +46,7 @@
                 </div><!-- End base de datos Card -->
                 <!-- Customers Card -->
                 <div class="col-xxl-3 col-md-3">
-                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-success" onclick="location.href='@Url.Action("Opcioneshabilitadas","config")'" hidden="@Session["PerfilPermisos"].ToString().Contains("|O3|").Equals(false)">
+                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-success" onclick="location.href='@Url.Action("Opcioneshabilitadas","config")'">
                         <h5 class="card-title text-center">Opciones habilitadas</h5>
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -61,7 +61,7 @@
                 </div><!-- End Customers Card -->
                 <!-- folios Card -->
                 <div class="col-xxl-3 col-md-3">
-                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-warning" onclick="location.href='@Url.Action("Folio", "config")'" hidden="@Session["PerfilPermisos"].ToString().Contains("|O4|").Equals(false)">
+                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-warning" onclick="location.href='@Url.Action("Folio", "config")'">
                         <h5 class="card-title text-center">Folio de tickets</h5>
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -75,7 +75,7 @@
                 </div><!-- End folios Card -->
                 <!-- Impuestos Card -->
                 <div class="col-xxl-3 col-md-3">
-                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-danger" onclick="location.href='@Url.Action("Impuestos", "config")'" hidden="@Session["PerfilPermisos"].ToString().Contains("|O5|").Equals(false)">
+                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-danger" onclick="location.href='@Url.Action("Impuestos", "config")'">
                         <h5 class="card-title text-center">Impuestos</h5>
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -88,7 +88,7 @@
                 </div><!-- End Impuestos Card -->
                 <!-- Formas de pago Card -->
                 <div class="col-xxl-3 col-md-3">
-                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-warning" onclick="location.href='@Url.Action("Formasdepago", "config")'" hidden="@Session["PerfilPermisos"].ToString().Contains("|O6|").Equals(false)">
+                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-warning" onclick="location.href='@Url.Action("Formasdepago", "config")'">
                         <h5 class="card-title text-center">Formas de pago</h5>
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -102,7 +102,7 @@
                 </div><!-- End Formas de pago Card -->
                 <!-- Unidades de medida Card -->
                 <div class="col-xxl-3 col-md-3">
-                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-success" onclick="location.href='@Url.Action("Unidadesdemedida", "config")'" hidden="@Session["PerfilPermisos"].ToString().Contains("|O7|").Equals(false)">
+                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-success" onclick="location.href='@Url.Action("Unidadesdemedida", "config")'">
                         <h5 class="card-title text-center">Unidades de medida</h5>
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -116,7 +116,7 @@
                 </div><!-- End Unidades de medida Card -->
                 <!-- Simbolo de moneda Card -->
                 <div class="col-xxl-3 col-md-3">
-                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-info" onclick="location.href='@Url.Action("Simbolodemoneda", "config")'" hidden="@Session["PerfilPermisos"].ToString().Contains("|O8|").Equals(false)">
+                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-info" onclick="location.href='@Url.Action("Simbolodemoneda", "config")'">
                         <h5 class="card-title text-center">Simbolo de moneda</h5>
                         <div class="card-body">
                             <div class="d-flex align-items-center">
@@ -131,7 +131,7 @@
                 </div><!-- End Simbolo de moneda Card -->
                 <!-- Tickets Card -->
                 <div class="col-xxl-3 col-md-3">
-                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-info" onclick="location.href='@Url.Action("Tickets", "config")'" hidden="@Session["PerfilPermisos"].ToString().Contains("|O9|").Equals(false)">
+                    <div class="card info-card sales-card cards align-items-center border-start border-0 border-3 border-info" onclick="location.href='@Url.Action("Tickets", "config")'">
                         <h5 class="card-title text-center">Tickets</h5>
                         <div class="card-body">
                             <div class="d-flex align-items-center">

@@ -1,0 +1,48 @@
+﻿@model Monografia.Models.tipo_presentacion
+
+@{
+    ViewBag.Title = "Eliminar tipo presentacion";
+}
+@Scripts.Render("~/bundles/jqueryval")
+<div class="card">
+    <div class="card-header">
+        <h4>¿Está seguro de eliminar este tipo presentacion?</h4>
+    </div>
+    <div class="card-body">
+        <br>
+        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" style="@(ViewBag.Mensaje!=null ? "display: block;" : "display: none;")" role="alert">
+
+            @Html.Raw(@ViewBag.Mensaje)
+
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @if (Model != null)
+        {
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayName("Descripción")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Descripcion)
+                </dd>
+
+            </dl>
+        }
+        </div>
+    <div class="card-footer text-center">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            if (Model != null)
+            {
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"> Guardar</i>
+                </button>
+                }
+            }
+        </div>
+</div>
+
+

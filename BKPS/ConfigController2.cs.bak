@@ -13,7 +13,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace Monografia.Controllers
 {
@@ -591,7 +590,7 @@ namespace Monografia.Controllers
 
             try
             {
-                long id_usuario_perfil;
+
                 string query = "INSERT INTO usuarios_perfiles (Fecha_alta,Usuario_alta,Descripcion_perfil,Codigo_accesos_perfil,Estado) values (@FechaAlta,@UsuarioAlta,@DescripcionPerfil,@CodigoAccesosPerfil,1)";
                 using (MySqlCommand comando = new MySqlCommand(query, mysqlcon))
                 {
@@ -601,20 +600,7 @@ namespace Monografia.Controllers
                     comando.Parameters.AddWithValue("@CodigoAccesosPerfil", codigo);
 
                     comando.ExecuteNonQuery();
-                    id_usuario_perfil = comando.LastInsertedId;
-                }
 
-                
-                string[] splitPermisos = codigo.Split('|').Where(x => !string.IsNullOrEmpty(x)).ToArray();            
-                foreach (string id_permiso in splitPermisos)
-                {
-                    query = "INSERT INTO permisos_perfil (Id_permiso,Id_perfil) values (@Id_permiso,@Id_perfil)";
-                    using (MySqlCommand comando = new MySqlCommand(query, mysqlcon))
-                    {
-                        comando.Parameters.AddWithValue("@Id_perfil", id_usuario_perfil);
-                        comando.Parameters.AddWithValue("@Id_permiso", id_permiso);
-                        comando.ExecuteNonQuery();
-                    }
                 }
                 mysqlcon.Close();
 
@@ -635,34 +621,15 @@ namespace Monografia.Controllers
             try
             {
 
-                string query = "UPDATE usuarios_perfiles SET Descripcion_perfil = @DescripcionPerfil WHERE Id_perfil=@idperfil";
+                string query = "UPDATE usuarios_perfiles SET Descripcion_perfil = @DescripcionPerfil, Codigo_accesos_perfil = @CodigoAccesosPerfil WHERE Id_perfil=@idperfil";
                 using (MySqlCommand comando = new MySqlCommand(query, mysqlcon))
                 {
                     comando.Parameters.AddWithValue("@DescripcionPerfil", perfil);
+                    comando.Parameters.AddWithValue("@CodigoAccesosPerfil", codigo);
                     comando.Parameters.AddWithValue("@idperfil", idperfil);
                     comando.ExecuteNonQuery();
 
                 }
-
-                query = "DELETE FROM permisos_perfil where Id_perfil = @idperfil";
-                using (MySqlCommand comando = new MySqlCommand(query, mysqlcon))
-                {
-                    comando.Parameters.AddWithValue("@idperfil", idperfil);
-                    comando.ExecuteNonQuery();
-                }
-
-                string[] splitPermisos = codigo.Split('|').Where(x => !string.IsNullOrEmpty(x)).ToArray();
-                foreach (string id_permiso in splitPermisos)
-                {
-                    query = "INSERT INTO permisos_perfil (Id_permiso,Id_perfil) values (@Id_permiso,@Id_perfil)";
-                    using (MySqlCommand comando = new MySqlCommand(query, mysqlcon))
-                    {
-                        comando.Parameters.AddWithValue("@Id_perfil", idperfil);
-                        comando.Parameters.AddWithValue("@Id_permiso", id_permiso);
-                        comando.ExecuteNonQuery();
-                    }
-                }
-
                 mysqlcon.Close();
 
                 return ("actualizado");
@@ -696,7 +663,7 @@ namespace Monografia.Controllers
         {
             MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
             mysqlcon.Open();
-            MySqlCommand comando = new MySqlCommand("SELECT * FROM lista_permisos order by SUBSTR(id_permiso FROM 1 FOR 1),CAST(SUBSTR(id_permiso FROM 2) AS UNSIGNED),inicio_grupo", mysqlcon);
+            MySqlCommand comando = new MySqlCommand("SELECT * FROM lista_permisos order by Id_permiso,inicio_grupo", mysqlcon);
             MySqlDataReader lector = comando.ExecuteReader();
 
             List<checkboxs> check = new List<checkboxs>();
@@ -714,7 +681,7 @@ namespace Monografia.Controllers
 
             MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
             mysqlcon.Open();
-            MySqlCommand comando = new MySqlCommand("SELECT lp.Id_permiso,lp.Descripcion,!ISNULL(pp.Id_permiso) AS SELECCIONADO,lp.GRUPO,lp.INICIO_GRUPO FROM lista_permisos as lp left join permisos_perfil as pp on pp.Id_perfil = '" + idperfil + "' and pp.Id_permiso = lp.Id_permiso order by SUBSTR(lp.id_permiso FROM 1 FOR 1), CAST(SUBSTR(lp.id_permiso FROM 2) AS UNSIGNED), lp.inicio_grupo", mysqlcon);
+            MySqlCommand comando = new MySqlCommand("SELECT Id_permiso,Descripcion,((select codigo_accesos_perfil from usuarios_perfiles where Id_perfil = '" + idperfil + "') like (CONCAT('%|',Id_permiso,'|%')) ) AS SELECCIONADO,GRUPO,INICIO_GRUPO FROM lista_permisos order by Id_permiso,inicio_grupo", mysqlcon);
             MySqlDataReader lector = comando.ExecuteReader();
 
             List<checkboxs> check = new List<checkboxs>();

@@ -45,7 +45,7 @@
 
                             </div>
                             <br>
-                            @*<div class="row">
+                            <div class="row">
                                 <div class="col-md-12">
                                     @Html.Label("Se vende:", htmlAttributes: new { @class = "form-label" })
                                     <div class="col-md-4">
@@ -61,7 +61,7 @@
                                     </div>
 
                                 </div>
-                            </div>*@
+                            </div>
                             <br>
                             <div class="row">
                                 <div class="col-md-4">
@@ -87,10 +87,6 @@
                                 <div class="col-md-6">
                                     @Html.Label("Proveedor", htmlAttributes: new { @class = "form-label" })
                                     @Html.DropDownListFor(model => model.productos.Idproveedor, new SelectList(Model.listaproveedor, "IdProveedor", "Descripcion"), "Seleccione proveedor", new { @class = "form-select" })
-                                </div>
-                                <div class="col-md-6">
-                                    @Html.Label("Presentacion", htmlAttributes: new { @class = "form-label" })
-                                    @Html.DropDownListFor(model => model.productos.Id_presentacion, new SelectList(Model.listatipopresentacion, "Id_presentacion", "Descripcion"), "Seleccione tipo presentacion", new { @class = "form-select" })
                                 </div>
                             </div>
                             <br>

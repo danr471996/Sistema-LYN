@@ -14,7 +14,7 @@
         <br>
         <div class="row">
             <div class="col-md-2">
-                <a data-modal="" href=@Url.Action("Create", "Admin_departamentos") class="btn btn-primary" hidden="@Session["PerfilPermisos"].ToString().Contains("|A16|").Equals(false)"> <i class="fa fa-plus">Agregar</i></a>
+                <a data-modal="" href=@Url.Action("Create", "Admin_departamentos") class="btn btn-primary"> <i class="fa fa-plus">Agregar</i></a>
             </div>
         </div>
         <br>
@@ -56,8 +56,8 @@
                             }
                         </td>
                         <td class="text-center">
-                            <a data-modal="" hidden="@Session["PerfilPermisos"].ToString().Contains("|A17|").Equals(false)" href=@Url.Action("Edit", "Admin_departamentos", new { id = item.Iddepartmento })> <i class="far fa-edit fa-lg" style="color: #0040ff;"></i></a>&nbsp
-                            <a data-modal="" hidden="@Session["PerfilPermisos"].ToString().Contains("|A18|").Equals(false)" href=@Url.Action("Delete", "Admin_departamentos", new { id = item.Iddepartmento })><i class="far fa-trash-alt fa-lg" style="color: #ff0a0a;"></i></a>
+                            <a data-modal="" href=@Url.Action("Edit", "Admin_departamentos", new { id = item.Iddepartmento })> <i class="far fa-edit fa-lg" style="color: #0040ff;"></i></a>&nbsp
+                            <a data-modal="" href=@Url.Action("Delete", "Admin_departamentos", new { id = item.Iddepartmento })><i class="far fa-trash-alt fa-lg" style="color: #ff0a0a;"></i></a>
                         </td>
                     </tr>
                 }
