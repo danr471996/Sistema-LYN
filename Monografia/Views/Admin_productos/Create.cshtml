@@ -68,6 +68,10 @@
                                 @Html.Label("Proveedor", htmlAttributes: new { @class = "form-label" })
                                 @Html.DropDownListFor(model => model.productos.Idproveedor, new SelectList(Model.listaproveedor, "IdProveedor", "Descripcion"), "Seleccione proveedor", new { @class = "form-select" })
                             </div>
+
+                        </div>
+                        <br />
+                        <div class="row">
                             <div class="col-md-6">
                                 @Html.Label("Presentacion", htmlAttributes: new { @class = "form-label" })
                                 @Html.DropDownListFor(model => model.productos.Id_presentacion, new SelectList(Model.listatipopresentacion, "Id_presentacion", "Descripcion"), "Seleccione tipo presentacion", new { @class = "form-select" })
