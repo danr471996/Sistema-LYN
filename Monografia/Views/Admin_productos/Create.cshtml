@@ -44,24 +44,6 @@
                         </div>
                         <br>
                         <div class="row">
-                            @*<div class="col-md-12">
-                                @Html.Label("Se vende:", htmlAttributes: new { @class = "form-label" })
-                                <div class="col-md-4">
-                                    @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 1, new { @class = "form-check-input" })@Html.Label("unidad/pieza")
-
-                                </div>
-                                <div class="col-md-4">
-                                    @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 2, new { @class = "form-check-input" })@Html.Label("A granel")
-
-                                </div>
-                                <div class="col-md-4">
-                                    @Html.RadioButtonFor(model => model.productos.Id_tipoventas, 3, new { @class = "form-check-input", @id = "rdpaquete" })@Html.Label("Como paquete")
-                                </div>
-
-                            </div>*@
-                        </div>
-                        <br>
-                        <div class="row">
                             <div class="col-md-4">
                                 @Html.Label("Precio costo", htmlAttributes: new { @class = "form-label" })
                                 @Html.EditorFor(model => model.productos.Precio_costo, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode != 8 && event.charCode != 0 && (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)" } })
