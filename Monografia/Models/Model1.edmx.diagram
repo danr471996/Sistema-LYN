@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9156f49a3b07462f979cc441b2809f1b" Name="Diagram1" ZoomLevel="81">
+      <Diagram DiagramId="9156f49a3b07462f979cc441b2809f1b" Name="Diagram1" ZoomLevel="70">
         <EntityTypeShape EntityType="proyectotiendaModel.clientes" Width="1.5" PointX="10" PointY="10.25" />
         <EntityTypeShape EntityType="proyectotiendaModel.departamento" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="proyectotiendaModel.detalle_factura" Width="1.5" PointX="5.25" PointY="4.375" />
@@ -44,17 +44,15 @@
         <AssociationConnector Association="proyectotiendaModel.fk_idproveedor" />
         <AssociationConnector Association="proyectotiendaModel.fk_presentacion" />
         <AssociationConnector Association="proyectotiendaModel.fk_productos" />
-        <EntityTypeShape EntityType="proyectotiendaModel.permisos_perfil" Width="1.5" PointX="21.75" PointY="10.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.lista_permisos" Width="1.5" PointX="20.75" PointY="13.125" />
-        <AssociationConnector Association="proyectotiendaModel.fk_permiso" />
-        <EntityTypeShape EntityType="proyectotiendaModel.usuarios_perfiles" Width="1.5" PointX="21.125" PointY="17.875" />
-        <AssociationConnector Association="proyectotiendaModel.permisos_perfil1" />
-        <EntityTypeShape EntityType="proyectotiendaModel.usuario_detalle" Width="1.5" PointX="26" PointY="16.875" />
-        <EntityTypeShape EntityType="proyectotiendaModel.usuario_sesion" Width="1.5" PointX="27.5" PointY="12.75" />
-        <EntityTypeShape EntityType="proyectotiendaModel.usuarios_tienda" Width="1.5" PointX="23.75" PointY="13.625" />
+        <EntityTypeShape EntityType="proyectotiendaModel.lista_permisos" Width="1.5" PointX="18.625" PointY="15.375" />
+        <EntityTypeShape EntityType="proyectotiendaModel.usuario_detalle" Width="1.5" PointX="20.875" PointY="19.25" />
+        <EntityTypeShape EntityType="proyectotiendaModel.usuario_sesion" Width="1.5" PointX="20.875" PointY="23.5" />
+        <EntityTypeShape EntityType="proyectotiendaModel.usuarios_perfiles" Width="1.5" PointX="16.375" PointY="19.5" />
+        <EntityTypeShape EntityType="proyectotiendaModel.usuarios_tienda" Width="1.5" PointX="18.625" PointY="21.125" />
         <AssociationConnector Association="proyectotiendaModel.fk_usuarios_tienda" />
         <AssociationConnector Association="proyectotiendaModel.fr_usuarios_tiendas" />
         <AssociationConnector Association="proyectotiendaModel.fk_usuarios_perfiles" />
+        <AssociationConnector Association="proyectotiendaModel.permisos_perfil" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

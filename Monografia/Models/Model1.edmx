@@ -870,19 +870,10 @@
             <End Role="productos" EntitySet="productos" />
             <End Role="promocion" EntitySet="promocion" />
           </AssociationSet>
-          <EntitySet Name="permisos_perfil" EntityType="proyectotiendaModel.permisos_perfil" />
           <EntitySet Name="lista_permisos" EntityType="proyectotiendaModel.lista_permisos" />
-          <AssociationSet Name="fk_permiso" Association="proyectotiendaModel.fk_permiso">
-            <End Role="lista_permisos" EntitySet="lista_permisos" />
-            <End Role="permisos_perfil" EntitySet="permisos_perfil" />
-          </AssociationSet>
-          <EntitySet Name="usuarios_perfiles" EntityType="proyectotiendaModel.usuarios_perfiles" />
-          <AssociationSet Name="permisos_perfil1" Association="proyectotiendaModel.permisos_perfil1">
-            <End Role="usuarios_perfiles" EntitySet="usuarios_perfiles" />
-            <End Role="lista_permisos" EntitySet="lista_permisos" />
-          </AssociationSet>
           <EntitySet Name="usuario_detalle" EntityType="proyectotiendaModel.usuario_detalle" />
           <EntitySet Name="usuario_sesion" EntityType="proyectotiendaModel.usuario_sesion" />
+          <EntitySet Name="usuarios_perfiles" EntityType="proyectotiendaModel.usuarios_perfiles" />
           <EntitySet Name="usuarios_tienda" EntityType="proyectotiendaModel.usuarios_tienda" />
           <AssociationSet Name="fk_usuarios_tienda" Association="proyectotiendaModel.fk_usuarios_tienda">
             <End Role="usuarios_tienda" EntitySet="usuarios_tienda" />
@@ -895,6 +886,10 @@
           <AssociationSet Name="fk_usuarios_perfiles" Association="proyectotiendaModel.fk_usuarios_perfiles">
             <End Role="usuarios_perfiles" EntitySet="usuarios_perfiles" />
             <End Role="usuarios_tienda" EntitySet="usuarios_tienda" />
+          </AssociationSet>
+          <AssociationSet Name="permisos_perfil" Association="proyectotiendaModel.permisos_perfil">
+            <End Role="usuarios_perfiles" EntitySet="usuarios_perfiles" />
+            <End Role="lista_permisos" EntitySet="lista_permisos" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="clientes">
@@ -1444,15 +1439,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="permisos_perfil">
-          <Key>
-            <PropertyRef Name="Id_permiso" />
-            <PropertyRef Name="Id_perfil" />
-          </Key>
-          <Property Name="Id_permiso" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Id_perfil" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="lista_permisos" Relationship="proyectotiendaModel.fk_permiso" FromRole="permisos_perfil" ToRole="lista_permisos" />
-        </EntityType>
         <EntityType Name="lista_permisos">
           <Key>
             <PropertyRef Name="Id_permiso" />
@@ -1467,39 +1453,8 @@
           <Property Name="GRUPO" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="INICIO_GRUPO" Type="SByte" Nullable="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="permisos_perfil" Relationship="proyectotiendaModel.fk_permiso" FromRole="lista_permisos" ToRole="permisos_perfil" />
-          <NavigationProperty Name="usuarios_perfiles" Relationship="proyectotiendaModel.permisos_perfil1" FromRole="lista_permisos" ToRole="usuarios_perfiles" />
+          <NavigationProperty Name="usuarios_perfiles" Relationship="proyectotiendaModel.permisos_perfil" FromRole="lista_permisos" ToRole="usuarios_perfiles" />
         </EntityType>
-        <Association Name="fk_permiso">
-          <End Type="proyectotiendaModel.lista_permisos" Role="lista_permisos" Multiplicity="1" />
-          <End Type="proyectotiendaModel.permisos_perfil" Role="permisos_perfil" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="lista_permisos">
-              <PropertyRef Name="Id_permiso" />
-            </Principal>
-            <Dependent Role="permisos_perfil">
-              <PropertyRef Name="Id_permiso" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="usuarios_perfiles">
-          <Key>
-            <PropertyRef Name="Id_perfil" />
-          </Key>
-          <Property Name="Id_perfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
-          <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Fecha_baja" Type="DateTime" />
-          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion_perfil" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Estado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="lista_permisos" Relationship="proyectotiendaModel.permisos_perfil1" FromRole="usuarios_perfiles" ToRole="lista_permisos" />
-          <NavigationProperty Name="usuarios_tienda" Relationship="proyectotiendaModel.fk_usuarios_perfiles" FromRole="usuarios_perfiles" ToRole="usuarios_tienda" />
-        </EntityType>
-        <Association Name="permisos_perfil1">
-          <End Type="proyectotiendaModel.usuarios_perfiles" Role="usuarios_perfiles" Multiplicity="*" />
-          <End Type="proyectotiendaModel.lista_permisos" Role="lista_permisos" Multiplicity="*" />
-        </Association>
         <EntityType Name="usuario_detalle">
           <Key>
             <PropertyRef Name="Idusuariodetalle" />
@@ -1531,6 +1486,20 @@
           <Property Name="Token" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="Estado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="usuarios_tienda" Relationship="proyectotiendaModel.fr_usuarios_tiendas" FromRole="usuario_sesion" ToRole="usuarios_tienda" />
+        </EntityType>
+        <EntityType Name="usuarios_perfiles">
+          <Key>
+            <PropertyRef Name="Id_perfil" />
+          </Key>
+          <Property Name="Id_perfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
+          <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_baja" Type="DateTime" />
+          <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion_perfil" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuarios_tienda" Relationship="proyectotiendaModel.fk_usuarios_perfiles" FromRole="usuarios_perfiles" ToRole="usuarios_tienda" />
+          <NavigationProperty Name="lista_permisos" Relationship="proyectotiendaModel.permisos_perfil" FromRole="usuarios_perfiles" ToRole="lista_permisos" />
         </EntityType>
         <EntityType Name="usuarios_tienda">
           <Key>
@@ -1584,6 +1553,10 @@
               <PropertyRef Name="Id_perfil" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="permisos_perfil">
+          <End Type="proyectotiendaModel.usuarios_perfiles" Role="usuarios_perfiles" Multiplicity="*" />
+          <End Type="proyectotiendaModel.lista_permisos" Role="lista_permisos" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1922,14 +1895,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="permisos_perfil">
-            <EntityTypeMapping TypeName="proyectotiendaModel.permisos_perfil">
-              <MappingFragment StoreEntitySet="permisos_perfil">
-                <ScalarProperty Name="Id_perfil" ColumnName="Id_perfil" />
-                <ScalarProperty Name="Id_permiso" ColumnName="Id_permiso" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="lista_permisos">
             <EntityTypeMapping TypeName="proyectotiendaModel.lista_permisos">
               <MappingFragment StoreEntitySet="lista_permisos">
@@ -1946,27 +1911,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="usuarios_perfiles">
-            <EntityTypeMapping TypeName="proyectotiendaModel.usuarios_perfiles">
-              <MappingFragment StoreEntitySet="usuarios_perfiles">
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="Descripcion_perfil" ColumnName="Descripcion_perfil" />
-                <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
-                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
-                <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
-                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
-                <ScalarProperty Name="Id_perfil" ColumnName="Id_perfil" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="permisos_perfil1" TypeName="proyectotiendaModel.permisos_perfil1" StoreEntitySet="permisos_perfil">
-            <EndProperty Name="lista_permisos">
-              <ScalarProperty Name="Id_permiso" ColumnName="Id_permiso" />
-            </EndProperty>
-            <EndProperty Name="usuarios_perfiles">
-              <ScalarProperty Name="Id_perfil" ColumnName="Id_perfil" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="usuario_detalle">
             <EntityTypeMapping TypeName="proyectotiendaModel.usuario_detalle">
               <MappingFragment StoreEntitySet="usuario_detalle">
@@ -1999,6 +1943,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="usuarios_perfiles">
+            <EntityTypeMapping TypeName="proyectotiendaModel.usuarios_perfiles">
+              <MappingFragment StoreEntitySet="usuarios_perfiles">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion_perfil" ColumnName="Descripcion_perfil" />
+                <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
+                <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
+                <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
+                <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
+                <ScalarProperty Name="Id_perfil" ColumnName="Id_perfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="usuarios_tienda">
             <EntityTypeMapping TypeName="proyectotiendaModel.usuarios_tienda">
               <MappingFragment StoreEntitySet="usuarios_tienda">
@@ -2014,6 +1971,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="permisos_perfil" TypeName="proyectotiendaModel.permisos_perfil" StoreEntitySet="permisos_perfil">
+            <EndProperty Name="lista_permisos">
+              <ScalarProperty Name="Id_permiso" ColumnName="Id_permiso" />
+            </EndProperty>
+            <EndProperty Name="usuarios_perfiles">
+              <ScalarProperty Name="Id_perfil" ColumnName="Id_perfil" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -62,7 +62,7 @@ namespace Monografia.Controllers
                     Session["usuario_logueado"] = datoslogin.Login;
                     Session["Nombreuusuario"] = datoslogin.usuario_detalle.FirstOrDefault().Primer_nombre + " " + datoslogin.usuario_detalle.FirstOrDefault().Primer_apellido;
                     Session["Perfil"] = datoslogin.usuarios_perfiles.Descripcion_perfil;
-                    Session["PerfilPermisos"] = datoslogin.usuarios_perfiles.Codigo_accesos_perfil;
+                    Session["PerfilPermisos"] = "|" + string.Join("|", datoslogin.usuarios_perfiles.lista_permisos.ToList().Select(x=>x.Id_permiso)) + "|";
                     Session["TokenActive"] = sessionToken;
                     var sesion = datoslogin.usuario_sesion.Where(x=>x.Estado==1).FirstOrDefault();
                     if (sesion != null)

@@ -37,7 +37,9 @@ namespace Monografia.Models
 
         public List<cierrecaja> listadecortes { get; set; }
 
-    public DateTime Fechadesde { get; set; }
+        public List<tipo_presentacion> listatipopresentacion { get; set; }
+
+        public DateTime Fechadesde { get; set; }
         public DateTime Fechahasta { get; set; }
         public int SelectedValue { get; set; }
 

@@ -211,6 +211,14 @@
     <Property Name="Monto_pagado" Type="decimal" Precision="15" Scale="2" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="permisos_perfil">
+    <Key>
+      <PropertyRef Name="Id_permiso" />
+      <PropertyRef Name="Id_perfil" />
+    </Key>
+    <Property Name="Id_permiso" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Id_perfil" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="productos">
     <Key>
       <PropertyRef Name="Idproducto" />
@@ -223,7 +231,6 @@
     <Property Name="Codigo_producto" Type="int" Nullable="false" />
     <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
-    <Property Name="Id_tipoventas" Type="int" Nullable="false" />
     <Property Name="Precio_costo" Type="decimal" Precision="15" Scale="2" Nullable="false" />
     <Property Name="Precio_venta" Type="decimal" Precision="15" Scale="2" Nullable="false" />
     <Property Name="Precio_mayoreo" Type="decimal" Precision="15" Scale="2" Nullable="false" />
@@ -232,6 +239,7 @@
     <Property Name="Cantidad_actual" Type="int" />
     <Property Name="Cantidad_minima" Type="int" />
     <Property Name="Idproveedor" Type="int" Nullable="false" />
+    <Property Name="Id_presentacion" Type="int" />
   </EntityType>
   <EntityType Name="promocion">
     <Key>
@@ -299,11 +307,11 @@
     <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="tipo_ventas">
+  <EntityType Name="tipo_presentacion">
     <Key>
-      <PropertyRef Name="Id_tipoventas" />
+      <PropertyRef Name="Id_presentacion" />
     </Key>
-    <Property Name="Id_tipoventas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_presentacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
     <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
@@ -364,7 +372,6 @@
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
     <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
     <Property Name="Descripcion_perfil" Type="varchar" MaxLength="200" Nullable="false" />
-    <Property Name="Codigo_accesos_perfil" Type="varchar" MaxLength="350" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="usuarios_tienda">
@@ -489,6 +496,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="fk_perfil">
+    <End Role="usuarios_perfiles" Type="Self.usuarios_perfiles" Multiplicity="1" />
+    <End Role="permisos_perfil" Type="Self.permisos_perfil" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios_perfiles">
+        <PropertyRef Name="Id_perfil" />
+      </Principal>
+      <Dependent Role="permisos_perfil">
+        <PropertyRef Name="Id_perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_permiso">
+    <End Role="lista_permisos" Type="Self.lista_permisos" Multiplicity="1" />
+    <End Role="permisos_perfil" Type="Self.permisos_perfil" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="lista_permisos">
+        <PropertyRef Name="Id_permiso" />
+      </Principal>
+      <Dependent Role="permisos_perfil">
+        <PropertyRef Name="Id_permiso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_presentacion">
+    <End Role="tipo_presentacion" Type="Self.tipo_presentacion" Multiplicity="0..1" />
+    <End Role="productos" Type="Self.productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipo_presentacion">
+        <PropertyRef Name="Id_presentacion" />
+      </Principal>
+      <Dependent Role="productos">
+        <PropertyRef Name="Id_presentacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_producto">
     <End Role="productos" Type="Self.productos" Multiplicity="1" />
     <End Role="detalle_factura" Type="Self.detalle_factura" Multiplicity="*" />
@@ -573,18 +616,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_tipo_ventas">
-    <End Role="tipo_ventas" Type="Self.tipo_ventas" Multiplicity="1" />
-    <End Role="productos" Type="Self.productos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tipo_ventas">
-        <PropertyRef Name="Id_tipoventas" />
-      </Principal>
-      <Dependent Role="productos">
-        <PropertyRef Name="Id_tipoventas" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="fk_usuarios_perfiles">
     <End Role="usuarios_perfiles" Type="Self.usuarios_perfiles" Multiplicity="1" />
     <End Role="usuarios_tienda" Type="Self.usuarios_tienda" Multiplicity="*" />
@@ -637,13 +668,14 @@
     <EntitySet Name="movimientos" EntityType="Self.movimientos" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="opciones" EntityType="Self.opciones" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="pagos" EntityType="Self.pagos" Schema="proyectotienda" store:Type="Tables" />
+    <EntitySet Name="permisos_perfil" EntityType="Self.permisos_perfil" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="productos" EntityType="Self.productos" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="promocion" EntityType="Self.promocion" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="proveedor" EntityType="Self.proveedor" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="tipo_credito" EntityType="Self.tipo_credito" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="tipo_movimento" EntityType="Self.tipo_movimento" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="tipo_pago" EntityType="Self.tipo_pago" Schema="proyectotienda" store:Type="Tables" />
-    <EntitySet Name="tipo_ventas" EntityType="Self.tipo_ventas" Schema="proyectotienda" store:Type="Tables" />
+    <EntitySet Name="tipo_presentacion" EntityType="Self.tipo_presentacion" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="unidad_medida" EntityType="Self.unidad_medida" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="usuario_detalle" EntityType="Self.usuario_detalle" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="usuario_sesion" EntityType="Self.usuario_sesion" Schema="proyectotienda" store:Type="Tables" />
@@ -685,6 +717,18 @@
       <End Role="proveedor" EntitySet="proveedor" />
       <End Role="productos" EntitySet="productos" />
     </AssociationSet>
+    <AssociationSet Name="fk_perfil" Association="Self.fk_perfil">
+      <End Role="usuarios_perfiles" EntitySet="usuarios_perfiles" />
+      <End Role="permisos_perfil" EntitySet="permisos_perfil" />
+    </AssociationSet>
+    <AssociationSet Name="fk_permiso" Association="Self.fk_permiso">
+      <End Role="lista_permisos" EntitySet="lista_permisos" />
+      <End Role="permisos_perfil" EntitySet="permisos_perfil" />
+    </AssociationSet>
+    <AssociationSet Name="fk_presentacion" Association="Self.fk_presentacion">
+      <End Role="tipo_presentacion" EntitySet="tipo_presentacion" />
+      <End Role="productos" EntitySet="productos" />
+    </AssociationSet>
     <AssociationSet Name="fk_producto" Association="Self.fk_producto">
       <End Role="productos" EntitySet="productos" />
       <End Role="detalle_factura" EntitySet="detalle_factura" />
@@ -712,10 +756,6 @@
     <AssociationSet Name="fk_tipo_pago" Association="Self.fk_tipo_pago">
       <End Role="tipo_pago" EntitySet="tipo_pago" />
       <End Role="movimientos" EntitySet="movimientos" />
-    </AssociationSet>
-    <AssociationSet Name="fk_tipo_ventas" Association="Self.fk_tipo_ventas">
-      <End Role="tipo_ventas" EntitySet="tipo_ventas" />
-      <End Role="productos" EntitySet="productos" />
     </AssociationSet>
     <AssociationSet Name="fk_usuarios_perfiles" Association="Self.fk_usuarios_perfiles">
       <End Role="usuarios_perfiles" EntitySet="usuarios_perfiles" />

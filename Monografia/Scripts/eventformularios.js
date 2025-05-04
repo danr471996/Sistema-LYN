@@ -10,17 +10,17 @@
     if (eyeIcon != null || yourUsername != null || passwordField != null || urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario") || urlDelFormulario.includes("Venta") || urlDelFormulario.includes("Corte") || urlDelFormulario.includes("MantenimientoDolar")) {
 
 
-        if (eyeIcon != null) { 
-        eyeIcon.addEventListener('click', function (e) {
-            // toggle the type attribute
-            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordField.setAttribute('type', type);
-            // toggle the eye / eye slash icon
-            const typeicon = eyeIcon.getAttribute('class') === 'far fa-eye fa-lg' ? 'far fa-eye-slash fa-lg' : 'far fa-eye fa-lg';
-            eyeIcon.setAttribute('class', typeicon);
+        if (eyeIcon != null) {
+            eyeIcon.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                // toggle the eye / eye slash icon
+                const typeicon = eyeIcon.getAttribute('class') === 'far fa-eye fa-lg' ? 'far fa-eye-slash fa-lg' : 'far fa-eye fa-lg';
+                eyeIcon.setAttribute('class', typeicon);
 
-        });
-    }
+            });
+        }
         var mensaje = document.getElementById("Mensaje").value;
         if (mensaje != "" && !(urlDelFormulario.includes("ajuste_inventario") || urlDelFormulario.includes("agregar_inventario") || urlDelFormulario.includes("Venta") || urlDelFormulario.includes("Corte") || urlDelFormulario.includes("MantenimientoDolar"))) {
 
@@ -35,14 +35,14 @@
         }
     }
 
-  
+    autocomplete();
     // Espera a que el modal se muestre completamente
     $('#modalGenerica').on('shown.bs.modal', function (e) {
         $(function () {
-    
+            autocomplete();
             ejecutascripts();
             desvinculaevent();
-            $('#tblistabonos').on('click','#othermodal', function (e) {
+            $('#tblistabonos').on('click', '#othermodal', function (e) {
                 $('.modal').modal('hide');
                 // Abre la ventana modal con el formulario solicitado 
                 openmodal(this.href);
@@ -50,28 +50,28 @@
             });
 
 
-        $('#btndescargar').on("click", function () {
-            var factura = $('#idfactura').attr("value");
-            $.ajax({
-                url: '/Facturacion/downloadpdf',
-                type: "POST",
-                data: { idfactura: factura },
-                success: function (data, jqXHR, response) {
-                    if (jqXHR == "success") {
-                        var bytes = _base64ToArrayBuffer(data.message);
-                        saveByteArray(data.filename, bytes);
-                        window.location = window.location;
+            $('#btndescargar').on("click", function () {
+                var factura = $('#idfactura').attr("value");
+                $.ajax({
+                    url: '/Facturacion/downloadpdf',
+                    type: "POST",
+                    data: { idfactura: factura },
+                    success: function (data, jqXHR, response) {
+                        if (jqXHR == "success") {
+                            var bytes = _base64ToArrayBuffer(data.message);
+                            saveByteArray(data.filename, bytes);
+                            window.location = window.location;
+                        }
                     }
-                }
-            });
+                });
 
-        })
+            })
 
-     
+
         });
     });
 
-  
+
 });
 function desvinculaevent() {
     // Desvincular eventos existentes
@@ -102,19 +102,70 @@ function redimensionatable(tableIds) {
 function lettersOnly(evt, entity) {
     var charCode = evt.charCode || evt.keyCode || evt.which || 0;
 
-    if (entity == 'P'||entity=='D') {
+    if (entity == 'P' || entity == 'D') {
         if ((charCode > 31 && charCode !== 32 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122))) {
-           
+
             return false;
         }
-        }else {
-            if ((charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122))) {
-            
-                return false;
-            }
+    } else {
+        if ((charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122))) {
+
+            return false;
         }
+    }
     return true;
 
+}
+
+function autocomplete() {
+    const $input = $('#codproducto');
+    const $suggestionsBox = $('#suggestions');
+
+    if ($input.length === 0 || $suggestionsBox.length === 0) {
+        console.warn("No se encontró el campo o el contenedor de sugerencias");
+        return;
+    }
+
+    $input.on("input", function () {
+        const query = $input.val().trim();
+        if (query.length < 2) {
+            $suggestionsBox.hide();
+            return;
+        }
+
+        console.log("entro al input");
+
+        fetch(`/Admin_productos/BuscarProducto?term=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                $suggestionsBox.empty();
+
+                if (data.length === 0) {
+                    $suggestionsBox.hide();
+                    return;
+                }
+
+                data.forEach(producto => {
+                    const $item = $('<button>', {
+                        type: 'button',
+                        class: 'dropdown-item',
+                        text: `${producto.nombre} (Código: ${producto.codigo})`,
+                        click: function () {
+                            $input.val(producto.codigo);
+                            $suggestionsBox.hide();
+                        }
+                    });
+
+                    $suggestionsBox.append($item);
+                });
+
+                $suggestionsBox.show();
+            });
+    });
+
+    $input.on("blur", function () {
+        setTimeout(() => $suggestionsBox.hide(), 150);
+    });
 }
 
 function ejecutascripts() {
@@ -188,16 +239,16 @@ function ejecutascripts() {
 
         $('#rdpaquete').trigger('change');
     }
-   
+
 
     var cliente = document.getElementById("idcliente");
     if (cliente != null) {
 
-        cliente.value ='';
+        cliente.value = '';
     }
 }
 function showdiv(idelementhtml, elementhtmladd) {
-     $(elementhtmladd).remove();
+    $(elementhtmladd).remove();
     $('#' + idelementhtml).append($(elementhtmladd).hide().fadeIn());
 
 }
@@ -235,7 +286,7 @@ function saveByteArray(reportName, byte) {
 };
 
 function selectButton(button) {
-   
+
     var row = button.parentNode.parentNode; // Obtener la fila actual
     var cliente = document.getElementById("idcliente");
     var table = document.getElementById("tbclientes");
@@ -309,7 +360,7 @@ function calculopago(tipopago, totalpago, montopago, tipocambio, inputmontovuelt
         if (!isNaN(totalpago) && !isNaN(montopago)) {
             // Perform the subtraction
             var converdolarcordobas = montopago * tipocambio;
-            inputmontovuelto.value = totalpago - converdolarcordobas ;
+            inputmontovuelto.value = totalpago - converdolarcordobas;
 
         }
     } else {

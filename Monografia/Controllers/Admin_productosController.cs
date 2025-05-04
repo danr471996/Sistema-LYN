@@ -390,7 +390,7 @@ namespace Monografia.Controllers
                                 }
                                 producto.Codigo_producto = datosproductoedit.productos.Codigo_producto;
                                 producto.Descripcion = datosproductoedit.productos.Descripcion;
-                                producto.Id_tipoventas = datosproductoedit.productos.Id_tipoventas;
+                                producto.Id_presentacion = datosproductoedit.productos.Id_presentacion;
                                 producto.Precio_costo = datosproductoedit.productos.Precio_costo;
                                 producto.Precio_venta = datosproductoedit.productos.Precio_venta;
                                 producto.Precio_mayoreo = datosproductoedit.productos.Precio_mayoreo;
@@ -852,6 +852,17 @@ namespace Monografia.Controllers
                 throw;
             }
          
+        }
+
+        public JsonResult BuscarProducto(string term)
+        {
+            var productos = db.productos
+                .Where(p => p.Descripcion.Contains(term))
+                .Select(p => new { codigo = p.Codigo_producto, nombre = p.Descripcion })
+                .Take(10)
+                .ToList();
+
+            return Json(productos, JsonRequestBehavior.AllowGet);
         }
         protected override void Dispose(bool disposing)
         {

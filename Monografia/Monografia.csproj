@@ -374,9 +374,6 @@
     <Compile Include="Models\pagos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\permisos_perfil.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\productos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -2460,6 +2457,11 @@
     <Content Include="Views\Admin_productos\Editpromocion.cshtml" />
     <Content Include="Views\Facturacion\Ventas_por_periodo.cshtml" />
     <Content Include="Views\Facturacion\reporte_de_cortes.cshtml" />
+    <Content Include="Views\Admin_presentacion\Create.cshtml" />
+    <Content Include="Views\Admin_presentacion\Delete.cshtml" />
+    <Content Include="Views\Admin_presentacion\Edit.cshtml" />
+    <Content Include="Views\Admin_presentacion\Lista_presentaciones.cshtml" />
+    <Content Include="Views\Config\MantenimientoDolar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
