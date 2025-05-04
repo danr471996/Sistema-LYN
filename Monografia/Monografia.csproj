@@ -300,6 +300,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Admin_departamentosController.cs" />
     <Compile Include="Controllers\Admin_clientesController.cs" />
+    <Compile Include="Controllers\Admin_presentacionController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\Admin_productosController.cs" />
     <Compile Include="Controllers\Admin_inventarioController.cs" />

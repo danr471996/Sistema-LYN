@@ -4,14 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
-using DocumentFormat.OpenXml.Office2010.Excel;
-using Monografia.Models;
 
 namespace Monografia.Controllers
 {
