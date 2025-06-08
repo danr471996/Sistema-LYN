@@ -469,11 +469,11 @@ namespace Monografia.Controllers
                         ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo letras en primer nombre del cliente<br>";
                         valid = false;
                     }
-                if (datoscliente.cliente.Segundo_nombre == null)
-                {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el Segundo nombre del cliente<br>";
-                    valid = false;
-                }
+                //if (datoscliente.cliente.Segundo_nombre == null)
+                //{
+                //    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el Segundo nombre del cliente<br>";
+                //    valid = false;
+                //}
                 if (datoscliente.cliente.Segundo_nombre != null)
                     if (!sololetras(datoscliente.cliente.Segundo_nombre))
                     {
@@ -491,11 +491,11 @@ namespace Monografia.Controllers
                         ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo letras en primer apellido del cliente<br>";
                         valid = false;
                     }
-                if (datoscliente.cliente.Segundo_apellido == null)
-                {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el segundo apellido del cliente<br>";
-                    valid = false;
-                }
+                //if (datoscliente.cliente.Segundo_apellido == null)
+                //{
+                //    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el segundo apellido del cliente<br>";
+                //    valid = false;
+                //}
                 if (datoscliente.cliente.Segundo_apellido != null)
                     if (!sololetras(datoscliente.cliente.Segundo_apellido))
                     {
@@ -545,9 +545,21 @@ namespace Monografia.Controllers
                 }
                 if (datoscliente.cliente.Direccion == null)
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la dirección del cliente";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la dirección del cliente<br>";
                     valid = false;
 
+                }
+                if (datoscliente.cliente.Cedula == null)
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la cedula del cliente<br>";
+                    valid = false;
+
+                } else {
+                    Boolean valida = IsValidCedulaNicaraguense(datoscliente.cliente.Cedula);
+                    if (valida == false) {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>El formato de la cedula es invalido <br>";
+                        valid = false;
+                    }
                 }
             }
             if (datospagos != null)
@@ -566,6 +578,69 @@ namespace Monografia.Controllers
 
             }
             return valid;
+        }
+
+        public static bool IsValidCedulaNicaraguense(string cedula)
+        {
+            // Expresión regular para el formato de la cédula y la estructura básica de la fecha (DDMMYY)
+            // NNN-DDMMYY-NNNNA
+            // NNN: 3 dígitos
+            // DD: Día (01-31)
+            // MM: Mes (01-12)
+            // YY: Año (2 dígitos)
+            // NNNN: 4 dígitos
+            // A: Una letra mayúscula
+            string pattern = @"^\d{3}-(?:0[1-9]|[12]\d|3[01])(?:0[1-9]|1[0-2])\d{2}-\d{4}[A-Z]$";
+
+            // Verificar el formato con la expresión regular
+            Match match = Regex.Match(cedula, pattern);
+
+            if (!match.Success)
+            {
+                return false; // El formato de la cédula no coincide
+            }
+
+            // Si el formato es correcto, ahora extraemos la parte de la fecha
+            // para una validación más estricta con DateTime.
+            string[] parts = cedula.Split('-');
+            string datePart = parts[1]; // Los 6 dígitos de la fecha (DDMMYY)
+
+            int day;
+            int month;
+            int year;
+
+            // Intentar parsear el día, mes y año de la parte de la fecha
+            if (!int.TryParse(datePart.Substring(0, 2), out day) ||
+                !int.TryParse(datePart.Substring(2, 2), out month) ||
+                !int.TryParse(datePart.Substring(4, 2), out year))
+            {
+                return false; // Error al parsear las partes de la fecha
+            }
+
+            // Ajustar el año de 2 dígitos a 4 dígitos.
+            // Esto es una heurística y podría necesitar un ajuste más específico
+            // basado en el rango de años esperados para las cédulas en Nicaragua.
+            // Por ejemplo, si el año es 95, asumimos 1995. Si es 05, asumimos 2005.
+            // Esta lógica es simplificada y puede requerir refinamiento.
+            int fullYear = (year > DateTime.Now.Year % 100) ? (1900 + year) : (2000 + year);
+
+            // Validar la fecha completa usando DateTime
+            try
+            {
+                // Intenta crear un objeto DateTime. Si los valores (día, mes, año)
+                // no forman una fecha válida (ej. 31 de febrero), lanzará una excepción.
+                DateTime dateOfBirth = new DateTime(fullYear, month, day);
+
+                // Opcional: Podrías añadir validación para asegurar que la fecha de nacimiento
+                // no sea en el futuro, o dentro de un rango de edad razonable para una cédula.
+                // Ejemplo: if (dateOfBirth > DateTime.Today) return false;
+
+                return true; // La cédula es válida (formato y fecha)
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return false; // La fecha no es válida (ej. 31 de febrero, mes 13, etc.)
+            }
         }
 
         public Boolean sololetras(string datoingresado) {
