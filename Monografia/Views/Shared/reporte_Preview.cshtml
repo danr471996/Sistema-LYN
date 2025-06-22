@@ -1,0 +1,19 @@
+﻿@using ReportViewerForMvc
+@using Microsoft.Reporting.WebForms
+@{
+    Layout = "~/Views/Menu/Menu_tienda.cshtml";
+}
+<div class="card border-start border-0 border-3 border-info">
+    <div class="card-body overflow-auto">
+        <br />
+        @if (ViewBag.ReportViewer != null)
+        {
+            @Html.ReportViewer(ViewBag.ReportViewer as ReportViewer)
+        }
+        <br />
+    </div>
+</div>
+
+
+
+

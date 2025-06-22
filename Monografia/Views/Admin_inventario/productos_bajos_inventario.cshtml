@@ -11,13 +11,18 @@
   
     <div class="card-body">
         <br>
-        <div class="row col-md-6">
-            @using (Html.BeginForm("exportarexcel", "Admin_inventario", FormMethod.Post))
-            {
-                <button type="submit" class="btn btn-success">
+        <div class="row">
+            <div class="col-md-4">
+
+                <a href=@Url.Action("reporte_bajos_inventario_Preview", "Admin_inventario") class="btn btn-success"><i class="fa fa-file-invoice fa-lg">Reporte</i></a>
+            </div>
+            @*@using (Html.BeginForm("exportarexcel", "Admin_inventario", FormMethod.Post))
+            {*@
+                @*<button type="submit" class="btn btn-success">
                     <i class="fa fa-file-excel">&nbsp;Exportar Excel</i>
-                </button>
-            }
+                </button>*@
+               
+            @*}*@
         </div>
         <br>
         <br>

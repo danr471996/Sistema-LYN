@@ -28,24 +28,31 @@
 <div class="card border-start border-0 border-3 border-info">
     <div class="card-body">
         <br>
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row mb-3 align-items-end">
+            <!-- Columna 1: Formulario con el dropdown -->
+            <div class="col-md-4">
                 @using (Html.BeginForm("reporte_inventario", "Admin_inventario", FormMethod.Post))
                 {
-                    <div class="row">
-                        @Html.Label("", "Departamento:", htmlAttributes: new { @class = "form-label col-md-3" })
-                        <div class="col-md-8">
-                            @Html.DropDownListFor(model => model.productos.Iddepartamento, new SelectList(Model.listadepartamento, "Iddepartmento", "Descripcion"), "Todos los departamentos", new { @class = "form-select", @onchange = "this.form.submit ();" })
-                        </div>
+                    <div class="mb-2">
+                        @Html.Label("", "Departamento:", htmlAttributes: new { @class = "form-label" })
+                        @Html.DropDownListFor(model => model.productos.Iddepartamento,
+                            new SelectList(Model.listadepartamento, "Iddepartmento", "Descripcion"),
+                            "Todos los departamentos",
+                            new { @class = "form-select", @onchange = "this.form.submit();" })
                     </div>
-
-
-
                 }
             </div>
+
+            <!-- Columna 2: Espacio libre o para agregar más filtros -->
             <div class="col-md-4">
-  
-            <a href=@Url.Action("exportarexcel", "Admin_inventario") class="btn btn-success"><i class="fa fa-file-excel">&nbsp;Exportar excel</i></a>
+                @* Aquí puedes agregar más controles si lo deseas *@
+            </div>
+
+            <!-- Columna 3: Botón de reporte -->
+            <div class="col-md-4">
+                <a href="@Url.Action("reporte_inventario_Preview", "Admin_inventario")" class="btn btn-success w-100">
+                    <i class="fa fa-file-invoice fa-lg"></i> Reporte
+                </a>
             </div>
         </div>
         <br>

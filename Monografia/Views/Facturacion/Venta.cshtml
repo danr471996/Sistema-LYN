@@ -4,6 +4,7 @@
     Layout = "~/Views/Menu/Menu_tienda.cshtml";
 }
 @Styles.Render("~/Scripts/Datatable")
+
 @using (Html.BeginForm("Venta", "Facturacion", FormMethod.Post))
 {
 
@@ -93,10 +94,41 @@
                                                     @Html.DisplayFor(modelItem => item.prec_vent)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.Cant)
+                                                    @*  @Html.DisplayFor(modelItem => item.Cant)*@
+                                                    @*<div class="input-group" style="max-width: 150px;">
+                                                            <button class="btn btn-outline-secondary" type="button" onclick="decrementCantidad(this)">−</button>
+                                                            <input class="form-control text-center cantidad-input" value="1" min="1" />
+                                                            <button class="btn btn-outline-secondary" type="button" onclick="incrementCantidad(this)">+</button>
+                                                        </div>*@
+                                                    <div class="input-group" style="width:130px">
+                                                        <button class="btn btn-outline-secondary" type="button"
+                                                                onclick="modificarCantidad(this, false,null)"
+                                                                data-codprod="@item.CodProd"
+                                                                data-numticket="@tik.Numero_ticket">
+                                                            −
+                                                        </button>
+
+                                                        @*   <input class="form-control text-center cantidad-input" value="@item.Cant" />*@
+                                                        <input type="number"
+                                                               class="form-control text-center cantidad-input"
+                                                               value="@item.Cant"
+                                                               min="1"
+                                                               onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                                               onchange="modificarCantidad(this, false, this.value)"
+                                                               data-codprod="@item.CodProd"
+                                                               data-numticket="@tik.Numero_ticket" />
+
+                                                        <button class="btn btn-outline-secondary" type="button"
+                                                                onclick="modificarCantidad(this, true,null)"
+                                                                data-codprod="@item.CodProd"
+                                                                data-numticket="@tik.Numero_ticket">
+                                                            +
+                                                        </button>
+                                                    </div>
                                                 </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.Impor)
+                                                <td class="importe-td">
+                                                    @*  @Html.DisplayFor(modelItem => item.Impor)*@
+                                                    @item.Impor.ToString("F2")
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.existencia)
@@ -138,7 +170,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="d-grid gap-2">
-                                <a data-modal="" id="facturar" hidden="@Session["PerfilPermisos"].ToString().Contains("|V3|").Equals(false)"  class="btn btn-danger" style="width:auto"> <i class="fa fa-money-bill">&nbsp;Facturar</i></a>
+                                <a data-modal="" id="facturar" hidden="@Session["PerfilPermisos"].ToString().Contains("|V3|").Equals(false)" class="btn btn-danger" style="width:auto"> <i class="fa fa-money-bill">&nbsp;Facturar</i></a>
                             </div>
 
                         </div>
@@ -154,36 +186,29 @@
 <input type="hidden" id="Mensaje" value="@ViewBag.Mensaje" />
 
 
-
 @section Scripts
 {
     @Scripts.Render("~/bundles/datatables")
-<script type="text/javascript">
-
+    <script type="text/javascript">
     $(function () {
         $.ajax({
-            url:'@Url.Action("getsesiones", "Facturacion")',
-            type:"GET",
+            url: '@Url.Action("getsesiones", "Facturacion")',
+            type: "GET",
             success: function (result) {
                 $("#" + result.ticketactivo).click();
                 limpiacampos();
                 muestradatos(result.Totalpago, result.cantproducto);
-
             }
         });
 
-
         $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-            var targetTabId = $(e.target).attr('data-bs-target'); // obtén el ID de la pestaña actual
-            var targetTableId = targetTabId + ' .table'; // asume que la tabla está dentro de la pestaña y tiene una clase .table
+            var targetTabId = $(e.target).attr('data-bs-target');
+            var targetTableId = targetTabId + ' .table';
 
-         // Destruye la instancia DataTable existente si ya se ha inicializado
             if ($.fn.DataTable.isDataTable(targetTableId)) {
                 $(targetTableId).DataTable().destroy();
-
             }
 
-            // Inicializa DataTables
             $(targetTableId).DataTable({
                 "language": {
                     "url": "/Scripts/es_es.json"
@@ -197,48 +222,77 @@
                 redimensionatable(tableIds);
             }
         });
-
-   
-    
-
     });
+
+    function modificarCantidad(element, accion, cantidad) {
+        const codProd = element.dataset.codprod;
+        const numTicket = element.dataset.numticket;
+        $.ajax({
+            url: '/Facturacion/modificarCantidadProducto',
+            type: 'POST',
+            data: { codproducto: codProd, numticket: numTicket, Incrementar: accion, cantidad:cantidad },
+            success: function (response) {
+                if (response.success) {
+                    const fila = element.closest('tr');
+
+                    const cantidadInput = fila.querySelector('.cantidad-input');
+                    cantidadInput.value = response.cantidadproducto;
+
+                    fila.querySelector('.importe-td').innerText = response.import;
+                    obtenercalculos(numTicket);
+                } else {
+
+                    sesionestadoproceso(false, response.mensaje);
+                    window.location = window.location;
+                }
+            },
+            error: function () {
+                alert("Error al comunicarse con el servidor.");
+            }
+        });
+    }
 
     function limpiacampos() {
         $("#totalpago").empty();
         $("#cantproducto").empty();
     }
+
     function muestradatos(Totalpago, cantproducto) {
         $("#totalpago").append("Total a pagar:C$" + Totalpago);
         $("#cantproducto").append("&nbsp;&nbsp;" + cantproducto + " productos en ticket actual");
     }
 
-              $('button').on("click", function () {
-      var nombreaccion = $(this).attr("name");
-      var idticket = $(this).attr("id");
-      if (nombreaccion == "ticket") {
-          $.ajax({
-              url: '@Url.Action("calculototalpago", "Facturacion")',
-              type: "GET",
-              data: { numticket: idticket },
-              success: function (result) {
-                  limpiacampos();
-                  muestradatos(result.Totalpago, result.cantproducto);
-              }
-          });
-      }
-              });
+    function obtenercalculos(idticket) {
+        $.ajax({
+            url: '@Url.Action("calculototalpago", "Facturacion")',
+            type: "GET",
+            data: { numticket: idticket },
+            success: function (result) {
+                limpiacampos();
+                muestradatos(result.Totalpago, result.cantproducto);
+            }
+        });
+    }
 
-                         $('a').on("click", function () {
-           var idaccion = $(this).attr("id");
-           var idticket = $("button.active").attr("id");
-           if (idaccion == "agregarproducto") {
-               $(this).attr('href', ('@Url.Action("Agregarproducto", "Facturacion", new { numticket = "idticket" })').replace("idticket", idticket));
-           } else if (idaccion == "facturar") {
-               $(this).attr('href', ('@Url.Action("Facturar", "Facturacion", new { numticket = "idticket" })').replace("idticket", idticket));
-           }
-       });
+    $('button').on("click", function () {
+        var nombreaccion = $(this).attr("name");
+        var idticket = $(this).attr("id");
+        if (nombreaccion == "ticket") {
+            obtenercalculos(idticket);
+        }
+    });
 
-</script>
+    $('a').on("click", function () {
+        var idaccion = $(this).attr("id");
+        var idticket = $("button.active").attr("id");
+        if (idaccion == "agregarproducto") {
+            $(this).attr('href', ('@Url.Action("Agregarproducto", "Facturacion", new { numticket = "idticket" })').replace("idticket", idticket));
+        } else if (idaccion == "facturar") {
+            $(this).attr('href', ('@Url.Action("Facturar", "Facturacion", new { numticket = "idticket" })').replace("idticket", idticket));
+        }
+    });
+
+    </script>
 
 }
 

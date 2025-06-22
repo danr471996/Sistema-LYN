@@ -22,42 +22,38 @@
             <div class="col-md-10">
                 @using (Html.BeginForm("Ventas_por_periodo", "Facturacion", FormMethod.Post))
                 {
-                    <div class="row">
+              <div class="row mb-3">
+                  <div class="col-md-3">
+                      @Html.Label("", "Mostrar ventas de:", htmlAttributes: new { @class = "form-label" })
+                      @Html.DropDownListFor(model => model.SelectedValue, Model.Options, "Seleccione...", new { @class = "form-select", @onchange = "this.form.submit();" })
+                  </div>
 
-                        <div class="col-md-2">
-                            @Html.Label("", "Mostrar ventas de:", htmlAttributes: new { @class = "form-label" })
-                            @Html.DropDownListFor(model => model.SelectedValue, Model.Options, "Seleccione..", new { @class = "form-select", @onchange = "this.form.submit ();" })
-                        </div>
-                        @if (ViewBag.fechaparticular != null)
-                        {
-                            <div class="col-md-2">
-                                @Html.Label("", "Desde:", htmlAttributes: new { @class = "form-label col-md-4" })
-                                <div class="col-sm-12">
-                                    @Html.EditorFor(model => model.Fechadesde, new { htmlAttributes = new { @class = "form-control", type = "date" } })
-                                </div>
-                            </div>
+                  @if (ViewBag.fechaparticular != null)
+                  {
+                      <div class="col-md-3">
+                          @Html.Label("", "Desde:", htmlAttributes: new { @class = "form-label" })
+                          @Html.EditorFor(model => model.Fechadesde, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                      </div>
 
-                            <div class="col-md-2">
-                                @Html.Label("", "Hasta:", htmlAttributes: new { @class = "form-label col-md-4" })
-                                <div class="col-sm-12">
-                                    @Html.EditorFor(model => model.Fechahasta, new { htmlAttributes = new { @class = "form-control", type = "date" } })
-                                </div>
-                            </div>
-                        }
-                        &nbsp;
+                      <div class="col-md-3">
+                          @Html.Label("", "Hasta:", htmlAttributes: new { @class = "form-label" })
+                          @Html.EditorFor(model => model.Fechahasta, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                      </div>
+                  }
 
-                        <div class="col-md-3 d-flex align-items-end">
-                            @if (ViewBag.fechaparticular != null)
-                            {
-                                <button type="submit" name="consultar" class="btn btn-primary">
-                                    <i class="fa fa-save"></i> Consultar
-                                </button>
-                            }
-                            &nbsp;
-                          
-                        </div>
+                  <div class="col-md-3 d-flex align-items-end gap-2">
+                      @if (ViewBag.fechaparticular != null)
+                      {
+                          <button type="submit" name="consultar" class="btn btn-primary w-100">
+                              <i class="fa fa-search"></i> Consultar
+                          </button>
+                      }
 
-                    </div>
+                      <a href="@Url.Action("reporte_VentasPorPeriodo_Preview", "Facturacion")" class="btn btn-success w-100">
+                          <i class="fa fa-file-invoice"></i>Reporte
+                      </a>
+                  </div>
+              </div>
 
 
                 }

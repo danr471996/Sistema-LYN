@@ -1,5 +1,6 @@
 ﻿using Monografia.Middleware;
 using Monografia.Models;
+using Monografia.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -382,7 +383,7 @@ namespace Monografia.Controllers
                         fechapago = fechaultimopago == Convert.ToDateTime("01-01-0001") ? "": fechaultimopago.ToString()
                     });
                 }
-
+                TempData["SaldoClientes"] = modelo_contenedor;
                 return View(modelo_contenedor);
             }
             catch (Exception)
@@ -781,6 +782,25 @@ namespace Monografia.Controllers
                 throw;
             }
           
+        }
+
+        public ActionResult reporte_SaldoClientes_Preview()
+        {
+
+            try
+            {
+                var SaldoClientes = (List<Modelo_contenedor>)TempData["SaldoClientes"];
+                string reportPath = Server.MapPath("~/Reportes/ReportSaldo.rdlc");
+
+                ViewBag.ReportViewer = ReportCreate.GetReport(reportPath, SaldoClientes);
+                return View("reporte_Preview");
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
         }
         public List<tipo_credito> GetTipo_Creditos()
         {

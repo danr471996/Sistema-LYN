@@ -18,13 +18,19 @@
                 {
                     <div class="row">
                         @Html.Label("", "Tipo de Movimento:", htmlAttributes: new { @class = "form-label col-md-4" })
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             @Html.DropDownListFor(model => model.tipomovimiento.IdTipo_movimiento, new SelectList(Model.listatipomovimiento, "IdTipo_movimiento", "Descripcion"), "Seleccione", new { @class = "form-select", @onchange = "this.form.submit ();" })
                         </div>
+
+
                     </div>
+
 
                 }
             </div>
+                <div class="col-md-4">
+                    <a href=@Url.Action("reporte_Movimientos_Preview", "Facturacion") class="btn btn-success"><i class="fa fa-file-invoice fa-lg">Reporte</i></a>
+                </div>
         </div>
         <br>
         <br>

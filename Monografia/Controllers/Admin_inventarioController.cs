@@ -1,6 +1,11 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.Reporting.WebForms;
 using Monografia.Middleware;
 using Monografia.Models;
+using Monografia.Utilities;
+using SqlServerTypes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,7 +13,9 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace Monografia.Controllers
 {
@@ -52,186 +59,186 @@ namespace Monografia.Controllers
         }
 
 
-        public FileResult exportarexcel()
-        {
-            int numcol = 5, numcol2 = 5;
-            string nombrearchivo = "";
-            string vistaaccion = this.Request.UrlReferrer.AbsolutePath;
-            DataTable dt = new DataTable();
+        //public FileResult exportarexcel()
+        //{
+        //    int numcol = 5, numcol2 = 5;
+        //    string nombrearchivo = "";
+        //    string vistaaccion = this.Request.UrlReferrer.AbsolutePath;
+        //    System.Data.DataTable dt = new System.Data.DataTable();
        
-            try
-            {
-                if (vistaaccion.Contains("productos_bajos_inventario"))
-                {
+        //    try
+        //    {
+        //        if (vistaaccion.Contains("productos_bajos_inventario"))
+        //        {
 
-                    var listaproductos = db.productos.Include(a => a.departamento).Where(x => x.Cantidad_actual < x.Cantidad_minima).ToList();
+        //            var listaproductos = db.productos.Include(a => a.departamento).Where(x => x.Cantidad_actual < x.Cantidad_minima).ToList();
 
-                    nombrearchivo = "Productos bajos en inventario " + DateTime.Now.Date.ToString("dd-MM-yyyy") + ".xlsx";
+        //            nombrearchivo = "Productos bajos en inventario " + DateTime.Now.Date.ToString("dd-MM-yyyy") + ".xlsx";
 
-                    dt.Columns.AddRange(new DataColumn[6] { new DataColumn("Código de producto",typeof(int)),
-                                            new DataColumn("Descripción",typeof(string)),
-                                            new DataColumn("Precio de venta",typeof(int)),
-                                            new DataColumn("Cantidad actual",typeof(int)),
-                                            new DataColumn("Cantidad mínima",typeof(int)),
-                                            new DataColumn("Descripción de departamento",typeof(string))});
+        //            dt.Columns.AddRange(new DataColumn[6] { new DataColumn("Código de producto",typeof(int)),
+        //                                    new DataColumn("Descripción",typeof(string)),
+        //                                    new DataColumn("Precio de venta",typeof(int)),
+        //                                    new DataColumn("Cantidad actual",typeof(int)),
+        //                                    new DataColumn("Cantidad mínima",typeof(int)),
+        //                                    new DataColumn("Descripción de departamento",typeof(string))});
 
 
-                    foreach (var item in listaproductos)
-                    {
-                        dt.Rows.Add(item.Codigo_producto, item.Descripcion, item.Precio_venta, item.Cantidad_actual, item.Cantidad_minima, item.departamento.Descripcion);
-                    }
+        //            foreach (var item in listaproductos)
+        //            {
+        //                dt.Rows.Add(item.Codigo_producto, item.Descripcion, item.Precio_venta, item.Cantidad_actual, item.Cantidad_minima, item.departamento.Descripcion);
+        //            }
               
-                }
-                else
-                {
-                    int codigodepart = Convert.ToInt32(TempData["cod_depart"]);
-                    TempData["cod_depart"] = codigodepart;
-                    var listaproductos = int.Parse(TempData["cod_depart"].ToString()) == 0 ? db.productos.Include(a => a.departamento).ToList() : db.productos.Include(a => a.departamento).Where(x => x.Iddepartamento == codigodepart).ToList();
+        //        }
+        //        else
+        //        {
+        //            int codigodepart = Convert.ToInt32(TempData["cod_depart"]);
+        //            TempData["cod_depart"] = codigodepart;
+        //            var listaproductos = int.Parse(TempData["cod_depart"].ToString()) == 0 ? db.productos.Include(a => a.departamento).ToList() : db.productos.Include(a => a.departamento).Where(x => x.Iddepartamento == codigodepart).ToList();
 
 
 
-                    nombrearchivo = "Reporte de inventario " + DateTime.Now.Date.ToString("dd-MM-yyyy") + ".xlsx";
+        //            nombrearchivo = "Reporte de inventario " + DateTime.Now.Date.ToString("dd-MM-yyyy") + ".xlsx";
 
-                    dt.Columns.AddRange(new DataColumn[6] { new DataColumn("Código de producto",typeof(int)),
-                                            new DataColumn("Descripción",typeof(string)),
-                                            new DataColumn("Costo",typeof(int)),
-                                            new DataColumn("Precio de venta",typeof(int)),
-                                            new DataColumn("Cantidad actual",typeof(int)),
-                                            new DataColumn("Cantidad mínima",typeof(int))});
+        //            dt.Columns.AddRange(new DataColumn[6] { new DataColumn("Código de producto",typeof(int)),
+        //                                    new DataColumn("Descripción",typeof(string)),
+        //                                    new DataColumn("Costo",typeof(int)),
+        //                                    new DataColumn("Precio de venta",typeof(int)),
+        //                                    new DataColumn("Cantidad actual",typeof(int)),
+        //                                    new DataColumn("Cantidad mínima",typeof(int))});
 
-                        foreach (var item in listaproductos)
-                        {
-                            dt.Rows.Add(item.Codigo_producto, item.Descripcion, item.Precio_costo, item.Precio_venta, item.Cantidad_actual, item.Cantidad_minima);
-                        }
+        //                foreach (var item in listaproductos)
+        //                {
+        //                    dt.Rows.Add(item.Codigo_producto, item.Descripcion, item.Precio_costo, item.Precio_venta, item.Cantidad_actual, item.Cantidad_minima);
+        //                }
 
-                }
+        //        }
             
-                using (XLWorkbook wb = new XLWorkbook())
-                {
-                    var agregarestilo = wb.Worksheets.Add("Listado de productos");
-                    if (vistaaccion.Contains("productos_bajos_inventario"))
-                    {
-                        for (int i = 0; dt.Rows.Count == 0 ? i == 0 : i < dt.Rows.Count; i++)
-                        {
+        //        using (XLWorkbook wb = new XLWorkbook())
+        //        {
+        //            var agregarestilo = wb.Worksheets.Add("Listado de productos");
+        //            if (vistaaccion.Contains("productos_bajos_inventario"))
+        //            {
+        //                for (int i = 0; dt.Rows.Count == 0 ? i == 0 : i < dt.Rows.Count; i++)
+        //                {
 
-                            agregarestilo.Cell("A" + numcol).Value = "Código de producto";
-                            agregarestilo.Cell("B" + numcol).Value = "Descripción";
-                            agregarestilo.Cell("C" + numcol).Value = "Precio de venta";
-                            agregarestilo.Cell("D" + numcol).Value = "Cantidad actual";
-                            agregarestilo.Cell("E" + numcol).Value = "Cantidad mínima";
-                            agregarestilo.Cell("F" + numcol).Value = "Descripción departamento";
-                        }
-                        if (dt.Rows.Count != 0)
-                            foreach (DataRow row in dt.Rows)
-                            {
-                                numcol2 += 1;
-                                agregarestilo.Cell("A" + numcol2).Value = row["Código de producto"].ToString();
-                                agregarestilo.Cell("B" + numcol2).Value = row["Descripción"].ToString();
-                                agregarestilo.Cell("C" + numcol2).Value = row["Precio de venta"].ToString();
-                                agregarestilo.Cell("D" + numcol2).Value = row["Cantidad actual"].ToString();
-                                agregarestilo.Cell("E" + numcol2).Value = row["Cantidad mínima"].ToString();
-                                agregarestilo.Cell("F" + numcol2).Value = row["Descripción de departamento"].ToString();
+        //                    agregarestilo.Cell("A" + numcol).Value = "Código de producto";
+        //                    agregarestilo.Cell("B" + numcol).Value = "Descripción";
+        //                    agregarestilo.Cell("C" + numcol).Value = "Precio de venta";
+        //                    agregarestilo.Cell("D" + numcol).Value = "Cantidad actual";
+        //                    agregarestilo.Cell("E" + numcol).Value = "Cantidad mínima";
+        //                    agregarestilo.Cell("F" + numcol).Value = "Descripción departamento";
+        //                }
+        //                if (dt.Rows.Count != 0)
+        //                    foreach (DataRow row in dt.Rows)
+        //                    {
+        //                        numcol2 += 1;
+        //                        agregarestilo.Cell("A" + numcol2).Value = row["Código de producto"].ToString();
+        //                        agregarestilo.Cell("B" + numcol2).Value = row["Descripción"].ToString();
+        //                        agregarestilo.Cell("C" + numcol2).Value = row["Precio de venta"].ToString();
+        //                        agregarestilo.Cell("D" + numcol2).Value = row["Cantidad actual"].ToString();
+        //                        agregarestilo.Cell("E" + numcol2).Value = row["Cantidad mínima"].ToString();
+        //                        agregarestilo.Cell("F" + numcol2).Value = row["Descripción de departamento"].ToString();
 
-                            }
-                        else
-                            numcol2 += 1;
+        //                    }
+        //                else
+        //                    numcol2 += 1;
                       
 
-                    }
-                    else
-                    {
-                        for (int i = 0; dt.Rows.Count == 0 ? i == 0 : i < dt.Rows.Count; i++)
-                        {
+        //            }
+        //            else
+        //            {
+        //                for (int i = 0; dt.Rows.Count == 0 ? i == 0 : i < dt.Rows.Count; i++)
+        //                {
 
-                            agregarestilo.Cell("A" + numcol).Value = "Código de producto";
-                            agregarestilo.Cell("B" + numcol).Value = "Descripción";
-                            agregarestilo.Cell("C" + numcol).Value = "Costo";
-                            agregarestilo.Cell("D" + numcol).Value = "Precio de venta";
-                            agregarestilo.Cell("E" + numcol).Value = "Cantidad actual";
-                            agregarestilo.Cell("F" + numcol).Value = "Cantidad mínima";
-                        }
-                        if (dt.Rows.Count != 0)
-                            foreach (DataRow row in dt.Rows)
-                        {
-                            numcol2 += 1;
-                            agregarestilo.Cell("A" + numcol2).Value = row["Código de producto"].ToString();
-                            agregarestilo.Cell("B" + numcol2).Value = row["Descripción"].ToString();
-                            agregarestilo.Cell("C" + numcol2).Value = row["Costo"].ToString();
-                            agregarestilo.Cell("D" + numcol2).Value = row["Precio de venta"].ToString();
-                            agregarestilo.Cell("E" + numcol2).Value = row["Cantidad actual"].ToString();
-                            agregarestilo.Cell("F" + numcol2).Value = row["Cantidad mínima"].ToString();
-                            ;
+        //                    agregarestilo.Cell("A" + numcol).Value = "Código de producto";
+        //                    agregarestilo.Cell("B" + numcol).Value = "Descripción";
+        //                    agregarestilo.Cell("C" + numcol).Value = "Costo";
+        //                    agregarestilo.Cell("D" + numcol).Value = "Precio de venta";
+        //                    agregarestilo.Cell("E" + numcol).Value = "Cantidad actual";
+        //                    agregarestilo.Cell("F" + numcol).Value = "Cantidad mínima";
+        //                }
+        //                if (dt.Rows.Count != 0)
+        //                    foreach (DataRow row in dt.Rows)
+        //                {
+        //                    numcol2 += 1;
+        //                    agregarestilo.Cell("A" + numcol2).Value = row["Código de producto"].ToString();
+        //                    agregarestilo.Cell("B" + numcol2).Value = row["Descripción"].ToString();
+        //                    agregarestilo.Cell("C" + numcol2).Value = row["Costo"].ToString();
+        //                    agregarestilo.Cell("D" + numcol2).Value = row["Precio de venta"].ToString();
+        //                    agregarestilo.Cell("E" + numcol2).Value = row["Cantidad actual"].ToString();
+        //                    agregarestilo.Cell("F" + numcol2).Value = row["Cantidad mínima"].ToString();
+        //                    ;
 
-                        }
-                         else
-                            numcol2 += 1;
+        //                }
+        //                 else
+        //                    numcol2 += 1;
                       
 
-                    }
+        //            }
 
 
 
-                    agregarestilo.Columns().AdjustToContents();
+        //            agregarestilo.Columns().AdjustToContents();
 
-                    agregarestilo.Range("A1:F1")
-                                  .Merge()
-                                  .SetValue(vistaaccion.Contains("productos_bajos_inventario") ? "REPORTE DE PRODUCTOS BAJOS EN INVENTARIO" : "REPORTE DE INVENTARIO")
-                                  .Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
-                                  .Font.Bold = true;
+        //            agregarestilo.Range("A1:F1")
+        //                          .Merge()
+        //                          .SetValue(vistaaccion.Contains("productos_bajos_inventario") ? "REPORTE DE PRODUCTOS BAJOS EN INVENTARIO" : "REPORTE DE INVENTARIO")
+        //                          .Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+        //                          .Font.Bold = true;
 
-                    agregarestilo.Range("A2:F2")
-                                  .Merge()
-                                  .SetValue("REPORTE EFECTUADO POR: " + (string)Session["usuario_logueado"])
-                                  .Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
-                                  .Font.Bold = true;
+        //            agregarestilo.Range("A2:F2")
+        //                          .Merge()
+        //                          .SetValue("REPORTE EFECTUADO POR: " + (string)Session["usuario_logueado"])
+        //                          .Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+        //                          .Font.Bold = true;
 
-                    agregarestilo.Range("A3:F3")
-                                  .Merge()
-                                  .SetValue("FECHA DE REPORTE: " + DateTime.Now.Date.ToString("dd-MM-yyyy"))
-                                  .Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
-                                  .Font.Bold = true;
+        //            agregarestilo.Range("A3:F3")
+        //                          .Merge()
+        //                          .SetValue("FECHA DE REPORTE: " + DateTime.Now.Date.ToString("dd-MM-yyyy"))
+        //                          .Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center)
+        //                          .Font.Bold = true;
 
-                    agregarestilo.Range("A4:F4")
-                                  .Merge()
-                                  .SetValue("")
-                                  .Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+        //            agregarestilo.Range("A4:F4")
+        //                          .Merge()
+        //                          .SetValue("")
+        //                          .Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
 
-                    if (dt.Rows.Count == 0)
-                        agregarestilo.Range("A6:F" + numcol2)
-                               .Merge()
-                               .SetValue("No existe información")
-                               .Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+        //            if (dt.Rows.Count == 0)
+        //                agregarestilo.Range("A6:F" + numcol2)
+        //                       .Merge()
+        //                       .SetValue("No existe información")
+        //                       .Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
 
-                    var ranguito = agregarestilo.Range("A5:F5");
-                    ranguito.Style.Border.SetOutsideBorder(XLBorderStyleValues.Thin);
-                    ranguito.Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-                    ranguito.Style.Fill.BackgroundColor = XLColor.BlueGray;
-                    ranguito.Style.Font.FontColor = XLColor.White;
-                    ranguito.Style.Font.Bold = true;
+        //            var ranguito = agregarestilo.Range("A5:F5");
+        //            ranguito.Style.Border.SetOutsideBorder(XLBorderStyleValues.Thin);
+        //            ranguito.Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+        //            ranguito.Style.Fill.BackgroundColor = XLColor.BlueGray;
+        //            ranguito.Style.Font.FontColor = XLColor.White;
+        //            ranguito.Style.Font.Bold = true;
 
-                    var ranguito2 = agregarestilo.Range("A6:F" + numcol2);
-                    ranguito2.Style.Fill.BackgroundColor = XLColor.AliceBlue;
-                    ranguito2.Style.Border.SetOutsideBorder(XLBorderStyleValues.Thin);
-                    ranguito2.Style.Border.SetInsideBorder(XLBorderStyleValues.Thin);
+        //            var ranguito2 = agregarestilo.Range("A6:F" + numcol2);
+        //            ranguito2.Style.Fill.BackgroundColor = XLColor.AliceBlue;
+        //            ranguito2.Style.Border.SetOutsideBorder(XLBorderStyleValues.Thin);
+        //            ranguito2.Style.Border.SetInsideBorder(XLBorderStyleValues.Thin);
 
 
 
-                    using (MemoryStream stream = new MemoryStream())
-                    {
+        //            using (MemoryStream stream = new MemoryStream())
+        //            {
 
-                        wb.SaveAs(stream);
-                        return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", nombrearchivo);
-                    }
-                }
-            }
-            catch (Exception)
-            {
+        //                wb.SaveAs(stream);
+        //                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", nombrearchivo);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
+        //        throw;
+        //    }
          
             
-        }
+        //}
         // GET: productos
         public ActionResult reporte_inventario(productos productos)
         {
@@ -284,7 +291,44 @@ namespace Monografia.Controllers
             }
           
         }
-     
+
+        public ActionResult reporte_inventario_Preview()
+        {
+            string reportPath = Server.MapPath("~/Reportes/ReportInventario.rdlc");
+
+            int codigodepart = Convert.ToInt32(TempData["cod_depart"]);
+            TempData["cod_depart"] = codigodepart;
+            var listaproductos = int.Parse(TempData["cod_depart"].ToString()) == 0 ? db.productos.Include(a => a.departamento).ToList() : db.productos.Include(a => a.departamento).Where(x => x.Iddepartamento == codigodepart).ToList();
+            
+            ViewBag.ReportViewer= ReportCreate.GetReport(reportPath, listaproductos);
+            return View("reporte_Preview");
+
+        }
+
+
+        public ActionResult reporte_bajos_inventario_Preview()
+        {
+            string reportPath = Server.MapPath("~/Reportes/ReportBajoInventario.rdlc");
+
+            var listaProductos = db.productos
+     .Include(p => p.departamento)
+     .Where(p => p.Cantidad_actual < p.Cantidad_minima)
+     .Select(p => new
+     {
+         Codigo_producto = p.Codigo_producto,
+         Descripcion = p.Descripcion,
+         Precio_venta = p.Precio_venta,
+         Cantidad_actual = p.Cantidad_actual,
+         Cantidad_minima = p.Cantidad_minima,
+         DescripcionDep = p.departamento.Descripcion
+     })
+     .ToList();
+
+            ViewBag.ReportViewer = ReportCreate.GetReport(reportPath, listaProductos);
+            return View("reporte_Preview");
+
+        }
+
 
         public ActionResult editar_inventario(int? id)
         {

@@ -4,7 +4,7 @@
 <html lang="es">
 
 <head>
-   
+
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -20,21 +20,20 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-  
- 
+
+
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/csscustomproyecto")
     @Styles.Render("~/Content/fontawesome/css")
-    <link href="~/Content/toast/toastr.css" rel="stylesheet"/>
-    
-     
+    <link href="~/Content/toast/toastr.css" rel="stylesheet" />
+
+
     <style>
         .form-control:focus {
             border-color: #D286FE;
             box-shadow: 0 0 0 0.25rem rgba(210, 134, 254, 0.25);
         }
     </style>
-   
 </head>
 
 <body>
@@ -228,19 +227,24 @@
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Ventas_por_periodo","Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|R4|").Equals(false)"> 
+                        <a href="@Url.Action("Ventas_por_periodo","Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|R4|").Equals(false)">
                             <i class="bi bi-circle"></i><span>Ventas por periodo</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="@Url.Action("reporte_de_movimientos", "Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|R5|").Equals(false)"> 
+                        <a href="@Url.Action("reporte_de_movimientos", "Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|R5|").Equals(false)">
                             <i class="bi bi-circle"></i><span>Reporte de Movimientos</span>
                         </a>
                     </li>
                     <li>
                         <a href="@Url.Action("reporte_de_cortes", "Facturacion")">
                             <i class="bi bi-circle"></i><span>Reporte de cortes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("reporte_de_facturas_anuladas", "Facturacion")">
+                            <i class="bi bi-circle"></i><span>Reporte de facturas anuladas</span>
                         </a>
                     </li>
                 </ul>

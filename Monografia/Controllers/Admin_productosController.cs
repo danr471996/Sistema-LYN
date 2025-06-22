@@ -493,7 +493,7 @@ namespace Monografia.Controllers
                     {
                         var facturaactiva = db.factura.Include(x => x.detalle_factura)
                                                 .FirstOrDefault(x => x.detalle_factura
-                                                .Any(k => k.Idproducto == datosproducto.Idproducto) && (x.Estado==1 || x.Estado==2));
+                                                .Any(k => k.Idproducto == datosproducto.Idproducto) && (x.Estado==1 /*|| x.Estado==2*/));
 
                         if (facturaactiva == null)
                         {
