@@ -133,6 +133,7 @@
     <Property Name="Estado" Type="Int32" Nullable="false" />
     <NavigationProperty Name="tipo_credito" Relationship="proyectotiendaModel.fk_tipo_credito" FromRole="clientes" ToRole="tipo_credito" />
     <NavigationProperty Name="creditos" Relationship="proyectotiendaModel.fk_cliente" FromRole="clientes" ToRole="creditos" />
+    <Property Name="Cedula" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="departamento">
     <Key>

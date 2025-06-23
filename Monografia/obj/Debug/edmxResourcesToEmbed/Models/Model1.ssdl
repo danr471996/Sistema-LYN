@@ -43,6 +43,7 @@
     <Property Name="Id_tipocredito" Type="int" Nullable="false" />
     <Property Name="Cantidad_credito" Type="int" />
     <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="Cedula" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="correlativos">
     <Key>

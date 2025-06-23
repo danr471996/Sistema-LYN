@@ -368,7 +368,7 @@ namespace Monografia.Controllers
                 {
                     DateTime fechaultimopago = (from u in db.creditos
                                      join p in db.pagos on u.Id_factura equals p.Id_factura
-                                     where u.Idcliente == item.Idcliente
+                                     where u.Idcliente == item.Idcliente && p.Estado==1
                                      orderby p.Idpagos descending
                                      select p.Fecha_alta).Take(1).FirstOrDefault();
                     modelo_contenedor.Add(new Modelo_contenedor

@@ -48,6 +48,7 @@
           <Property Name="Id_tipocredito" Type="int" Nullable="false" />
           <Property Name="Cantidad_credito" Type="int" />
           <Property Name="Estado" Type="int" Nullable="false" />
+          <Property Name="Cedula" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="correlativos">
           <Key>
@@ -912,6 +913,7 @@
           <Property Name="Estado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tipo_credito" Relationship="proyectotiendaModel.fk_tipo_credito" FromRole="clientes" ToRole="tipo_credito" />
           <NavigationProperty Name="creditos" Relationship="proyectotiendaModel.fk_cliente" FromRole="clientes" ToRole="creditos" />
+          <Property Name="Cedula" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="departamento">
           <Key>
@@ -1567,6 +1569,7 @@
           <EntitySetMapping Name="clientes">
             <EntityTypeMapping TypeName="proyectotiendaModel.clientes">
               <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Cantidad_credito" ColumnName="Cantidad_credito" />
                 <ScalarProperty Name="Id_tipocredito" ColumnName="Id_tipocredito" />
