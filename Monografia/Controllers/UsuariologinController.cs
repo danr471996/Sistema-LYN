@@ -240,8 +240,7 @@ namespace Monografia.Controllers
         [ValidateSession]
         public ActionResult mostrarnotificaciones()
         {
-            var listaprodbajosinvent= db.productos.Where(x => x.Cantidad_actual < x.Cantidad_minima).ToList();
-            ViewBag.cantidadprodbajos = listaprodbajosinvent.Count();
+            ViewBag.cantidadprodbajos = db.productos.Count(x => x.Cantidad_actual < x.Cantidad_minima);
             return PartialView("_notificaciones");
         }
 

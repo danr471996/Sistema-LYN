@@ -223,7 +223,7 @@
                     </li>
                     <li>
                         <a href="@Url.Action("Lista_Reporte_Saldo", "Admin_clientes")" hidden="@Session["PerfilPermisos"].ToString().Contains("|R3|").Equals(false)">
-                            <i class="bi bi-circle"></i><span>Reporte de saldos</span>
+                            <i class="bi bi-circle"></i><span>Reporte de saldos clientes</span>
                         </a>
                     </li>
                     <li>
@@ -234,7 +234,7 @@
 
                     <li>
                         <a href="@Url.Action("reporte_de_movimientos", "Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|R5|").Equals(false)">
-                            <i class="bi bi-circle"></i><span>Reporte de Movimientos</span>
+                            <i class="bi bi-circle"></i><span>Reporte de Movimientos de inventario</span>
                         </a>
                     </li>
                     <li>

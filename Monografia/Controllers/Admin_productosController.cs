@@ -852,10 +852,12 @@ namespace Monografia.Controllers
         public JsonResult BuscarProducto(string term)
         {
             var productos = db.productos
-                .Where(p => p.Descripcion.Contains(term))
-                .Select(p => new { codigo = p.Codigo_producto, nombre = p.Descripcion })
-                .Take(10)
-                .ToList();
+         .Where(p => p.Estado==1 &&
+                    (p.Descripcion.Contains(term) ||
+                     p.Codigo_producto.ToString().Contains(term)))
+         .Select(p => new { codigo = p.Codigo_producto, nombre = p.Descripcion })
+         .Take(10)
+         .ToList();
 
             return Json(productos, JsonRequestBehavior.AllowGet);
         }

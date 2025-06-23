@@ -46,10 +46,12 @@ namespace Monografia.Controllers
         public ActionResult Venta()
         {
 
-            if (TempData["modelocontenedor"] != null) {
+            if (TempData["modelocontenedor"] != null)
+            {
                 modelocontenedor = (Factura)TempData["modelocontenedor"];
             }
-            if (TempData["maxticket"] != null) {
+            if (TempData["maxticket"] != null)
+            {
                 ViewBag.Mensaje = "No se puede agregar mas tickets, el limite total de tickets activos, es 6.";
             }
             if (modelocontenedor.listatickets == null || modelocontenedor.listatickets.Count() == 0)
@@ -75,7 +77,7 @@ namespace Monografia.Controllers
             modelocontenedor = (Factura)TempData["modelocontenedor"];
 
             modelocontenedor = agregar_ticket(modelocontenedor);
-  
+
 
             TempData["modelocontenedor"] = modelocontenedor;
 
@@ -101,8 +103,9 @@ namespace Monografia.Controllers
                 Session["calculototalpago"] = listaproductos.Sum(x => x.Impor);
                 Session["cantproducto"] = listaproductos.Sum(x => x.Cant);
             }
-            else {
-                TempData["maxticket"] = true;     
+            else
+            {
+                TempData["maxticket"] = true;
             }
             return modelocontenedor;
         }
@@ -110,7 +113,7 @@ namespace Monografia.Controllers
         // GET: facturas/Edit/5
         public ActionResult Facturar(int? numticket)
         {
-       
+
 
             modelocontenedor = (Factura)TempData["modelocontenedor"];
             ViewBag.numticket = numticket;
@@ -161,14 +164,15 @@ namespace Monografia.Controllers
 
 
         }
-        public void validaciones(Ticket datosfacturar,List<clientes> Listaclientes)
+        public void validaciones(Ticket datosfacturar, List<clientes> Listaclientes)
         {
             if (Listaclientes.Count == 0)
             {
                 ViewBag.Listclientact += "<i class='bi bi-exclamation-octagon me-1'></i>No hay clientes activos con disponibilidad de credito";
             }
             List<string> listaopciones = new List<string> { "OP1_FDP", "OP2_FDP", "OP3_FDP" };
-            db.opciones.Where(x => listaopciones.Contains(x.ID_OP)).ToList().ForEach(opcion => {
+            db.opciones.Where(x => listaopciones.Contains(x.ID_OP)).ToList().ForEach(opcion =>
+            {
 
                 if (opcion.ID_OP == "OP1_FDP" && opcion.SELECCIONADO_OP == true)
                 {
@@ -196,7 +200,7 @@ namespace Monografia.Controllers
         }
         // POST: facturas/Edit/5
         [HttpPost]
-        public ActionResult Facturar(int? numeroticket, decimal? montopago,decimal? montovuelto,int? idcliente, decimal? montopagodolar,decimal? montovueltocordobas)
+        public ActionResult Facturar(int? numeroticket, decimal? montopago, decimal? montovuelto, int? idcliente, decimal? montopagodolar, decimal? montovueltocordobas)
         {
             modelocontenedor = (Factura)TempData["modelocontenedor"];
             int cantidadmetodos = 0;
@@ -240,9 +244,12 @@ namespace Monografia.Controllers
                     var datosafacturar = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numeroticket).FirstOrDefault();
                     montototalfact = datosafacturar.listaproductos.Sum(x => x.Impor);
 
-                    if (TempData["cobromenorventa"] != null) {
-                        if (montopago != null) {
-                            if (montopago < montototalfact) {
+                    if (TempData["cobromenorventa"] != null)
+                    {
+                        if (montopago != null)
+                        {
+                            if (montopago < montototalfact)
+                            {
                                 TempData["modelocontenedor"] = modelocontenedor;
                                 ViewBag.cobroesmenor = true;
                                 return PartialView(Listaclientes);
@@ -252,10 +259,10 @@ namespace Monografia.Controllers
                     }
                     if (TempData["cobromenorventa"] != null)
                     {
-                                if (TempData["cobrodolar"] != null)
+                        if (TempData["cobrodolar"] != null)
+                        {
+                            if (montopagodolar != null)
                             {
-                                if (montopagodolar != null)
-                                {
 
                                 if (datoscambiodolar == null)
                                 {
@@ -263,15 +270,15 @@ namespace Monografia.Controllers
                                     return PartialView(Listaclientes);
                                 }
 
-                                    if ((montopagodolar* datoscambiodolar.Monto_cambio) < montototalfact )
-                                    {
-                                        TempData["modelocontenedor"] = modelocontenedor;
+                                if ((montopagodolar * datoscambiodolar.Monto_cambio) < montototalfact)
+                                {
+                                    TempData["modelocontenedor"] = modelocontenedor;
                                     ViewBag.cobroesmenor = true;
                                     return PartialView(Listaclientes);
-                                    }
                                 }
-
                             }
+
+                        }
                     }
 
 
@@ -286,7 +293,7 @@ namespace Monografia.Controllers
                             {
                                 TempData["modelocontenedor"] = modelocontenedor;
                                 ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Cliente no tiene suficiente crédito para realizar esta compra,favor verifique";
-                        
+
                                 return PartialView(Listaclientes);
                             }
                             else
@@ -363,14 +370,14 @@ namespace Monografia.Controllers
                         };
                         db.historial_inventario.Add(historialinvt);
 
-                       
+
                         factura.detalle_factura.Add(detallefact);
                     }
 
-               
+
 
                     //pago realizado si idcliente es diferente de 0 es porque es una venta al credito
-                    if (idcliente == 0 || idcliente==null)
+                    if (idcliente == 0 || idcliente == null)
                     {
 
                         //Movimiento de la transaccion
@@ -380,8 +387,8 @@ namespace Monografia.Controllers
                             Usuario_alta = (string)Session["usuario_logueado"],
                             Monto = montototalfact,
                             Tipo_movimiento = 1,
-                            Tipo_pago = 2 ,
-                            Idpago =pagos.Idpagos,
+                            Tipo_pago = 2,
+                            Idpago = pagos.Idpagos,
                             Estado = 1
                         };
                         db.movimientos.Add(movimientos);
@@ -466,14 +473,14 @@ namespace Monografia.Controllers
                         if (ticket != null)
                         {
 
-                           var producto = ticket.listaproductos.Where(x => x.CodProd == codigoproducto).FirstOrDefault();
+                            var producto = ticket.listaproductos.Where(x => x.CodProd == codigoproducto).FirstOrDefault();
 
                             if (producto != null)
                             {
                                 var ticketCopia = new Ticket
                                 {
                                     Numero_ticket = ticket.Numero_ticket,
-                                    listaproductos = new List<producto> 
+                                    listaproductos = new List<producto>
                                         {
                                             new producto
                                             {
@@ -505,17 +512,19 @@ namespace Monografia.Controllers
                                 return PartialView(datoseliminar);
                             }
                         }
-                        else {
+                        else
+                        {
                             ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro numero de ticket";
                             TempData["modelocontenedor"] = modelocontenedor;
                             return PartialView(datoseliminar);
 
                         }
-                      
+
 
 
                     }
-                    else {
+                    else
+                    {
                         ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Numero de ticket erroneo";
                         TempData["modelocontenedor"] = modelocontenedor;
                         return PartialView(datoseliminar);
@@ -565,15 +574,15 @@ namespace Monografia.Controllers
                             if (producto != null)
                             {
 
-                                if (producto.Cant == 1)
-                                {
+                                //if (producto.Cant == 1)
+                                //{
                                     ticket.listaproductos.Remove(producto);
-                                }
-                                else
-                                {
-                                    producto.Cant--;
-                                    producto.Impor = producto.Cant * producto.prec_vent;
-                                }
+                                //}
+                                //else
+                                //{
+                                //    producto.Cant--;
+                                //    producto.Impor = producto.Cant * producto.prec_vent;
+                                //}
                                 Session["ticketactivo"] = ticket.Numero_ticket;
                                 Session["calculototalpago"] = ticket.listaproductos.Sum(x => x.Impor);
                                 Session["cantproducto"] = ticket.listaproductos.Sum(x => x.Cant);
@@ -636,13 +645,13 @@ namespace Monografia.Controllers
             try
             {
 
-                    if (numeroticket != 0 && numeroticket != null)
-                    {
-                  
+                if (numeroticket != 0 && numeroticket != null)
+                {
+
                     var ticket = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numeroticket).FirstOrDefault();
 
-                        if (ticket != null)
-                        {
+                    if (ticket != null)
+                    {
 
                         var producto = ticket.listaproductos.ToList();
                         datoseliminar.listatickets = new List<Ticket>
@@ -657,23 +666,23 @@ namespace Monografia.Controllers
                         TempData["modelocontenedor"] = modelocontenedor;
                         return PartialView(datoseliminar);
 
-                    }   
-                        else
-                        {
-                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro numero de ticket";
-                            TempData["modelocontenedor"] = modelocontenedor;
-                            return PartialView(datoseliminar);
-
-                        }
-
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Numero de ticket erroneo";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro numero de ticket";
                         TempData["modelocontenedor"] = modelocontenedor;
                         return PartialView(datoseliminar);
 
                     }
+
+                }
+                else
+                {
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Numero de ticket erroneo";
+                    TempData["modelocontenedor"] = modelocontenedor;
+                    return PartialView(datoseliminar);
+
+                }
             }
             catch (Exception)
             {
@@ -696,10 +705,10 @@ namespace Monografia.Controllers
                 if (TempData["numticketeliminar"] != null)
                 {
 
-                        var ticket = modelocontenedor.listatickets.Where(x => x.Numero_ticket == (int)TempData["numticketeliminar"]).FirstOrDefault();
+                    var ticket = modelocontenedor.listatickets.Where(x => x.Numero_ticket == (int)TempData["numticketeliminar"]).FirstOrDefault();
 
-                        if (ticket != null)
-                        {
+                    if (ticket != null)
+                    {
 
                         Ticket.Numero_ticket = modelocontenedor.listatickets.Select(x => x.Numero_ticket).LastOrDefault() - 1;
                         modelocontenedor.listatickets.Remove(ticket);
@@ -710,13 +719,13 @@ namespace Monografia.Controllers
 
                         return Json(new { success = true, mensaje = "Se ha eliminado ticket satisfactoriamente" });
                     }
-                        else
-                        {
-                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro numero de ticket";
-                            TempData["modelocontenedor"] = modelocontenedor;
-                            return PartialView(datoseliminar);
+                    else
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro numero de ticket";
+                        TempData["modelocontenedor"] = modelocontenedor;
+                        return PartialView(datoseliminar);
 
-                        }
+                    }
                 }
                 else
                 {
@@ -756,7 +765,7 @@ namespace Monografia.Controllers
         public ActionResult Agregarproducto(int? numticket, int? codproducto)
         {
 
- 
+
             try
             {
                 int cantidadAnterior = 0;
@@ -766,25 +775,25 @@ namespace Monografia.Controllers
                 {
                     if (numticket != 0 && numticket != null)
                     {
-                       
-                        var existeproducto = (from x in db.productos where x.Codigo_producto == codproducto  select x).FirstOrDefault();
+
+                        var existeproducto = (from x in db.productos where x.Codigo_producto == codproducto select x).FirstOrDefault();
 
                         if (existeproducto != null)
                         {
-                           
+
                             if (existeproducto.Estado == 1)
                             {
 
                                 var ticket = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numticket).FirstOrDefault();
 
-                            if (ticket != null)
-                            {
-                                var existepromocion = (from x in db.promocion where x.Id_producto == existeproducto.Idproducto select x).FirstOrDefault();
-
-                                var listaproductos = ticket.listaproductos.Where(x => x.CodProd == codproducto).FirstOrDefault();
-
-                                if (listaproductos != null)
+                                if (ticket != null)
                                 {
+                                    var existepromocion = (from x in db.promocion where x.Id_producto == existeproducto.Idproducto select x).FirstOrDefault();
+
+                                    var listaproductos = ticket.listaproductos.Where(x => x.CodProd == codproducto).FirstOrDefault();
+
+                                    if (listaproductos != null)
+                                    {
                                         cantidadAnterior = listaproductos.Cant;
                                         listaproductos.Cant++;
 
@@ -802,43 +811,43 @@ namespace Monografia.Controllers
                                         }
                                         else if (listaproductos.Cant >= existepromocion.Cant_desde && listaproductos.Cant <= existepromocion.Cant_hasta)
                                         {
-                                           
+
                                             listaproductos.Impor = listaproductos.Cant * existepromocion.Precio_unitario;
                                         }
                                         else
                                         {
-         
+
                                             listaproductos.Impor = listaproductos.Cant * existeproducto.Precio_venta;
                                         }
 
                                     }
+                                    else
+                                    {
+                                        producto = new producto
+                                        {
+                                            CodProd = existeproducto.Codigo_producto,
+                                            Desc = existeproducto.Descripcion,
+                                            prec_vent = existeproducto.Precio_venta,
+                                            Cant = 1,
+                                            Impor = 1 * existeproducto.Precio_venta,
+                                            existencia = Convert.ToInt32(existeproducto.Cantidad_actual)
+                                        };
+                                        ticket.listaproductos.Add(producto);
+                                    }
+                                    Session["ticketactivo"] = ticket.Numero_ticket;
+                                    Session["calculototalpago"] = ticket.listaproductos.Sum(x => x.Impor);
+                                    Session["cantproducto"] = ticket.listaproductos.Sum(x => x.Cant);
+
+                                    TempData["modelocontenedor"] = modelocontenedor;
+
+                                    return Json(new { success = true, mensaje = "Se añadió producto satisfactoriamente" });
+
+                                }
                                 else
                                 {
-                                    producto = new producto
-                                    {
-                                        CodProd = existeproducto.Codigo_producto,
-                                        Desc = existeproducto.Descripcion,
-                                        prec_vent = existeproducto.Precio_venta,
-                                        Cant = 1,
-                                        Impor = 1 * existeproducto.Precio_venta,
-                                        existencia = Convert.ToInt32(existeproducto.Cantidad_actual)
-                                    };
-                                    ticket.listaproductos.Add(producto);
-                                }
-                                Session["ticketactivo"] = ticket.Numero_ticket;
-                                Session["calculototalpago"] = ticket.listaproductos.Sum(x => x.Impor);
-                                Session["cantproducto"] = ticket.listaproductos.Sum(x => x.Cant);
-
-                                TempData["modelocontenedor"] = modelocontenedor;
-
-                                return Json(new { success = true, mensaje = "Se añadió producto satisfactoriamente" });
-
-                            }
-                            else
-                            {
-                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro numero de ticket";
-                                TempData["modelocontenedor"] = modelocontenedor;
-                                return PartialView();
+                                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro numero de ticket";
+                                    TempData["modelocontenedor"] = modelocontenedor;
+                                    return PartialView();
 
                                 }
                             }
@@ -887,7 +896,7 @@ namespace Monografia.Controllers
         }
 
         [HttpPost]
-        public ActionResult modificarCantidadProducto(int? numticket, int? codproducto,bool Incrementar,int? cantidad)
+        public ActionResult modificarCantidadProducto(int? numticket, int? codproducto, bool Incrementar, int? cantidad)
         {
 
 
@@ -909,7 +918,7 @@ namespace Monografia.Controllers
 
                             if (existeproducto.Estado == 1)
                             {
-                              
+
 
 
                                 var ticket = modelocontenedor.listatickets.Where(x => x.Numero_ticket == numticket).FirstOrDefault();
@@ -931,7 +940,7 @@ namespace Monografia.Controllers
                                         else if (!Incrementar && listaproductos.Cant > 1)
                                             listaproductos.Cant--;
                                     }
-                                    else if(cantidad!=0)
+                                    else if (cantidad != 0)
                                     {
                                         listaproductos.Cant = Convert.ToInt32(cantidad);
                                     }
@@ -941,38 +950,38 @@ namespace Monografia.Controllers
                                         listaproductos.Cant = cantidadAnterior;
                                         TempData["modelocontenedor"] = modelocontenedor;
                                         return Json(new { success = false, mensaje = "No hay suficiente existencia de producto" });
-                                     }
+                                    }
 
                                     if (existepromocion == null)
-                                        {
-                                            listaproductos.Impor = listaproductos.Cant * existeproducto.Precio_venta;
-                                        }
-                                        else if (listaproductos.Cant >= existepromocion.Cant_desde && listaproductos.Cant <= existepromocion.Cant_hasta)
-                                        {
+                                    {
+                                        listaproductos.Impor = listaproductos.Cant * existeproducto.Precio_venta;
+                                    }
+                                    else if (listaproductos.Cant >= existepromocion.Cant_desde && listaproductos.Cant <= existepromocion.Cant_hasta)
+                                    {
 
-                                            listaproductos.Impor = listaproductos.Cant * existepromocion.Precio_unitario;
-                                        }
-                                        else
-                                        {
-
-                                            listaproductos.Impor = listaproductos.Cant * existeproducto.Precio_venta;
-                                        }
-
-                              /*      }
+                                        listaproductos.Impor = listaproductos.Cant * existepromocion.Precio_unitario;
+                                    }
                                     else
                                     {
-                                        producto = new producto
-                                        {
-                                            CodProd = existeproducto.Codigo_producto,
-                                            Desc = existeproducto.Descripcion,
-                                            prec_vent = existeproducto.Precio_venta,
-                                            Cant = 1,
-                                            Impor = 1 * existeproducto.Precio_venta,
-                                            existencia = Convert.ToInt32(existeproducto.Cantidad_actual)
-                                        };
-                                        ticket.listaproductos.Add(producto);
-                                    }*/
-                            
+
+                                        listaproductos.Impor = listaproductos.Cant * existeproducto.Precio_venta;
+                                    }
+
+                                    /*      }
+                                          else
+                                          {
+                                              producto = new producto
+                                              {
+                                                  CodProd = existeproducto.Codigo_producto,
+                                                  Desc = existeproducto.Descripcion,
+                                                  prec_vent = existeproducto.Precio_venta,
+                                                  Cant = 1,
+                                                  Impor = 1 * existeproducto.Precio_venta,
+                                                  existencia = Convert.ToInt32(existeproducto.Cantidad_actual)
+                                              };
+                                              ticket.listaproductos.Add(producto);
+                                          }*/
+
                                     importe = listaproductos.Impor;
 
                                     Session["ticketactivo"] = ticket.Numero_ticket;
@@ -981,7 +990,12 @@ namespace Monografia.Controllers
 
                                     TempData["modelocontenedor"] = modelocontenedor;
 
-                                    return Json(new { success = true, mensaje = "Se añadió producto satisfactoriamente",cantidadproducto= listaproductos.Cant, import = importe
+                                    return Json(new
+                                    {
+                                        success = true,
+                                        mensaje = "Se añadió producto satisfactoriamente",
+                                        cantidadproducto = listaproductos.Cant,
+                                        import = importe
                                     });
 
                                 }
@@ -1002,7 +1016,7 @@ namespace Monografia.Controllers
                         else
                         {
                             TempData["modelocontenedor"] = modelocontenedor;
-                             return Json(new { success = false, mensaje = "No se encontro codigo de producto" });
+                            return Json(new { success = false, mensaje = "No se encontro codigo de producto" });
                         }
 
 
@@ -1040,7 +1054,7 @@ namespace Monografia.Controllers
 
         public ActionResult impresionfactura(int? idfactura)
         {
-           
+
             if (idfactura != 0 && idfactura != null)
             {
                 ViewBag.idfactura = idfactura;
@@ -1057,17 +1071,17 @@ namespace Monografia.Controllers
         }
 
         [HttpPost]
-        public JsonResult downloadpdf(int idfactura )
+        public JsonResult downloadpdf(int idfactura)
         {
             factura = new factura();
             factura = db.factura.Where(x => x.Idfactura == idfactura).FirstOrDefault();
 
             var Nombrearchivo = "Factura" + factura.Num_factura + DateTime.Now.Year + DateTime.Now.Day + DateTime.Now.Second + ".pdf";
-     
+
             return Json(new { filename = Nombrearchivo, message = Convert.ToBase64String(crearfactura(factura)) });
         }
 
-        public  ActionResult getpdf(int idfactura)
+        public ActionResult getpdf(int idfactura)
         {
             factura = new factura();
             factura = db.factura.Where(x => x.Idfactura == idfactura).FirstOrDefault();
@@ -1084,13 +1098,13 @@ namespace Monografia.Controllers
             var encabezadofactura = db.opciones.Where(x => x.ID_OP == "OP1_TKS").FirstOrDefault();
             var piefactura = db.opciones.Where(x => x.ID_OP == "OP2_TKS").FirstOrDefault();
             var tipocambio = db.cambiodolar.Where(x => x.Estado == 1).FirstOrDefault();
-            var montodolar = Math.Round(datosfactura.Monto_total / tipocambio.Monto_cambio,2);
-            if(datosfactura.Idcliente!=null)
-                datoscliente =db.clientes.Where(x => x.Idcliente == datosfactura.Idcliente).FirstOrDefault();
+            var montodolar = Math.Round(datosfactura.Monto_total / tipocambio.Monto_cambio, 2);
+            if (datosfactura.Idcliente != null)
+                datoscliente = db.clientes.Where(x => x.Idcliente == datosfactura.Idcliente).FirstOrDefault();
             if (datoscliente != null)
                 nomcliente = datoscliente.Primer_nombre + " " + datoscliente.Segundo_nombre + " " + datoscliente.Primer_apellido + " " + datoscliente.Segundo_apellido;
 
-            htmldocfactura = string.Format(formatofactura.Cabeza_factura,encabezadofactura.DETALLE_EXT1.Replace("\r\n","<br>"),datosfactura.Idfactura,"Efectivo",DateTime.Now.ToShortDateString(),DateTime.Now.ToShortTimeString(), nomcliente, (string)Session["Nombreuusuario"]);
+            htmldocfactura = string.Format(formatofactura.Cabeza_factura, encabezadofactura.DETALLE_EXT1.Replace("\r\n", "<br>"), datosfactura.Idfactura, "Efectivo", DateTime.Now.ToShortDateString(), DateTime.Now.ToShortTimeString(), nomcliente, (string)Session["Nombreuusuario"]);
 
             StringBuilder tabledatosfactura = new StringBuilder();
 
@@ -1104,7 +1118,7 @@ namespace Monografia.Controllers
             tabledatosfactura.Append("</tr>");
             tabledatosfactura.Append("</thead>");
             tabledatosfactura.Append("<tbody>");
-       
+
 
             foreach (var item in datosfactura.detalle_factura)
             {
@@ -1115,11 +1129,11 @@ namespace Monografia.Controllers
                 tabledatosfactura.Append("<td>" + item.Monto + "</td>");
                 tabledatosfactura.Append("</tr>");
             }
-         
+
             tabledatosfactura.Append("</tbody>");
             tabledatosfactura.Append("</table>");
             htmldocfactura += tabledatosfactura;
-            htmldocfactura +=string.Format(formatofactura.Cuerpo_factura, datosfactura.Monto_total, datosfactura.Monto_total, tipocambio.Monto_cambio, montodolar, montodolar, piefactura.DETALLE_EXT1);
+            htmldocfactura += string.Format(formatofactura.Cuerpo_factura, datosfactura.Monto_total, datosfactura.Monto_total, tipocambio.Monto_cambio, montodolar, montodolar, piefactura.DETALLE_EXT1);
 
 
             HtmlToPdf convertidor = new HtmlToPdf();
@@ -1156,7 +1170,7 @@ namespace Monografia.Controllers
                 Session["cantproducto"] = datosfacturar.listaproductos.Sum(x => x.Cant);
                 Session["ticketactivo"] = numticket;
             }
-            else 
+            else
             {
                 Session["calculototalpago"] = Convert.ToDecimal(0);
                 Session["cantproducto"] = Convert.ToInt32(0);
@@ -1164,7 +1178,7 @@ namespace Monografia.Controllers
 
             }
 
-                TempData["modelocontenedor"] = modelocontenedor;
+            TempData["modelocontenedor"] = modelocontenedor;
 
             return Json(new { Totalpago = (decimal)Session["calculototalpago"], cantproducto = (int)Session["cantproducto"] }, JsonRequestBehavior.AllowGet);
         }
@@ -1180,7 +1194,7 @@ namespace Monografia.Controllers
             try
             {
 
-              modelo_contenedor.listatipomovimiento=cargalistatipomov();
+                modelo_contenedor.listatipomovimiento = cargalistatipomov();
 
                 return View(modelo_contenedor);
             }
@@ -1205,7 +1219,7 @@ namespace Monografia.Controllers
 
                 modelo_contenedor.listahistorialmov = (from x in db.historial_inventario where x.Estado == 1 && x.Tipo_movimiento == tipomovimiento.IdTipo_movimiento select x).ToList();
 
-                modelo_contenedor.listatipomovimiento=cargalistatipomov();
+                modelo_contenedor.listatipomovimiento = cargalistatipomov();
 
                 TempData["HistorialMovimiento"] = modelo_contenedor.listahistorialmov;
 
@@ -1285,7 +1299,7 @@ namespace Monografia.Controllers
 
         }
 
-        private Dictionary<string,object> obtenerDatosCorte(String ejecutar,String usuario)
+        private Dictionary<string, object> obtenerDatosCorte(String ejecutar, String usuario)
         {
             MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
             mysqlcon.Open();
@@ -1304,8 +1318,8 @@ namespace Monografia.Controllers
                         datos.Add("TOTAL_PAGOS", lector["TOTAL_PAGOS"]);
                         datos.Add("MONTO_FACTURAS", lector["MONTO_FACTURAS"]);
                         datos.Add("CANTIDAD_DE_PRODUCTOS_FACTURADOS", lector["CANTIDAD_DE_PRODUCTOS_FACTURADOS"]);
-                       /* datos.Add("ID_PRODUCTOS_FACTURADOS", lector["ID_PRODUCTOS_FACTURADOS"]);*/
-                       /* datos.Add("CAJEROS_DEL_DIA", lector["CAJEROS_DEL_DIA"]);*/
+                        /* datos.Add("ID_PRODUCTOS_FACTURADOS", lector["ID_PRODUCTOS_FACTURADOS"]);*/
+                        /* datos.Add("CAJEROS_DEL_DIA", lector["CAJEROS_DEL_DIA"]);*/
                     }
                     break;
                 case "SP_PAGOSEFECTIVOCREDITO":
@@ -1374,21 +1388,22 @@ namespace Monografia.Controllers
 
             try
             {
-                if (modelocontenedor.SelectedValue == 1) { 
-                 modelocontenedor.listadetallefactura=  db.detalle_factura.Where(x => x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month && x.Fecha_alta.Day == DateTime.Now.Day).ToList();
+                if (modelocontenedor.SelectedValue == 1)
+                {
+                    modelocontenedor.listadetallefactura = db.detalle_factura.Where(x => x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month && x.Fecha_alta.Day == DateTime.Now.Day).ToList();
                 }
 
                 if (modelocontenedor.SelectedValue == 2)
                 {
                     DateTime ayer = DateTime.Now.Date.AddDays(-1); // dia de ayer
-                    modelocontenedor.listadetallefactura = db.detalle_factura.Where(x =>  x.Fecha_alta.Year==ayer.Year && x.Fecha_alta.Month == ayer.Month && x.Fecha_alta.Day == ayer.Day).ToList();
+                    modelocontenedor.listadetallefactura = db.detalle_factura.Where(x => x.Fecha_alta.Year == ayer.Year && x.Fecha_alta.Month == ayer.Month && x.Fecha_alta.Day == ayer.Day).ToList();
                 }
                 if (modelocontenedor.SelectedValue == 3)
                 {
-                    DateTime inicioSemana = DateTime.Now.Date.AddDays(-((int)DateTime.Now.DayOfWeek-1)); // Primer día de la semana actual
+                    DateTime inicioSemana = DateTime.Now.Date.AddDays(-((int)DateTime.Now.DayOfWeek - 1)); // Primer día de la semana actual
                     DateTime finSemana = inicioSemana.AddDays(6); // Último día de la semana actual
 
-                    modelocontenedor.listadetallefactura= db.detalle_factura.Where(x => (x.Fecha_alta.Year == inicioSemana.Year && x.Fecha_alta.Month == inicioSemana.Month && x.Fecha_alta.Day >= inicioSemana.Day) && (x.Fecha_alta.Year == finSemana.Year && x.Fecha_alta.Month == finSemana.Month && x.Fecha_alta.Day <= finSemana.Day)).ToList();
+                    modelocontenedor.listadetallefactura = db.detalle_factura.Where(x => (x.Fecha_alta.Year == inicioSemana.Year && x.Fecha_alta.Month == inicioSemana.Month && x.Fecha_alta.Day >= inicioSemana.Day) && (x.Fecha_alta.Year == finSemana.Year && x.Fecha_alta.Month == finSemana.Month && x.Fecha_alta.Day <= finSemana.Day)).ToList();
                 }
                 if (modelocontenedor.SelectedValue == 4)
                 {
@@ -1396,10 +1411,10 @@ namespace Monografia.Controllers
                     DateTime finMes = inicioMes.AddMonths(1).AddDays(-1); // Último día del mes actual
                     modelocontenedor.listadetallefactura = db.detalle_factura.Where(x => (x.Fecha_alta.Year == inicioMes.Year && x.Fecha_alta.Month == inicioMes.Month && x.Fecha_alta.Day >= inicioMes.Day) && (x.Fecha_alta.Year == finMes.Year && x.Fecha_alta.Month == finMes.Month && x.Fecha_alta.Day <= finMes.Day)).ToList();
                 }
-                if (modelocontenedor.SelectedValue == 5 && Request.Form["consultar"]==null)
+                if (modelocontenedor.SelectedValue == 5 && Request.Form["consultar"] == null)
                 {
                     ViewBag.fechaparticular = true;
-                    
+
                     modelocontenedor.listadetallefactura = new List<detalle_factura>();
                 }
 
@@ -1414,7 +1429,8 @@ namespace Monografia.Controllers
                         ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>La fecha desde no puede ser menor a fecha hasta<br>";
                         modelocontenedor.listadetallefactura = new List<detalle_factura>();
                     }
-                    if (modelocontenedor.Fechadesde== default(DateTime)) {
+                    if (modelocontenedor.Fechadesde == default(DateTime))
+                    {
                         valid = false;
                         ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>La fecha desde es invalida<br>";
                         modelocontenedor.listadetallefactura = new List<detalle_factura>();
@@ -1428,19 +1444,19 @@ namespace Monografia.Controllers
                         modelocontenedor.listadetallefactura = new List<detalle_factura>();
 
                     }
-                    if(valid==true)
-                   {
+                    if (valid == true)
+                    {
                         modelocontenedor.Fechadesde = modelocontenedor.Fechadesde.Date;
                         modelocontenedor.Fechahasta = modelocontenedor.Fechahasta.Date.AddDays(1).AddSeconds(-1);
                         modelocontenedor.listadetallefactura = db.detalle_factura
                                                                 .Where(x => x.Fecha_alta >= modelocontenedor.Fechadesde
                                                                          && x.Fecha_alta <= modelocontenedor.Fechahasta)
                                                                 .ToList();
-                    } 
+                    }
                 }
-                modelocontenedor.Options= crearopciones();
+                modelocontenedor.Options = crearopciones();
 
-                if(modelocontenedor.listadetallefactura==null)
+                if (modelocontenedor.listadetallefactura == null)
                     modelocontenedor.listadetallefactura = new List<detalle_factura>();
 
                 TempData["ListaDetalleFactura"] = modelocontenedor.listadetallefactura.ToList();
@@ -1540,7 +1556,7 @@ namespace Monografia.Controllers
                 var HistorialMovimiento = TempData["HistorialMovimiento"] as List<historial_inventario>;
                 string reportPath = Server.MapPath("~/Reportes/ReportMovimientos.rdlc");
 
-              
+
 
                 var datos = HistorialMovimiento == null
     ? new List<object>()
@@ -1571,10 +1587,11 @@ namespace Monografia.Controllers
 
             try
             {
-                var FacturasAnuladas = db.factura.Where(x=>x.Estado==3);
+                var FacturasAnuladas = db.factura.Where(x => x.Estado == 3);
                 string reportPath = Server.MapPath("~/Reportes/ReportFacturasAnuladas.rdlc");
 
-                ViewBag.ReportViewer = ReportCreate.GetReport(reportPath, FacturasAnuladas.Select(p => new {
+                ViewBag.ReportViewer = ReportCreate.GetReport(reportPath, FacturasAnuladas.Select(p => new
+                {
                     Fecha_alta = p.Fecha_alta,
                     Usuario_alta = p.Usuario_alta,
                     Num_factura = p.Num_factura,
@@ -1595,7 +1612,7 @@ namespace Monografia.Controllers
 
             try
             {
-                return View(db.factura.Where(x=>x.Estado==3).ToList());
+                return View(db.factura.Where(x => x.Estado == 3).ToList());
             }
             catch (Exception ex)
             {
@@ -1623,7 +1640,7 @@ namespace Monografia.Controllers
                     else
                     {
                         ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro factura";
-                        return PartialView(datosfactura);    
+                        return PartialView(datosfactura);
                     }
                 }
                 else
@@ -1654,70 +1671,70 @@ namespace Monografia.Controllers
                     if (datosfactura != null)
                     {
 
-                     
+
                         //if (datosfactura.Estado == 1) {
 
-                            var listpagos = db.pagos.Where(x => x.Id_factura == idfactura).ToList();
+                        var listpagos = db.pagos.Where(x => x.Id_factura == idfactura).ToList();
 
-                            if (listpagos != null)
+                        if (listpagos != null)
+                        {
+                            foreach (var pagos in listpagos)
                             {
-                                foreach (var pagos in listpagos)
+                                pagos.Estado = 3;
+
+                                var movimientos = db.movimientos.Where(x => x.Idpago == pagos.Idpagos).FirstOrDefault();
+
+                                if (movimientos != null)
                                 {
-                                    pagos.Estado = 3;
-
-                                    var movimientos = db.movimientos.Where(x => x.Idpago == pagos.Idpagos).FirstOrDefault();
-
-                                    if (movimientos != null)
+                                    movimientos newmovimientos = new movimientos
                                     {
-                                        movimientos newmovimientos = new movimientos
-                                        {
-                                            Fecha_alta = DateTime.Now,
-                                            Usuario_alta = (string)Session["usuario_logueado"],
-                                            Monto = -movimientos.Monto,
-                                            Tipo_movimiento = 4,
-                                            Tipo_pago = movimientos.Tipo_pago,
-                                            Idpago = pagos.Idpagos,
-                                            Estado = 1
-                                        };
-                                        db.movimientos.Add(newmovimientos);
-                                    }
+                                        Fecha_alta = DateTime.Now,
+                                        Usuario_alta = (string)Session["usuario_logueado"],
+                                        Monto = -movimientos.Monto,
+                                        Tipo_movimiento = 2,
+                                        Tipo_pago = movimientos.Tipo_pago,
+                                        Idpago = pagos.Idpagos,
+                                        Estado = 1
+                                    };
+                                    db.movimientos.Add(newmovimientos);
                                 }
-
                             }
-                             var datoscreditos=  db.creditos.Where(x => x.Id_factura == idfactura).FirstOrDefault();
 
-                        if (datoscreditos!=null)
+                        }
+                        var datoscreditos = db.creditos.Where(x => x.Id_factura == idfactura).FirstOrDefault();
+
+                        if (datoscreditos != null)
                         {
                             datoscreditos.Estado = 2;
                             datoscreditos.Fecha_baja = DateTime.Now;
                             datoscreditos.Usuario_baja = (string)Session["usuario_logueado"];
 
                         }
-                            foreach (var item in datosfactura.detalle_factura)
-                            {
-                                int cantidadanterior = 0;
-                                var datosproducto = db.productos.Where(x => x.Idproducto == item.Idproducto).FirstOrDefault();
-                                cantidadanterior =Convert.ToInt32(datosproducto.Cantidad_actual);
-                                datosproducto.Cantidad_actual = datosproducto.Cantidad_actual + item.Cantidad;
+                        foreach (var item in datosfactura.detalle_factura)
+                        {
+                            int cantidadanterior = 0;
+                            var datosproducto = db.productos.Where(x => x.Idproducto == item.Idproducto).FirstOrDefault();
+                            cantidadanterior = Convert.ToInt32(datosproducto.Cantidad_actual);
+                            datosproducto.Cantidad_actual = datosproducto.Cantidad_actual + item.Cantidad;
 
-                               
-                                historialinvt = new historial_inventario
-                                {
-                                    Fecha_alta = DateTime.Now,
-                                    Usuario_alta = (string)Session["usuario_logueado"],
-                                    Idproducto = datosproducto.Idproducto,
-                                    Tipo_movimiento = 4,
-                                    Iddepartamento = datosproducto.Iddepartamento,
-                                    Cantidad_actual = Convert.ToInt32(datosproducto.Cantidad_actual),
-                                    Cantidad_anterior = Convert.ToInt32(cantidadanterior),
-                                    Estado = 1
-                                };
-                                db.historial_inventario.Add(historialinvt);
-                            }
+
+                            historialinvt = new historial_inventario
+                            {
+                                Fecha_alta = DateTime.Now,
+                                Usuario_alta = (string)Session["usuario_logueado"],
+                                Idproducto = datosproducto.Idproducto,
+                                Tipo_movimiento = 4,
+                                Iddepartamento = datosproducto.Iddepartamento,
+                                Cantidad_actual = Convert.ToInt32(datosproducto.Cantidad_actual),
+                                Cantidad_anterior = Convert.ToInt32(cantidadanterior),
+                                Estado = 1
+                            };
+                            db.historial_inventario.Add(historialinvt);
+                        }
 
                         //}
 
-                       
+
 
 
                         datosfactura.Fecha_baja = DateTime.Now;
@@ -1725,10 +1742,10 @@ namespace Monografia.Controllers
                         datosfactura.Estado = 3;
 
                         db.SaveChanges();
-                 
-                       return Json(new { success = true, mensaje = "Se ha anulado la factura satisfactoriamente." });
 
-               
+                        return Json(new { success = true, mensaje = "Se ha anulado la factura satisfactoriamente." });
+
+
                     }
                     else
                     {
@@ -1755,7 +1772,8 @@ namespace Monografia.Controllers
 
 
         // Crear una lista de opciones para el DropDownList
-        public List<SelectListItem> crearopciones() {
+        public List<SelectListItem> crearopciones()
+        {
 
             List<SelectListItem> options = new List<SelectListItem>
         {

@@ -115,7 +115,7 @@ namespace Monografia.Controllers
                                 Usuario_alta = (string)Session["usuario_logueado"],
                                 Monto = Convert.ToDecimal(agregar_cantidad),
                                 Tipo_movimiento = 1,
-                                Tipo_pago = 2,
+                                Tipo_pago = 1,
                                 Idpago=pago.Idpagos,
                                 Estado = 1
                             };

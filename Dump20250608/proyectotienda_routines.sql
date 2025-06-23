@@ -37,7 +37,7 @@ SELECT SUM(CASE
 							WHEN mov.Tipo_movimiento = 1
 								THEN mov.Monto
 							WHEN mov.Tipo_movimiento = 2
-								THEN (mov.Monto * - 1)
+								THEN mov.Monto 
 							ELSE 0
 							END
 						)
@@ -50,7 +50,7 @@ SELECT SUM(CASE
 							WHEN mov.Tipo_movimiento = 1
 								THEN mov.Monto
 							WHEN mov.Tipo_movimiento = 2
-								THEN (mov.Monto * - 1)
+								Then mov.Monto
 							ELSE 0
 							END
 						)
@@ -92,11 +92,13 @@ select
 producto.Codigo_producto as CODIGO_PRODUCTO,
 sum(detalle.Cantidad)  as CANTIDAD_PRODUCTO,
 departamento.Descripcion as DEPARTAMENTO
-from proyectotienda.detalle_factura as detalle
+from  proyectotienda.factura as factura 
+inner join proyectotienda.detalle_factura as detalle on detalle.Id_factura = factura.Idfactura 
 inner join proyectotienda.productos  as producto on producto.Idproducto = detalle.Idproducto
 inner join proyectotienda.departamento as departamento on producto.Iddepartamento = departamento.Iddepartmento
-where DATE(detalle.Fecha_alta) = DATE(CURRENT_DATE())
-AND detalle.Usuario_alta = usuario
+where factura.Estado IN (1, 2)  
+AND DATE(factura.Fecha_alta) = DATE(CURRENT_DATE())
+AND factura.Usuario_alta = usuario
 group by producto.Codigo_producto;
 END ;;
 DELIMITER ;
@@ -116,7 +118,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_RESUMEN_CORTE`(IN usuario VARCHAR(50))
 BEGIN
-     SELECT 
+	SELECT 
     COUNT(DISTINCT factura.Idfactura) AS CANTIDAD_FACTURAS,
     COALESCE(SUM(pagos.total_pagos), 0) AS TOTAL_PAGOS,
     SUM(factura.monto_total) AS MONTO_FACTURAS,
@@ -125,15 +127,22 @@ FROM
     proyectotienda.factura AS factura
 LEFT JOIN 
     (SELECT Id_factura, SUM(Monto_pagado) AS total_pagos 
-     FROM proyectotienda.pagos 
+     FROM proyectotienda.pagos
+     WHERE Estado=1 
+     AND DATE(Fecha_alta) = DATE(CURRENT_DATE())
+     AND Usuario_alta = usuario
      GROUP BY Id_factura) AS pagos ON factura.Idfactura = pagos.Id_factura
 LEFT JOIN 
-    (SELECT Id_factura, COUNT(*) AS num_detalles, SUM(cantidad) AS total_cantidad 
-     FROM proyectotienda.detalle_factura 
-     GROUP BY Id_factura) AS detalle ON factura.Idfactura = detalle.Id_factura
-WHERE 
-    DATE(factura.Fecha_alta) = DATE(CURRENT_DATE())
-    AND factura.Usuario_alta = usuario;
+    (SELECT df.Id_factura, COUNT(*) AS num_detalles, SUM(df.cantidad) AS total_cantidad 
+     FROM proyectotienda.factura AS f  
+     inner join proyectotienda.detalle_factura AS df on df.Id_factura=f.Idfactura
+	 WHERE f.Estado IN (1, 2)
+     AND DATE(df.Fecha_alta) = DATE(CURRENT_DATE())
+     AND df.Usuario_alta = usuario
+     GROUP BY df.Id_factura) AS detalle ON factura.Idfactura = detalle.Id_factura
+WHERE factura.Estado IN (1, 2) 
+AND DATE(factura.Fecha_alta) = DATE(CURRENT_DATE())
+AND factura.Usuario_alta = usuario;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -150,4 +159,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-11 16:13:31
+-- Dump completed on 2025-06-23 15:10:31
