@@ -25,34 +25,30 @@
             <div class="row col-md-6">
                 @Html.Label("Código de producto", htmlAttributes: new { @class = "form-label" })
 
-                <div class="input-group mb-3">
-                    @{
-                        string cod_producto = "";
-                        if (ViewBag.cod_producto != null)
-                        {
-                            cod_producto = Convert.ToString(ViewBag.cod_producto);
-                        }
-                    }
-                  
+                @{
+                    string cod_producto = ViewBag.cod_producto != null ? ViewBag.cod_producto.ToString() : "";
+                }
+
+                <div class="mb-3 position-relative">
+                    <div class="input-group">
                         @Html.Editor("cod_producto", new
-                   {
-                       htmlAttributes = new
-                       {
-                           @class = "form-control ",
-                           @aria_describedby = "btnbuscar",
-                           @value = cod_producto,
-                           @id = "codproducto",
-                           @min = "0",
-                           @autocomplete = "off"@*, @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"*@ }
+                        {
+                            htmlAttributes = new
+                            {
+                                @class = "form-control",
+                                @aria_describedby = "btnbuscar",
+                                @value = cod_producto,
+                                @id = "codproducto",
+                                @min = "0",
+                                @autocomplete = "off"
+                            }
                         })
-                        <div id="suggestions" class="dropdown-menu w-100 show" style="display: none;"></div>
+                        <button class="btn btn-outline-secondary" type="submit" id="btnbuscar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-               
-                    @*@Html.Editor("cod_producto", new { htmlAttributes = new { @class = "form-control", @aria_describedby = "btnbuscar", @value = cod_producto, @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })*@
-
-                    <button class="btn btn-outline-secondary" type="submit" id="btnbuscar">
-                        <i class="fa fa-search"></i>
-                    </button>
+                    <div id="suggestions" class="dropdown-menu w-100 show" style="display: none;"></div>
                 </div>
             </div>
 

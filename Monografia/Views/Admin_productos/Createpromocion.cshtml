@@ -25,7 +25,7 @@
             <div class="col-md-6">
                 @Html.Label("Código de producto", htmlAttributes: new { @class = "form-label" })
                 @*@Html.EditorFor(model => model.productos.Codigo_producto, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })*@
-
+                <div class="position-relative">
                     @Html.Editor("codproducto", new
                     {
                         htmlAttributes = new
@@ -33,9 +33,12 @@
                             @class = "form-control ",
                             @id = "codproducto",
                             @min = "0",
-                            @autocomplete = "off"@*, @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"*@ }
-                    })
+                            @autocomplete = "off"@*, @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"*@}
+})
                     <div id="suggestions" class="dropdown-menu w-100 show" style="display: none;"></div>
+
+                </div>
+                  
 
             </div>
         </div>
