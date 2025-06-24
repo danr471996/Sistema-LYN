@@ -543,6 +543,12 @@ namespace Monografia.Controllers
                         valid = false;
                     }
 
+                    if ((datoscliente.cliente.Cantidad_credito == null || datoscliente.cliente.Cantidad_credito >= 60000) && datoscliente.cliente.Id_tipocredito == 2)
+                    {
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>El maximo de credito por cliente es de 60000 cordobas<br>";
+                        valid = false;
+                    }
+
                 }
                 if (datoscliente.cliente.Direccion == null)
                 {
