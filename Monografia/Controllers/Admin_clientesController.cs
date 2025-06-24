@@ -744,7 +744,7 @@ namespace Monografia.Controllers
                         datoscliente.Telefono = datosclienteedit.cliente.Telefono;
                         datoscliente.Id_tipocredito = datosclienteedit.cliente.Id_tipocredito;
                         datoscliente.Cantidad_credito = datosclienteedit.cliente.Id_tipocredito == 1 ? 0 : datosclienteedit.cliente.Cantidad_credito;
-
+                        datoscliente.Cedula = datosclienteedit.cliente.Cedula;
                         db.SaveChanges();
                         return Json(new { success = true, mensaje = "Se ha actualizado la informacion del cliente satisfactoriamente." });
                         }
