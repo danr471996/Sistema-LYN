@@ -63,12 +63,17 @@
             Defines the default behavior for an authentication plugin.
             </summary>
         </member>
+        <member name="F:MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin._mfaIteration">
+            <summary>
+            Handles the iteration of the multifactor authentication
+            </summary>
+        </member>
         <member name="F:MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationData">
             <summary>
             Gets or sets the authentication data returned by the server.
             </summary>
         </member>
-        <member name="M:MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.GetPlugin(System.String,MySql.Data.MySqlClient.NativeDriver,System.Byte[])">
+        <member name="M:MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.GetPlugin(System.String,MySql.Data.MySqlClient.NativeDriver,System.Byte[],System.Int32)">
             <summary>
             This is a factory method that is used only internally.  It creates an auth plugin based on the method type
             </summary>
@@ -124,6 +129,12 @@
             <param name="data">The data returned by the server.</param>
             <returns>The data to return to the server.</returns>
             <remarks>This method is intended to be overriden.</remarks>
+        </member>
+        <member name="M:MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.GetMFAPassword">
+            <summary>
+            Gets the password for the iteration of the multifactor authentication 
+            </summary>
+            <returns>A password</returns>
         </member>
         <member name="P:MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.PluginName">
             <summary>
@@ -2621,6 +2632,11 @@
             </summary>
             <returns><c>true</c> if the ping was successful; otherwise, <c>false</c>.</returns>
         </member>
+        <member name="M:MySql.Data.MySqlClient.MySqlConnection.OpenAsync(System.Threading.CancellationToken)">
+            <summary>
+            Executes the <see cref="M:MySql.Data.MySqlClient.MySqlConnection.Open"/> method as a Task.
+            </summary>
+        </member>
         <member name="M:MySql.Data.MySqlClient.MySqlConnection.Open">
             <summary>Opens a database connection with the property settings specified by the ConnectionString.</summary><exception cref="T:System.InvalidOperationException">Cannot open a connection without specifying a data source or server.</exception><exception cref="T:MySql.Data.MySqlClient.MySqlException">A connection-level error occurred while opening the connection.</exception><remarks>
       <para>
@@ -3385,6 +3401,13 @@
             </summary>
             <param name="name"></param>
             <returns></returns>
+        </member>
+        <member name="M:MySql.Data.MySqlClient.MySqlDataReader.GetStream(System.Int32)">
+            <summary>
+            Gets a stream to retrieve data from the specified column.
+            </summary>
+            <param name="ordinal">The zero-based column ordinal.</param>
+            <returns>A stream</returns>
         </member>
         <member name="M:MySql.Data.MySqlClient.MySqlDataReader.GetString(System.String)">
             <summary>
@@ -6408,6 +6431,16 @@
             Gets or sets the password that should be used to make a connection.
             </summary>
         </member>
+        <member name="P:MySql.Data.MySqlClient.MySqlBaseConnectionStringBuilder.Password2">
+            <summary>
+            Gets or sets the password for a second authentication that should be used to make a connection.
+            </summary>
+        </member>
+        <member name="P:MySql.Data.MySqlClient.MySqlBaseConnectionStringBuilder.Password3">
+            <summary>
+            Gets or sets the password for a third authentication that should be used to make a connection.
+            </summary>
+        </member>
         <member name="P:MySql.Data.MySqlClient.MySqlBaseConnectionStringBuilder.CertificateFile">
             <summary>
              Gets or sets the path to the certificate file to be used.
@@ -6438,7 +6471,7 @@
             Sets the TLS versions to use in a <see cref="P:MySql.Data.MySqlClient.MySqlBaseConnectionStringBuilder.SslMode">SSL connection</see> to the server.
             </summary>
             <example>
-            Tls version=TLSv1.1,TLSv1.2;
+            Tls version=TLSv1.2,TLSv1.3;
             </example>
         </member>
         <member name="P:MySql.Data.MySqlClient.MySqlBaseConnectionStringBuilder.SslKey">
@@ -10729,11 +10762,10 @@
             <param name="filterName">Only get foreign keys that match this name.</param>
             <param name="includeColumns">Should column information be included in the table.</param>
         </member>
-        <member name="M:MySql.Data.MySqlClient.Statement.BuildInitialPartQueryPacket(MySql.Data.MySqlClient.MySqlParameterCollection,MySql.Data.MySqlClient.MySqlAttributeCollection)">
+        <member name="M:MySql.Data.MySqlClient.Statement.BuildQueryAttributesPacket(MySql.Data.MySqlClient.MySqlAttributeCollection)">
             <summary>
             Builds the initial part of the COM_QUERY packet
             </summary>
-            <param name="parameters">Collection of parameters</param>
             <param name="attributes">Collection of attributes</param>
             <returns>A <see cref="T:MySql.Data.MySqlClient.MySqlPacket"/></returns>
         </member>
@@ -12747,16 +12779,6 @@
               Looks up a localized string similar to Value &apos;{0}&apos; is not of the correct type..
             </summary>
         </member>
-        <member name="P:MySql.Data.Resources.InvalidTlsVersionAndSslModeOption">
-            <summary>
-              Looks up a localized string similar to Option &quot;tls-version&quot; can not be specified when SSL connections are disabled..
-            </summary>
-        </member>
-        <member name="P:MySql.Data.Resources.InvalidTlsVersionOption">
-            <summary>
-              Looks up a localized string similar to &apos;{0}&apos; not recognized as a valid TLS protocol version (should be one of TLSv1, TLSv1.1, TLSv1.2{1})..
-            </summary>
-        </member>
         <member name="P:MySql.Data.Resources.InvalidValueForBoolean">
             <summary>
               Looks up a localized string similar to &apos;{0}&apos; is an illegal value for a boolean option..
@@ -13122,19 +13144,24 @@
               Looks up a localized string similar to All server connection attempts were aborted. Timeout of {0} seconds was exceeded for each selected server..
             </summary>
         </member>
-        <member name="P:MySql.Data.Resources.TlsDeprecationWarning">
+        <member name="P:MySql.Data.Resources.TlsNonValidProtocols">
             <summary>
-              Looks up a localized string similar to This connection is using {0}, which is now deprecated and will be removed in a future release of Connector/NET..
+              Looks up a localized string similar to Specified list of TLS versions only contains non valid TLS protocols. Accepted values are TLSv1.2 and TLSv1.3.
+            </summary>
+        </member>
+        <member name="P:MySql.Data.Resources.TlsUnsupportedVersions">
+            <summary>
+              Looks up a localized string similar to TLS protocols TLSv1 and TLSv1.1 are no longer supported. Accepted values are TLSv1.2 and TLSv1.3.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.Tlsv13NotSupported">
             <summary>
-              Looks up a localized string similar to TLSv1.3 is supported in .NET Framework 4.8 or .NET Core 3.0..
+              Looks up a localized string similar to TLSv1.3 is not supported by this framework..
             </summary>
         </member>
-        <member name="P:MySql.Data.Resources.TlsVersionNotSupported">
+        <member name="P:MySql.Data.Resources.TlsVersionsEmpty">
             <summary>
-              Looks up a localized string similar to No supported TLS protocol version found in the &apos;tls-versions&apos; list..
+              Looks up a localized string similar to Specified list of TLS versions is empty. Accepted values are TLSv1.2 and TLSv1.3.
             </summary>
         </member>
         <member name="P:MySql.Data.Resources.TraceCloseConnection">
@@ -14093,7 +14120,7 @@
             Stores the communication packet generated the last time ReadNextBufferedMessage method was called.
             </summary>
         </member>
-        <member name="F:MySqlX.Communication.XCompressionController.LibZstdLoaded">
+        <member name="F:MySqlX.Communication.XCompressionController._libZstdLoaded">
             <summary>
             Indicates if the libzstd.dll has been loaded.
             </summary>
@@ -14213,7 +14240,7 @@
             </summary>
             <returns>A <see cref="T:MySqlX.Communication.CommunicationPacket"/> with the next X Protocol frame.</returns>
         </member>
-        <member name="M:MySqlX.Communication.XCompressionController.LoadLibzstdLibrary">
+        <member name="M:MySqlX.Communication.XCompressionController.LoadLibzstdLibrary(System.Collections.Generic.List{System.String}@)">
             <summary>
             Loads the libzstd.dll assembly.
             </summary>
@@ -14581,7 +14608,7 @@
             Validate the algorithms given in the connection string are valid compared with enum CompressionAlgorithms
             </summary>
         </member>
-        <member name="M:MySqlX.Sessions.XInternalSession.NegotiateCompression(System.String[],System.String[])">
+        <member name="M:MySqlX.Sessions.XInternalSession.NegotiateCompression(System.String[],System.Collections.Generic.List{System.String})">
             <summary>
             Negotiates compression capabilities with the server.
             </summary>
