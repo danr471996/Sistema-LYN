@@ -22,13 +22,13 @@ namespace Monografia
                     "~/Scripts/eventformularios.js"));
 
             bundles.Add(new Bundle("~/bundles/jquerycustomproyecto").Include(
-                      "~/Scripts/vendor/apexcharts/apexcharts.min.js",
+                      "~/Content/vendor/apexcharts/apexcharts.min.js",
                       "~/Scripts/bootstrap.bundle.min.js",
                       "~/Scripts/vendor/chartjs/chart.min.js",
-                      "~/Scripts/vendor/echarts/echarts.min.js",
-                      "~/Scripts/vendor/quill/quill.min.js",
-                      "~/Scripts/vendor/phpemailform/validate.js",
-                       "~/Scripts/vendor/js/main.js"));
+                      "~/Content/vendor/echarts/echarts.min.js",
+                      "~/Content/vendor/quill/quill.min.js",
+                      "~/Content/vendor/phpemailform/validate.js",
+                       "~/Content/vendor/js/main.js"));
 
 
 
@@ -45,12 +45,12 @@ namespace Monografia
                       "~/Content/bootstrap.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/csscustomproyecto").Include(
-                     "~/Scripts/vendor/bootstrap-icons/bootstrap-icons.css",
-                      "~/Scripts/vendor/boxicons/css/boxicons.min.css",
-                       "~/Scripts/vendor/quill/quill.snow.css",
-                        "~/Scripts/vendor/quill/quill.bubble.css",
-                         "~/Scripts/vendor/remixicon/remixicon.css",
-                          "~/Scripts/vendor/css/style.css"));
+                     "~/Content/vendor/bootstrap-icons/bootstrap-icons.css",
+                      "~/Content/vendor/boxicons/css/boxicons.min.css",
+                       "~/Content/vendor/quill/quill.snow.css",
+                        "~/Content/vendor/quill/quill.bubble.css",
+                         "~/Content/vendor/remixicon/remixicon.css",
+                          "~/Content/vendor/css/style.css"));
 
             bundles.Add(new StyleBundle("~/Content/fontawesome/css").Include(
                       "~/Content/fontawesome/css/all.css"));

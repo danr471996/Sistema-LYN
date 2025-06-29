@@ -1,6 +1,4 @@
-﻿
-using Antlr.Runtime.Misc;
-using Monografia.Middleware;
+﻿using Monografia.Middleware;
 using Monografia.Models;
 using Monografia.Utilities;
 using MySql.Data.MySqlClient;
@@ -12,7 +10,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using System.Web.Services.Description;
 using System.Web.UI.WebControls;
 using static Monografia.Models.Modelo_contenedor;
 
@@ -186,6 +183,11 @@ namespace Monografia.Controllers
                     ViewBag.cobrodolar = "No se puede cobrar en dolares, habilitelo en configuraciones";
                     TempData["cobrodolar"] = true;
                 }
+                else
+                {
+                    TempData["cobrodolar"] = false;
+                }
+
                 if (opcion.ID_OP == "OP3_FDP" && opcion.SELECCIONADO_OP == false)
                 {
                     ViewBag.cobrotransferencia = "No se puede cobrar por medio de transferencias, habilitelo en configuraciones";
@@ -205,6 +207,7 @@ namespace Monografia.Controllers
             modelocontenedor = (Factura)TempData["modelocontenedor"];
             int cantidadmetodos = 0;
             ViewBag.numticket = numeroticket;
+            decimal? converMontopagoDolar = 0;
             var Listaclientes = db.clientes.Where(x => x.Estado == 1).ToList();
             var datoscambiodolar = db.cambiodolar.Where(x => x.Estado == 1).FirstOrDefault();
 
@@ -256,27 +259,33 @@ namespace Monografia.Controllers
                             }
                         }
 
+
                     }
                     if (TempData["cobromenorventa"] != null)
                     {
                         if (TempData["cobrodolar"] != null)
                         {
-                            if (montopagodolar != null)
+                            if ((bool)TempData["cobrodolar"] == false)
                             {
-
-                                if (datoscambiodolar == null)
+                                if (montopagodolar != null)
                                 {
-                                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No hay valor de cambio de dolar, favor contactarse con el administrador";
-                                    return PartialView(Listaclientes);
-                                }
 
-                                if ((montopagodolar * datoscambiodolar.Monto_cambio) < montototalfact)
-                                {
-                                    TempData["modelocontenedor"] = modelocontenedor;
-                                    ViewBag.cobroesmenor = true;
-                                    return PartialView(Listaclientes);
+                                    if (datoscambiodolar == null)
+                                    {
+                                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No hay valor de cambio de dolar, favor contactarse con el administrador";
+                                        return PartialView(Listaclientes);
+                                    }
+
+                                    if ((montopagodolar * datoscambiodolar.Monto_cambio) < montototalfact)
+                                    {
+                                        TempData["modelocontenedor"] = modelocontenedor;
+                                        ViewBag.cobroesmenor = true;
+                                        return PartialView(Listaclientes);
+                                    }
+                                    converMontopagoDolar = (montopagodolar * datoscambiodolar.Monto_cambio);
                                 }
                             }
+                     
 
                         }
                     }
@@ -396,7 +405,7 @@ namespace Monografia.Controllers
                         pagos.Fecha_alta = DateTime.Now;
                         pagos.Usuario_alta = (string)Session["usuario_logueado"];
                         pagos.Id_factura = factura.Idfactura;
-                        pagos.Monto_pagado = montopago;
+                        pagos.Monto_pagado = montototalfact;
                         pagos.Estado = 1;
                         factura.pagos.Add(pagos);
                     }

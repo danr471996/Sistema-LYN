@@ -44,7 +44,7 @@
         <div class="d-flex align-items-center justify-content-between">
 
             <a href="@Url.Action("Paginainicio", "Usuariologin")" class="logo d-flex align-items-center">
-                <img src="~/Scripts/vendor/img/logo.png" alt="">
+                <img src="~/Content/vendor/img/logo.png" alt="">
                 <span class="d-none d-lg-block">LyNAdmin</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -62,7 +62,7 @@
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="~/Scripts/vendor/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                        <img src="~/Content/vendor/img/profile-img.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">¡Hola! @Session["Nombreuusuario"].ToString()</span>
                     </a><!-- End Profile Iamge Icon -->
 
@@ -107,12 +107,12 @@
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="@Url.Action("Venta", "Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|V1|").Equals(false)" >
+                        <a href="@Url.Action("Venta", "Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|V1|").Equals(false)">
                             <i class="bi bi-circle"></i><span>Facturación</span>
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Lista_Facturas", "Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|V4|").Equals(false)" >
+                        <a href="@Url.Action("Lista_Facturas", "Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|V4|").Equals(false)">
                             <i class="bi bi-circle"></i><span>Impresión</span>
                         </a>
                     </li>
@@ -146,7 +146,7 @@
                             <i class="bi bi-circle"></i><span>Promociones</span>
                         </a>
                     </li>
-                 
+
                 </ul>
             </li><!-- End Productos Nav -->
             <li class="nav-item">
@@ -155,7 +155,7 @@
                 </a>
                 <ul id="inv-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="@Url.Action("agregar_inventario", "Admin_inventario")"  hidden="@Session["PerfilPermisos"].ToString().Contains("|I1|").Equals(false)">
+                        <a href="@Url.Action("agregar_inventario", "Admin_inventario")" hidden="@Session["PerfilPermisos"].ToString().Contains("|I1|").Equals(false)">
                             <i class="bi bi-circle"></i><span>Agregar inventario</span>
                         </a>
                     </li>
@@ -281,14 +281,15 @@
         <br />
     </main><!-- End #main -->
     <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer mt-auto py-3 bg-light fixed-bottom">
+    <footer id="footer" class="footer">
         <div class="copyright">
             &copy; Copyright <strong><span>LyNAdmin</span></strong>. Todos los derechos reservados
         </div>
         <div class="credits">
             Diseñado por DAAM S.A
         </div>
-    </footer><!-- End Footer -->
+    </footer>
+    <!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <!-- Vendor JS Files -->

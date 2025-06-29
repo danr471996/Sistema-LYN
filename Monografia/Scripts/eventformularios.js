@@ -213,32 +213,32 @@ function ejecutascripts() {
 
 
     // Desvincula el manejador del evento 'change' antes de agregarlo nuevamente
-    $(document).off('change', 'input[type="radio"][name="productos.Id_tipoventas"]');
-    $(document).on('change', 'input[type="radio"][name="productos.Id_tipoventas"]', function () {
+    //$(document).off('change', 'input[type="radio"][name="productos.Id_tipoventas"]');
+    //$(document).on('change', 'input[type="radio"][name="productos.Id_tipoventas"]', function () {
 
-        if ($('#rdpaquete').is(":checked")) {
+    //    if ($('#rdpaquete').is(":checked")) {
 
-            var li = $('#prueba2').html();
+    //        var li = $('#prueba2').html();
 
-            showdiv("borderedTab", li);
+    //        showdiv("borderedTab", li);
 
-            var div = $('#prueba3').html();
+    //        var div = $('#prueba3').html();
 
-            showdiv("borderedTabContent", div);
-        } else {
+    //        showdiv("borderedTabContent", div);
+    //    } else {
 
-            hidediv("paquete");
-            hidediv("bordered-paquete");
-        }
-    });
+    //        hidediv("paquete");
+    //        hidediv("bordered-paquete");
+    //    }
+    //});
 
-    if (!$('#rdpaquete').is(":checked")) {
+    //if (!$('#rdpaquete').is(":checked")) {
 
-        $('input[type="radio"][name="productos.Id_tipoventas"]').trigger('change');
-    } else {
+    //    $('input[type="radio"][name="productos.Id_tipoventas"]').trigger('change');
+    //} else {
 
-        $('#rdpaquete').trigger('change');
-    }
+    //    $('#rdpaquete').trigger('change');
+    //}
 
 
     var cliente = document.getElementById("idcliente");

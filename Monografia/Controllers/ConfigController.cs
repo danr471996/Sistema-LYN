@@ -1,6 +1,4 @@
-﻿using DocumentFormat.OpenXml.EMMA;
-using Microsoft.Ajax.Utilities;
-using Monografia.Middleware;
+﻿using Monografia.Middleware;
 using Monografia.Models;
 using MySql.Data.MySqlClient;
 using System;
@@ -8,12 +6,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace Monografia.Controllers
 {
