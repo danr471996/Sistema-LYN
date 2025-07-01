@@ -22,9 +22,20 @@
     <!-- Vendor CSS Files -->
 
 
-    @Styles.Render("~/Content/css")
+    @*@Styles.Render("~/Content/css")
     @Styles.Render("~/Content/csscustomproyecto")
-    @Styles.Render("~/Content/fontawesome/css")
+    @Styles.Render("~/Content/fontawesome/css")*@
+
+    @Styles.Render("~/Content/csscustomproyecto")
+    @Styles.Render("~/Content/vendor/bootstrap-icons/bootstrap-icons.css")
+    @Styles.Render("~/Content/vendor/boxicons/css/boxicons.min.css")
+    @Styles.Render("~/Content/vendor/quill/quill.snow.css")
+    @Styles.Render("~/Content/vendor/quill/quill.bubble.css")
+    @Styles.Render("~/Content/vendor/remixicon/remixicon.css")
+    @Styles.Render("~/Content/vendor/css/style.css")
+    @Styles.Render("~/Content/fontawesome/css/all.css")
+    @Styles.Render("~/Content/Estilos.css")
+    @Styles.Render("~/Content/bootstrap.min.css")
     <link href="~/Content/toast/toastr.css" rel="stylesheet" />
 
 
@@ -238,12 +249,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("reporte_de_cortes", "Facturacion")">
+                        <a href="@Url.Action("reporte_de_cortes", "Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|R6|").Equals(false)">
                             <i class="bi bi-circle"></i><span>Reporte de cortes</span>
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("reporte_de_facturas_anuladas", "Facturacion")">
+                        <a href="@Url.Action("reporte_de_facturas_anuladas", "Facturacion")" hidden="@Session["PerfilPermisos"].ToString().Contains("|R7|").Equals(false)">
                             <i class="bi bi-circle"></i><span>Reporte de facturas anuladas</span>
                         </a>
                     </li>

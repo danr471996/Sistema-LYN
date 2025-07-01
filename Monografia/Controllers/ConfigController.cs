@@ -674,7 +674,7 @@ namespace Monografia.Controllers
         {
             MySqlConnection mysqlcon = new MySqlConnection(mysqlconeccion);
             mysqlcon.Open();
-            MySqlCommand comando = new MySqlCommand("SELECT Id_perfil,Descripcion_perfil,Estado FROM proyectotienda.usuarios_perfiles", mysqlcon);
+            MySqlCommand comando = new MySqlCommand("SELECT Id_perfil,Descripcion_perfil,Estado FROM usuarios_perfiles", mysqlcon);
             MySqlDataReader lector = comando.ExecuteReader();
 
             List<perfiles> perfiles = new List<perfiles>();
