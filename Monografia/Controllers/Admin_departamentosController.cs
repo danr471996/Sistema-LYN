@@ -46,7 +46,7 @@ namespace Monografia.Controllers
                     }
                     else {
 
-                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un departamento con la misma descripcion<br>";
+                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un departamento con la misma descripción<br>";
                         return PartialView(departamento);
                     }
                 }
@@ -106,7 +106,7 @@ namespace Monografia.Controllers
                   departamento = db.departamento.Find(id);
                     if (departamento == null)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro departamento";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró departamento";
                         return PartialView(departamento);
                     }
                     else {
@@ -116,7 +116,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de departamento erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de departamento erróneo";
                     return PartialView(departamento);
 
                 }
@@ -147,7 +147,7 @@ namespace Monografia.Controllers
                     var datosdepartamento = (from d in db.departamento where d.Iddepartmento == departamento.Iddepartmento select d).FirstOrDefault();
                     if (datosdepartamento == null)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro departamento";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró departamento";
                         return PartialView(departamento);
                     }
                     else
@@ -156,10 +156,10 @@ namespace Monografia.Controllers
                         {
                             datosdepartamento.Descripcion = departamento.Descripcion;
                             db.SaveChanges();
-                            return Json(new { success = true, mensaje = "Se ha actualizado la informacion del departamento satisfactoriamente." });
+                            return Json(new { success = true, mensaje = "Se ha actualizado la información del departamento satisfactoriamente." });
                         }
                         else {
-                            ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un departamento con la misma descripcion<br>";
+                            ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un departamento con la misma descripción<br>";
                             return PartialView(departamento);
                         }
                     }
@@ -195,13 +195,13 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro departamento";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró departamento";
                         return PartialView(departamento);
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de departamento erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de departamento erróneo";
                     return PartialView(departamento);
                 }
           
@@ -239,13 +239,13 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro departamento";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró departamento";
                         return PartialView(departamento);
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de departamento erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de departamento erróneo";
                     return PartialView(departamento);
                 }
             }

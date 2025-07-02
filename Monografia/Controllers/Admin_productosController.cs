@@ -146,17 +146,17 @@ namespace Monografia.Controllers
             {
                 if (datosproducto.productos.Codigo_producto == 0)
                 {
-                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el codigo del producto<br>";
+                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el código del producto<br>";
                     valid = false;
                 }
                 if (!Regex.IsMatch(datosproducto.productos.Codigo_producto.ToString(), patronsindecimales))
                 {
-                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en codigo del producto<br>";
+                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en código del producto<br>";
                     valid = false;
                 }
                 if (datosproducto.productos.Descripcion == null)
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la descripcion del producto<br>";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la descripción del producto<br>";
                     valid = false;
                 }
                 if (datosproducto.productos.Precio_costo == 0)
@@ -207,17 +207,17 @@ namespace Monografia.Controllers
                     }
                     if (datosproducto.productos.Cantidad_minima == 0 || datosproducto.productos.Cantidad_minima == null)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar cantidad minima de inventario del producto<br>";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar cantidad mínima de inventario del producto<br>";
                         valid = false;
                     }
                     if (!Regex.IsMatch(datosproducto.productos.Cantidad_minima.ToString(), patronsindecimales))
                     {
-                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en cantidad minima de inventario del producto<br>";
+                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en cantidad mínima de inventario del producto<br>";
                         valid = false;
                     }
                     if (datosproducto.productos.Cantidad_minima > datosproducto.productos.Cantidad_actual)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Cantidad minima de inventario no puede ser mayor a cantidad actual<br>";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Cantidad mínima de inventario no puede ser mayor a cantidad actual<br>";
                         valid = false;
                     }
                 }
@@ -227,17 +227,17 @@ namespace Monografia.Controllers
             {
                 if (datospromocion.Nombre_promocion == null)
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la descripcion de la promoción<br>";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la descripción de la promoción<br>";
                     valid = false;
                 }
                 if (datospromocion.productos.Codigo_producto == 0)
                 {
-                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el codigo del producto<br>";
+                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el código del producto<br>";
                     valid = false;
                 }
                 if (!Regex.IsMatch(datospromocion.productos.Codigo_producto.ToString(), patronsindecimales))
                 {
-                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en codigo del producto<br>";
+                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en código del producto<br>";
                     valid = false;
                 }
 
@@ -296,7 +296,7 @@ namespace Monografia.Controllers
                     if (datosproductos == null)
                     {
 
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
                         return PartialView(modelocontenedor);
 
                     }
@@ -325,7 +325,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de producto erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de producto erróneo";
 
 
                     return PartialView(modelocontenedor);
@@ -358,7 +358,7 @@ namespace Monografia.Controllers
                     var producto = db.productos.Where(x => x.Idproducto == datosproductoedit.productos.Idproducto).FirstOrDefault();
                     if (producto == null)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
 
                         datosproductoedit.listadepartamento = new List<departamento>();
                         datosproductoedit.listaproveedor = new List<proveedor>();
@@ -396,7 +396,7 @@ namespace Monografia.Controllers
 								producto.Id_presentacion = datosproductoedit.productos.Id_presentacion;
                                 db.SaveChanges();
 
-                                return Json(new { success = true, mensaje = "Se ha actualizado la informacion del producto satisfactoriamente." });
+                                return Json(new { success = true, mensaje = "Se ha actualizado la información del producto satisfactoriamente." });
                             }
                             else {
                                 datosproductoedit.listadepartamento = new List<departamento>();
@@ -460,13 +460,13 @@ namespace Monografia.Controllers
                         return PartialView(datosproducto);
                     }
                     else {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
                         return PartialView(datosproducto);
 
                     }
                 }
                 else {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de producto erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de producto erróneo";
                     return PartialView(datosproducto);
                 }
             }
@@ -512,13 +512,13 @@ namespace Monografia.Controllers
                    
                     }
                     else {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
                         return PartialView(datosproducto);
                     }
                 }
                 else {
 
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de producto erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de producto erróneo";
                     return PartialView(datosproducto);
                 }
             }
@@ -590,19 +590,19 @@ namespace Monografia.Controllers
                                 promocion.Id_producto = codigoproducto.u.Idproducto;
                                 db.promocion.Add(promocion);
                                 db.SaveChanges();
-                                        return Json(new { success = true, mensaje = "Se ha creado el promocion satisfactoriamente." });
+                                        return Json(new { success = true, mensaje = "Se ha creado el promoción satisfactoriamente." });
                                     }
                                 else
                                 {
                              
-                                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promocion para el producto digitado<br>";
+                                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promoción para el producto digitado<br>";
                                     return PartialView(promocion);
 
                                 }
                             }
                             else {
                                
-                                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promocion con el mismo nombre<br>";
+                                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promoción con el mismo nombre<br>";
                                 return PartialView(promocion);
 
                             }
@@ -610,12 +610,12 @@ namespace Monografia.Controllers
                             }
                             else
                             {
-                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto activo";
+                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto activo";
                                 return PartialView(promocion);
                             }
                         }
                         else {
-                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
                             return PartialView(promocion);
                         }
 
@@ -651,7 +651,7 @@ namespace Monografia.Controllers
                     if (datospromocion == null)
                     {
 
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro promoción";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró promoción";
                         return PartialView(datospromocion);
 
                     }
@@ -663,7 +663,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de promoción erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de promoción erróneo";
                     return PartialView(promocion);
                 }
             }
@@ -718,12 +718,12 @@ namespace Monografia.Controllers
                                         datospromocion.Precio_unitario = datospromocionedit.Precio_unitario;
 
                                             db.SaveChanges();
-                                            return Json(new { success = true, mensaje = "Se ha actualizado la promocion satisfactoriamente." });
+                                            return Json(new { success = true, mensaje = "Se ha actualizado la promoción satisfactoriamente." });
                                         }
                                         else
                                         {
 
-                                            ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promocion para el producto digitado<br>";
+                                            ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promoción para el producto digitado<br>";
                                             return PartialView(datospromocionedit);
 
                                         }
@@ -731,7 +731,7 @@ namespace Monografia.Controllers
                                     else
                                     {
 
-                                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promocion con el mismo nombre<br>";
+                                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promoción con el mismo nombre<br>";
                                         return PartialView(datospromocionedit);
 
                                     }
@@ -739,19 +739,19 @@ namespace Monografia.Controllers
                                 }
                                 else
                                 {
-                                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto activo";
+                                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto activo";
                                     return PartialView(datospromocionedit);
                                 }
                             }
                             else
                             {
-                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
                                 return PartialView(datospromocionedit);
                             }
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro promoción";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró promoción";
                         return PartialView(datospromocionedit);
                     }
                 }
@@ -787,14 +787,14 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro promoción";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró promoción";
                         return PartialView(promocion);
 
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de promoción erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de promoción erróneo";
                     return PartialView(promocion);
                 }
 
@@ -830,14 +830,14 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro promoción";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró promoción";
                         return PartialView(promocion);
                     }
                 }
                 else
                 {
 
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de promoción erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de promoción erróneo";
                     return PartialView(promocion);
                 }
             }

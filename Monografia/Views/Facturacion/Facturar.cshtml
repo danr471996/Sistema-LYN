@@ -101,7 +101,7 @@
                         <br />
                         <div class="row">
                             <div class="col-sm-5">
-                                @Html.Label("Total a pagar:C$", htmlAttributes: new { @class = "form-label" })
+                                @Html.Label("Total a pagar C$:", htmlAttributes: new { @class = "form-label" })
                             </div>
                             <div class="col-sm-4">
                                 @Html.Raw(@ViewBag.totalpago)
@@ -109,7 +109,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-5">
-                                @Html.Label("Monto en efectivo", htmlAttributes: new { @class = "form-label" })
+                                @Html.Label("Monto en efectivo C$:", htmlAttributes: new { @class = "form-label" })
                             </div>
                             <div class="col-sm-4">
                                 @Html.Editor("montopago", new { htmlAttributes = new { @class = "form-control", @oninput = "handleChange(this)", @value = "0", @min = "0", @onkeypress = "return (event.charCode != 8 && event.charCode != 0 && (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)" } })
@@ -117,7 +117,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-5">
-                                @Html.Label("Vuelto", htmlAttributes: new { @class = "form-label" })
+                                @Html.Label("Vuelto C$:", htmlAttributes: new { @class = "form-label" })
                             </div>
                             <div class="col-sm-4">
                                 @Html.Editor("montovuelto", "0", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
@@ -132,7 +132,7 @@
                         {
                             <div class="row">
                                 <div class="col-sm-5">
-                                    @Html.Label("Total a pagar:C$", htmlAttributes: new { @class = "form-label" })
+                                    @Html.Label("Total a pagar C$:", htmlAttributes: new { @class = "form-label" })
                                 </div>
                                 <div class="col-sm-4">
                                     @Html.Raw(@ViewBag.totalpagodolar)
@@ -140,7 +140,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-5">
-                                    @Html.Label("Tipo cambio de dolar:C$", htmlAttributes: new { @class = "form-label" })
+                                    @Html.Label("Tipo cambio de dolar C$:", htmlAttributes: new { @class = "form-label" })
                                 </div>
                                 <div class="col-sm-4">
                                     @Html.Raw(@ViewBag.cambiodolar)
@@ -148,7 +148,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-5">
-                                    @Html.Label("Monto en dolares", htmlAttributes: new { @class = "form-label" })
+                                    @Html.Label("Monto en dolares $:", htmlAttributes: new { @class = "form-label" })
                                 </div>
                                 <div class="col-sm-4">
                                     @Html.Editor("montopagodolar", "0", new { htmlAttributes = new { @class = "form-control", @oninput = "handleChange(this)", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
@@ -156,7 +156,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-5">
-                                    @Html.Label("Vuelto", htmlAttributes: new { @class = "form-label" })
+                                    @Html.Label("Vuelto C$:", htmlAttributes: new { @class = "form-label" })
                                 </div>
                                 <div class="col-sm-4">
                                     @Html.Editor("montovueltocordobas", "0", new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })

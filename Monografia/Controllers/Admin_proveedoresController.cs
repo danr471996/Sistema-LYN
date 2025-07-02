@@ -32,7 +32,7 @@ namespace Monografia.Controllers
                     if (proveedor == null)
                     {
 
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro proveedor";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró proveedor";
                         return PartialView(proveedor);
 
                     }
@@ -43,7 +43,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de proveedor erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de proveedor erróneo";
                     return PartialView(proveedor);
 
                 }
@@ -111,14 +111,14 @@ namespace Monografia.Controllers
             }
             if (datosproveedor.Telefono == null)
             {
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el número telefonico del proveedor<br>";
+                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el número telefónico del proveedor<br>";
                 valid = false;
             }
             else
             {
                 if (datosproveedor.Telefono.ToString().Length < 8)
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un número telefonico Válido<br>";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un número telefónico Válido<br>";
                     valid = false;
                 }
             }
@@ -152,7 +152,7 @@ namespace Monografia.Controllers
                     if (proveedor == null)
                     {
 
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro proveedor";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró proveedor";
                         return PartialView(proveedor);
 
                     }
@@ -163,7 +163,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de proveedor erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de proveedor erróneo";
                     return PartialView(proveedor);
 
                 }
@@ -192,7 +192,7 @@ namespace Monografia.Controllers
                     datosproveedor = (db.proveedor.Where(x => x.IdProveedor == proveedor.IdProveedor).FirstOrDefault());
                     if (datosproveedor == null)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro proveedor";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró proveedor";
        
                         return PartialView(proveedor);
                     }
@@ -205,7 +205,7 @@ namespace Monografia.Controllers
                             datosproveedor.Email = proveedor.Email;
                             datosproveedor.Telefono = proveedor.Telefono;
                             db.SaveChanges();
-                            return Json(new { success = true, mensaje = "Se ha actualizado la informacion del proveedor satisfactoriamente." });
+                            return Json(new { success = true, mensaje = "Se ha actualizado la información del proveedor satisfactoriamente." });
                         }
                         else {
                             ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un proveedor con el mismo nombre<br>";
@@ -245,13 +245,13 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro proveedor";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró proveedor";
                         return PartialView(proveedor);
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de proveedor erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de proveedor erróneo";
                     return PartialView(proveedor);
                 }
 
@@ -299,13 +299,13 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro proveedor";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró proveedor";
                         return PartialView(datosproveedor);
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de proveedor erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de proveedor erróneo";
                     return PartialView(datosproveedor);
                 }
 

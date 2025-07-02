@@ -3,6 +3,7 @@ using Monografia.Models;
 using Monografia.Utilities;
 using MySql.Data.MySqlClient;
 using SelectPdf;
+using System.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -49,7 +50,7 @@ namespace Monografia.Controllers
             }
             if (TempData["maxticket"] != null)
             {
-                ViewBag.Mensaje = "No se puede agregar mas tickets, el limite total de tickets activos, es 6.";
+                ViewBag.Mensaje = "No se puede agregar mas tickets, el límite total de tickets activos, es 6.";
             }
             if (modelocontenedor.listatickets == null || modelocontenedor.listatickets.Count() == 0)
             {
@@ -142,7 +143,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro numero de ticket";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontrí número de ticket";
                     TempData["modelocontenedor"] = modelocontenedor;
                     return PartialView();
 
@@ -153,7 +154,7 @@ namespace Monografia.Controllers
             }
             else
             {
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Numero de ticket erroneo";
+                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Número de ticket erróneo";
                 TempData["modelocontenedor"] = modelocontenedor;
                 return PartialView();
 
@@ -165,7 +166,7 @@ namespace Monografia.Controllers
         {
             if (Listaclientes.Count == 0)
             {
-                ViewBag.Listclientact += "<i class='bi bi-exclamation-octagon me-1'></i>No hay clientes activos con disponibilidad de credito";
+                ViewBag.Listclientact += "<i class='bi bi-exclamation-octagon me-1'></i>No hay clientes activos con disponibilidad de crédito";
             }
             List<string> listaopciones = new List<string> { "OP1_FDP", "OP2_FDP", "OP3_FDP" };
             db.opciones.Where(x => listaopciones.Contains(x.ID_OP)).ToList().ForEach(opcion =>
@@ -188,10 +189,10 @@ namespace Monografia.Controllers
                     TempData["cobrodolar"] = false;
                 }
 
-                if (opcion.ID_OP == "OP3_FDP" && opcion.SELECCIONADO_OP == false)
-                {
-                    ViewBag.cobrotransferencia = "No se puede cobrar por medio de transferencias, habilitelo en configuraciones";
-                }
+                //if (opcion.ID_OP == "OP3_FDP" && opcion.SELECCIONADO_OP == false)
+                //{
+                //    ViewBag.cobrotransferencia = "No se puede cobrar por medio de transferencias, habilitelo en configuraciones";
+                //}
 
             });
             var datoscambiodolar = db.cambiodolar.Where(x => x.Estado == 1).FirstOrDefault();
@@ -218,7 +219,7 @@ namespace Monografia.Controllers
                 if (montopago == null && idcliente == null && montopagodolar == null)
                 {
                     TempData["modelocontenedor"] = modelocontenedor;
-                    ViewBag.metodospago += "<i class='bi bi-exclamation-octagon me-1'></i>Debe seleccionar un metodo de pago,favor verifique";
+                    ViewBag.metodospago += "<i class='bi bi-exclamation-octagon me-1'></i>Debe seleccionar un método de pago,favor verifique";
                     return PartialView(Listaclientes);
                 }
 
@@ -234,7 +235,7 @@ namespace Monografia.Controllers
                 if (cantidadmetodos > 1)
                 {
                     TempData["modelocontenedor"] = modelocontenedor;
-                    ViewBag.metodospago += "<i class='bi bi-exclamation-octagon me-1'></i>Debe seleccionar solo un metodo de pago,favor verifique";
+                    ViewBag.metodospago += "<i class='bi bi-exclamation-octagon me-1'></i>Debe seleccionar solo un método de pago,favor verifique";
                     return PartialView(Listaclientes);
                 }
                 else
@@ -516,14 +517,14 @@ namespace Monografia.Controllers
                             }
                             else
                             {
-                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto en la lista de compras";
+                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto en la lista de compras";
                                 TempData["modelocontenedor"] = modelocontenedor;
                                 return PartialView(datoseliminar);
                             }
                         }
                         else
                         {
-                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro numero de ticket";
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró número de ticket";
                             TempData["modelocontenedor"] = modelocontenedor;
                             return PartialView(datoseliminar);
 
@@ -534,7 +535,7 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Numero de ticket erroneo";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Número de ticket erróneo";
                         TempData["modelocontenedor"] = modelocontenedor;
                         return PartialView(datoseliminar);
 
@@ -542,7 +543,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Codigo de producto erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Código de producto erróneo";
                     TempData["modelocontenedor"] = modelocontenedor;
                     return PartialView(datoseliminar);
                 }
@@ -603,14 +604,14 @@ namespace Monografia.Controllers
                             }
                             else
                             {
-                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto en la lista de compras";
+                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto en la lista de compras";
                                 TempData["modelocontenedor"] = modelocontenedor;
                                 return PartialView(datoseliminar);
                             }
                         }
                         else
                         {
-                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro numero de ticket";
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró número de ticket";
                             TempData["modelocontenedor"] = modelocontenedor;
                             return PartialView(datoseliminar);
 
@@ -621,7 +622,7 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Numero de ticket erroneo";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Número de ticket erroneo";
                         TempData["modelocontenedor"] = modelocontenedor;
                         return PartialView(datoseliminar);
 
@@ -629,7 +630,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Codigo de producto erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Código de producto erróneo";
                     TempData["modelocontenedor"] = modelocontenedor;
                     return PartialView(datoseliminar);
                 }
@@ -678,7 +679,7 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro numero de ticket";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró número de ticket";
                         TempData["modelocontenedor"] = modelocontenedor;
                         return PartialView(datoseliminar);
 
@@ -687,7 +688,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Numero de ticket erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Número de ticket erróneo";
                     TempData["modelocontenedor"] = modelocontenedor;
                     return PartialView(datoseliminar);
 
@@ -730,7 +731,7 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro numero de ticket";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró número de ticket";
                         TempData["modelocontenedor"] = modelocontenedor;
                         return PartialView(datoseliminar);
 
@@ -738,7 +739,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Numero de ticket erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Número de ticket erróneo";
                     TempData["modelocontenedor"] = modelocontenedor;
                     return PartialView(datoseliminar);
                 }
@@ -764,7 +765,7 @@ namespace Monografia.Controllers
             }
             else
             {
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Numero de ticket erroneo";
+                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Número de ticket erróneo";
                 return PartialView();
 
             }
@@ -854,7 +855,7 @@ namespace Monografia.Controllers
                                 }
                                 else
                                 {
-                                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro numero de ticket";
+                                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró número de ticket";
                                     TempData["modelocontenedor"] = modelocontenedor;
                                     return PartialView();
 
@@ -862,7 +863,7 @@ namespace Monografia.Controllers
                             }
                             else
                             {
-                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro codigo de producto activo";
+                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró código de producto activo";
                                 TempData["modelocontenedor"] = modelocontenedor;
                                 return PartialView();
 
@@ -870,7 +871,7 @@ namespace Monografia.Controllers
                         }
                         else
                         {
-                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro codigo de producto";
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró código de producto";
                             TempData["modelocontenedor"] = modelocontenedor;
                             return PartialView();
 
@@ -880,7 +881,7 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Numero de ticket erroneo";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Número de ticket erróneo";
                         TempData["modelocontenedor"] = modelocontenedor;
                         return PartialView();
 
@@ -888,7 +889,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Codigo de producto erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Código de producto erróneo";
                     TempData["modelocontenedor"] = modelocontenedor;
                     return PartialView();
                 }
@@ -1011,21 +1012,21 @@ namespace Monografia.Controllers
                                 else
                                 {
                                     TempData["modelocontenedor"] = modelocontenedor;
-                                    return Json(new { success = false, mensaje = "No se encontro numero de ticket" });
+                                    return Json(new { success = false, mensaje = "No se encontró número de ticket" });
 
                                 }
                             }
                             else
                             {
                                 TempData["modelocontenedor"] = modelocontenedor;
-                                return Json(new { success = false, mensaje = "No se encontro codigo de producto activo" });
+                                return Json(new { success = false, mensaje = "No se encontró código de producto activo" });
 
                             }
                         }
                         else
                         {
                             TempData["modelocontenedor"] = modelocontenedor;
-                            return Json(new { success = false, mensaje = "No se encontro codigo de producto" });
+                            return Json(new { success = false, mensaje = "No se encontró código de producto" });
                         }
 
 
@@ -1033,14 +1034,14 @@ namespace Monografia.Controllers
                     else
                     {
                         TempData["modelocontenedor"] = modelocontenedor;
-                        return Json(new { success = false, mensaje = "Numero de ticket erroneo" });
+                        return Json(new { success = false, mensaje = "Número de ticket erróneo" });
 
                     }
                 }
                 else
                 {
                     TempData["modelocontenedor"] = modelocontenedor;
-                    return Json(new { success = false, mensaje = "Codigo de producto erroneo" });
+                    return Json(new { success = false, mensaje = "Código de producto erróneo" });
                 }
 
 
@@ -1072,7 +1073,7 @@ namespace Monografia.Controllers
             }
             else
             {
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Numero de ticket erroneo";
+                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Número de ticket erróneo";
                 TempData["idfactura"] = idfactura;
                 return PartialView();
 
@@ -1103,6 +1104,7 @@ namespace Monografia.Controllers
             clientes datoscliente = null;
             string nomcliente = "Generico";
             string htmldocfactura = "";
+           
             var formatofactura = db.formato_factura.Where(x => x.idformato_factura == 1 && x.Estado == 1).FirstOrDefault();
             var encabezadofactura = db.opciones.Where(x => x.ID_OP == "OP1_TKS").FirstOrDefault();
             var piefactura = db.opciones.Where(x => x.ID_OP == "OP2_TKS").FirstOrDefault();
@@ -1113,7 +1115,7 @@ namespace Monografia.Controllers
             if (datoscliente != null)
                 nomcliente = datoscliente.Primer_nombre + " " + datoscliente.Segundo_nombre + " " + datoscliente.Primer_apellido + " " + datoscliente.Segundo_apellido;
 
-            htmldocfactura = string.Format(formatofactura.Cabeza_factura, encabezadofactura.DETALLE_EXT1.Replace("\r\n", "<br>"), datosfactura.Idfactura, "Efectivo", DateTime.Now.ToShortDateString(), DateTime.Now.ToShortTimeString(), nomcliente, (string)Session["Nombreuusuario"]);
+            htmldocfactura = string.Format(formatofactura.Cabeza_factura, encabezadofactura.DETALLE_EXT1.Replace("\r\n", "<br>"), datosfactura.Idfactura, /*"Efectivo",*/ DateTime.Now.ToShortDateString(), DateTime.Now.ToShortTimeString(), nomcliente, (string)Session["Nombreuusuario"]);
 
             StringBuilder tabledatosfactura = new StringBuilder();
 
@@ -1122,8 +1124,8 @@ namespace Monografia.Controllers
             tabledatosfactura.Append("<tr>");
             tabledatosfactura.Append("<th>Cant.</th>");
             tabledatosfactura.Append("<th>Descripción</th>");
-            tabledatosfactura.Append("<th>Precio</th>");
-            tabledatosfactura.Append("<th>Importe</th>");
+            tabledatosfactura.Append("<th>Precio C$</th>");
+            tabledatosfactura.Append("<th>Importe C$</th>");
             tabledatosfactura.Append("</tr>");
             tabledatosfactura.Append("</thead>");
             tabledatosfactura.Append("<tbody>");
@@ -1397,28 +1399,33 @@ namespace Monografia.Controllers
 
             try
             {
+                var estadosPermitidos = new List<int> { 1, 2 };
+                var detalles = db.detalle_factura
+      .Include(k => k.factura)
+      .Where(x => estadosPermitidos.Contains(x.factura.Estado))
+      .ToList();
                 if (modelocontenedor.SelectedValue == 1)
                 {
-                    modelocontenedor.listadetallefactura = db.detalle_factura.Where(x => x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month && x.Fecha_alta.Day == DateTime.Now.Day).ToList();
+                    modelocontenedor.listadetallefactura = detalles.Where(x => x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month && x.Fecha_alta.Day == DateTime.Now.Day).ToList();
                 }
 
                 if (modelocontenedor.SelectedValue == 2)
                 {
                     DateTime ayer = DateTime.Now.Date.AddDays(-1); // dia de ayer
-                    modelocontenedor.listadetallefactura = db.detalle_factura.Where(x => x.Fecha_alta.Year == ayer.Year && x.Fecha_alta.Month == ayer.Month && x.Fecha_alta.Day == ayer.Day).ToList();
+                    modelocontenedor.listadetallefactura = detalles.Where(x => x.Fecha_alta.Year == ayer.Year && x.Fecha_alta.Month == ayer.Month && x.Fecha_alta.Day == ayer.Day).ToList();
                 }
                 if (modelocontenedor.SelectedValue == 3)
                 {
                     DateTime inicioSemana = DateTime.Now.Date.AddDays(-((int)DateTime.Now.DayOfWeek - 1)); // Primer día de la semana actual
                     DateTime finSemana = inicioSemana.AddDays(6); // Último día de la semana actual
 
-                    modelocontenedor.listadetallefactura = db.detalle_factura.Where(x => (x.Fecha_alta.Year == inicioSemana.Year && x.Fecha_alta.Month == inicioSemana.Month && x.Fecha_alta.Day >= inicioSemana.Day) && (x.Fecha_alta.Year == finSemana.Year && x.Fecha_alta.Month == finSemana.Month && x.Fecha_alta.Day <= finSemana.Day)).ToList();
+                    modelocontenedor.listadetallefactura = detalles.Where(x => (x.Fecha_alta.Year == inicioSemana.Year && x.Fecha_alta.Month == inicioSemana.Month && x.Fecha_alta.Day >= inicioSemana.Day) && (x.Fecha_alta.Year == finSemana.Year && x.Fecha_alta.Month == finSemana.Month && x.Fecha_alta.Day <= finSemana.Day)).ToList();
                 }
                 if (modelocontenedor.SelectedValue == 4)
                 {
                     DateTime inicioMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1); // Primer día del mes actual
                     DateTime finMes = inicioMes.AddMonths(1).AddDays(-1); // Último día del mes actual
-                    modelocontenedor.listadetallefactura = db.detalle_factura.Where(x => (x.Fecha_alta.Year == inicioMes.Year && x.Fecha_alta.Month == inicioMes.Month && x.Fecha_alta.Day >= inicioMes.Day) && (x.Fecha_alta.Year == finMes.Year && x.Fecha_alta.Month == finMes.Month && x.Fecha_alta.Day <= finMes.Day)).ToList();
+                    modelocontenedor.listadetallefactura = detalles.Where(x => (x.Fecha_alta.Year == inicioMes.Year && x.Fecha_alta.Month == inicioMes.Month && x.Fecha_alta.Day >= inicioMes.Day) && (x.Fecha_alta.Year == finMes.Year && x.Fecha_alta.Month == finMes.Month && x.Fecha_alta.Day <= finMes.Day)).ToList();
                 }
                 if (modelocontenedor.SelectedValue == 5 && Request.Form["consultar"] == null)
                 {
@@ -1441,7 +1448,7 @@ namespace Monografia.Controllers
                     if (modelocontenedor.Fechadesde == default(DateTime))
                     {
                         valid = false;
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>La fecha desde es invalida<br>";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>La fecha desde es inválida<br>";
                         modelocontenedor.listadetallefactura = new List<detalle_factura>();
 
                     }
@@ -1449,7 +1456,7 @@ namespace Monografia.Controllers
                     if (modelocontenedor.Fechahasta == default(DateTime))
                     {
                         valid = false;
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>La fecha hasta es invalida";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>La fecha hasta es inválida";
                         modelocontenedor.listadetallefactura = new List<detalle_factura>();
 
                     }
@@ -1457,7 +1464,7 @@ namespace Monografia.Controllers
                     {
                         modelocontenedor.Fechadesde = modelocontenedor.Fechadesde.Date;
                         modelocontenedor.Fechahasta = modelocontenedor.Fechahasta.Date.AddDays(1).AddSeconds(-1);
-                        modelocontenedor.listadetallefactura = db.detalle_factura
+                        modelocontenedor.listadetallefactura = detalles
                                                                 .Where(x => x.Fecha_alta >= modelocontenedor.Fechadesde
                                                                          && x.Fecha_alta <= modelocontenedor.Fechahasta)
                                                                 .ToList();
@@ -1648,13 +1655,13 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro factura";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró factura";
                         return PartialView(datosfactura);
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de factura erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de factura erróneo";
                     return PartialView(datosfactura);
                 }
             }
@@ -1758,14 +1765,14 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro factura";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró factura";
                         return PartialView(datosfactura);
                     }
                 }
                 else
                 {
 
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de factura erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de factura erróneo";
                     return PartialView(datosfactura);
                 }
             }

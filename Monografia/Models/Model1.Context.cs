@@ -29,13 +29,11 @@ namespace Monografia.Models
         public virtual DbSet<departamento> departamento { get; set; }
         public virtual DbSet<detalle_factura> detalle_factura { get; set; }
         public virtual DbSet<factura> factura { get; set; }
-        public virtual DbSet<facturas_proveedor> facturas_proveedor { get; set; }
         public virtual DbSet<opciones> opciones { get; set; }
         public virtual DbSet<pagos> pagos { get; set; }
         public virtual DbSet<promocion> promocion { get; set; }
         public virtual DbSet<proveedor> proveedor { get; set; }
         public virtual DbSet<tipo_credito> tipo_credito { get; set; }
-        public virtual DbSet<unidad_medida> unidad_medida { get; set; }
         public virtual DbSet<correlativos> correlativos { get; set; }
         public virtual DbSet<formato_factura> formato_factura { get; set; }
         public virtual DbSet<historial_inventario> historial_inventario { get; set; }

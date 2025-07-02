@@ -113,21 +113,6 @@
     <Property Name="Monto_total" Type="decimal" Precision="15" Scale="2" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="facturas_proveedor">
-    <Key>
-      <PropertyRef Name="idFacturas_proveedor" />
-    </Key>
-    <Property Name="idFacturas_proveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
-    <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="Fecha_baja" Type="datetime" Precision="0" />
-    <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
-    <Property Name="Codigo_producto" Type="int" Nullable="false" />
-    <Property Name="Id_proveedor" Type="int" Nullable="false" />
-    <Property Name="Cantidad_producto" Type="int" Nullable="false" />
-    <Property Name="Precio_compra" Type="decimal" Precision="15" Scale="2" Nullable="false" />
-    <Property Name="Estado" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="formato_factura">
     <Key>
       <PropertyRef Name="idformato_factura" />
@@ -317,19 +302,6 @@
     <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Fecha_baja" Type="datetime" Precision="0" />
     <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
-    <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="Estado" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="unidad_medida">
-    <Key>
-      <PropertyRef Name="idunidad_medida" />
-    </Key>
-    <Property Name="idunidad_medida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Fecha_alta" Type="datetime" Precision="0" Nullable="false" />
-    <Property Name="Usuario_alta" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="Fecha_baja" Type="datetime" Precision="0" />
-    <Property Name="Usuario_baja" Type="varchar" MaxLength="45" />
-    <Property Name="Simbolo" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Descripcion" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
@@ -557,18 +529,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_proveedor">
-    <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
-    <End Role="facturas_proveedor" Type="Self.facturas_proveedor" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="proveedor">
-        <PropertyRef Name="IdProveedor" />
-      </Principal>
-      <Dependent Role="facturas_proveedor">
-        <PropertyRef Name="Id_proveedor" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="fk_tip_movi">
     <End Role="tipo_movimento" Type="Self.tipo_movimento" Multiplicity="1" />
     <End Role="historial_inventario" Type="Self.historial_inventario" Multiplicity="*" />
@@ -662,7 +622,6 @@
     <EntitySet Name="departamento" EntityType="Self.departamento" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="detalle_factura" EntityType="Self.detalle_factura" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="factura" EntityType="Self.factura" Schema="proyectotienda" store:Type="Tables" />
-    <EntitySet Name="facturas_proveedor" EntityType="Self.facturas_proveedor" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="formato_factura" EntityType="Self.formato_factura" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="historial_inventario" EntityType="Self.historial_inventario" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="lista_permisos" EntityType="Self.lista_permisos" Schema="proyectotienda" store:Type="Tables" />
@@ -677,7 +636,6 @@
     <EntitySet Name="tipo_movimento" EntityType="Self.tipo_movimento" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="tipo_pago" EntityType="Self.tipo_pago" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="tipo_presentacion" EntityType="Self.tipo_presentacion" Schema="proyectotienda" store:Type="Tables" />
-    <EntitySet Name="unidad_medida" EntityType="Self.unidad_medida" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="usuario_detalle" EntityType="Self.usuario_detalle" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="usuario_sesion" EntityType="Self.usuario_sesion" Schema="proyectotienda" store:Type="Tables" />
     <EntitySet Name="usuarios_perfiles" EntityType="Self.usuarios_perfiles" Schema="proyectotienda" store:Type="Tables" />
@@ -737,10 +695,6 @@
     <AssociationSet Name="fk_productos" Association="Self.fk_productos">
       <End Role="productos" EntitySet="productos" />
       <End Role="promocion" EntitySet="promocion" />
-    </AssociationSet>
-    <AssociationSet Name="fk_proveedor" Association="Self.fk_proveedor">
-      <End Role="proveedor" EntitySet="proveedor" />
-      <End Role="facturas_proveedor" EntitySet="facturas_proveedor" />
     </AssociationSet>
     <AssociationSet Name="fk_tip_movi" Association="Self.fk_tip_movi">
       <End Role="tipo_movimento" EntitySet="tipo_movimento" />

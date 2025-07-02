@@ -360,7 +360,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un perfil con la misma descripcion<br>";
+                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un perfil con la misma descripción<br>";
                     return PartialView(lista_check);
                 }
             }
@@ -403,14 +403,14 @@ namespace Monografia.Controllers
                 else
                 {
 
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro perfil";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró perfil";
                     return PartialView(Modelo_actual);
                 }
             }
             else
             {
 
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de perfil erroneo";
+                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de perfil erróneo";
                 return PartialView(Modelo_actual);
             }
 
@@ -461,13 +461,13 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un perfil con la misma descripcion<br>";
+                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un perfil con la misma descripción<br>";
                         return PartialView(lista_check);
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro perfil";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró perfil";
                     return PartialView(lista_check);
                 }
             }
@@ -509,14 +509,14 @@ namespace Monografia.Controllers
                 else
                 {
 
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro perfil";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró perfil";
                     return PartialView(Modelo_actual);
                 }
             }
             else
             {
 
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de perfil erroneo";
+                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de perfil erróneo";
                 return PartialView(Modelo_actual);
             }
 
@@ -547,13 +547,13 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro perfil";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró perfil";
                         return PartialView(Modelo_actual);
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de perfil erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de perfil erróneo";
                     return PartialView(Modelo_actual);
                 }
 
@@ -588,13 +588,13 @@ namespace Monografia.Controllers
             try
             {
                 long id_usuario_perfil;
-                string query = "INSERT INTO usuarios_perfiles (Fecha_alta,Usuario_alta,Descripcion_perfil,Codigo_accesos_perfil,Estado) values (@FechaAlta,@UsuarioAlta,@DescripcionPerfil,@CodigoAccesosPerfil,1)";
+                string query = "INSERT INTO usuarios_perfiles (Fecha_alta,Usuario_alta,Descripcion_perfil,Estado) values (@FechaAlta,@UsuarioAlta,@DescripcionPerfil,1)";
                 using (MySqlCommand comando = new MySqlCommand(query, mysqlcon))
                 {
                     comando.Parameters.AddWithValue("@FechaAlta", fechaalta.ToString("yyyy-MM-dd HH:mm:ss"));
                     comando.Parameters.AddWithValue("@UsuarioAlta", usuarioalta);
                     comando.Parameters.AddWithValue("@DescripcionPerfil", perfil);
-                    comando.Parameters.AddWithValue("@CodigoAccesosPerfil", codigo);
+                    //comando.Parameters.AddWithValue("@CodigoAccesosPerfil", codigo);
 
                     comando.ExecuteNonQuery();
                     id_usuario_perfil = comando.LastInsertedId;
@@ -1043,7 +1043,7 @@ namespace Monografia.Controllers
                return View();
     
             } else {
-                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un valor correcto para el dolar<br>";
+                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un valor correcto para el dólar<br>";
                 return View(datosDolar); 
             
             }
@@ -1058,7 +1058,7 @@ namespace Monografia.Controllers
             Boolean valid = true;
             if (!Regex.IsMatch(monto_cambio.ToString(), patronConDecimales))
             {
-                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un valor correcto para el dolar<br>";
+                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un valor correcto para el dólar<br>";
                 valid = false;
             }
             return valid;

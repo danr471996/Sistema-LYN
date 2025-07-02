@@ -40,12 +40,12 @@ namespace Monografia.Controllers
                         presentacion.Estado = 1;
                         db.tipo_presentacion.Add(presentacion);
                         db.SaveChanges();
-                        return Json(new { success = true, mensaje = "Se ha creado el tipo de presentacion satisfactoriamente." });
+                        return Json(new { success = true, mensaje = "Se ha creado el tipo de presentación satisfactoriamente." });
                     }
                     else
                     {
 
-                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un tipo de presentacion con la misma descripcion<br>";
+                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un tipo de presentación con la misma descripción<br>";
                         return PartialView(presentacion);
                     }
                 }
@@ -67,13 +67,13 @@ namespace Monografia.Controllers
             Boolean valid = true;
             if (datospresentacion.Descripcion == null)
             {
-                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el descripción del tipo presentacion<br>";
+                ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el descripción del tipo presentación<br>";
                 valid = false;
             }
             if (datospresentacion.Descripcion != null)
                 if (!sololetras(datospresentacion.Descripcion))
                 {
-                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo letras en descripción del tipo presentacion<br>";
+                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo letras en descripción del tipo presentación<br>";
                     valid = false;
                 }
             return valid;
@@ -106,7 +106,7 @@ namespace Monografia.Controllers
                     presentacion = db.tipo_presentacion.Find(id);
                     if (presentacion == null)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro tipo de presentacion";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró tipo de presentación";
                         return PartialView(presentacion);
                     }
                     else
@@ -117,7 +117,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id tipo presentacion erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id tipo presentación erróneo";
                     return PartialView(presentacion);
 
                 }
@@ -148,7 +148,7 @@ namespace Monografia.Controllers
                     var datospresentacion = (from d in db.tipo_presentacion where d.Id_presentacion == presentacion.Id_presentacion select d).FirstOrDefault();
                     if (datospresentacion == null)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro tipo presentacion";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró tipo presentación";
                         return PartialView(presentacion);
                     }
                     else
@@ -157,11 +157,11 @@ namespace Monografia.Controllers
                         {
                             datospresentacion.Descripcion = presentacion.Descripcion;
                             db.SaveChanges();
-                            return Json(new { success = true, mensaje = "Se ha actualizado la informacion del tipo de presentacion satisfactoriamente." });
+                            return Json(new { success = true, mensaje = "Se ha actualizado la información del tipo de presentación satisfactoriamente." });
                         }
                         else
                         {
-                            ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un tipo de presentacion con la misma descripcion<br>";
+                            ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe un tipo de presentación con la misma descripción<br>";
                             return PartialView(presentacion);
                         }
                     }
@@ -197,13 +197,13 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro tipo presentacion";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró tipo presentación";
                         return PartialView(presentacion);
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de tipo presentacion erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de tipo presentación erróneo";
                     return PartialView(presentacion);
                 }
 
@@ -237,17 +237,17 @@ namespace Monografia.Controllers
                         presentacion.Usuario_baja = (string)Session["usuario_logueado"];
                         presentacion.Estado = 2;
                         db.SaveChanges();
-                        return Json(new { success = true, mensaje = "Se ha inactivado el tipo de presentacion satisfactoriamente." });
+                        return Json(new { success = true, mensaje = "Se ha inactivado el tipo de presentación satisfactoriamente." });
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro tipo presentacion";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró tipo presentación";
                         return PartialView(presentacion);
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de tipo presentacion erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de tipo presentación erróneo";
                     return PartialView(presentacion);
                 }
             }

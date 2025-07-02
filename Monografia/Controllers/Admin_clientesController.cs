@@ -161,7 +161,7 @@ namespace Monografia.Controllers
                     if (datospagos == null)
                     {
 
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro pago";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró pago";
 
                         return PartialView(datospagos);
 
@@ -173,7 +173,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de pago erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de pago erróneo";
 
                     return PartialView(datospagos);
 
@@ -201,7 +201,7 @@ namespace Monografia.Controllers
                     var datospagos = db.pagos.Find(datosabonoedit.Idpagos);
                     if (datospagos == null)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro pago";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró pago";
                         return PartialView(datosabonoedit);
                     }
                     else
@@ -215,7 +215,7 @@ namespace Monografia.Controllers
 
                         db.SaveChanges();
 
-                        return Json(new { success = true, mensaje = "Se ha actualizado la informacion del pago satisfactoriamente." });
+                        return Json(new { success = true, mensaje = "Se ha actualizado la información del pago satisfactoriamente." });
                     }
                 }
                 else
@@ -269,12 +269,12 @@ namespace Monografia.Controllers
                         return View(modelo_contenedor);
                     }
                     else {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro cliente";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró cliente";
                         return View(modelo_contenedor);
                     }
                 }
                 else {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de cliente erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de cliente erróneo";
                     return View(modelo_contenedor);
                 }
               
@@ -326,7 +326,7 @@ namespace Monografia.Controllers
                     {
 
                         string Mensaje = "<div class='alert alert-danger bg-danger text-light border-0 alert-dismissible fade show' style='display: block;' role='alert'>" +
-                                         "<i class='bi bi-exclamation-octagon me-1'></i>Id de cliente erroneo o idfactura erronea" +
+                                         "<i class='bi bi-exclamation-octagon me-1'></i>Id de cliente erróneo o idfactura errónea" +
                                          "<button type ='button' class='btn-close btn-close-white' data-bs-dismiss='alert' aria-label='Close'></button>" +
                                          "</div>";
                         // objeto anónimo con las variables
@@ -505,20 +505,20 @@ namespace Monografia.Controllers
                     }
                 if (datoscliente.cliente.Telefono == null)
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el número telefonico del cliente<br>";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el número telefónico del cliente<br>";
                     valid = false;
                 }
                 else
                 {
                     if (datoscliente.cliente.Telefono.ToString().Length < 8)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un número telefonico Válido<br>";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un número telefónico Válido<br>";
                         valid = false;
                     }
 
                     if (!Regex.IsMatch(datoscliente.cliente.Telefono.ToString(), patronsindecimales))
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en número telefonico<br>";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en número telefónico<br>";
                         valid = false;
                     }
                 }
@@ -526,7 +526,7 @@ namespace Monografia.Controllers
 
                 if (datoscliente.cliente.Id_tipocredito == 0)
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el tipo de credito del cliente<br>";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el tipo de crédito del cliente<br>";
                     valid = false;
                 }
                 else
@@ -539,13 +539,13 @@ namespace Monografia.Controllers
 
                     if (!Regex.IsMatch(datoscliente.cliente.Cantidad_credito.ToString(), patronsindecimales) && datoscliente.cliente.Id_tipocredito == 2)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en número cantidad de credito<br>";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en número cantidad de crédito<br>";
                         valid = false;
                     }
 
                     if ((datoscliente.cliente.Cantidad_credito == null || datoscliente.cliente.Cantidad_credito >= 60000) && datoscliente.cliente.Id_tipocredito == 2)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>El maximo de credito por cliente es de 60000 cordobas<br>";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>El máximo de crédito por cliente es de 60000 córdobas<br>";
                         valid = false;
                     }
 
@@ -558,13 +558,13 @@ namespace Monografia.Controllers
                 }
                 if (datoscliente.cliente.Cedula == null)
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la cedula del cliente<br>";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la cédula del cliente<br>";
                     valid = false;
 
                 } else {
                     Boolean valida = IsValidCedulaNicaraguense(datoscliente.cliente.Cedula);
                     if (valida == false) {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>El formato de la cedula es invalido <br>";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>El formato de la cédula es inválido <br>";
                         valid = false;
                     }
                 }
@@ -678,7 +678,7 @@ namespace Monografia.Controllers
                     clientes datoscliente = db.clientes.Find(id);
                     if (datoscliente == null) {
 
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro cliente";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró cliente";
                 
                         return PartialView(modelo_contenedor);
 
@@ -698,7 +698,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de cliente erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de cliente erróneo";
 
                     return PartialView(modelo_contenedor);
 
@@ -728,7 +728,7 @@ namespace Monografia.Controllers
                     var datoscliente = (from d in db.clientes where d.Idcliente == datosclienteedit.cliente.Idcliente select d).FirstOrDefault();
                     if (datoscliente == null)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro cliente";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró cliente";
                         datosclienteedit.listatipocredito = new List<tipo_credito>();
                         datosclienteedit.listatipocredito = GetTipo_Creditos();
 
@@ -752,7 +752,7 @@ namespace Monografia.Controllers
                         datoscliente.Cantidad_credito = datosclienteedit.cliente.Id_tipocredito == 1 ? 0 : datosclienteedit.cliente.Cantidad_credito;
                         datoscliente.Cedula = datosclienteedit.cliente.Cedula;
                         db.SaveChanges();
-                        return Json(new { success = true, mensaje = "Se ha actualizado la informacion del cliente satisfactoriamente." });
+                        return Json(new { success = true, mensaje = "Se ha actualizado la información del cliente satisfactoriamente." });
                         }
                         else
                         {
@@ -795,12 +795,12 @@ namespace Monografia.Controllers
                         return PartialView(datosclientes);
                     }
                     else {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro cliente";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró cliente";
                         return PartialView(datosclientes);
                     }
                 }
                 else {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de cliente erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de cliente erróneo";
                     return PartialView(datosclientes);
                 }
             

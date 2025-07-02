@@ -12,16 +12,16 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-4">
-                @Html.Label(" ", "Nombre Cliente:", htmlAttributes: new { @class = "form-label" })
-                @Html.Label(" ", (string)ViewBag.nomcliente, htmlAttributes: new { @class = "form-label" })
+                @Html.Label(" ", "Nombre Cliente:", htmlAttributes: new { @class = "form-label", @style = " font-weight:bold; font-size:20px;" })
+                @Html.Label(" ", (string)ViewBag.nomcliente, htmlAttributes: new { @class = "form-label", @style = " font-weight:bold; font-size:20px;" })
             </div>
             <div class="col-md-4">
-                @Html.Label(" ", "Tipo de crédito:", htmlAttributes: new { @class = "form-label" })
-                @Html.Label(" ", (string)ViewBag.limitecredito, htmlAttributes: new { @class = "form-label" })
+                @Html.Label(" ", "Tipo de crédito:", htmlAttributes: new { @class = "form-label", @style = " font-weight:bold; font-size:20px;" })
+                @Html.Label(" ", (string)ViewBag.limitecredito, htmlAttributes: new { @class = "form-label", @style = " font-weight:bold; font-size:20px;" })
             </div>
             <div class="col-md-4">
-                @Html.Label(" ", "Saldo Actual:", htmlAttributes: new { @class = "form-label" })
-                @Html.Label(" ", (string)ViewBag.Saldoactual, htmlAttributes: new { @class = "form-label" })
+                @Html.Label(" ", "Saldo Actual C$:", htmlAttributes: new { @class = "form-label", @style = " font-weight:bold; font-size:20px;" })
+                @Html.Label(" ", (string)ViewBag.Saldoactual, htmlAttributes: new { @class = "form-label", @style = " font-weight:bold; font-size:20px;" })
             </div>
         </div>
     </div>

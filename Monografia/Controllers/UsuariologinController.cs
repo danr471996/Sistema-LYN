@@ -33,25 +33,30 @@ namespace Monografia.Controllers
             try
             {
                 if (usuariologin.Login==null && usuariologin.Contraseña == null) { 
-                    ViewBag.mensaje = "Debe ingresar usuario y contraseña para ingresar al sistema,Favor verifique";
+                    ViewBag.mensaje = "Debe ingresar usuario y contraseña para ingresar al sistema,Favor verifique.";
                     return View();
                 }
 
                 if (usuariologin.Login == null )
                 {
-                    ViewBag.mensaje = "Debe ingresar usuario para ingresar al sistema,Favor verifique";
+                    ViewBag.mensaje = "Debe ingresar usuario para ingresar al sistema,Favor verifique.";
                     return View();
                 }
 
                 if (usuariologin.Contraseña == null)
                 {
-                    ViewBag.mensaje = "Debe ingresar contraseña para ingresar al sistema,Favor verifique";
+                    ViewBag.mensaje = "Debe ingresar contraseña para ingresar al sistema,Favor verifique.";
                     return View();
                 }
 
                 var datoslogin =  db.usuarios_tienda.Where(x =>x.Login.Equals(usuariologin.Login) && x.Estado_usuario==1).FirstOrDefault();
 
-               
+                if (datoslogin == null)
+                {
+                    ViewBag.mensaje = "El usuario digitado no se encuentra registrado, favor comuníquese con el administrador.";
+                    return View();
+                }
+
                 bool esValida = EncrypterPassword.VerificarContraseña(usuariologin.Contraseña, datoslogin.Contraseña);
 
                 if (esValida)
@@ -67,7 +72,7 @@ namespace Monografia.Controllers
                     var sesion = datoslogin.usuario_sesion.Where(x=>x.Estado==1).FirstOrDefault();
                     if (sesion != null)
                     {
-                        ViewBag.mensaje = "Usuario tiene sesion abierta,comuniquese con el administrador.";
+                        ViewBag.mensaje = "Usuario tiene sesión abierta,comuníquese con el administrador.";
                         return View();
                     }
                     else {
@@ -89,7 +94,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.mensaje = "El usuario digitado no se encuentra registrado, favor comuniquese con el administrador";
+                    ViewBag.mensaje = "La contraseña digitada no es correcta, favor corregirla.";
                     return View();
                  
                 }
@@ -104,8 +109,9 @@ namespace Monografia.Controllers
         public ActionResult Paginainicio(string filtroventas,string filtroingresos,string filtroclientes)
         {
             int cantidadventas = 0,cantidadclientes=0;
-            decimal cantidadingresos = 0;
-            var datosfactura = db.factura.ToList();
+            decimal? cantidadingresos = 0;
+            var estadosPermitidos = new List<int> { 1, 2 };
+            var datosfactura = db.factura.Where(x => estadosPermitidos.Contains(x.Estado));
 
             if (filtroventas == null)
             {
@@ -133,7 +139,7 @@ namespace Monografia.Controllers
 
             if (filtroingresos == null)
             {
-                cantidadingresos = datosfactura.Select(x => x.Monto_total).Sum();
+                cantidadingresos = db.pagos.Where(x=>x.Estado == 1).Select(x => x.Monto_pagado).Sum();
                 ViewBag.tipofiltroingresos = "Todos los años";
                 ViewBag.cantidadingresos = cantidadingresos;
             }
@@ -142,15 +148,15 @@ namespace Monografia.Controllers
                 ViewBag.tipofiltroingresos = filtroingresos == "hoy" ? filtroingresos : "este " + filtroingresos; 
                 if (filtroingresos == "hoy")
                 {
-                    cantidadingresos = datosfactura.Where(x => (x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month && x.Fecha_alta.Day == DateTime.Now.Day)).Select(x => x.Monto_total).Sum();
+                    cantidadingresos = db.pagos.Where(x => (x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month && x.Fecha_alta.Day == DateTime.Now.Day && x.Estado == 1)).Select(x => x.Monto_pagado).Sum();
                 }
                 else if (filtroingresos == "mes")
                 {
-                    cantidadingresos = datosfactura.Where(x => (x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month)).Select(x => x.Monto_total).Sum();
+                    cantidadingresos = db.pagos.Where(x => (x.Fecha_alta.Year == DateTime.Now.Year && x.Fecha_alta.Month == DateTime.Now.Month && x.Estado == 1)).Select(x => x.Monto_pagado).Sum();
                 }
                 else
                 {
-                    cantidadingresos = datosfactura.Where(x => x.Fecha_alta.Year == DateTime.Now.Year).Select(x => x.Monto_total).Sum();
+                    cantidadingresos = db.pagos.Where(x => (x.Fecha_alta.Year == DateTime.Now.Year && x.Estado==1)).Select(x => x.Monto_pagado).Sum();
                 }
                 ViewBag.cantidadingresos = cantidadingresos;
             }
@@ -185,19 +191,20 @@ namespace Monografia.Controllers
         {
 
             List<int> listventas = new List<int>();
-            List<decimal> listingresos = new List<decimal>();
+            List<decimal?> listingresos = new List<decimal?>();
             List<int> listclientes = new List<int>();
             int cantidadventas = 0, cantidadclientes = 0;
-            decimal cantidadingresos = 0;
-            var datosfactura = db.factura.ToList();
-
+            decimal? cantidadingresos = 0;
+            //var datosfactura = db.factura..ToList();
+            var estadosPermitidos = new List<int> { 1, 2 };
+            var datosfactura = db.factura.Where(x => estadosPermitidos.Contains(x.Estado));
 
             for (int i = 1; i < 13; i++)
             {
                 cantidadventas= datosfactura.Where(x => x.Fecha_alta.Month == i && x.Fecha_alta.Year==DateTime.Now.Year).Count();
                 listventas.Add(cantidadventas);
 
-                cantidadingresos = datosfactura.Where(x => x.Fecha_alta.Month == i && x.Fecha_alta.Year == DateTime.Now.Year).Select(x => x.Monto_total).Sum();
+                cantidadingresos = db.pagos.Where(x => x.Fecha_alta.Month == i && x.Fecha_alta.Year == DateTime.Now.Year && x.Estado == 1).Select(x => x.Monto_pagado).Sum();
                 listingresos.Add(cantidadingresos);
 
                 cantidadclientes = datosfactura.Where(x => x.Fecha_alta.Month == i && x.Fecha_alta.Year == DateTime.Now.Year).Count();
@@ -267,13 +274,13 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro sesion de usuario";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró sesión de usuario";
                         return PartialView(ussesiones);
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de sesion usuario erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de sesión usuario erróneo";
                     return PartialView(ussesiones);
                 }
 
@@ -306,17 +313,17 @@ namespace Monografia.Controllers
                         datosusuariossesion.Usuario_baja = (string)Session["usuario_logueado"];
                         datosusuariossesion.Estado = 2;
                         db.SaveChanges();
-                        return Json(new { success = true, mensaje = "Se ha eliminado la sesion del usuario satisfactoriamente." });
+                        return Json(new { success = true, mensaje = "Se ha eliminado la sesión del usuario satisfactoriamente." });
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro sesion de usuario";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró sesión de usuario";
                         return PartialView(datosusuariossesion);
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de sesion usuario erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de sesión usuario erróneo";
                     return PartialView(datosusuariossesion);
                 }
 

@@ -45,7 +45,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-12">
-                        @Html.Label("Cedula", htmlAttributes: new { @class = "form-label" })
+                        @Html.Label("Cédula", htmlAttributes: new { @class = "form-label" })
                         @Html.EditorFor(model => model.cliente.Cedula, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
@@ -81,7 +81,7 @@
 <script id="prueba" type="text/template">
     <div class="row" id="dvcantcredito">
         <div class="col-md-6">
-            @Html.Label("Cantidad de crédito", htmlAttributes: new { @class = "form-label" })
+            @Html.Label("Cantidad de crédito C$", htmlAttributes: new { @class = "form-label" })
             @Html.EditorFor(model => model.cliente.Cantidad_credito, new { htmlAttributes = new { @class = "form-control", @min = "0", @onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" } })
 
         </div>

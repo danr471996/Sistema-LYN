@@ -11,8 +11,8 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-8">
-                @Html.Label(" ", "Total de créditos pendientes ", htmlAttributes: new { @class = "form-label col-md-8", @style = "color:forestgreen" })
-                @Html.Label(" ", (string)Session["cantidad_saldo"], htmlAttributes: new { @class = "form-label col-md-6", @style = "color:forestgreen" })
+                @Html.Label(" ", "Total de créditos pendientes ", htmlAttributes: new { @class = "form-label col-md-8", @style = "color:forestgreen; font-weight:bold; font-size:20px;" })
+                @Html.Label(" ",("C$ " + (string)Session["cantidad_saldo"] ), htmlAttributes: new { @class = "form-label col-md-6", @style = "color:forestgreen; font-weight:bold; font-size:20px;" })
             </div>
         </div>
     </div>
@@ -48,7 +48,7 @@
 
                     </th>
                     <th>
-                        @Html.DisplayName("Saldo Actual")
+                        @Html.DisplayName("Saldo Actual C$")
 
                     </th>
                     <th>

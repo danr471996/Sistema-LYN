@@ -17,7 +17,7 @@
                 @using (Html.BeginForm("reporte_de_movimientos", "Facturacion", FormMethod.Post))
                 {
                     <div class="row">
-                        @Html.Label("", "Tipo de Movimento:", htmlAttributes: new { @class = "form-label col-md-4" })
+                        @Html.Label("", "Tipo de Movimiento:", htmlAttributes: new { @class = "form-label col-md-4" })
                         <div class="col-md-6">
                             @Html.DropDownListFor(model => model.tipomovimiento.IdTipo_movimiento, new SelectList(Model.listatipomovimiento, "IdTipo_movimiento", "Descripcion"), "Seleccione", new { @class = "form-select", @onchange = "this.form.submit ();" })
                         </div>
@@ -57,7 +57,7 @@
                         @Html.DisplayName("Cajero")
                     </th>
                     <th>
-                        @Html.DisplayName("Departamento")
+                        @Html.DisplayName("Descripción de departamento")
                     </th>
                 </tr>
             </thead>

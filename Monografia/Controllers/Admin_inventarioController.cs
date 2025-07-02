@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using static Monografia.Models.Modelo_contenedor;
 
 namespace Monografia.Controllers
 {
@@ -71,19 +72,39 @@ namespace Monografia.Controllers
 
                 if (productos.Iddepartamento != 0)
                 {
-                    listaproducto = (from x in db.productos where x.Estado == 1 && x.Iddepartamento == productos.Iddepartamento select x).ToList();
-                    int? cantidadtotal=listaproducto.Select(x => x.Cantidad_actual).Sum();
-                    decimal? costo = listaproducto.Select(x => x.Precio_costo).Sum();
-                    ViewBag.cantidad_inventario = cantidadtotal.ToString();
-                    ViewBag.costo_inventario = (cantidadtotal * costo).ToString();
+                    //listaproducto = (from x in db.productos where x.Estado == 1 && x.Iddepartamento == productos.Iddepartamento select x).ToList();
+                    //int? cantidadtotal=listaproducto.Select(x => x.Cantidad_actual).Sum();
+                    //decimal? costo = listaproducto.Select(x => x.Precio_costo).Sum();
+                    //ViewBag.cantidad_inventario = cantidadtotal.ToString();
+                    //ViewBag.costo_inventario = (cantidadtotal * costo).ToString();
+
+                    listaproducto = (from x in db.productos
+                                     where x.Estado == 1 && x.Iddepartamento == productos.Iddepartamento
+                                     select x).ToList();
+
+                    int? cantidadtotal = listaproducto.Sum(x => x.Cantidad_actual ?? 0);
+                    decimal? costo = listaproducto.Sum(x => (x.Precio_costo) * (x.Cantidad_actual ?? 1));
+
+                    ViewBag.cantidad_inventario = cantidadtotal?.ToString();
+                    ViewBag.costo_inventario = costo.ToString();
                 }
                 else
                 {
-                    listaproducto = (from x in db.productos where x.Estado == 1 select x).ToList();
-                    int? cantidadtotal = listaproducto.Select(x => x.Cantidad_actual).Sum();
-                    decimal? costo = listaproducto.Select(x => x.Precio_costo).Sum();
-                    ViewBag.cantidad_inventario = cantidadtotal.ToString();
-                    ViewBag.costo_inventario = (cantidadtotal * costo).ToString();
+                    //listaproducto = (from x in db.productos where x.Estado == 1 select x).ToList();
+                    //int? cantidadtotal = listaproducto.Select(x => x.Cantidad_actual).Sum();
+                    //decimal? costo = listaproducto.Select(x => x.Precio_costo).Sum();
+                    //ViewBag.cantidad_inventario = cantidadtotal.ToString();
+                    //ViewBag.costo_inventario = (cantidadtotal * costo).ToString();
+
+                    listaproducto = (from x in db.productos
+                                     where x.Estado == 1
+                                     select x).ToList();
+
+                    int? cantidadtotal = listaproducto.Sum(x => x.Cantidad_actual ?? 0);
+                    decimal? costo = listaproducto.Sum(x => (x.Precio_costo) * (x.Cantidad_actual ?? 1));
+
+                    ViewBag.cantidad_inventario = cantidadtotal?.ToString();
+                    ViewBag.costo_inventario = costo.ToString();
                 }
         
 
@@ -157,7 +178,7 @@ namespace Monografia.Controllers
                     if (datosproductos == null)
                     {
 
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
                         return PartialView(modelo_Contenedor);
 
                     }
@@ -172,7 +193,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de producto erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de producto erróneo";
                     return PartialView(modelo_Contenedor);
 
                 }
@@ -202,7 +223,7 @@ namespace Monografia.Controllers
 
                     if (producto == null)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
 
                       return  PartialView(modelocontenedor);
                     }
@@ -270,7 +291,7 @@ namespace Monografia.Controllers
         {
             if (TempData["ajusteexitoso"] != null)
             {
-                ViewBag.mensajeexito = "Se agrego producto al inventario satisfactoriamente";
+                ViewBag.mensajeexito = "Se agregó producto al inventario satisfactoriamente";
             }
 
             return View();
@@ -293,18 +314,28 @@ namespace Monografia.Controllers
 
                         if (obtener_producto != null)
                         {
-                            return View(obtener_producto);
+
+                            if (obtener_producto.Usa_inventario != 2)
+                            {
+
+                                return View(obtener_producto);
+                            }
+                            else {
+
+                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Producto no usa inventario.";
+                                return View(obtener_producto);
+                            }
 
                         }
                         else
                         {
 
-                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro Producto";
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró Producto";
                             return View(obtener_producto);
                         }
                     }
                     else {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingresar solo números en codigo de producto";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingresar solo números en código de producto";
                         return View(obtener_producto);
                     }
 
@@ -312,7 +343,7 @@ namespace Monografia.Controllers
                 else
                 {
 
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingresar codigo de producto";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingresar código de producto";
                     return View(obtener_producto);
 
                 }
@@ -347,48 +378,61 @@ namespace Monografia.Controllers
 
                     if (datosproducto == null)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
 
                         return View("agregar_inventario", productos);
                     }
                     else
                     {
-                        if (agregar_cantidad != null)
+
+                        if (datosproducto.Usa_inventario != 2)
                         {
-                            if (Regex.IsMatch(agregar_cantidad.ToString(), patronsindecimales))
+
+                            if (agregar_cantidad != null)
                             {
-                                prodcantanterior = datosproducto.Cantidad_actual == null ? 0 : Convert.ToInt32(datosproducto.Cantidad_actual);
-                                datosproducto.Cantidad_actual = datosproducto.Cantidad_actual == null ? 0 + agregar_cantidad : datosproducto.Cantidad_actual + agregar_cantidad;
-                                historial_inventario historialinventario = new historial_inventario
+                                if (Regex.IsMatch(agregar_cantidad.ToString(), patronsindecimales))
                                 {
-                                    Fecha_alta = DateTime.Now,
-                                    Usuario_alta = (string)Session["usuario_logueado"],
-                                    Idproducto = datosproducto.Idproducto,
-                                    Tipo_movimiento = 1,
-                                    Iddepartamento = datosproducto.Iddepartamento,
-                                    Cantidad_actual = Convert.ToInt32(datosproducto.Cantidad_actual),
-                                    Cantidad_anterior = prodcantanterior,
-                                    Estado = 1
-                                };
-                                db.historial_inventario.Add(historialinventario);
-                                db.SaveChanges();
+                                    prodcantanterior = datosproducto.Cantidad_actual == null ? 0 : Convert.ToInt32(datosproducto.Cantidad_actual);
+                                    datosproducto.Cantidad_actual = datosproducto.Cantidad_actual == null ? 0 + agregar_cantidad : datosproducto.Cantidad_actual + agregar_cantidad;
+                                    historial_inventario historialinventario = new historial_inventario
+                                    {
+                                        Fecha_alta = DateTime.Now,
+                                        Usuario_alta = (string)Session["usuario_logueado"],
+                                        Idproducto = datosproducto.Idproducto,
+                                        Tipo_movimiento = 1,
+                                        Iddepartamento = datosproducto.Iddepartamento,
+                                        Cantidad_actual = Convert.ToInt32(datosproducto.Cantidad_actual),
+                                        Cantidad_anterior = prodcantanterior,
+                                        Estado = 1
+                                    };
+                                    db.historial_inventario.Add(historialinventario);
+                                    db.SaveChanges();
 
-                                TempData["ajusteexitoso"] = true;
+                                    TempData["ajusteexitoso"] = true;
 
-                                return RedirectToAction("agregar_inventario");
+                                    return RedirectToAction("agregar_inventario");
+                                }
+                                else
+                                {
+                                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese solo números en cantidad para realizar el incremento de inventario.";
+                                    return View("agregar_inventario", productos);
+                                }
+
                             }
-                            else {
-                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese solo números en cantidad para realizar el incremento de inventario.";
+                            else
+                            {
+
+                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese una cantidad para realizar el incremento de inventario.";
                                 return View("agregar_inventario", productos);
                             }
-
                         }
                         else
                         {
 
-                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese una cantidad para realizar el incremento de inventario.";
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Producto no usa inventario.";
                             return View("agregar_inventario", productos);
                         }
+                       
 
                     }
 
@@ -413,7 +457,7 @@ namespace Monografia.Controllers
         public ActionResult ajuste_inventario()
         {
             if (TempData["ajusteexitoso"]!=null) {
-                ViewBag.mensajeexito = "Se realizo ajuste de inventario satisfactoriamente";
+                ViewBag.mensajeexito = "Se realizó ajuste de inventario satisfactoriamente";
             }
 
             return View();
@@ -434,20 +478,20 @@ namespace Monografia.Controllers
                         TempData["cod_producto"] = cod_producto;
                         obtener_producto = db.productos.Where(x => x.Codigo_producto == cod_producto).FirstOrDefault();
 
-                        if (obtener_producto != null)
+                        if (obtener_producto.Usa_inventario != 2)
                         {
-                            return View(obtener_producto);
 
+                            return View(obtener_producto);
                         }
                         else
                         {
 
-                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro Producto";
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Producto no usa inventario.";
                             return View(obtener_producto);
                         }
                     }
                     else {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingresar solo números en codigo de producto";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingresar solo números en código de producto";
                         return View(obtener_producto);
                     }
 
@@ -455,7 +499,7 @@ namespace Monografia.Controllers
                 else
                 {
 
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingresar codigo de producto";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingresar código de producto";
                     return View(obtener_producto);
 
                 }
@@ -490,48 +534,61 @@ namespace Monografia.Controllers
 
                     if (datosproducto == null )
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro producto";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
                        
                         return View("ajuste_inventario", productos);
                     }
                     else
                     {
-                        if (agregar_cantidad != null)
+
+                        if (datosproducto.Usa_inventario != 2)
                         {
-                            if (Regex.IsMatch(agregar_cantidad.ToString(), patronsindecimales))
+
+                            if (agregar_cantidad != null)
                             {
-                                prodcantanterior = Convert.ToInt32(datosproducto.Cantidad_actual);
-                                datosproducto.Cantidad_actual = agregar_cantidad;
-                                historial_inventario historialinventario = new historial_inventario
+                                if (Regex.IsMatch(agregar_cantidad.ToString(), patronsindecimales))
                                 {
-                                    Fecha_alta = DateTime.Now,
-                                    Usuario_alta = (string)Session["usuario_logueado"],
-                                    Idproducto = datosproducto.Idproducto,
-                                    Tipo_movimiento = 3,
-                                    Iddepartamento = datosproducto.Iddepartamento,
-                                    Cantidad_actual = Convert.ToInt32(datosproducto.Cantidad_actual),
-                                    Cantidad_anterior = prodcantanterior,
-                                    Estado = 1
-                                };
-                                db.historial_inventario.Add(historialinventario);
-                                db.SaveChanges();
+                                    prodcantanterior = Convert.ToInt32(datosproducto.Cantidad_actual);
+                                    datosproducto.Cantidad_actual = agregar_cantidad;
+                                    historial_inventario historialinventario = new historial_inventario
+                                    {
+                                        Fecha_alta = DateTime.Now,
+                                        Usuario_alta = (string)Session["usuario_logueado"],
+                                        Idproducto = datosproducto.Idproducto,
+                                        Tipo_movimiento = 3,
+                                        Iddepartamento = datosproducto.Iddepartamento,
+                                        Cantidad_actual = Convert.ToInt32(datosproducto.Cantidad_actual),
+                                        Cantidad_anterior = prodcantanterior,
+                                        Estado = 1
+                                    };
+                                    db.historial_inventario.Add(historialinventario);
+                                    db.SaveChanges();
 
-                                TempData["ajusteexitoso"] = true;
+                                    TempData["ajusteexitoso"] = true;
 
-                                return RedirectToAction("ajuste_inventario");
+                                    return RedirectToAction("ajuste_inventario");
+                                }
+                                else
+                                {
+                                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese solo números en cantidad para realizar el ajuste de inventario.";
+                                    return View("ajuste_inventario", productos);
+                                }
+
                             }
-                            else {
-                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese solo números en cantidad para realizar el ajuste de inventario.";
+                            else
+                            {
+
+                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese una cantidad para realizar el ajuste de inventario.";
                                 return View("ajuste_inventario", productos);
                             }
-
                         }
-                        else {
+                        else
+                        {
 
-                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Favor ingrese una cantidad para realizar el ajuste de inventario.";
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Producto no usa inventario.";
                             return View("ajuste_inventario", productos);
                         }
-
+                     
                     }
 
                 }

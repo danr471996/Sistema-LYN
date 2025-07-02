@@ -5,13 +5,11 @@
     <EntitySet Name="departamento" EntityType="proyectotiendaModel.departamento" />
     <EntitySet Name="detalle_factura" EntityType="proyectotiendaModel.detalle_factura" />
     <EntitySet Name="factura" EntityType="proyectotiendaModel.factura" />
-    <EntitySet Name="facturas_proveedor" EntityType="proyectotiendaModel.facturas_proveedor" />
     <EntitySet Name="opciones" EntityType="proyectotiendaModel.opciones" />
     <EntitySet Name="pagos" EntityType="proyectotiendaModel.pagos" />
     <EntitySet Name="promocion" EntityType="proyectotiendaModel.promocion" />
     <EntitySet Name="proveedor" EntityType="proyectotiendaModel.proveedor" />
     <EntitySet Name="tipo_credito" EntityType="proyectotiendaModel.tipo_credito" />
-    <EntitySet Name="unidad_medida" EntityType="proyectotiendaModel.unidad_medida" />
     <AssociationSet Name="fk_tipo_credito" Association="proyectotiendaModel.fk_tipo_credito">
       <End Role="tipo_credito" EntitySet="tipo_credito" />
       <End Role="clientes" EntitySet="clientes" />
@@ -23,10 +21,6 @@
     <AssociationSet Name="fk_facturas" Association="proyectotiendaModel.fk_facturas">
       <End Role="factura" EntitySet="factura" />
       <End Role="pagos" EntitySet="pagos" />
-    </AssociationSet>
-    <AssociationSet Name="fk_proveedor" Association="proyectotiendaModel.fk_proveedor">
-      <End Role="proveedor" EntitySet="proveedor" />
-      <End Role="facturas_proveedor" EntitySet="facturas_proveedor" />
     </AssociationSet>
     <EntitySet Name="correlativos" EntityType="proyectotiendaModel.correlativos" />
     <EntitySet Name="formato_factura" EntityType="proyectotiendaModel.formato_factura" />
@@ -183,22 +177,6 @@
     <NavigationProperty Name="pagos" Relationship="proyectotiendaModel.fk_facturas" FromRole="factura" ToRole="pagos" />
     <NavigationProperty Name="creditos" Relationship="proyectotiendaModel.fk_factura_" FromRole="factura" ToRole="creditos" />
   </EntityType>
-  <EntityType Name="facturas_proveedor">
-    <Key>
-      <PropertyRef Name="idFacturas_proveedor" />
-    </Key>
-    <Property Name="idFacturas_proveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
-    <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="Fecha_baja" Type="DateTime" />
-    <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="Codigo_producto" Type="Int32" Nullable="false" />
-    <Property Name="Id_proveedor" Type="Int32" Nullable="false" />
-    <Property Name="Cantidad_producto" Type="Int32" Nullable="false" />
-    <Property Name="Precio_compra" Type="Decimal" Nullable="false" />
-    <Property Name="Estado" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="proveedor" Relationship="proyectotiendaModel.fk_proveedor" FromRole="facturas_proveedor" ToRole="proveedor" />
-  </EntityType>
   <EntityType Name="opciones">
     <Key>
       <PropertyRef Name="ID_OP" />
@@ -256,7 +234,6 @@
     <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="Direccion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="Estado" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="facturas_proveedor" Relationship="proyectotiendaModel.fk_proveedor" FromRole="proveedor" ToRole="facturas_proveedor" />
     <NavigationProperty Name="productos" Relationship="proyectotiendaModel.fk_idproveedor" FromRole="proveedor" ToRole="productos" />
   </EntityType>
   <EntityType Name="tipo_credito">
@@ -271,19 +248,6 @@
     <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="Estado" Type="Int32" Nullable="false" />
     <NavigationProperty Name="clientes" Relationship="proyectotiendaModel.fk_tipo_credito" FromRole="tipo_credito" ToRole="clientes" />
-  </EntityType>
-  <EntityType Name="unidad_medida">
-    <Key>
-      <PropertyRef Name="idunidad_medida" />
-    </Key>
-    <Property Name="idunidad_medida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Fecha_alta" Type="DateTime" Nullable="false" />
-    <Property Name="Usuario_alta" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="Fecha_baja" Type="DateTime" />
-    <Property Name="Usuario_baja" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="Simbolo" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="Estado" Type="Int32" Nullable="false" />
   </EntityType>
   <Association Name="fk_tipo_credito">
     <End Type="proyectotiendaModel.tipo_credito" Role="tipo_credito" Multiplicity="1" />
@@ -318,18 +282,6 @@
       </Principal>
       <Dependent Role="pagos">
         <PropertyRef Name="Id_factura" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_proveedor">
-    <End Type="proyectotiendaModel.proveedor" Role="proveedor" Multiplicity="1" />
-    <End Type="proyectotiendaModel.facturas_proveedor" Role="facturas_proveedor" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="proveedor">
-        <PropertyRef Name="IdProveedor" />
-      </Principal>
-      <Dependent Role="facturas_proveedor">
-        <PropertyRef Name="Id_proveedor" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

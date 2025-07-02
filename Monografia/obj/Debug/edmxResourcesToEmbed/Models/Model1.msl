@@ -66,22 +66,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="facturas_proveedor">
-      <EntityTypeMapping TypeName="proyectotiendaModel.facturas_proveedor">
-        <MappingFragment StoreEntitySet="facturas_proveedor">
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Precio_compra" ColumnName="Precio_compra" />
-          <ScalarProperty Name="Cantidad_producto" ColumnName="Cantidad_producto" />
-          <ScalarProperty Name="Id_proveedor" ColumnName="Id_proveedor" />
-          <ScalarProperty Name="Codigo_producto" ColumnName="Codigo_producto" />
-          <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
-          <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
-          <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
-          <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
-          <ScalarProperty Name="idFacturas_proveedor" ColumnName="idFacturas_proveedor" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="opciones">
       <EntityTypeMapping TypeName="proyectotiendaModel.opciones">
         <MappingFragment StoreEntitySet="opciones">
@@ -151,20 +135,6 @@
           <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
           <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
           <ScalarProperty Name="Id_tipocredito" ColumnName="Id_tipocredito" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="unidad_medida">
-      <EntityTypeMapping TypeName="proyectotiendaModel.unidad_medida">
-        <MappingFragment StoreEntitySet="unidad_medida">
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          <ScalarProperty Name="Simbolo" ColumnName="Simbolo" />
-          <ScalarProperty Name="Usuario_baja" ColumnName="Usuario_baja" />
-          <ScalarProperty Name="Fecha_baja" ColumnName="Fecha_baja" />
-          <ScalarProperty Name="Usuario_alta" ColumnName="Usuario_alta" />
-          <ScalarProperty Name="Fecha_alta" ColumnName="Fecha_alta" />
-          <ScalarProperty Name="idunidad_medida" ColumnName="idunidad_medida" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

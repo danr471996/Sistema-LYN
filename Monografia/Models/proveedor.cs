@@ -17,7 +17,6 @@ namespace Monografia.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public proveedor()
         {
-            this.facturas_proveedor = new HashSet<facturas_proveedor>();
             this.productos = new HashSet<productos>();
         }
     
@@ -32,8 +31,6 @@ namespace Monografia.Models
         public string Direccion { get; set; }
         public int Estado { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<facturas_proveedor> facturas_proveedor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos> productos { get; set; }
     }

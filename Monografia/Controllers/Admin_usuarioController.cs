@@ -35,7 +35,7 @@ namespace Monografia.Controllers
                     usuario_detalle detalleusuario = db.usuario_detalle.Find(id);
                     if (detalleusuario == null)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro información de usuario";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró información de usuario";
                         return PartialView(modelo_contenedor);
 
                     }
@@ -48,7 +48,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de usuario erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de usuario erróneo";
                     return PartialView(modelo_contenedor);
 
                 }
@@ -169,14 +169,14 @@ namespace Monografia.Controllers
             }
             if (datoscliente.usuario_detalle.Telefono == null)
             {
-                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el número telefonico del usuario<br>";
+                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el número telefónico del usuario<br>";
                 valid = false;
             }
             else
             {
                 if (datoscliente.usuario_detalle.Telefono.ToString().Length < 8)
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un número telefonico Válido<br>";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar un número telefónico Válido<br>";
                     valid = false;
                 }
             }
@@ -235,7 +235,7 @@ namespace Monografia.Controllers
                     if (usuarios == null)
                     {
 
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro usuario";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró usuario";
                         return PartialView(modelo_contenedor);
 
                     }
@@ -250,7 +250,7 @@ namespace Monografia.Controllers
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de usuario erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de usuario erróneo";
                     return PartialView(modelo_contenedor);
 
                 }
@@ -279,7 +279,7 @@ namespace Monografia.Controllers
                     var usuarios_tienda = db.usuarios_tienda.Include(x => x.usuario_detalle).Include(r => r.usuarios_perfiles).Where(x => x.Idusuario == modelocontenedor.usuarios_tienda.Idusuario).FirstOrDefault();
                     if (usuarios_tienda == null)
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro usuario";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró usuario";
                         modelocontenedor.listaperfiles = new List<usuarios_perfiles>();
                         modelocontenedor.listaperfiles = getperfiles("Edit");
 
@@ -357,13 +357,13 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro usuario";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró usuario";
                         return PartialView(usuariostienda);
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de usuario erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de usuario erróneo";
                     return PartialView(usuariostienda);
                 }
 
@@ -404,13 +404,13 @@ namespace Monografia.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontro usuario";
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró usuario";
                         return PartialView(usuarios_tienda);
                     }
                 }
                 else
                 {
-                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de usuario erroneo";
+                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Id de usuario erróneo";
                     return PartialView(usuarios_tienda);
                 }
 

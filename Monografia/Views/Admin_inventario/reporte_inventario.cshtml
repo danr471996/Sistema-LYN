@@ -12,13 +12,13 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-6 text-center">
-                @Html.Label("","Costo de inventario: ", htmlAttributes: new { @class = "form-label col-md-6" })
-                @Html.Label(" ", (string)ViewBag.costo_inventario, htmlAttributes: new { @class = "form-label col-md-6" })
+                @Html.Label("","Costo de inventario: ", htmlAttributes: new { @class = "form-label col-md-6", @style = "font-weight:bold; font-size:20px;" })
+                @Html.Label(" ",("C$ " + (string)ViewBag.costo_inventario), htmlAttributes: new { @class = "form-label col-md-6", @style = "font-weight:bold; font-size:20px;" })
              
             </div>
             <div class="col-md-6 text-center">
-                @Html.Label("", "Cantidad de inventario: ", htmlAttributes: new { @class = "form-label col-md-6" })
-                @Html.Label(" ", (string)ViewBag.cantidad_inventario, htmlAttributes: new { @class = "form-label col-md-6" })
+                @Html.Label("", "Cantidad de inventario: ", htmlAttributes: new { @class = "form-label col-md-6", @style = "font-weight:bold; font-size:20px;" })
+                @Html.Label(" ", (string)ViewBag.cantidad_inventario, htmlAttributes: new { @class = "form-label col-md-6", @style = "font-weight:bold; font-size:20px;" })
 
             </div>
         </div>
@@ -68,10 +68,10 @@
                         @Html.DisplayName("Descripción")
                     </th>
                     <th>
-                        @Html.DisplayName("Precio costo")
+                        @Html.DisplayName("Precio costo C$")
                     </th>
                     <th>
-                        @Html.DisplayName("Precio de venta")
+                        @Html.DisplayName("Precio de venta C$")
                     </th>
                     <th>
                         @Html.DisplayName("Cantidad actual")
