@@ -73,7 +73,7 @@ namespace Monografia.Controllers
             if (datospresentacion.Descripcion != null)
                 if (!sololetras(datospresentacion.Descripcion))
                 {
-                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo letras en descripción del tipo presentación<br>";
+                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Caracter ingresado en descripción del tipo presentación, no esta permitido<br>";
                     valid = false;
                 }
             return valid;
@@ -81,7 +81,7 @@ namespace Monografia.Controllers
 
         public Boolean sololetras(string datoingresado)
         {
-            if (datoingresado.All(char.IsLetter))
+            if (datoingresado.All(c => char.IsLetterOrDigit(c) || c == ' '))
             {
                 return true;
             }

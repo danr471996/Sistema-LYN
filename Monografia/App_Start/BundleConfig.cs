@@ -24,7 +24,7 @@ namespace Monografia
             bundles.Add(new Bundle("~/bundles/jquerycustomproyecto").Include(
                       "~/Content/vendor/apexcharts/apexcharts.min.js",
                       "~/Scripts/bootstrap.bundle.min.js",
-                      "~/Scripts/vendor/chartjs/chart.min.js",
+                      "~/Content/vendor/chartjs/chart.min.js",
                       "~/Content/vendor/echarts/echarts.min.js",
                       "~/Content/vendor/quill/quill.min.js",
                       "~/Content/vendor/phpemailform/validate.js",
@@ -40,20 +40,20 @@ namespace Monografia
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-              "~/Content/Estilos.css",
-                      "~/Content/bootstrap.min.css"));
+            //bundles.Add(new StyleBundle("~/Content/css").Include(
+            //  "~/Content/Estilos.css",
+            //          "~/Content/bootstrap.min.css"));
 
-            bundles.Add(new StyleBundle("~/Content/csscustomproyecto").Include(
-                     "~/Content/vendor/bootstrap-icons/bootstrap-icons.css",
-                      "~/Content/vendor/boxicons/css/boxicons.min.css",
-                       "~/Content/vendor/quill/quill.snow.css",
-                        "~/Content/vendor/quill/quill.bubble.css",
-                         "~/Content/vendor/remixicon/remixicon.css",
-                          "~/Content/vendor/css/style.css"));
+            //bundles.Add(new StyleBundle("~/Content/csscustomproyecto").Include(
+            //         "~/Content/vendor/bootstrap-icons/bootstrap-icons.css",
+            //          "~/Content/vendor/boxicons/css/boxicons.min.css",
+            //           "~/Content/vendor/quill/quill.snow.css",
+            //            "~/Content/vendor/quill/quill.bubble.css",
+            //             "~/Content/vendor/remixicon/remixicon.css",
+            //              "~/Content/vendor/css/style.css"));
 
-            bundles.Add(new StyleBundle("~/Content/fontawesome/css").Include(
-                      "~/Content/fontawesome/css/all.css"));
+            //bundles.Add(new StyleBundle("~/Content/fontawesome/css").Include(
+            //          "~/Content/fontawesome/css/all.css"));
 
 
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
