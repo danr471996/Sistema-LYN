@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace Monografia.Controllers
 {
@@ -20,7 +21,7 @@ namespace Monografia.Controllers
         private Modelo_Config Modelo_actual = new Modelo_Config();
         static string coneccion = ConfigurationManager.ConnectionStrings["proyectotiendaEntities"].ConnectionString;
         static string[] coneccion_info = coneccion.Split(';');
-        static string directorio_respaldo = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Respaldos\\";
+        private string directorio_respaldo = obtener_direct();
         static string usuario = coneccion_info[3].Substring(8);
         static string contraseña = coneccion_info[4].Substring(9);
         static string BD = coneccion_info[6].Substring(9).TrimEnd('"');
@@ -45,6 +46,17 @@ namespace Monografia.Controllers
             }
             Modelo_actual.Lista_opciones = Obtener_opciones_fo();
             return View("Folio", Modelo_actual);
+        }
+
+        public static String obtener_direct() {
+            try
+            {
+                return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Respaldos\\";
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
         }
 
         private List<Opcion> Obtener_opciones_fo()
@@ -864,9 +876,9 @@ namespace Monografia.Controllers
 
         public ActionResult Administradorbd()
         {
-            archivos_bd();
-            return View("Administradorbd");
-        }
+                archivos_bd();
+                return View("Administradorbd");
+            }
 
         [HttpPost]
         public ActionResult Subir_bd(HttpPostedFileBase file)
@@ -991,13 +1003,24 @@ namespace Monografia.Controllers
 
         public ActionResult archivos_bd()
         {
-            string[] directorios = Directory.GetFiles(directorio_respaldo);
-            List<Modelo_Config> archivos = new List<Modelo_Config>();
-            foreach (string diretorio in directorios)
+            try
             {
-                archivos.Add(new Modelo_Config { filename = Path.GetFileName(diretorio) });
+                string[] directorios = Directory.GetFiles(directorio_respaldo);
+                List<Modelo_Config> archivos = new List<Modelo_Config>();
+                foreach (string diretorio in directorios)
+                {
+                    archivos.Add(new Modelo_Config { filename = Path.GetFileName(diretorio) });
+                }
+                ViewBag.mensaje = "La opcion no se encuentra disponible en este momento, por favor contacte con el administrador del sistema";
+                return View();
             }
-            return View(archivos);
+            catch (Exception ex)
+            {
+                List<Modelo_Config> archivos = new List<Modelo_Config>();
+                ViewBag.mensaje = "La opcion no se encuentra disponible en este momento, por favor contacte con el administrador del sistema";
+                return View();
+            }
+           
         }
 
         //************************************* MENU
