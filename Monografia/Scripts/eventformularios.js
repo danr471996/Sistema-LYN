@@ -360,14 +360,14 @@ function calculopago(tipopago, totalpago, montopago, tipocambio, inputmontovuelt
         if (!isNaN(totalpago) && !isNaN(montopago)) {
             // Perform the subtraction
             var converdolarcordobas = montopago * tipocambio;
-            inputmontovuelto.value = totalpago - converdolarcordobas;
+            inputmontovuelto.value = converdolarcordobas - totalpago ;
 
         }
     } else {
         // Check if the input values are valid numbers
         if (!isNaN(totalpago) && !isNaN(montopago)) {
             // Perform the subtraction
-            inputmontovuelto.value = totalpago - montopago;
+            inputmontovuelto.value = montopago - totalpago;
         }
     }
 

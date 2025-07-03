@@ -65,7 +65,7 @@ namespace Monografia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Abono( int? agregar_cantidad)
+        public ActionResult Abono( decimal? agregar_cantidad)
         {
             try
             {
