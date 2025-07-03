@@ -73,7 +73,7 @@ namespace Monografia.Controllers
             {
 
 
-                if (validadinputs(modelo_contenedor, usainventario,null))
+                if (validadinputs(modelo_contenedor, usainventario,null,null))
                 {
                     if (db.productos.Where(x => x.Codigo_producto == modelo_contenedor.productos.Codigo_producto && x.Estado == 1).FirstOrDefault() == null)
                     {
@@ -139,7 +139,7 @@ namespace Monografia.Controllers
 
 
 
-        public Boolean validadinputs(Modelo_contenedor datosproducto,string usainventario,promocion datospromocion)
+        public Boolean validadinputs(Modelo_contenedor datosproducto,string usainventario,promocion datospromocion,int? cod_producto)
         {
             Boolean valid = true;
             if (datosproducto != null)
@@ -230,16 +230,16 @@ namespace Monografia.Controllers
                     ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar la descripción de la promoción<br>";
                     valid = false;
                 }
-                if (datospromocion.productos.Codigo_producto == 0)
+                if (cod_producto == 0 && cod_producto == null)
                 {
                     ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar el código del producto<br>";
                     valid = false;
                 }
-                if (!Regex.IsMatch(datospromocion.productos.Codigo_producto.ToString(), patronsindecimales))
-                {
-                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en código del producto<br>";
-                    valid = false;
-                }
+                //if (!Regex.IsMatch(datospromocion.productos.Codigo_producto.ToString(), patronsindecimales))
+                //{
+                //    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Debe ingresar solo números en código del producto<br>";
+                //    valid = false;
+                //}
 
                 if (datospromocion.Cant_desde == 0)
                 {
@@ -352,7 +352,7 @@ namespace Monografia.Controllers
 
               ViewBag.usainventario = usainventario == "true" ? true:false ;
               
-                if (validadinputs(datosproductoedit, usainventario,null))
+                if (validadinputs(datosproductoedit, usainventario,null,null))
                 {
 
                     var producto = db.productos.Where(x => x.Idproducto == datosproductoedit.productos.Idproducto).FirstOrDefault();
@@ -561,17 +561,18 @@ namespace Monografia.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Createpromocion(promocion promocion)
+        public ActionResult Createpromocion(promocion promocion, int? codproducto)
         {
             try
             {
             
-                if (validadinputs(null, "", promocion))
+                if (validadinputs(null, "", promocion, codproducto))
                 {
-              
-                        var codigoproducto = (from u in db.productos
-                                              where u.Codigo_producto == promocion.productos.Codigo_producto
-                                              select new
+                   
+
+                    var codigoproducto = (from u in db.productos
+                                              where u.Codigo_producto == codproducto
+                                          select new
                                               {
                                                   u
                                               }).FirstOrDefault();
@@ -594,14 +595,14 @@ namespace Monografia.Controllers
                                     }
                                 else
                                 {
-                             
+                                    ViewBag.cod_producto = (int)codproducto;
                                     ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promoción para el producto digitado<br>";
                                     return PartialView(promocion);
 
                                 }
                             }
                             else {
-                               
+                                ViewBag.cod_producto = (int)codproducto;
                                 ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promoción con el mismo nombre<br>";
                                 return PartialView(promocion);
 
@@ -610,12 +611,14 @@ namespace Monografia.Controllers
                             }
                             else
                             {
-                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto activo";
+                            ViewBag.cod_producto = (int)codproducto;
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto activo";
                                 return PartialView(promocion);
                             }
                         }
                         else {
-                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
+                        ViewBag.cod_producto = (int)codproducto;
+                        ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
                             return PartialView(promocion);
                         }
 
@@ -623,6 +626,7 @@ namespace Monografia.Controllers
 
                 }
                 else {
+                    ViewBag.cod_producto = (int)codproducto;
                     return PartialView(promocion);
                 }
              
@@ -651,13 +655,16 @@ namespace Monografia.Controllers
                     if (datospromocion == null)
                     {
 
+                        ViewBag.cod_producto = (int)datospromocion.productos.Codigo_producto;
+
                         ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró promoción";
                         return PartialView(datospromocion);
 
                     }
                     else
                     {
-
+                        //ViewData["codproducto"] = datospromocion.productos.Codigo_producto;
+                        ViewBag.cod_producto = (int)datospromocion.productos.Codigo_producto;
                         return PartialView(datospromocion);
                     }
                 }
@@ -680,21 +687,21 @@ namespace Monografia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Editpromocion(promocion datospromocionedit)
+        public ActionResult Editpromocion(promocion datospromocionedit, int? codproducto)
         {
             try
             {
 
 
-                if (validadinputs(null, "", datospromocionedit))
+                if (validadinputs(null, "", datospromocionedit, codproducto))
                 {
                     promocion datospromocion = db.promocion.Find(datospromocionedit.Idpromocion);
 
                     if (datospromocion != null)
                     {
                         var codigoproducto = (from u in db.productos
-                                          where u.Codigo_producto == datospromocionedit.productos.Codigo_producto
-                                          select new
+                                          where u.Codigo_producto == codproducto
+                                              select new
                                           {
                                               u
                                           }).FirstOrDefault();
@@ -722,16 +729,17 @@ namespace Monografia.Controllers
                                         }
                                         else
                                         {
+                                        ViewBag.cod_producto = (int)codproducto;
 
-                                            ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promoción para el producto digitado<br>";
+                                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promoción para el producto digitado<br>";
                                             return PartialView(datospromocionedit);
 
                                         }
                                     }
                                     else
                                     {
-
-                                        ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promoción con el mismo nombre<br>";
+                                    ViewBag.cod_producto = (int)codproducto;
+                                    ViewBag.Mensaje = "<i class='bi bi-exclamation-octagon me-1'></i>Ya existe una promoción con el mismo nombre<br>";
                                         return PartialView(datospromocionedit);
 
                                     }
@@ -739,24 +747,28 @@ namespace Monografia.Controllers
                                 }
                                 else
                                 {
-                                    ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto activo";
+                                ViewBag.cod_producto = (int)codproducto;
+                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto activo";
                                     return PartialView(datospromocionedit);
                                 }
                             }
                             else
                             {
-                                ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
+                            ViewBag.cod_producto = (int)codproducto;
+                            ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró producto";
                                 return PartialView(datospromocionedit);
                             }
                     }
                     else
                     {
+                        ViewBag.cod_producto = (int)codproducto;
                         ViewBag.Mensaje += "<i class='bi bi-exclamation-octagon me-1'></i>No se encontró promoción";
                         return PartialView(datospromocionedit);
                     }
                 }
                 else
                 {
+                    ViewBag.cod_producto = (int)codproducto;
                     return PartialView(datospromocionedit);
                 }
 

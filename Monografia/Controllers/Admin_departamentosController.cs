@@ -81,7 +81,7 @@ namespace Monografia.Controllers
 
         public Boolean sololetras(string datoingresado)
         {
-            if (datoingresado.All(char.IsLetter))
+            if (datoingresado.All(c => char.IsLetter(c) || c == ' '))
             {
                 return true;
             }
