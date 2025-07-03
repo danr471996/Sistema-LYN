@@ -393,7 +393,7 @@ namespace Monografia.Controllers
                                 producto.Usa_inventario = datosproductoedit.productos.Usa_inventario;
                                 producto.Cantidad_actual = datosproductoedit.productos.Cantidad_actual;
                                 producto.Cantidad_minima = datosproductoedit.productos.Cantidad_minima;
-								producto.Id_presentacion = datosproductoedit.productos.Id_presentacion;
+								producto.Idproveedor = datosproductoedit.productos.Idproveedor;
                                 db.SaveChanges();
 
                                 return Json(new { success = true, mensaje = "Se ha actualizado la información del producto satisfactoriamente." });
